@@ -1,8 +1,13 @@
 import React from "react";
 
-import { Stack } from "expo-router";
+import { Redirect, Stack } from "expo-router";
+import { useAccount } from "wagmi";
 
 export default function OnboardingLayout() {
+  const { isConnected } = useAccount();
+
+  if (isConnected) return <Redirect href={"/(zns)"} />;
+
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />

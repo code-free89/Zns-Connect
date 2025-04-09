@@ -1,23 +1,45 @@
-import React from "react";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tabs } from "expo-router";
-import { Colors } from "@/constants/Colors";
+import React, { useEffect, useState } from "react";
+import { Image, Platform } from "react-native";
+
 import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Platform } from "react-native";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
+import {
+  CartIcon,
+  HomeIcon,
+  SearchIcon,
+  UserAddIcon,
+  UserIcon,
+} from "@/constants/icons";
+import { CustomDarkTheme } from "@/constants/theme";
 
 export default function ZnsLayout() {
-  const colorScheme = useColorScheme();
+  const [referralCodeModalVisible, setReferralCodeModalVisible] =
+    useState(false);
+
+  useEffect(() => {
+    const handleReferralStatus = async () => {
+      const referralStatus = await AsyncStorage.getItem("referral");
+      if (!referralStatus) setReferralCodeModalVisible(true);
+    };
+
+    handleReferralStatus();
+  }, []);
 
   return (
     <>
-      <ReferralCodeModal isVisible onClose={() => {}} />
+      <ReferralCodeModal
+        isVisible={referralCodeModalVisible}
+        onClose={() => {
+          AsyncStorage.setItem("referral", "true");
+          setReferralCodeModalVisible(false);
+        }}
+      />
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+          tabBarActiveTintColor: CustomDarkTheme.colors.primary,
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarBackground: TabBarBackground,
@@ -33,19 +55,42 @@ export default function ZnsLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: "Home",
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="house.fill" color={color} />
-            ),
+            href: null,
           }}
         />
         <Tabs.Screen
-          name="explore"
+          name="home"
           options={{
-            title: "Explore",
-            tabBarIcon: ({ color }) => (
-              <IconSymbol size={28} name="paperplane.fill" color={color} />
-            ),
+            title: "Home",
+            tabBarIcon: ({ color }) => <HomeIcon color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="register"
+          options={{
+            title: "Register",
+            tabBarIcon: ({ color }) => <SearchIcon color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Profile",
+            tabBarIcon: ({ color }) => <UserIcon color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="cart"
+          options={{
+            title: "My Cart",
+            tabBarIcon: ({ color }) => <CartIcon color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="referrals"
+          options={{
+            title: "Referrals",
+            tabBarIcon: ({ color }) => <UserAddIcon color={color} />,
           }}
         />
       </Tabs>

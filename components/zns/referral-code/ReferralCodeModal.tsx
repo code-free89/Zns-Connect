@@ -1,10 +1,11 @@
-import Button from "@/components/ui/Button";
-import CodeInput from "@/components/ui/CodeInput";
-import { CustomDarkTheme } from "@/constants/theme";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
+
+import Button from "@/components/ui/Button";
+import CodeInput from "@/components/ui/CodeInput";
+import { CustomDarkTheme } from "@/constants/theme";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -16,7 +17,7 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
 
   return (
     <View>
-      <Modal isVisible>
+      <Modal isVisible={isVisible}>
         <View style={styles.modalContent}>
           <Ionicons
             name="alert-circle-outline"
@@ -39,39 +40,6 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
               I have no invitation code
             </Text>
           </TouchableOpacity>
-          {/* <Text style={styles.title}>Wallet Connected</Text>
-          <Text style={styles.walletAddress}>
-            {formatWalletAddress(walletAddress)}
-          </Text>
-          <Text style={styles.subtitle}>
-            {
-              "You are now ready to claim your web3 page \n and build high profile credibility"
-            }
-          </Text>
-          <View style={styles.checkboxContainer}>
-            <CheckBox
-              value={isChecked}
-              onValueChange={setIsChecked}
-              color={isChecked ? "#4CAF50" : undefined}
-              style={styles.checkbox}
-            />
-            <Text style={styles.terms}>
-              I agree to ZNS{" "}
-              <Text style={styles.link} onPress={openTerms}>
-                terms of service
-              </Text>{" "}
-              and{" "}
-              <Text style={styles.link} onPress={openPrivacy}>
-                Privacy Policy
-              </Text>
-            </Text>
-          </View>
-          <Button
-            title="Get Started"
-            onPress={onClose}
-            textStyle={styles.buttonText}
-          />
-          {children} */}
         </View>
       </Modal>
     </View>

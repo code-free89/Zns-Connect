@@ -19,6 +19,9 @@ const CustomDarkTheme = {
     modalBackground: "#0E1101",
     disabledBackground: "#2C3212",
     body: "#A1A1A1",
+    avatarBackground: "#262626B2",
+    grey1: "#E8E8E8",
+    actionBg: "#262626",
   },
 };
 
