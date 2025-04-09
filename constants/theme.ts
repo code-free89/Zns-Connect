@@ -21,7 +21,10 @@ const CustomDarkTheme = {
     body: "#A1A1A1",
     avatarBackground: "#262626B2",
     grey1: "#E8E8E8",
+    grey2: "#101010",
     actionBg: "#262626",
+    txtColor: "#F4F4F5",
+    gray900: "#25212B",
   },
 };
 

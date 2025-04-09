@@ -36,9 +36,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: `${CustomDarkTheme.colors.body}40`,
   },
   walletInfoContainer: {
     marginRight: "auto",

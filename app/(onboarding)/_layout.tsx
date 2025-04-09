@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 
 export default function OnboardingLayout() {
   const { isConnected } = useAccount();
+  console.log("isConnected", isConnected);
 
   if (isConnected) return <Redirect href={"/(zns)"} />;
 

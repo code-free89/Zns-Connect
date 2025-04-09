@@ -1,8 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { useAccount, useBalance } from "wagmi";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import AccountInfo from "@/components/zns/home/AccountInfo";
-import { useAccount, useBalance } from "wagmi";
+import AccountStatus from "@/components/zns/home/AccountStatus";
+import NetworkSelect from "@/components/zns/home/NetworkSelect";
+import SplitLine from "@/components/ui/SplitLine";
 
 export default function HomeScreen() {
   const account = useAccount();
@@ -10,31 +13,25 @@ export default function HomeScreen() {
 
   return (
     <ZnsScrollView>
-      <AccountInfo
-        account={{
-          address: account.address ?? "",
-          balance: balance.data?.formatted ?? "0",
-        }}
-      />
+      <View style={styles.container}>
+        <AccountInfo
+          account={{
+            address: account.address ?? "",
+            balance: balance.data?.formatted ?? "0",
+          }}
+        />
+        <SplitLine />
+        <NetworkSelect />
+        <AccountStatus />
+        <SplitLine />
+      </View>
     </ZnsScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
+  container: {
+    flexDirection: "column",
+    gap: 20,
   },
 });
