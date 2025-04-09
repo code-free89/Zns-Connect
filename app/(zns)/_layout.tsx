@@ -1,21 +1,21 @@
-import { Tabs } from "expo-router";
 import React from "react";
-import { Platform } from "react-native";
 
-import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { W3mButton } from "@/components/zns/web3modal";
+import { Tabs } from "expo-router";
+import { Colors } from "@/constants/Colors";
+import { HapticTab } from "@/components/HapticTab";
+import TabBarBackground from "@/components/ui/TabBarBackground";
+import { Platform } from "react-native";
+import { IconSymbol } from "@/components/ui/IconSymbol";
+import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
 
-export default function TabLayout() {
+export default function ZnsLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <>
-      <W3mButton />
-      {/* <Tabs
+      <ReferralCodeModal isVisible onClose={() => {}} />
+      <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
           headerShown: false,
@@ -48,7 +48,7 @@ export default function TabLayout() {
             ),
           }}
         />
-      </Tabs> */}
+      </Tabs>
     </>
   );
 }

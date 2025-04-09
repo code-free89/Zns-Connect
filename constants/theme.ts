@@ -14,6 +14,11 @@ const CustomDarkTheme = {
   colors: {
     ...DarkTheme.colors,
     primary: "#CAFC01", // Change this to your desired primary color for dark mode
+    textPrimary: "#C9FC01",
+    textDisabled: "#FFFFFF6B",
+    modalBackground: "#0E1101",
+    disabledBackground: "#2C3212",
+    body: "#A1A1A1",
   },
 };
 

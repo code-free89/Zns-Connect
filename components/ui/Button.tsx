@@ -2,12 +2,14 @@ import { CustomDarkTheme } from "@/constants/theme";
 import {
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
+  textStyle?: TextStyle;
   variant?: "primary" | "secondary";
 }
 
@@ -15,6 +17,7 @@ export default function Button({
   title,
   variant = "primary",
   style,
+  textStyle,
   ...props
 }: ButtonProps) {
   return (
@@ -23,6 +26,7 @@ export default function Button({
         styles.button,
         variant === "primary" && styles.primaryButton,
         variant === "secondary" && styles.secondaryButton,
+        props.disabled && styles.disabledButton,
         style,
       ]}
       {...props}
@@ -32,6 +36,8 @@ export default function Button({
           styles.text,
           variant === "primary" && styles.primaryText,
           variant === "secondary" && styles.secondaryText,
+          textStyle,
+          props.disabled && styles.disabledText,
         ]}
       >
         {title}
@@ -49,6 +55,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  disabledButton: {
+    backgroundColor: CustomDarkTheme.colors.disabledBackground,
+  },
   primaryButton: {
     backgroundColor: CustomDarkTheme.colors.primary,
   },
@@ -60,6 +69,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  disabledText: {
+    color: CustomDarkTheme.colors.textDisabled,
   },
   primaryText: {
     color: "#000000",
