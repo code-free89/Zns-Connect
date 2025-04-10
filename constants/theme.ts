@@ -26,6 +26,8 @@ const CustomDarkTheme = {
     txtColor: "#F4F4F5",
     gray900: "#25212B",
     secondaryBtn: "#13150A",
+    caption: "#858584",
+    p700: "#698902",
   },
 };
 

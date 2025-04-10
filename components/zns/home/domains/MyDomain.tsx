@@ -1,6 +1,23 @@
 import Button from "@/components/ui/Button";
 import { CustomDarkTheme } from "@/constants/theme";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
+import DomainItem from "../../DomainItem";
+import { IZnsDomain } from "@/types/zns";
+
+const domains: IZnsDomain[] = [
+  {
+    icon: (
+      <Image
+        width={26}
+        height={26}
+        style={{ width: 26, height: 26 }}
+        source={require("@/assets/images/logo.png")}
+      />
+    ),
+    name: "poly",
+    type: "poly",
+  },
+];
 
 const NoDomain = () => {
   return (
@@ -25,7 +42,13 @@ const NoDomain = () => {
 
 export const MyDomain = () => (
   <View style={styles.container}>
-    <NoDomain />
+    {domains.length ? (
+      domains.map((domain, index) => (
+        <DomainItem key={index} index={index + 1} domain={domain} />
+      ))
+    ) : (
+      <NoDomain />
+    )}
   </View>
 );
 
