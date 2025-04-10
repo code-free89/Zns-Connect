@@ -1,9 +1,11 @@
+import { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
 import Avatar from "@/components/ui/Avatar";
 import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
-import { StyleSheet, Text, View } from "react-native";
-
+import AddressQRModal from "./AddressQRModal";
 type Props = {
   account: {
     address: string;
@@ -12,6 +14,8 @@ type Props = {
 };
 
 export default function AccountInfo({ account }: Props) {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <Avatar />
@@ -21,12 +25,21 @@ export default function AccountInfo({ account }: Props) {
         </Text>
         <Text style={styles.balance}>${account.balance}</Text>
       </View>
-      <View style={styles.actionButtonContainer}>
+      <TouchableOpacity
+        style={styles.actionButtonContainer}
+        onPress={() => setIsModalVisible(true)}
+      >
         <BarCodeScanIcon color={CustomDarkTheme.colors.primary} />
-      </View>
+      </TouchableOpacity>
       <View style={styles.actionButtonContainer}>
         <ThreeDotIcon />
       </View>
+
+      <AddressQRModal
+        address={account.address}
+        isVisible={isModalVisible}
+        onClose={() => setIsModalVisible(false)}
+      />
     </View>
   );
 }
