@@ -364,3 +364,78 @@ export function SilverMedalIcon() {
     </Svg>
   );
 }
+
+export function SendIcon() {
+  return (
+    <Svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <Path
+        d="M13.3599 6.94653L5.63327 2.87987C3.79993 1.9132 1.8066 3.86653 2.73327 5.71987L3.81327 7.87987C4.11327 8.47987 4.11327 9.18653 3.81327 9.78653L2.73327 11.9465C1.8066 13.7999 3.79993 15.7465 5.63327 14.7865L13.3599 10.7199C14.8799 9.91987 14.8799 7.74653 13.3599 6.94653Z"
+        stroke="#E8E8E8"
+        stroke-width="1.01562"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function ReceiveIcon() {
+  return (
+    <Svg width="16" height="17" viewBox="0 0 16 17" fill="none">
+      <Path
+        d="M3.33325 12.5L12.6666 3.16663"
+        stroke="#E8E8E8"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M3.33325 5.6532V12.4999H10.1799"
+        stroke="#E8E8E8"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M2.33325 15.4999H13.6666"
+        stroke="#E8E8E8"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function BuyIcon() {
+  return (
+    <Svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <Path
+        d="M5.5 5.94659V5.29992C5.5 3.79992 6.70667 2.32659 8.20667 2.18659C9.99333 2.01326 11.5 3.41992 11.5 5.17326V6.09326"
+        stroke="#E8E8E8"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M6.49988 15.5H10.4999C13.1799 15.5 13.6599 14.4266 13.7999 13.12L14.2999 9.11996C14.4799 7.49329 14.0132 6.16663 11.1666 6.16663H5.83322C2.98655 6.16663 2.51988 7.49329 2.69988 9.11996L3.19988 13.12C3.33988 14.4266 3.81988 15.5 6.49988 15.5Z"
+        stroke="#E8E8E8"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M10.8304 8.83321H10.8364"
+        stroke="#E8E8E8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <Path
+        d="M6.16292 8.83321H6.16891"
+        stroke="#E8E8E8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </Svg>
+  );
+}
