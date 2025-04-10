@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: CustomDarkTheme.colors.primary,
   },
   secondaryButton: {
-    backgroundColor: "transparent",
-    borderWidth: 1,
-    borderColor: CustomDarkTheme.colors.primary,
+    backgroundColor: CustomDarkTheme.colors.secondaryBtn,
   },
   text: {
     fontSize: 16,

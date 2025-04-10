@@ -25,6 +25,7 @@ const CustomDarkTheme = {
     actionBg: "#262626",
     txtColor: "#F4F4F5",
     gray900: "#25212B",
+    secondaryBtn: "#13150A",
   },
 };
 
