@@ -50,6 +50,12 @@ export default function ZnsLayout() {
             },
             default: {},
           }),
+          headerStatusBarHeight: 0,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "black",
+            shadowColor: "transparent",
+          },
         }}
       >
         <Tabs.Screen
@@ -83,6 +89,7 @@ export default function ZnsLayout() {
           name="cart"
           options={{
             title: "My Cart",
+            headerShown: true,
             tabBarIcon: ({ color }) => <CartIcon color={color} />,
           }}
         />
