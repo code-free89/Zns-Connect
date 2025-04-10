@@ -6,7 +6,14 @@ type Props = {
 };
 
 export default function ZnsScrollView({ children, style }: Props) {
-  return <ScrollView style={[styles.scrollView, style]}>{children}</ScrollView>;
+  return (
+    <ScrollView
+      contentContainerStyle={{ flex: 1 }}
+      style={[styles.scrollView, style]}
+    >
+      {children}
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -109,7 +109,6 @@ export default function AccountStatus() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
     marginHorizontal: "auto",
     width: "100%",
     gap: 8,

@@ -1,7 +1,7 @@
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useMemo } from "react";
-import { Text, TextStyle } from "react-native";
+import { Text, TextStyle, View } from "react-native";
 
 type Props = {
   text: string;
@@ -12,7 +12,13 @@ const GRADIENT_COLORS = ["#C5A70B", "#ADF25C"] as const;
 
 export default function GradientText({ text, textStyle }: Props) {
   const maskElement = useMemo(
-    () => <Text style={[textStyle, { margin: "auto" }]}>{text}</Text>,
+    () => (
+      <View style={{ flexDirection: "column", gap: 4 }}>
+        <Text style={[textStyle, { margin: "auto", paddingInline: 4 }]}>
+          {text}
+        </Text>
+      </View>
+    ),
     [text, textStyle]
   );
 

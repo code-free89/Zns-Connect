@@ -27,9 +27,9 @@ export default function HomeScreen() {
         <NetworkSelect />
 
         <AccountStatus />
-        <SplitLine />
 
         <ActionButtons />
+        <SplitLine />
 
         <AccountDomains />
       </View>
@@ -39,6 +39,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "column",
     gap: 20,
   },

@@ -12,8 +12,8 @@ export default function AccountDomains() {
 
   const routes = useMemo(() => {
     return [
-      { key: "myDomain", title: `My domains(${0})` },
-      { key: "favourite", title: `Favourites(${1})` },
+      { key: "myDomains", title: `My domains(${0})` },
+      { key: "favouriteDomains", title: `Favourites(${1})` },
     ];
   }, []);
 
@@ -47,8 +47,8 @@ export default function AccountDomains() {
       onIndexChange={setIndex}
       navigationState={{ index, routes }}
       renderScene={SceneMap({
-        myDomain: MyDomain,
-        favourite: FavouriteDomains,
+        myDomains: MyDomain,
+        favouriteDomains: FavouriteDomains,
       })}
       renderTabBar={renderTabBar}
     />
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   },
   tabItem: {
     flex: 1,
+    height: 30,
     alignItems: "center",
   },
 });

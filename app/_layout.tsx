@@ -39,8 +39,8 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <StatusBar style="auto" />
+    <ThemeProvider value={DarkTheme}>
+      <StatusBar style="dark" translucent />
       <WagmiConfig config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>
