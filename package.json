@@ -60,6 +60,7 @@
     "react-native-tab-view": "^4.0.10",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
+    "toastify-react-native": "^7.1.1",
     "viem": "^2.26.0",
     "wagmi": "^2.14.16"
   },

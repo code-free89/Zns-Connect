@@ -28,6 +28,7 @@ const CustomDarkTheme = {
     secondaryBtn: "#13150A",
     caption: "#858584",
     p700: "#698902",
+    error: "#FF0505",
   },
 };
 

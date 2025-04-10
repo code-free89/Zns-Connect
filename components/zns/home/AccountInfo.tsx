@@ -6,6 +6,7 @@ import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
 import AddressQRModal from "./AddressQRModal";
+import AccountActionList from "./AccountActionList";
 type Props = {
   account: {
     address: string;
@@ -15,6 +16,7 @@ type Props = {
 
 export default function AccountInfo({ account }: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isActionListVisible, setIsActionListVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -31,9 +33,13 @@ export default function AccountInfo({ account }: Props) {
       >
         <BarCodeScanIcon color={CustomDarkTheme.colors.primary} />
       </TouchableOpacity>
-      <View style={styles.actionButtonContainer}>
+      <TouchableOpacity
+        style={styles.actionButtonContainer}
+        onPress={() => setIsActionListVisible(!isActionListVisible)}
+      >
         <ThreeDotIcon />
-      </View>
+        {isActionListVisible && <AccountActionList />}
+      </TouchableOpacity>
 
       <AddressQRModal
         address={account.address}
@@ -49,6 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 12,
+    zIndex: 100,
   },
   walletInfoContainer: {
     marginRight: "auto",
@@ -67,5 +74,6 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.actionBg,
+    position: "relative",
   },
 });
