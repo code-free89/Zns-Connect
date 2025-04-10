@@ -16,33 +16,29 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
   const [referralCode, setReferralCode] = useState("");
 
   return (
-    <View>
-      <Modal isVisible={isVisible}>
-        <View style={styles.modalContent}>
-          <Ionicons
-            name="alert-circle-outline"
-            size={24}
-            color={CustomDarkTheme.colors.textPrimary}
-          />
-          <Text style={styles.referralText}>
-            Enter referral code to get{" "}
-            <Text style={styles.bonusText}>25% bonus</Text>
-          </Text>
-          <CodeInput value={referralCode} setValue={setReferralCode} />
-          <Button
-            title="Done"
-            onPress={onClose}
-            style={styles.doneButton}
-            textStyle={styles.doneButtonText}
-          />
-          <TouchableOpacity style={styles.noInvitation}>
-            <Text style={styles.noInvitationText}>
-              I have no invitation code
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-    </View>
+    <Modal isVisible={isVisible}>
+      <View style={styles.modalContent}>
+        <Ionicons
+          name="alert-circle-outline"
+          size={24}
+          color={CustomDarkTheme.colors.textPrimary}
+        />
+        <Text style={styles.referralText}>
+          Enter referral code to get{" "}
+          <Text style={styles.bonusText}>25% bonus</Text>
+        </Text>
+        <CodeInput value={referralCode} setValue={setReferralCode} />
+        <Button
+          title="Done"
+          onPress={onClose}
+          style={styles.doneButton}
+          textStyle={styles.doneButtonText}
+        />
+        <TouchableOpacity style={styles.noInvitation}>
+          <Text style={styles.noInvitationText}>I have no invitation code</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
   );
 }
 

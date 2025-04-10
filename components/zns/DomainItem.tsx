@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -10,12 +10,14 @@ type Props = {
   index: number;
   domain: IZnsDomain;
   isFavourite?: boolean;
+  onEdit: () => void;
 };
 
 export default function DomainItem({
   index,
   domain,
   isFavourite = false,
+  onEdit,
 }: Props) {
   return (
     <View style={styles.container}>
@@ -37,13 +39,13 @@ export default function DomainItem({
           </Text>
         </Text>
       </View>
-      <View style={styles.actionContainer}>
+      <TouchableOpacity style={styles.actionContainer} onPress={onEdit}>
         <FontAwesome6
           name="edit"
           size={12}
           color={CustomDarkTheme.colors.p700}
         />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

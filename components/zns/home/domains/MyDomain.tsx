@@ -3,6 +3,8 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { View, StyleSheet, Text, Image } from "react-native";
 import DomainItem from "../../DomainItem";
 import { IZnsDomain } from "@/types/zns";
+import DomainInfoModal from "../DomainInfoModal";
+import { useState } from "react";
 
 const domains: IZnsDomain[] = [
   {
@@ -40,17 +42,38 @@ const NoDomain = () => {
   );
 };
 
-export const MyDomain = () => (
-  <View style={styles.container}>
-    {domains.length ? (
-      domains.map((domain, index) => (
-        <DomainItem key={index} index={index + 1} domain={domain} />
-      ))
-    ) : (
-      <NoDomain />
-    )}
-  </View>
-);
+export const MyDomain = () => {
+  const [isDomainInfoModalVisible, setIsDomainInfoModalVisible] =
+    useState(false);
+  const [selectedDomain, setSelectedDomain] = useState<IZnsDomain | null>(null);
+
+  return (
+    <View style={styles.container}>
+      {selectedDomain && (
+        <DomainInfoModal
+          isVisible={isDomainInfoModalVisible}
+          domain={selectedDomain}
+          onClose={() => setIsDomainInfoModalVisible(false)}
+        />
+      )}
+      {domains.length ? (
+        domains.map((domain, index) => (
+          <DomainItem
+            key={index}
+            index={index + 1}
+            domain={domain}
+            onEdit={() => {
+              setSelectedDomain(domain);
+              setIsDomainInfoModalVisible(true);
+            }}
+          />
+        ))
+      ) : (
+        <NoDomain />
+      )}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {},
