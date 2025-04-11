@@ -75,6 +75,8 @@ export default function ZnsLayout() {
           name="register"
           options={{
             title: "Register",
+            headerShown: true,
+            headerTitle: "Register a domain",
             tabBarIcon: ({ color }) => <SearchIcon color={color} />,
           }}
         />

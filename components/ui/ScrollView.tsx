@@ -8,7 +8,7 @@ type Props = {
 export default function ZnsScrollView({ children, style }: Props) {
   return (
     <ScrollView
-      contentContainerStyle={{ flex: 1 }}
+      contentContainerStyle={{ paddingBottom: 30 }}
       style={[styles.scrollView, style]}
     >
       {children}

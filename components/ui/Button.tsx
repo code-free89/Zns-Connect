@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 interface ButtonProps extends TouchableOpacityProps {
-  title: string;
+  title?: string;
   textStyle?: TextStyle;
   variant?: "primary" | "secondary" | "text";
 }
@@ -32,17 +32,20 @@ export default function Button({
       ]}
       {...props}
     >
-      <Text
-        style={[
-          styles.text,
-          variant === "primary" && styles.primaryText,
-          variant === "secondary" && styles.secondaryText,
-          textStyle,
-          props.disabled && styles.disabledText,
-        ]}
-      >
-        {title}
-      </Text>
+      {props.children}
+      {!!title && (
+        <Text
+          style={[
+            styles.text,
+            variant === "primary" && styles.primaryText,
+            variant === "secondary" && styles.secondaryText,
+            textStyle,
+            props.disabled && styles.disabledText,
+          ]}
+        >
+          {title}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }

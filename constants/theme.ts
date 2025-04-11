@@ -30,6 +30,8 @@ const CustomDarkTheme = {
     p500: "#C9FC01",
     p700: "#698902",
     error: "#FF0505",
+    bg: "#161616",
+    stroke: "#292925",
   },
 };
 

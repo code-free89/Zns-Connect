@@ -5,15 +5,17 @@ import { Text, TextStyle, View } from "react-native";
 
 type Props = {
   text: string;
+  icon?: React.ReactNode;
   textStyle?: TextStyle;
 };
 
 const GRADIENT_COLORS = ["#C5A70B", "#ADF25C"] as const;
 
-export default function GradientText({ text, textStyle }: Props) {
+export default function GradientText({ text, textStyle, icon }: Props) {
   const maskElement = useMemo(
     () => (
-      <View style={{ flexDirection: "column", gap: 4 }}>
+      <View style={{ flexDirection: "row", gap: 4 }}>
+        {icon}
         <Text style={[textStyle, { margin: "auto", paddingInline: 4 }]}>
           {text}
         </Text>
