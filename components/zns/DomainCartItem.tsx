@@ -10,6 +10,7 @@ interface DomainCartItemProps {
   type: string;
   price: number;
   isAvailable: boolean;
+  onRemove: () => void;
 }
 
 const AvailableBadge = ({ isAvailable }: { isAvailable: boolean }) => {
@@ -43,6 +44,7 @@ export default function DomainCartItem({
   type,
   price,
   isAvailable,
+  onRemove,
 }: DomainCartItemProps) {
   return (
     <View style={styles.container}>
@@ -64,7 +66,7 @@ export default function DomainCartItem({
 
       <SplitLine direction="vertical" />
 
-      <Feather name="trash-2" size={14} color={"#FF4444"} />
+      <Feather name="trash-2" size={14} color={"#FF4444"} onPress={onRemove} />
     </View>
   );
 }

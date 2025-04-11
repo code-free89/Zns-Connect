@@ -27,6 +27,7 @@ const CustomDarkTheme = {
     gray900: "#25212B",
     secondaryBtn: "#13150A",
     caption: "#858584",
+    p500: "#C9FC01",
     p700: "#698902",
     error: "#FF0505",
   },

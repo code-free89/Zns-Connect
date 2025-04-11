@@ -10,7 +10,7 @@ import {
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
   textStyle?: TextStyle;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "text";
 }
 
 export default function Button({
@@ -26,6 +26,7 @@ export default function Button({
         styles.button,
         variant === "primary" && styles.primaryButton,
         variant === "secondary" && styles.secondaryButton,
+        variant === "text" && styles.textButton,
         props.disabled && styles.disabledButton,
         style,
       ]}
@@ -76,5 +77,8 @@ const styles = StyleSheet.create({
   },
   secondaryText: {
     color: CustomDarkTheme.colors.primary,
+  },
+  textButton: {
+    backgroundColor: "transparent",
   },
 });

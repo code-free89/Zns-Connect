@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import { CustomDarkTheme } from "@/constants/theme";
 import DomainTypeSelect from "../DomainTypeSelect";
 import DomainCartItem from "../DomainCartItem";
+import RemoveCartModal from "./RemoveCartModal";
 
 const domains = [
   {
@@ -15,8 +16,13 @@ const domains = [
   },
 ];
 
-export default function CartItemList() {
+interface CartItemListProps {
+  onCheckout: () => void;
+}
+
+export default function CartItemList({ onCheckout }: CartItemListProps) {
   const [selectedDomainType, setSelectedDomainType] = useState("poly");
+  const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -35,11 +41,21 @@ export default function CartItemList() {
 
       <FlatList
         data={Array(10).fill(domains[0])}
-        renderItem={({ item }) => <DomainCartItem {...item} />}
+        renderItem={({ item }) => (
+          <DomainCartItem
+            {...item}
+            onRemove={() => setIsRemoveModalVisible(true)}
+          />
+        )}
         contentContainerStyle={styles.domainContainer}
       />
 
-      <Button title={"Checkout"} />
+      <Button title={"Checkout"} onPress={onCheckout} />
+
+      <RemoveCartModal
+        isVisible={isRemoveModalVisible}
+        onClose={() => setIsRemoveModalVisible(false)}
+      />
     </View>
   );
 }
