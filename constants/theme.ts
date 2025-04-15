@@ -34,6 +34,10 @@ const CustomDarkTheme = {
     stroke: "#292925",
     textBody: "#EBEDED",
   },
+  gradientColors: {
+    linear1: ["#1C96FD", "#33E360", "#F4C630", "#CB1245", "#AD00FE"],
+    linear2: ["#975E4D", "#628DBE", "#C244C9", "#A1A464", "#905858"],
+  },
 };
 
 export { CustomLightTheme, CustomDarkTheme };

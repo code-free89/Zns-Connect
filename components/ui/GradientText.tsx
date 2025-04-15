@@ -16,9 +16,7 @@ export default function GradientText({ text, textStyle, icon }: Props) {
     () => (
       <View style={{ flexDirection: "row", gap: 4 }}>
         {icon}
-        <Text style={[textStyle, { margin: "auto", paddingInline: 4 }]}>
-          {text}
-        </Text>
+        <Text style={[textStyle, { margin: "auto" }]}>{text}</Text>
       </View>
     ),
     [text, textStyle]
