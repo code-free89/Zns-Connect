@@ -1,20 +1,14 @@
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import ZnsScrollView from "@/components/ui/ScrollView";
+import ProfileInfo from "@/components/zns/profile/ProfileInfo";
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      {/* <W3mButton /> */}
-    </ParallaxScrollView>
+    <ZnsScrollView>
+      <ProfileInfo />
+      <Text>asdf</Text>
+    </ZnsScrollView>
   );
 }
 

@@ -84,6 +84,7 @@ export default function ZnsLayout() {
           name="profile"
           options={{
             title: "Profile",
+            headerShown: true,
             tabBarIcon: ({ color }) => <UserIcon color={color} />,
           }}
         />

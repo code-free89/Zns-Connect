@@ -32,6 +32,7 @@ const CustomDarkTheme = {
     error: "#FF0505",
     bg: "#161616",
     stroke: "#292925",
+    textBody: "#EBEDED",
   },
 };
 

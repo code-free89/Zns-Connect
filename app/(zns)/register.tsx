@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import ZnsScrollView from "@/components/ui/ScrollView";
 import RegisterTypeSelect from "@/components/zns/register/RegisterTypeSelect";
 import SmartSearch from "@/components/zns/register/SmartSearch";
-
+import WithCategories from "@/components/zns/register/WithCategories";
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
 export default function RegisterScreen() {
@@ -19,7 +19,8 @@ export default function RegisterScreen() {
       />
 
       <View style={{ marginTop: 24 }}>
-        <SmartSearch />
+        {selectedType === "smartSearch" && <SmartSearch />}
+        {selectedType === "withCategories" && <WithCategories />}
       </View>
     </ZnsScrollView>
   );
