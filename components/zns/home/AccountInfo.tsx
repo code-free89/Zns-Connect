@@ -33,13 +33,15 @@ export default function AccountInfo({ account }: Props) {
       >
         <BarCodeScanIcon color={CustomDarkTheme.colors.primary} />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.actionButtonContainer}
-        onPress={() => setIsActionListVisible(!isActionListVisible)}
-      >
-        <ThreeDotIcon />
+      <View>
+        <TouchableOpacity
+          style={styles.actionButtonContainer}
+          onPress={() => setIsActionListVisible(!isActionListVisible)}
+        >
+          <ThreeDotIcon />
+        </TouchableOpacity>
         {isActionListVisible && <AccountActionList />}
-      </TouchableOpacity>
+      </View>
 
       <AddressQRModal
         address={account.address}

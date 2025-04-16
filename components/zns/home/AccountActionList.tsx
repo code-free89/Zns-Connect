@@ -1,11 +1,21 @@
-import { StyleSheet, Text, View } from "react-native";
-import Octicons from "@expo/vector-icons/Octicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Octicons from "@expo/vector-icons/Octicons";
+import { useRouter } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useDisconnect } from "wagmi";
 
 import { CopyIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 
 export default function AccountActionList() {
+  const router = useRouter();
+  const { disconnect } = useDisconnect();
+
+  const disconnectWallet = () => {
+    disconnect();
+    router.replace("/(onboarding)/wallet-connect");
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
@@ -29,7 +39,7 @@ export default function AccountActionList() {
           />
           <Text style={styles.actionItemText}>Community</Text>
         </View>
-        <View style={styles.actionItem}>
+        <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
             name="logout"
             size={20}
@@ -43,7 +53,7 @@ export default function AccountActionList() {
           >
             Disconnect wallet
           </Text>
-        </View>
+        </Pressable>
       </View>
     </View>
   );
