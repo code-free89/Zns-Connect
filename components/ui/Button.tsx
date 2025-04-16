@@ -10,7 +10,7 @@ import {
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
   textStyle?: TextStyle;
-  variant?: "primary" | "secondary" | "text";
+  variant?: "primary" | "secondary" | "outline" | "text";
 }
 
 export default function Button({
@@ -26,6 +26,7 @@ export default function Button({
         styles.button,
         variant === "primary" && styles.primaryButton,
         variant === "secondary" && styles.secondaryButton,
+        variant === "outline" && styles.outlineButton,
         variant === "text" && styles.textButton,
         props.disabled && styles.disabledButton,
         style,
@@ -83,5 +84,10 @@ const styles = StyleSheet.create({
   },
   textButton: {
     backgroundColor: "transparent",
+  },
+  outlineButton: {
+    backgroundColor: "transparent",
+    borderWidth: 1,
+    borderColor: CustomDarkTheme.colors.p700,
   },
 });

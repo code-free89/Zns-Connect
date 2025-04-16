@@ -1,20 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import ProfileHIP from "@/components/zns/profile/ProfileHIP";
-import ProfileInfo from "@/components/zns/profile/ProfileInfo";
+import ProfileBio from "@/components/zns/profile/ProfileBio";
 import ProfileType from "@/components/zns/profile/ProfileType";
+import ProfileAccounts from "@/components/zns/profile/ProfileAccounts";
+import ProfileInfo from "@/components/zns/profile/ProfileInfo";
 
 export default function HomeScreen() {
   return (
-    <ZnsScrollView>
+    <ZnsScrollView style={{ paddingHorizontal: 0 }}>
       <View style={styles.container}>
+        <View style={{ paddingHorizontal: 16, gap: 20 }}>
+          <ProfileBio />
+
+          <ProfileHIP />
+
+          <ProfileType />
+
+          <ProfileAccounts />
+        </View>
+
         <ProfileInfo />
-
-        <ProfileHIP />
-
-        <ProfileType />
-        <Text>asdf</Text>
       </View>
     </ZnsScrollView>
   );

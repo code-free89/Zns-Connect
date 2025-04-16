@@ -29,10 +29,12 @@ const CustomDarkTheme = {
     caption: "#858584",
     p500: "#C9FC01",
     p700: "#698902",
+    p950: "#243300",
     error: "#FF0505",
     bg: "#161616",
     stroke: "#292925",
     textBody: "#EBEDED",
+    badge: "#09A7F8",
   },
   gradientColors: {
     linear1: ["#1C96FD", "#33E360", "#F4C630", "#CB1245", "#AD00FE"],
