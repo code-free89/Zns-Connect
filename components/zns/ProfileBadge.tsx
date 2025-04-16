@@ -1,5 +1,6 @@
 import { CustomDarkTheme } from "@/constants/theme";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
+import ZnxText from "@/components/ui/Text";
 
 interface ProfileBadgeProps {
   badge: {
@@ -17,14 +18,22 @@ export default function ProfileBadge({ badge }: ProfileBadgeProps) {
         style={{ width: "100%" }}
         resizeMode="stretch"
       />
-      <Text style={styles.name}>{badge.name}</Text>
+      <ZnxText type="medium" style={styles.name}>
+        {badge.name}
+      </ZnxText>
       <View>
         {badge.status === "claimed" ? (
-          <Text style={styles.claimed}>Claimed</Text>
+          <ZnxText type="medium" style={styles.claimed}>
+            Claimed
+          </ZnxText>
         ) : badge.status === "available" ? (
-          <Text style={styles.available}>Available</Text>
+          <ZnxText type="medium" style={styles.available}>
+            Available
+          </ZnxText>
         ) : (
-          <Text style={styles.not_available}>Not Available</Text>
+          <ZnxText type="medium" style={styles.not_available}>
+            Not Available
+          </ZnxText>
         )}
       </View>
     </View>

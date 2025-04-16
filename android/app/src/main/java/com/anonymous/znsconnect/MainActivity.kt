@@ -1,4 +1,4 @@
-package com.anonymous.rncrossplatformdapp
+package com.anonymous.znsconnect
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

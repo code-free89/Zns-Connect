@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+import ZnxText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
 import MintItem from "../MintItem";
 
@@ -48,7 +49,9 @@ const mintedDomains = [
 export default function RecentlyMinted() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recently Minted</Text>
+      <ZnxText type="medium" style={styles.title}>
+        Recently Minted
+      </ZnxText>
 
       {mintedDomains.map((domain) => (
         <MintItem key={domain.name} {...domain} />

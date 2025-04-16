@@ -1,5 +1,6 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, Image, StyleSheet, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import ZnxText from "@/components/ui/Text";
 
 import { CustomDarkTheme } from "@/constants/theme";
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
@@ -51,7 +52,9 @@ const SocialAccount = ({
 }) => (
   <View style={styles.socialContainer}>
     {icon}
-    <Text style={styles.socialLabel}>{label}</Text>
+    <ZnxText type="medium" style={styles.socialLabel}>
+      {label}
+    </ZnxText>
     <MaterialCommunityIcons name="dots-vertical" size={20} color="white" />
   </View>
 );
@@ -65,7 +68,9 @@ const OfficialAccount = ({
 }) => (
   <View style={styles.officialContainer}>
     {icon}
-    <Text style={styles.officialLabel}>{label}</Text>
+    <ZnxText type="medium" style={styles.officialLabel}>
+      {label}
+    </ZnxText>
     <MaterialCommunityIcons name="dots-vertical" size={20} color="white" />
   </View>
 );
@@ -85,7 +90,9 @@ export default function SocialAccounts() {
         gradientColors={CustomDarkTheme.gradientColors.linear2}
       >
         <View style={styles.officialLinksContainer}>
-          <Text style={styles.officialLinksTitle}>Official Links</Text>
+          <ZnxText type="semiBold" style={styles.officialLinksTitle}>
+            Official Links
+          </ZnxText>
 
           <FlatList
             data={OFFICIAL_ACCOUNTS}

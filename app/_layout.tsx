@@ -1,31 +1,33 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-gesture-handler";
 import "react-native-reanimated";
 import "./polyfills";
-
-import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { WagmiConfig } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { WagmiConfig } from "wagmi";
+
+import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
+import { CustomDarkTheme } from "@/constants/theme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const queryClient = new QueryClient();
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    "Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
+    "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
+    "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
+    "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-SemiBold": require("../assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
   });
 
   useEffect(() => {
@@ -39,8 +41,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DarkTheme}>
-      <StatusBar style="dark" translucent />
+    <ThemeProvider value={CustomDarkTheme}>
       <WagmiConfig config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>

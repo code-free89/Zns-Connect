@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 
 import GradientText from "@/components/ui/GradientText";
+import ZnxText from "@/components/ui/Text";
+import { FavouriteDomains } from "@/components/zns/home/domains/Favourite";
+import { MyDomain } from "@/components/zns/home/domains/MyDomain";
 import { CustomDarkTheme } from "@/constants/theme";
-import { FavouriteDomains } from "./domains/Favourite";
-import { MyDomain } from "./domains/MyDomain";
 
 export default function AccountDomains() {
   const [index, setIndex] = useState(0);
@@ -30,11 +31,15 @@ export default function AccountDomains() {
                 key={index}
                 text={route.title}
                 textStyle={styles.tabText}
+                type="semiBold"
               />
             ) : (
-              <Text style={[styles.tabText, styles.defaultText]}>
+              <ZnxText
+                type="semiBold"
+                style={[styles.tabText, styles.defaultText]}
+              >
                 {route.title}
-              </Text>
+              </ZnxText>
             )}
           </TouchableOpacity>
         ))}
@@ -58,7 +63,6 @@ export default function AccountDomains() {
 const styles = StyleSheet.create({
   tabText: {
     fontSize: 14,
-    fontWeight: "600",
   },
   defaultText: {
     color: CustomDarkTheme.colors.body,

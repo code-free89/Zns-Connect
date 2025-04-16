@@ -1,4 +1,5 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
+import ZnxText from "@/components/ui/Text";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import GradientText from "@/components/ui/GradientText";
@@ -16,7 +17,9 @@ export default function ProfileBio() {
         >
           <GradientText text={"Binance Labs"} textStyle={styles.gradientText} />
         </View>
-        <Text style={styles.bioText}>binance-web3adfdfbgnhgga.cz</Text>
+        <ZnxText type="regular" style={styles.bioText}>
+          binance-web3adfdfbgnhgga.cz
+        </ZnxText>
       </View>
 
       <GradientBorderViewWrapper
@@ -24,10 +27,12 @@ export default function ProfileBio() {
       >
         <View style={styles.shortIntroContainer}>
           <Image source={require("@/assets/images/icons/intro.png")} />
-          <Text style={styles.shortIntroText}>
+          <ZnxText type="regular" style={styles.shortIntroText}>
             Short intro about you appear here
-          </Text>
-          <Text style={styles.editButton}>Edit</Text>
+          </ZnxText>
+          <ZnxText type="regular" style={styles.editButton}>
+            Edit
+          </ZnxText>
         </View>
       </GradientBorderViewWrapper>
     </View>

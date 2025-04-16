@@ -5,13 +5,13 @@ import {
   type ImageStyle,
   type StyleProp,
   StyleSheet,
-  Text,
   View,
   type ViewProps,
   type ViewStyle,
 } from "react-native";
 import type { AnimatedProps } from "react-native-reanimated";
 import Animated from "react-native-reanimated";
+import ZnxText from "@/components/ui/Text";
 
 interface Props extends AnimatedProps<ViewProps> {
   style?: StyleProp<ViewStyle>;
@@ -47,11 +47,15 @@ export const SlideItem: React.FC<Props> = (props) => {
       />
       <View style={styles.overlay}>
         <View style={styles.overlayTextContainer}>
-          <Text style={styles.overlayText}>{index}</Text>
+          <ZnxText type="bold" style={styles.overlayText}>
+            {index}
+          </ZnxText>
         </View>
       </View>
       <View style={styles.colorValueContainer}>
-        <Text style={styles.colorValueText}>{colorValue}</Text>
+        <ZnxText type="medium" style={styles.colorValueText}>
+          {colorValue}
+        </ZnxText>
       </View>
     </Animated.View>
   );

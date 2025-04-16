@@ -1,13 +1,16 @@
 import { CustomDarkTheme } from "@/constants/theme";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import ZnxText from "@/components/ui/Text";
 
 export default function EmptySearchResult() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Search Results appear here</Text>
-      <Text style={styles.description}>
+      <ZnxText type="semiBold" style={styles.title}>
+        Search Results appear here
+      </ZnxText>
+      <ZnxText type="regular" style={styles.description}>
         {"Search your domains, mint and set\nup your decentralized profile"}
-      </Text>
+      </ZnxText>
     </View>
   );
 }

@@ -1,4 +1,5 @@
 import { CustomDarkTheme } from "@/constants/theme";
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -6,8 +7,10 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
+import ZnxText from "./Text";
 
 interface ButtonProps extends TouchableOpacityProps {
+  fontType?: "regular" | "medium" | "semiBold" | "bold";
   title?: string;
   textStyle?: TextStyle;
   variant?: "primary" | "secondary" | "outline" | "text";
@@ -18,6 +21,7 @@ export default function Button({
   variant = "primary",
   style,
   textStyle,
+  fontType = "regular",
   ...props
 }: ButtonProps) {
   return (
@@ -35,7 +39,7 @@ export default function Button({
     >
       {props.children}
       {!!title && (
-        <Text
+        <ZnxText
           style={[
             styles.text,
             variant === "primary" && styles.primaryText,
@@ -43,9 +47,10 @@ export default function Button({
             textStyle,
             props.disabled && styles.disabledText,
           ]}
+          type={fontType}
         >
           {title}
-        </Text>
+        </ZnxText>
       )}
     </TouchableOpacity>
   );
@@ -71,7 +76,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "600",
   },
   disabledText: {
     color: CustomDarkTheme.colors.textDisabled,

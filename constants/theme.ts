@@ -1,4 +1,5 @@
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { Platform } from "react-native";
 
 // Custom themes with modified primary color
 const CustomLightTheme = {
@@ -40,6 +41,48 @@ const CustomDarkTheme = {
     linear1: ["#1C96FD", "#33E360", "#F4C630", "#CB1245", "#AD00FE"],
     linear2: ["#975E4D", "#628DBE", "#C244C9", "#A1A464", "#905858"],
   },
+  fonts: Platform.select({
+    ios: {
+      regular: {
+        fontFamily: "Poppins",
+        fontWeight: "400",
+      },
+      medium: {
+        fontFamily: "Poppins",
+        fontWeight: "500",
+      },
+      bold: {
+        fontFamily: "Poppins",
+        fontWeight: "600",
+      },
+      heavy: {
+        fontFamily: "Poppins",
+        fontWeight: "700",
+      },
+    },
+    default: {
+      thin: {
+        fontFamily: "PoppinsThin",
+        fontWeight: "300",
+      },
+      regular: {
+        fontFamily: "Poppins",
+        fontWeight: "normal",
+      },
+      medium: {
+        fontFamily: "PoppinsMedium",
+        fontWeight: "500",
+      },
+      bold: {
+        fontFamily: "PoppinsBold",
+        fontWeight: "600",
+      },
+      heavy: {
+        fontFamily: "Poppins",
+        fontWeight: "700",
+      },
+    },
+  }),
 };
 
 export { CustomLightTheme, CustomDarkTheme };

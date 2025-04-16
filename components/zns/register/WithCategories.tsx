@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+import { Dimensions, FlatList, StyleSheet, View } from "react-native";
+import ZnxText from "@/components/ui/Text";
 
 import DomainCategory from "@/components/zns/DomainCategory";
 import GradientSlider from "@/components/zns/GradientSlider";
@@ -35,8 +36,12 @@ export default function WithCategories() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Categories</Text>
-        <Text style={styles.generateText}>Re-generate</Text>
+        <ZnxText type="medium" style={styles.headerText}>
+          Categories
+        </ZnxText>
+        <ZnxText type="regular" style={styles.generateText}>
+          Re-generate
+        </ZnxText>
       </View>
 
       <FlatList
@@ -59,12 +64,12 @@ export default function WithCategories() {
 
       <View style={styles.numberOfLettersContainer}>
         <View style={styles.numberOfLettersTextContainer}>
-          <Text style={styles.numberOfLettersText}>
+          <ZnxText type="regular" style={styles.numberOfLettersText}>
             Number of letters to generate
-          </Text>
-          <Text style={styles.progressText}>
+          </ZnxText>
+          <ZnxText type="semiBold" style={styles.progressText}>
             {numberOfLetters}/{MAX_LETTERS}
-          </Text>
+          </ZnxText>
         </View>
 
         <GradientSlider

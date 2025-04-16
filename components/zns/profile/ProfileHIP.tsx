@@ -1,5 +1,6 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Entypo from "@expo/vector-icons/Entypo";
+import ZnxText from "@/components/ui/Text";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import { CustomDarkTheme } from "@/constants/theme";
@@ -18,25 +19,31 @@ export default function ProfileHIP() {
         /> */}
         <View style={styles.statusContainer}>
           <View style={styles.statusItem}>
-            <Text style={styles.statusText}>
-              0 XP <Text style={styles.statusDescription}>Score</Text>
-            </Text>
+            <ZnxText type="semiBold" style={styles.statusText}>
+              0 XP{" "}
+              <ZnxText type="regular" style={styles.statusDescription}>
+                Score
+              </ZnxText>
+            </ZnxText>
           </View>
 
           <View style={styles.statusItem}>
-            <Text style={styles.statusText}>
-              0 <Text style={styles.statusDescription}>of 95232 users</Text>
-            </Text>
+            <ZnxText type="semiBold" style={styles.statusText}>
+              0{" "}
+              <ZnxText type="regular" style={styles.statusDescription}>
+                of 95232 users
+              </ZnxText>
+            </ZnxText>
           </View>
 
-          <Text style={styles.mintContainer}>
+          <ZnxText type="regular" style={styles.mintContainer}>
             Mint HIP
             <Entypo
               name="chevron-thin-right"
               size={13}
               color={CustomDarkTheme.colors.p500}
             />
-          </Text>
+          </ZnxText>
         </View>
       </View>
     </GradientBorderViewWrapper>

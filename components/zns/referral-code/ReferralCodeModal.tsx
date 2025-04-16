@@ -1,7 +1,8 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
+import ZnxText from "@/components/ui/Text";
 
 import Button from "@/components/ui/Button";
 import CodeInput from "@/components/ui/CodeInput";
@@ -23,10 +24,12 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
           size={24}
           color={CustomDarkTheme.colors.textPrimary}
         />
-        <Text style={styles.referralText}>
+        <ZnxText type="semiBold" style={styles.referralText}>
           Enter referral code to get{" "}
-          <Text style={styles.bonusText}>25% bonus</Text>
-        </Text>
+          <ZnxText type="semiBold" style={styles.bonusText}>
+            25% bonus
+          </ZnxText>
+        </ZnxText>
         <CodeInput value={referralCode} setValue={setReferralCode} />
         <Button
           title="Done"
@@ -35,7 +38,9 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
           textStyle={styles.doneButtonText}
         />
         <TouchableOpacity style={styles.noInvitation}>
-          <Text style={styles.noInvitationText}>I have no invitation code</Text>
+          <ZnxText type="regular" style={styles.noInvitationText}>
+            I have no invitation code
+          </ZnxText>
         </TouchableOpacity>
       </View>
     </Modal>
