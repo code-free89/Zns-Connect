@@ -1,5 +1,5 @@
 import { StyleSheet, View, Image } from "react-native";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -40,9 +40,9 @@ export default function ProfileAccounts() {
       {/* Location */}
       <View style={styles.typeContainer}>
         <Image source={require("@/assets/images/icons/location.png")} />
-        <ZnxText type="medium" style={styles.typeText}>
+        <ZnsText type="medium" style={styles.typeText}>
           Tokyo
-        </ZnxText>
+        </ZnsText>
       </View>
 
       {/* Social Accounts */}

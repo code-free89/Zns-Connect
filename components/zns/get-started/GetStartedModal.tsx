@@ -1,10 +1,12 @@
+import React, { PropsWithChildren, useState } from "react";
+import { Image, Linking, StyleSheet, Text, View } from "react-native";
+import Modal from "react-native-modal";
+
 import Button from "@/components/ui/Button";
 import CheckBox from "@/components/ui/CheckBox";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
-import React, { PropsWithChildren, useState } from "react";
-import { Image, Linking, StyleSheet, Text, View } from "react-native";
-import Modal from "react-native-modal";
+import ZnsText from "@/components/ui/Text";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -39,14 +41,14 @@ export default function GetStartedModal({
             <Image source={{ uri: walletInfo.icon }} width={67} height={67} />
           </View>
         </View>
-        <Text style={styles.walletAddress}>
+        <ZnsText type="semiBold" style={styles.walletAddress}>
           {formatWalletAddress(walletAddress)}
-        </Text>
-        <Text style={styles.subtitle}>
+        </ZnsText>
+        <ZnsText type="medium" style={styles.subtitle}>
           {
             "You are now ready to claim your web3 page \n and build high profile credibility"
           }
-        </Text>
+        </ZnsText>
         <View style={styles.checkboxContainer}>
           <CheckBox
             value={isChecked}
@@ -54,18 +56,22 @@ export default function GetStartedModal({
             color={isChecked ? "#4CAF50" : undefined}
             style={styles.checkbox}
           />
-          <Text style={styles.terms} onPress={() => setIsChecked(!isChecked)}>
+          <ZnsText
+            style={styles.terms}
+            onPress={() => setIsChecked(!isChecked)}
+          >
             I agree to ZNS{" "}
-            <Text style={styles.link} onPress={openTerms}>
+            <ZnsText style={styles.link} onPress={openTerms}>
               terms of service
-            </Text>{" "}
+            </ZnsText>{" "}
             and{" "}
-            <Text style={styles.link} onPress={openPrivacy}>
+            <ZnsText style={styles.link} onPress={openPrivacy}>
               Privacy Policy
-            </Text>
-          </Text>
+            </ZnsText>
+          </ZnsText>
         </View>
         <Button
+          fontType="regular"
           title="Get Started"
           onPress={onGetStarted}
           disabled={!isChecked}
@@ -110,7 +116,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   walletAddress: {
-    fontWeight: 600,
     fontSize: 16,
     lineHeight: 18,
     textAlign: "center",
@@ -120,7 +125,6 @@ const styles = StyleSheet.create({
   subtitle: {
     color: CustomDarkTheme.colors.body,
     fontSize: 12,
-    fontWeight: "medium",
     textAlign: "center",
     marginBottom: 57,
     lineHeight: 18,
@@ -143,6 +147,5 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#101010",
     fontSize: 14,
-    fontWeight: 400,
   },
 });

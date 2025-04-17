@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 
 import GradientText from "@/components/ui/GradientText";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 import { FavouriteDomains } from "@/components/zns/home/domains/Favourite";
 import { MyDomain } from "@/components/zns/home/domains/MyDomain";
 import { CustomDarkTheme } from "@/constants/theme";
@@ -34,12 +34,12 @@ export default function AccountDomains() {
                 type="semiBold"
               />
             ) : (
-              <ZnxText
+              <ZnsText
                 type="semiBold"
                 style={[styles.tabText, styles.defaultText]}
               >
                 {route.title}
-              </ZnxText>
+              </ZnsText>
             )}
           </TouchableOpacity>
         ))}

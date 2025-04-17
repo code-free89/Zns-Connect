@@ -13,7 +13,7 @@ const domains: IZnsDomain[] = [
         width={26}
         height={26}
         style={{ width: 26, height: 26 }}
-        source={require("@/assets/images/logo.png")}
+        source={require("@/assets/images/icon.png")}
       />
     ),
     name: "poly",

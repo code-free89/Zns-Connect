@@ -1,6 +1,6 @@
 import { StyleSheet, View, Image } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 
 import { CustomDarkTheme } from "@/constants/theme";
 
@@ -13,16 +13,16 @@ export default function ProfileType() {
           size={14}
           color={CustomDarkTheme.colors.body}
         />
-        <ZnxText type="medium" style={styles.typeText}>
+        <ZnsText type="medium" style={styles.typeText}>
           joined August, 2024
-        </ZnxText>
+        </ZnsText>
       </View>
 
       <View style={styles.typeContainer}>
         <Image source={require("@/assets/images/icons/category.png")} />
-        <ZnxText type="medium" style={styles.typeText}>
+        <ZnsText type="medium" style={styles.typeText}>
           Digital creator
-        </ZnxText>
+        </ZnsText>
       </View>
     </View>
   );

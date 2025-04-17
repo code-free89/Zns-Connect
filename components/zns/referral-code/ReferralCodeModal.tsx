@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 
 import Button from "@/components/ui/Button";
 import CodeInput from "@/components/ui/CodeInput";
@@ -17,30 +17,31 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
   const [referralCode, setReferralCode] = useState("");
 
   return (
-    <Modal isVisible={isVisible}>
+    <Modal isVisible={isVisible} backdropColor="#171810">
       <View style={styles.modalContent}>
         <Ionicons
           name="alert-circle-outline"
           size={24}
           color={CustomDarkTheme.colors.textPrimary}
         />
-        <ZnxText type="semiBold" style={styles.referralText}>
+        <ZnsText type="semiBold" style={styles.referralText}>
           Enter referral code to get{" "}
-          <ZnxText type="semiBold" style={styles.bonusText}>
+          <ZnsText type="semiBold" style={styles.bonusText}>
             25% bonus
-          </ZnxText>
-        </ZnxText>
+          </ZnsText>
+        </ZnsText>
         <CodeInput value={referralCode} setValue={setReferralCode} />
         <Button
+          fontType="regular"
           title="Done"
           onPress={onClose}
           style={styles.doneButton}
           textStyle={styles.doneButtonText}
         />
         <TouchableOpacity style={styles.noInvitation}>
-          <ZnxText type="regular" style={styles.noInvitationText}>
+          <ZnsText type="medium" style={styles.noInvitationText}>
             I have no invitation code
-          </ZnxText>
+          </ZnsText>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -50,7 +51,7 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
 const styles = StyleSheet.create({
   modalContent: {
     width: "100%",
-    backgroundColor: CustomDarkTheme.colors.modalBackground,
+    backgroundColor: "#0E1101",
     borderRadius: 16,
     flexDirection: "column",
     alignItems: "center",
@@ -59,7 +60,6 @@ const styles = StyleSheet.create({
   },
   referralText: {
     color: "white",
-    fontWeight: 600,
     fontSize: 16,
     lineHeight: 18,
     marginVertical: 20,
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
   doneButtonText: {
     color: "#101010",
     fontSize: 14,
-    fontWeight: 400,
   },
   noInvitation: {
     marginTop: 24,

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import type { AnimatedProps } from "react-native-reanimated";
 import Animated from "react-native-reanimated";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 
 interface Props extends AnimatedProps<ViewProps> {
   style?: StyleProp<ViewStyle>;
@@ -47,15 +47,15 @@ export const SlideItem: React.FC<Props> = (props) => {
       />
       <View style={styles.overlay}>
         <View style={styles.overlayTextContainer}>
-          <ZnxText type="bold" style={styles.overlayText}>
+          <ZnsText type="bold" style={styles.overlayText}>
             {index}
-          </ZnxText>
+          </ZnsText>
         </View>
       </View>
       <View style={styles.colorValueContainer}>
-        <ZnxText type="medium" style={styles.colorValueText}>
+        <ZnsText type="medium" style={styles.colorValueText}>
           {colorValue}
-        </ZnxText>
+        </ZnsText>
       </View>
     </Animated.View>
   );

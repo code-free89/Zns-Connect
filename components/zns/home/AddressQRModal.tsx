@@ -13,7 +13,7 @@ export default function AddressQRModal({ isVisible, onClose, address }: Props) {
     <Modal isVisible={isVisible} onBackdropPress={onClose}>
       <View style={styles.modalContent}>
         <QRCode
-          logo={require("@/assets/images/logo.png")}
+          logo={require("@/assets/images/icon.png")}
           value={address}
           size={128}
         />

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
-import ZnxText from "./Text";
+import ZnsText from "./Text";
 
 interface ButtonProps extends TouchableOpacityProps {
   fontType?: "regular" | "medium" | "semiBold" | "bold";
@@ -39,7 +39,7 @@ export default function Button({
     >
       {props.children}
       {!!title && (
-        <ZnxText
+        <ZnsText
           style={[
             styles.text,
             variant === "primary" && styles.primaryText,
@@ -50,7 +50,7 @@ export default function Button({
           type={fontType}
         >
           {title}
-        </ZnxText>
+        </ZnsText>
       )}
     </TouchableOpacity>
   );

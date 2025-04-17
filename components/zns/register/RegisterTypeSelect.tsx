@@ -1,5 +1,5 @@
 import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import ZnxText from "@/components/ui/Text";
+import ZnsText from "@/components/ui/Text";
 
 import Button from "@/components/ui/Button";
 import GradientBorderButtonWrapper from "@/components/ui/GradientBorderButtonWrapper";
@@ -38,7 +38,7 @@ const RegisterTypeButton = ({
             : CustomDarkTheme.colors.txtColor
         }
       />
-      <ZnxText
+      <ZnsText
         type="regular"
         style={[
           styles.domainRegisterTypeText,
@@ -50,7 +50,7 @@ const RegisterTypeButton = ({
         ]}
       >
         {label}
-      </ZnxText>
+      </ZnsText>
     </View>
   );
 

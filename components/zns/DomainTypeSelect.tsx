@@ -14,7 +14,7 @@ const domainItems = [
   {
     icon: (
       <Image
-        source={require("@/assets/images/logo.png")}
+        source={require("@/assets/images/icon.png")}
         style={{ width: 17, height: 17 }}
       />
     ),
@@ -23,7 +23,7 @@ const domainItems = [
   {
     icon: (
       <Image
-        source={require("@/assets/images/logo.png")}
+        source={require("@/assets/images/icon.png")}
         style={{ width: 17, height: 17 }}
       />
     ),
