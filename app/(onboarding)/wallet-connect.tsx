@@ -17,7 +17,12 @@ export default function WalletConnectScreen() {
   const [getStartedModalVisible, setGetStartedModalVisible] = useState(false);
 
   useEffect(() => {
-    setGetStartedModalVisible(isConnected);
+    const handleGetStartedStatus = async () => {
+      const getStartedStatus = await AsyncStorage.getItem("get_started");
+      setGetStartedModalVisible(!getStartedStatus && isConnected);
+    };
+
+    handleGetStartedStatus();
   }, [isConnected]);
 
   return (

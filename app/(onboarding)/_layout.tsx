@@ -10,7 +10,11 @@ export default function OnboardingLayout() {
   useEffect(() => {
     const handleReferralStatus = async () => {
       const getStartedStatus = await AsyncStorage.getItem("get_started");
-      if (!getStartedStatus && isConnected) return <Redirect href={"/(zns)"} />;
+      console.log(
+        "getStartedStatus && isConnected",
+        getStartedStatus && isConnected
+      );
+      if (getStartedStatus && isConnected) return <Redirect href={"/(zns)"} />;
     };
 
     handleReferralStatus();

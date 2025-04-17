@@ -1,18 +1,56 @@
-import { arbitrum, mainnet, polygon, polygonMumbai } from "viem/chains";
+import {
+  ink,
+  soneium,
+  abstract,
+  berachain,
+  unichain,
+  zora,
+  plume,
+  apeChain,
+  hemi,
+  bsc,
+  base,
+  sonic,
+  scroll,
+  blast,
+  taiko,
+  polygon,
+  creatorTestnet,
+  monadTestnet,
+} from "viem/chains";
 
 const projectId = process.env.EXPO_PUBLIC_WALLETCONNECT_CLOUD_PROJECT_ID;
 
 const metadata = {
-  name: "Web3Modal cross-platform",
-  description: "Web3Modal RN + web cross-platform example",
-  url: "https://web3modal.com",
-  icons: ["https://avatars.githubusercontent.com/u/37784886"],
+  name: "ZNS Connect",
+  description: "ZNS Connect",
+  url: "https://zns.bio",
+  icons: ["https://zns.bio/favicon.ico"],
   redirect: {
     native: "znsconnect://",
     universal: "https://zns.bio",
   },
 };
 
-const chains = [mainnet, polygon, polygonMumbai, arbitrum];
+const chains = [
+  ink,
+  soneium,
+  abstract,
+  berachain,
+  unichain,
+  zora,
+  plume,
+  apeChain,
+  hemi,
+  bsc,
+  base,
+  sonic,
+  scroll,
+  blast,
+  taiko,
+  polygon,
+  creatorTestnet,
+  monadTestnet,
+];
 
 export { chains, metadata, projectId };
