@@ -20,6 +20,7 @@ export default function HomeScreen() {
           account={{
             address: account.address ?? "",
             balance: balance.data?.formatted ?? "0",
+            symbol: balance.data?.symbol ?? "",
           }}
         />
         <SplitLine />

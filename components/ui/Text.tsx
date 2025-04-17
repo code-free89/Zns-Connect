@@ -19,15 +19,18 @@ export default function ZnsText({
 
 const styles = StyleSheet.create({
   regular: {
+    lineHeight: 24,
     fontFamily: "Poppins-Regular",
   },
   medium: {
+    lineHeight: 24,
     fontFamily: "Poppins-Medium",
   },
   semiBold: {
     fontFamily: "Poppins-SemiBold",
   },
   bold: {
+    lineHeight: 24,
     fontFamily: "Poppins-Bold",
   },
 });

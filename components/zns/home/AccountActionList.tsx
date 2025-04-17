@@ -1,5 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Octicons from "@expo/vector-icons/Octicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useDisconnect } from "wagmi";
@@ -11,8 +12,9 @@ export default function AccountActionList() {
   const router = useRouter();
   const { disconnect } = useDisconnect();
 
-  const disconnectWallet = () => {
+  const disconnectWallet = async () => {
     disconnect();
+    await AsyncStorage.removeItem("get_started");
     router.replace("/(onboarding)/wallet-connect");
   };
 

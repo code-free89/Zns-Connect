@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Redirect, Stack } from "expo-router";
-import { useAccount } from "wagmi";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router, Stack } from "expo-router";
+import { useAccount } from "wagmi";
 
 export default function OnboardingLayout() {
   const { isConnected } = useAccount();
@@ -10,11 +10,9 @@ export default function OnboardingLayout() {
   useEffect(() => {
     const handleReferralStatus = async () => {
       const getStartedStatus = await AsyncStorage.getItem("get_started");
-      console.log(
-        "getStartedStatus && isConnected",
-        getStartedStatus && isConnected
-      );
-      if (getStartedStatus && isConnected) return <Redirect href={"/(zns)"} />;
+      if (getStartedStatus && isConnected) {
+        router.replace("/(zns)");
+      }
     };
 
     handleReferralStatus();

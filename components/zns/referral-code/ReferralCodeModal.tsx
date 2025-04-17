@@ -38,7 +38,7 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
           style={styles.doneButton}
           textStyle={styles.doneButtonText}
         />
-        <TouchableOpacity style={styles.noInvitation}>
+        <TouchableOpacity style={styles.noInvitation} onPress={onClose}>
           <ZnsText type="medium" style={styles.noInvitationText}>
             I have no invitation code
           </ZnsText>

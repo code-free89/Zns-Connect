@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import Avatar from "@/components/ui/Avatar";
+import ZnsText from "@/components/ui/Text";
+import AccountActionList from "@/components/zns/home/AccountActionList";
+import AddressQRModal from "@/components/zns/home/AddressQRModal";
 import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { formatWalletAddress } from "@/utils/formatter";
-import AddressQRModal from "./AddressQRModal";
-import AccountActionList from "./AccountActionList";
+import { formatBalance, formatWalletAddress } from "@/utils/formatter";
+
 type Props = {
   account: {
     address: string;
     balance: string;
+    symbol: string;
   };
 };
 
@@ -22,10 +25,12 @@ export default function AccountInfo({ account }: Props) {
     <View style={styles.container}>
       <Avatar />
       <View style={styles.walletInfoContainer}>
-        <Text style={styles.walletAddress}>
+        <ZnsText type="semiBold" style={styles.walletAddress}>
           {formatWalletAddress(account.address)}
-        </Text>
-        <Text style={styles.balance}>${account.balance}</Text>
+        </ZnsText>
+        <ZnsText type="semiBold" style={styles.balance}>
+          {formatBalance(Number(account.balance))} {account.symbol}
+        </ZnsText>
       </View>
       <TouchableOpacity
         style={styles.actionButtonContainer}
@@ -64,13 +69,13 @@ const styles = StyleSheet.create({
   },
   walletAddress: {
     color: CustomDarkTheme.colors.body,
-    fontWeight: 600,
     fontSize: 14,
+    lineHeight: 30,
   },
   balance: {
     color: CustomDarkTheme.colors.grey1,
-    fontWeight: 600,
     fontSize: 24,
+    lineHeight: 30,
   },
   actionButtonContainer: {
     padding: 10,
