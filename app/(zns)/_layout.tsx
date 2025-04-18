@@ -45,10 +45,12 @@ export default function ZnsLayout() {
           tabBarBackground: TabBarBackground,
           tabBarStyle: Platform.select({
             ios: {
-              // Use a transparent background on iOS to show the blur effect
               position: "absolute",
+              paddingVertical: 8,
             },
-            default: {},
+            default: {
+              paddingVertical: 8,
+            },
           }),
           headerStatusBarHeight: 0,
           headerTitleAlign: "center",

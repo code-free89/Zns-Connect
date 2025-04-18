@@ -1,5 +1,5 @@
 import "./polyfills";
-import { DarkTheme, ThemeProvider } from "@react-navigation/native";
+import { ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -8,7 +8,7 @@ import "react-native-gesture-handler";
 import "react-native-reanimated";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { WagmiConfig } from "wagmi";
+import { WagmiProvider } from "wagmi";
 
 import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
@@ -40,7 +40,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={CustomDarkTheme}>
-      <WagmiConfig config={wagmiConfig}>
+      <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>
             <SafeAreaView style={{ flex: 1 }}>
@@ -56,7 +56,7 @@ export default function RootLayout() {
             </SafeAreaView>
           </SafeAreaProvider>
         </QueryClientProvider>
-      </WagmiConfig>
+      </WagmiProvider>
     </ThemeProvider>
   );
 }

@@ -5,7 +5,7 @@ import { useAccount, useSwitchChain } from "wagmi";
 import ZnsDropdown from "@/components/ui/Dropdown";
 import { CustomDarkTheme } from "@/constants/theme";
 import { chains } from "@/components/zns/web3modal/common";
-import { getChainIcon } from "@/constants/web3";
+import { getChainIcon } from "@/constants/web3/chains";
 
 const NetworkItems = chains.map((chain) => ({
   label: chain.name,

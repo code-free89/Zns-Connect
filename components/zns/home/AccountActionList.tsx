@@ -21,26 +21,26 @@ export default function AccountActionList() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <View style={styles.actionItem}>
+        <Pressable style={styles.actionItem}>
           <CopyIcon />
           <Text style={styles.actionItemText}>Copy wallet address</Text>
-        </View>
-        <View style={styles.actionItem}>
+        </Pressable>
+        <Pressable style={styles.actionItem}>
           <Octicons
             name="gear"
             size={20}
             color={CustomDarkTheme.colors.txtColor}
           />
           <Text style={styles.actionItemText}>General settings</Text>
-        </View>
-        <View style={styles.actionItem}>
+        </Pressable>
+        <Pressable style={styles.actionItem}>
           <UserIcon
             width={20}
             height={20}
             color={CustomDarkTheme.colors.txtColor}
           />
           <Text style={styles.actionItemText}>Community</Text>
-        </View>
+        </Pressable>
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
             name="logout"
