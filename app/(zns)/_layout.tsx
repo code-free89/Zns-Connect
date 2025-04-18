@@ -1,13 +1,11 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { Tabs } from "expo-router";
+import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
 import React, { useEffect, useState } from "react";
-import { Platform, Text, View, Pressable } from "react-native";
-import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
-import TabBarBackground from "@/components/ui/TabBarBackground";
+import CustomBottomTabButton from "@/components/CustomBottomTabButton";
 import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
 import { CustomDarkTheme } from "@/constants/theme";
-import CustomBottomTabButton from "@/components/CustomBottomTabButton";
 
 export default function ZnsLayout() {
   const [referralCodeModalVisible, setReferralCodeModalVisible] =
@@ -31,82 +29,6 @@ export default function ZnsLayout() {
           setReferralCodeModalVisible(false);
         }}
       />
-      {/* <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: CustomDarkTheme.colors.primary,
-          headerShown: false,
-          tabBarButton: HapticTab,
-          tabBarBackground: TabBarBackground,
-          tabBarStyle: Platform.select({
-            ios: {
-              position: "absolute",
-              paddingVertical: 8,
-            },
-            default: {
-              borderWidth: 0,
-              shadowColor: "#000000",
-              shadowOpacity: 0.07,
-              shadowRadius: 10,
-              justifyContent: "flex-start",
-              paddingBottom: 8,
-              marginBottom: 0,
-              bottom: 0,
-            },
-          }),
-          headerStatusBarHeight: 0,
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "black",
-            shadowColor: "transparent",
-          },
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: "Home",
-            tabBarIcon: ({ color }) => <HomeIcon color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="register"
-          options={{
-            title: "Register",
-            headerShown: true,
-            headerTitle: "Register a domain",
-            tabBarIcon: ({ color }) => <SearchIcon color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            headerShown: true,
-            tabBarIcon: ({ color }) => <UserIcon color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="cart"
-          options={{
-            title: "My Cart",
-            headerShown: true,
-            tabBarIcon: ({ color }) => <CartIcon color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="referrals"
-          options={{
-            title: "Referrals",
-            tabBarIcon: ({ color }) => <UserAddIcon color={color} />,
-          }}
-        />
-      </Tabs> */}
       <Tabs>
         <TabSlot />
         <TabList
