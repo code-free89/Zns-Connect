@@ -1,19 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Tabs } from "expo-router";
+// import { Tabs } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Image, Platform } from "react-native";
+import { Platform, Text, View, Pressable } from "react-native";
+import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
-import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
-import {
-  CartIcon,
-  HomeIcon,
-  SearchIcon,
-  UserAddIcon,
-  UserIcon,
-} from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import CustomBottomTabButton from "@/components/CustomBottomTabButton";
 
 export default function ZnsLayout() {
   const [referralCodeModalVisible, setReferralCodeModalVisible] =
@@ -37,7 +31,7 @@ export default function ZnsLayout() {
           setReferralCodeModalVisible(false);
         }}
       />
-      <Tabs
+      {/* <Tabs
         screenOptions={{
           tabBarActiveTintColor: CustomDarkTheme.colors.primary,
           headerShown: false,
@@ -49,7 +43,14 @@ export default function ZnsLayout() {
               paddingVertical: 8,
             },
             default: {
-              paddingVertical: 8,
+              borderWidth: 0,
+              shadowColor: "#000000",
+              shadowOpacity: 0.07,
+              shadowRadius: 10,
+              justifyContent: "flex-start",
+              paddingBottom: 8,
+              marginBottom: 0,
+              bottom: 0,
             },
           }),
           headerStatusBarHeight: 0,
@@ -105,6 +106,45 @@ export default function ZnsLayout() {
             tabBarIcon: ({ color }) => <UserAddIcon color={color} />,
           }}
         />
+      </Tabs> */}
+      <Tabs>
+        <TabSlot />
+        <TabList
+          style={{
+            paddingVertical: 17,
+            backgroundColor: CustomDarkTheme.colors.grey3,
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <TabTrigger name="home" href="/home" asChild>
+            <CustomBottomTabButton name="home" href="/home" label="Home" />
+          </TabTrigger>
+          <TabTrigger name="register" href="/register" asChild>
+            <CustomBottomTabButton
+              name="register"
+              href="/register"
+              label="Register"
+            />
+          </TabTrigger>
+          <TabTrigger name="profile" href="/profile" asChild>
+            <CustomBottomTabButton
+              name="profile"
+              href="/profile"
+              label="Profile"
+            />
+          </TabTrigger>
+          <TabTrigger name="cart" href="/cart" asChild>
+            <CustomBottomTabButton name="cart" href="/cart" label="Cart" />
+          </TabTrigger>
+          <TabTrigger name="referrals" href="/referrals" asChild>
+            <CustomBottomTabButton
+              name="referrals"
+              href="/referrals"
+              label="Referrals"
+            />
+          </TabTrigger>
+        </TabList>
       </Tabs>
     </>
   );
