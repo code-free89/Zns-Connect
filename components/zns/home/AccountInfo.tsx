@@ -45,7 +45,9 @@ export default function AccountInfo({ account }: Props) {
         >
           <ThreeDotIcon />
         </TouchableOpacity>
-        {isActionListVisible && <AccountActionList />}
+        {isActionListVisible && (
+          <AccountActionList onClose={() => setIsActionListVisible(false)} />
+        )}
       </View>
 
       <AddressQRModal

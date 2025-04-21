@@ -2,15 +2,23 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Octicons from "@expo/vector-icons/Octicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useDisconnect } from "wagmi";
+import { Pressable, StyleSheet, View } from "react-native";
+import { useAccount, useDisconnect } from "wagmi";
 
+import ZnsText from "@/components/ui/Text";
 import { CopyIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { copyToClipboard } from "@/utils/helpers";
+import { showSuccessToast } from "@/utils/toast";
 
-export default function AccountActionList() {
+export default function AccountActionList({
+  onClose,
+}: {
+  onClose: () => void;
+}) {
   const router = useRouter();
   const { disconnect } = useDisconnect();
+  const { address } = useAccount();
 
   const disconnectWallet = async () => {
     disconnect();
@@ -18,20 +26,31 @@ export default function AccountActionList() {
     router.replace("/(onboarding)/wallet-connect");
   };
 
+  const copyWalletAddress = async () => {
+    await copyToClipboard(address ?? "");
+    showSuccessToast("Wallet address copied to clipboard");
+    onClose();
+  };
+
+  const goToGeneralSettings = () => {
+    onClose();
+    router.push("/(zns)/general-settings");
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Pressable style={styles.actionItem}>
+        <Pressable style={styles.actionItem} onPress={copyWalletAddress}>
           <CopyIcon />
-          <Text style={styles.actionItemText}>Copy wallet address</Text>
+          <ZnsText style={styles.actionItemText}>Copy wallet address</ZnsText>
         </Pressable>
-        <Pressable style={styles.actionItem}>
+        <Pressable style={styles.actionItem} onPress={goToGeneralSettings}>
           <Octicons
             name="gear"
             size={20}
             color={CustomDarkTheme.colors.txtColor}
           />
-          <Text style={styles.actionItemText}>General settings</Text>
+          <ZnsText style={styles.actionItemText}>General settings</ZnsText>
         </Pressable>
         <Pressable style={styles.actionItem}>
           <UserIcon
@@ -39,7 +58,7 @@ export default function AccountActionList() {
             height={20}
             color={CustomDarkTheme.colors.txtColor}
           />
-          <Text style={styles.actionItemText}>Community</Text>
+          <ZnsText style={styles.actionItemText}>Community</ZnsText>
         </Pressable>
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
@@ -47,14 +66,14 @@ export default function AccountActionList() {
             size={20}
             color={CustomDarkTheme.colors.error}
           />
-          <Text
+          <ZnsText
             style={[
               styles.actionItemText,
               { color: CustomDarkTheme.colors.error },
             ]}
           >
             Disconnect wallet
-          </Text>
+          </ZnsText>
         </Pressable>
       </View>
     </View>
@@ -88,6 +107,5 @@ const styles = StyleSheet.create({
   actionItemText: {
     color: CustomDarkTheme.colors.txtColor,
     fontSize: 16,
-    fontWeight: 400,
   },
 });

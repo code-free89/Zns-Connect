@@ -36,7 +36,7 @@ export default function WalletConnectScreen() {
           onGetStarted={() => {
             AsyncStorage.setItem("get_started", "true");
             setGetStartedModalVisible(false);
-            router.replace("/(zns)");
+            router.replace("/(tabs)/home");
           }}
         />
       ) : (

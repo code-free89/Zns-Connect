@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     color: CustomDarkTheme.colors.txtColor,
+    marginTop: 2,
   },
   placeholder: {
     flex: 1,
@@ -179,6 +180,7 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16,
     color: CustomDarkTheme.colors.txtColor,
+    marginTop: 2,
   },
   itemSelected: {
     borderWidth: 1,
