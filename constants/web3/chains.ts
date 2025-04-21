@@ -1,3 +1,5 @@
+import { chains } from "@/components/zns/web3modal/common";
+
 export enum NETWORKS {
   DEFAULT = 57073,
   INKMAINNET = 57073,
@@ -82,5 +84,8 @@ export const CHAIN_ICON: { [key in NETWORKS]: string } = {
   // [NETWORKS.SAHARA]: "",
 };
 
+export const CHAIN_IDS = chains.map((c) => c.id);
 export const getChainColor = (id: NETWORKS) => CHAIN_COLOR[id];
 export const getChainIcon = (id: NETWORKS) => CHAIN_ICON[id];
+export const isChainSupported = (chainId: number) =>
+  (CHAIN_IDS as number[]).includes(chainId);

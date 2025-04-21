@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { useAccount, useBalance } from "wagmi";
 
@@ -8,10 +9,16 @@ import AccountInfo from "@/components/zns/home/AccountInfo";
 import AccountStatus from "@/components/zns/home/AccountStatus";
 import ActionButtons from "@/components/zns/home/ActionButtons";
 import NetworkSelect from "@/components/zns/home/NetworkSelect";
+import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
 
 export default function HomeScreen() {
   const account = useAccount();
   const balance = useBalance({ address: account.address });
+  const { fetchUserCredit } = useUserCredit();
+
+  useEffect(() => {
+    fetchUserCredit();
+  }, []);
 
   return (
     <ZnsScrollView>
@@ -32,7 +39,7 @@ export default function HomeScreen() {
         <ActionButtons />
         <SplitLine />
 
-        <AccountDomains />
+        {/* <AccountDomains /> */}
       </View>
     </ZnsScrollView>
   );
