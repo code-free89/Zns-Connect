@@ -1,7 +1,7 @@
 import { Address } from "viem";
 import { GIFT_CARD_ABI, HIP_ABI, REGISTRY_ABI, NFT_ABI } from "./abis";
 import { NETWORKS } from "./chains";
-// import { NFTS } from "./nfts";
+import { NFTS } from "./nfts";
 
 export enum CONTRACTS {
   REGISTRY = "REGISTRY",
@@ -9,13 +9,13 @@ export enum CONTRACTS {
   // ORACLE = "ORACLE",
 }
 
-// export enum CONTRACTS_HIP {
-//   HIP = "HIP",
-// }
+export enum CONTRACTS_HIP {
+  HIP = "HIP",
+}
 
-// export enum CONTRACTS_NFT {
-//   NFT = "NFT",
-// }
+export enum CONTRACTS_NFT {
+  NFT = "NFT",
+}
 
 type CONTRACTS_TYPE = {
   [key in CONTRACTS]: {
@@ -24,20 +24,20 @@ type CONTRACTS_TYPE = {
   };
 };
 
-// type CONTRACTS_HIP_TYPE = {
-//   [key in CONTRACTS_HIP]: {
-//     abi: any;
-//     addresses: { [key in NETWORKS.INKMAINNET]: Address };
-//   };
-// };
+type CONTRACTS_HIP_TYPE = {
+  [key in CONTRACTS_HIP]: {
+    abi: any;
+    addresses: { [key in NETWORKS.INKMAINNET]: Address };
+  };
+};
 
-// type CONTRACTS_NFT_TYPE = {
-//   [key in CONTRACTS_NFT]: {
-//     abi: any;
-//     addresses: { [key in NFTS]: Address };
-//     chains: { [key in NFTS]: NETWORKS };
-//   };
-// };
+type CONTRACTS_NFT_TYPE = {
+  [key in CONTRACTS_NFT]: {
+    abi: any;
+    addresses: { [key in NFTS]: Address };
+    chains: { [key in NFTS]: NETWORKS };
+  };
+};
 
 export const CONTRACT_DATA: CONTRACTS_TYPE = {
   [CONTRACTS.REGISTRY]: {
@@ -155,32 +155,32 @@ export const CONTRACT_DATA: CONTRACTS_TYPE = {
   // },
 };
 
-// export const CONTRACT_DATA_HIP: CONTRACTS_HIP_TYPE = {
-//   [CONTRACTS_HIP.HIP]: {
-//     abi: HIP_ABI,
-//     addresses: {
-//       [NETWORKS.INKMAINNET]: "0xCc05419602ec698cef96B7e6C26f5c174aE70960",
-//     },
-//   },
-// };
+export const CONTRACT_DATA_HIP: CONTRACTS_HIP_TYPE = {
+  [CONTRACTS_HIP.HIP]: {
+    abi: HIP_ABI,
+    addresses: {
+      [NETWORKS.INKMAINNET]: "0xCc05419602ec698cef96B7e6C26f5c174aE70960",
+    },
+  },
+};
 
-// export const CONTRACT_DATA_NFT: CONTRACTS_NFT_TYPE = {
-//   [CONTRACTS_NFT.NFT]: {
-//     abi: NFT_ABI,
-//     addresses: {
-//       [NFTS.HONEY]: "0x67879c4d26c096da0dacfde89306af500fb16144",
-//       [NFTS.CUBE]: "0x1195Cf65f83B3A5768F3C496D3A05AD6412c64B7",
-//       [NFTS.GULID_PIN]: "0x73d1a63bce3083be47597E2Ef0646BbFd1907f1C",
-//       [NFTS.EYE_SEEKER]: "0x9234d821c10b72e09c594f882f1d5dacf2621006",
-//     },
-//     chains: {
-//       [NFTS.HONEY]: NETWORKS.BERA,
-//       [NFTS.CUBE]: NETWORKS.INKMAINNET,
-//       [NFTS.GULID_PIN]: NETWORKS.INKMAINNET,
-//       [NFTS.EYE_SEEKER]: NETWORKS.INKMAINNET,
-//     },
-//   },
-// };
+export const CONTRACT_DATA_NFT: CONTRACTS_NFT_TYPE = {
+  [CONTRACTS_NFT.NFT]: {
+    abi: NFT_ABI,
+    addresses: {
+      [NFTS.HONEY]: "0x67879c4d26c096da0dacfde89306af500fb16144",
+      [NFTS.CUBE]: "0x1195Cf65f83B3A5768F3C496D3A05AD6412c64B7",
+      [NFTS.GULID_PIN]: "0x73d1a63bce3083be47597E2Ef0646BbFd1907f1C",
+      [NFTS.EYE_SEEKER]: "0x9234d821c10b72e09c594f882f1d5dacf2621006",
+    },
+    chains: {
+      [NFTS.HONEY]: NETWORKS.BERA,
+      [NFTS.CUBE]: NETWORKS.INKMAINNET,
+      [NFTS.GULID_PIN]: NETWORKS.INKMAINNET,
+      [NFTS.EYE_SEEKER]: NETWORKS.INKMAINNET,
+    },
+  },
+};
 
 // export function getRegistryAddressByChainId(
 //   chainId: NETWORKS

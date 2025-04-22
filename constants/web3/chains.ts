@@ -85,6 +85,10 @@ export const CHAIN_ICON: { [key in NETWORKS]: string } = {
 };
 
 export const CHAIN_IDS = chains.map((c) => c.id);
+
+export const mainnets = chains.filter((c) => !c.testnet).map((c) => c.id);
+export const testnets = chains.filter((c) => c.testnet).map((c) => c.id);
+
 export const getChainColor = (id: NETWORKS) => CHAIN_COLOR[id];
 export const getChainIcon = (id: NETWORKS) => CHAIN_ICON[id];
 export const isChainSupported = (chainId: number) =>

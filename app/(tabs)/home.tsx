@@ -14,11 +14,6 @@ import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
 export default function HomeScreen() {
   const account = useAccount();
   const balance = useBalance({ address: account.address });
-  const { fetchUserCredit } = useUserCredit();
-
-  useEffect(() => {
-    fetchUserCredit();
-  }, []);
 
   return (
     <ZnsScrollView>
