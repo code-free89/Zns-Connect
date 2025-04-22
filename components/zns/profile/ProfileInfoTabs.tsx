@@ -30,7 +30,13 @@ export default function ProfileInfoTabs() {
 
   return (
     <View>
-      <TabHeaders selectedTab={selectedTab} tabs={tabs} />
+      <TabHeaders
+        selectedTab={selectedTab}
+        tabs={tabs}
+        tabStyle={{
+          paddingHorizontal: 40,
+        }}
+      />
       <View style={styles.tabContent}>
         {selectedTab === "socials" && <SocialAccounts />}
         {selectedTab === "badges" && <BadgeList />}

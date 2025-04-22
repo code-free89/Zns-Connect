@@ -1,11 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Follow, User } from "@prisma/client";
 import { RegisterDomainType } from "@/lib/model/domain";
 import { StoreProfile } from "./profile";
 
 export type StoreUser =
-  | (Omit<User, "dateJoined"> & { dateJoined?: string })
+  | (Omit<any, "dateJoined"> & { dateJoined?: string })
   | null;
 
 type LoadingType =
@@ -35,15 +34,15 @@ export interface UserStates {
   userDomainConfig?: UserConfigStoreType;
   userPrimaryDomainDB?: StoreProfile;
   giftCards: GiftCard[];
-  followerByUser: Follow[];
-  followingByUser: Follow[];
+  followerByUser: any[];
+  followingByUser: any[];
   isLoadingUserStore: boolean;
   isLoadingFollowData: boolean;
   isLoadingFollowerOfUserData: boolean;
   isLoadingCreditData: boolean;
   isLoadingPrimaryDomainDB: boolean;
   isLoadingPrimaryDomainContract: boolean;
-  followersOfUser: Follow[];
+  followersOfUser: any[];
 }
 
 const initialState: UserStates = {
@@ -95,7 +94,7 @@ export const userSlices = createSlice({
     },
     setFollowData: (
       state,
-      action: PayloadAction<{ following: Follow[]; followers: Follow[] }>
+      action: PayloadAction<{ following: any[]; followers: any[] }>
     ) => {
       state.followingByUser = action.payload.following;
       state.followerByUser = action.payload.followers;
@@ -128,7 +127,7 @@ export const userSlices = createSlice({
       const { key, value } = action.payload;
       state[key] = value;
     },
-    setFollowersOfUser: (state, action: PayloadAction<Follow[] | null>) => {
+    setFollowersOfUser: (state, action: PayloadAction<any[] | null>) => {
       if (action.payload) {
         state.followersOfUser = action.payload;
       } else {

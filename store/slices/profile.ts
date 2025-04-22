@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { NETWORKS } from "@/constants/web3/chains";
-import { Domain, Follow } from "@prisma/client";
 import { RegisterDomainType } from "@/lib/model/domain";
 import { StoreUser } from "./user";
 import { UserDomainType } from "@/store/slices/user-domains";
@@ -12,20 +11,20 @@ export type DomainInfoType = {
   owner: string;
 };
 
-export type StoreProfile = Omit<Domain, "createdAt"> & { createdAt: string };
+export type StoreProfile = Omit<any, "createdAt"> & { createdAt: string };
 type AccountVerified = keyof Pick<
-  Domain,
+  any,
   "discord" | "twitter" | "wrapcast" | "linkedin" | "telegram"
 >;
 
 export type CombindedProfile = StoreProfile & {
-  following?: (Partial<Follow> & {
-    to?: Partial<Domain>;
-    from?: Partial<Domain>;
+  following?: (Partial<any> & {
+    to?: Partial<any>;
+    from?: Partial<any>;
   })[];
-  followers?: (Partial<Follow> & {
-    to?: Partial<Domain>;
-    from?: Partial<Domain>;
+  followers?: (Partial<any> & {
+    to?: Partial<any>;
+    from?: Partial<any>;
   })[];
 };
 

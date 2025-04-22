@@ -45,6 +45,8 @@ export default function WalletConnectScreen() {
             backgroundColor: CustomDarkTheme.colors.primary,
             borderRadius: 11,
             height: 50,
+            marginTop: "auto",
+            marginBottom: 80,
           }}
           label="Connect Wallet"
         />
@@ -56,7 +58,7 @@ export default function WalletConnectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    padding: 16,
   },
   separator: {
     marginVertical: 30,

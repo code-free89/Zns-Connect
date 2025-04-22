@@ -1,9 +1,8 @@
-import { Referral, User } from "@prisma/client";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-export type StoreReferral = Referral;
-export type StoreUser = Partial<User>;
+export type StoreReferral = any;
+export type StoreUser = Partial<any>;
 
 export interface ReferralState {
   referrals_lead: StoreReferral[];

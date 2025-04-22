@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { useAccount, useSwitchChain } from "wagmi";
+import { useAccount, useSwitchChain, useConnect } from "wagmi";
 
 import ZnsDropdown from "@/components/ui/Dropdown";
 import { CustomDarkTheme } from "@/constants/theme";
 import { chains } from "@/components/zns/web3modal/common";
 import { getChainIcon } from "@/constants/web3/chains";
+import { showSuccessToast, showErrorToast } from "@/utils/toast";
 
 const NetworkItems = chains.map((chain) => ({
   label: chain.name,
@@ -14,16 +15,45 @@ const NetworkItems = chains.map((chain) => ({
 }));
 
 export default function NetworkSelect() {
-  const { chain } = useAccount();
+  const { chain, isConnected } = useAccount();
   const { switchChain } = useSwitchChain();
+  const { connect, connectors } = useConnect();
   const [selectedNetwork, setSelectedNetwork] = useState(
     chain?.id.toString() || "1"
   );
+  console.log("chain", chain, isConnected);
 
-  const handleNetworkChange = (value: string) => {
-    setSelectedNetwork(value);
-    if (switchChain) {
-      switchChain({ chainId: parseInt(value) });
+  // Update selected network when chain changes
+  useEffect(() => {
+    if (chain?.id) {
+      setSelectedNetwork(chain.id.toString());
+    }
+  }, [chain?.id]);
+
+  const handleNetworkChange = async (value: string) => {
+    try {
+      setSelectedNetwork(value);
+      if (switchChain) {
+        switchChain(
+          { chainId: parseInt(value) },
+          {
+            onSuccess: () => {
+              showSuccessToast("Network switched successfully");
+              // If disconnected after switch, reconnect using the first available connector
+              if (!isConnected && connectors[0]) {
+                connect({ connector: connectors[0] });
+              }
+            },
+            onError: (error) => {
+              showErrorToast("Failed to switch network");
+              console.error("Network switch error:", error);
+            },
+          }
+        );
+      }
+    } catch (error) {
+      console.error("Network switch error:", error);
+      showErrorToast("Failed to switch network");
     }
   };
 

@@ -1,6 +1,13 @@
-import { ScrollView, TouchableOpacity, Text, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  ViewStyle,
+} from "react-native";
 
 import { CustomDarkTheme } from "@/constants/theme";
+import ZnsText from "./Text";
 
 type TabHeadersProps = {
   selectedTab: string;
@@ -9,24 +16,40 @@ type TabHeadersProps = {
     value: string;
     onSelectTab: () => void;
   }[];
+  tabStyle?: StyleProp<ViewStyle>;
+  fullWidth?: boolean;
 };
 
-export default function TabHeaders({ selectedTab, tabs }: TabHeadersProps) {
+export default function TabHeaders({
+  selectedTab,
+  tabs,
+  tabStyle,
+  fullWidth = false,
+}: TabHeadersProps) {
   return (
-    <ScrollView horizontal>
+    <ScrollView
+      horizontal
+      contentContainerStyle={fullWidth && { width: "100%" }}
+    >
       {tabs.map((tab) => (
         <TouchableOpacity
-          style={[styles.tab, selectedTab === tab.value && styles.selectedTab]}
+          style={[
+            styles.tab,
+            tabStyle,
+            selectedTab === tab.value && styles.selectedTab,
+            fullWidth && { width: `${100 / tabs.length}%` },
+          ]}
           onPress={tab.onSelectTab}
         >
-          <Text
+          <ZnsText
+            type="medium"
             style={[
               styles.tabText,
               selectedTab === tab.value && styles.selectedTabText,
             ]}
           >
             {tab.label}
-          </Text>
+          </ZnsText>
         </TouchableOpacity>
       ))}
     </ScrollView>
@@ -35,7 +58,6 @@ export default function TabHeaders({ selectedTab, tabs }: TabHeadersProps) {
 
 const styles = StyleSheet.create({
   tab: {
-    paddingHorizontal: 40,
     paddingVertical: 14,
     borderBottomWidth: 2,
     borderBottomColor: CustomDarkTheme.colors.grey2,
@@ -44,9 +66,9 @@ const styles = StyleSheet.create({
     borderBottomColor: CustomDarkTheme.colors.p500,
   },
   tabText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 14,
     color: CustomDarkTheme.colors.txtColor,
+    textAlign: "center",
   },
   selectedTabText: {
     color: CustomDarkTheme.colors.p500,

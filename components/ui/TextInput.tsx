@@ -1,25 +1,38 @@
 import {
   TextInput as RNTextInput,
-  TextInputProps,
   StyleSheet,
+  TextInputProps,
   View,
 } from "react-native";
 
+import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
 
-export default function TextInput({ ...props }: TextInputProps) {
+interface Props extends TextInputProps {
+  label?: string;
+}
+
+export default function TextInput({ label, ...props }: Props) {
   return (
-    <View style={[styles.container]}>
-      <RNTextInput
-        {...props}
-        placeholderTextColor={CustomDarkTheme.colors.caption}
-        style={[styles.input, props.style]}
-      />
+    <View>
+      {!!label && <ZnsText style={styles.label}>{label}</ZnsText>}
+      <View style={[styles.container]}>
+        <RNTextInput
+          {...props}
+          placeholderTextColor={CustomDarkTheme.colors.caption}
+          style={[styles.input, props.style]}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: 14,
+    color: CustomDarkTheme.colors.body,
+    marginBottom: 8,
+  },
   container: {
     padding: 14,
     borderWidth: 1,

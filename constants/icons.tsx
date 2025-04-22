@@ -460,3 +460,19 @@ export function CopyIcon() {
     </Svg>
   );
 }
+
+export function NavigationBackIcon() {
+  return (
+    <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <G id="Frame 1000002554">
+        <Path
+          id="Vector 140"
+          d="M15 6L10.4142 10.5858C9.63317 11.3668 9.63317 12.6332 10.4142 13.4142L15 18"
+          stroke="#E5E5E5"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </G>
+    </Svg>
+  );
+}
