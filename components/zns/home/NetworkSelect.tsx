@@ -37,12 +37,14 @@ export default function NetworkSelect() {
         switchChain(
           { chainId: parseInt(value) },
           {
-            onSuccess: () => {
-              showSuccessToast("Network switched successfully");
+            onSuccess: (data, variables, context) => {
+              console.log("data, variables, context", data, variables, context);
+              // showSuccessToast("Network switched successfully");
               // If disconnected after switch, reconnect using the first available connector
-              if (!isConnected && connectors[0]) {
-                connect({ connector: connectors[0] });
-              }
+              // if (!isConnected && connectors[0]) {
+              //   console.log("connectors1", connectors);
+              //   connect({ connector: connectors[0] });
+              // }
             },
             onError: (error) => {
               showErrorToast("Failed to switch network");
