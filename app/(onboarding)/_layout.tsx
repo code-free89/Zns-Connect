@@ -6,7 +6,6 @@ import { useAccount } from "wagmi";
 
 export default function OnboardingLayout() {
   const { isConnected } = useAccount();
-  console.log("isConnected", isConnected);
 
   useEffect(() => {
     const handleReferralStatus = async () => {

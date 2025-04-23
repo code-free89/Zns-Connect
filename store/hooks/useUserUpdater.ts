@@ -149,7 +149,6 @@ const useUserUpdater = () => {
 
   // Update Redux store with fetched credit data
   useEffect(() => {
-    console.log("userCreditCardData", userCreditCardData);
     dispatch(setUserCredit(userCreditCardData ?? 0));
   }, [userCreditCardData]);
   /*

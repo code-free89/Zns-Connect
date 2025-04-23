@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useAccount, useSwitchChain, useConnect } from "wagmi";
+import { useAccount, useSwitchChain } from "wagmi";
 
 import ZnsDropdown from "@/components/ui/Dropdown";
-import { CustomDarkTheme } from "@/constants/theme";
 import { chains } from "@/components/zns/web3modal/common";
+import { CustomDarkTheme } from "@/constants/theme";
 import { getChainIcon } from "@/constants/web3/chains";
-import { showSuccessToast, showErrorToast } from "@/utils/toast";
+import { showErrorToast } from "@/utils/toast";
 
 const NetworkItems = chains.map((chain) => ({
   label: chain.name,
@@ -15,9 +15,8 @@ const NetworkItems = chains.map((chain) => ({
 }));
 
 export default function NetworkSelect() {
-  const { chain, isConnected } = useAccount();
-  const { switchChain } = useSwitchChain();
-  const { connect, connectors } = useConnect();
+  const { chain } = useAccount();
+  const { switchChainAsync } = useSwitchChain();
   const [selectedNetwork, setSelectedNetwork] = useState(
     chain?.id.toString() || "1"
   );
@@ -32,28 +31,10 @@ export default function NetworkSelect() {
   const handleNetworkChange = async (value: string) => {
     try {
       setSelectedNetwork(value);
-      if (switchChain) {
-        switchChain(
-          { chainId: parseInt(value) },
-          {
-            onSuccess: (data, variables, context) => {
-              console.log("data, variables, context", data, variables, context);
-              // showSuccessToast("Network switched successfully");
-              // If disconnected after switch, reconnect using the first available connector
-              // if (!isConnected && connectors[0]) {
-              //   console.log("connectors1", connectors);
-              //   connect({ connector: connectors[0] });
-              // }
-            },
-            onError: (error) => {
-              showErrorToast("Failed to switch network");
-              console.error("Network switch error:", error);
-            },
-          }
-        );
+      if (switchChainAsync) {
+        await switchChainAsync({ chainId: parseInt(value) });
       }
     } catch (error) {
-      console.error("Network switch error:", error);
       showErrorToast("Failed to switch network");
     }
   };

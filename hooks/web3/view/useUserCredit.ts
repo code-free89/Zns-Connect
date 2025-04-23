@@ -21,7 +21,6 @@ export const useUserCredit = () => {
     try {
       if (address) {
         const data = await callContract(call, chainId);
-        console.log("data", data);
         const _credit = (!!data ? data : BigInt(0)) as bigint;
         return parseInt(formatEther(_credit));
       }

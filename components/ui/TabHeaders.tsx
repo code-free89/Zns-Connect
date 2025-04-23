@@ -33,6 +33,7 @@ export default function TabHeaders({
     >
       {tabs.map((tab) => (
         <TouchableOpacity
+          key={tab.value}
           style={[
             styles.tab,
             tabStyle,

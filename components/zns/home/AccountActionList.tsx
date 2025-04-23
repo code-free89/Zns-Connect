@@ -2,7 +2,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Octicons from "@expo/vector-icons/Octicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Linking, Pressable, StyleSheet, View } from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
 
 import ZnsText from "@/components/ui/Text";
@@ -37,6 +37,16 @@ export default function AccountActionList({
     router.push("/(zns)/general-settings");
   };
 
+  const openCommunity = (community: string) => {
+    if (community === "Blog") {
+      Linking.openURL("https://znsconnect.medium.com");
+    } else if (community === "Docs") {
+      Linking.openURL("https://docs.znsconnect.io");
+    } else if (community === "Socials") {
+      Linking.openURL("https://docs.znsconnect.io");
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
@@ -44,6 +54,7 @@ export default function AccountActionList({
           <CopyIcon />
           <ZnsText style={styles.actionItemText}>Copy wallet address</ZnsText>
         </Pressable>
+
         <Pressable style={styles.actionItem} onPress={goToGeneralSettings}>
           <Octicons
             name="gear"
@@ -52,14 +63,36 @@ export default function AccountActionList({
           />
           <ZnsText style={styles.actionItemText}>General settings</ZnsText>
         </Pressable>
-        <Pressable style={styles.actionItem}>
+
+        <View style={styles.actionItem}>
           <UserIcon
             width={20}
             height={20}
             color={CustomDarkTheme.colors.txtColor}
           />
           <ZnsText style={styles.actionItemText}>Community</ZnsText>
-        </Pressable>
+        </View>
+        <View style={styles.communityContainer}>
+          <ZnsText
+            style={styles.communityItem}
+            onPress={() => openCommunity("Blog")}
+          >
+            Blog
+          </ZnsText>
+          <ZnsText
+            style={styles.communityItem}
+            onPress={() => openCommunity("Docs")}
+          >
+            Docs
+          </ZnsText>
+          <ZnsText
+            style={styles.communityItem}
+            onPress={() => openCommunity("Socials")}
+          >
+            Socials
+          </ZnsText>
+        </View>
+
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
             name="logout"
@@ -107,5 +140,12 @@ const styles = StyleSheet.create({
   actionItemText: {
     color: CustomDarkTheme.colors.txtColor,
     fontSize: 16,
+  },
+  communityContainer: {
+    gap: 16,
+  },
+  communityItem: {
+    color: CustomDarkTheme.colors.txtColor,
+    marginLeft: 30,
   },
 });
