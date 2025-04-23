@@ -14,6 +14,8 @@ import { WagmiProvider } from "wagmi";
 import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
 import { toastConfig } from "@/constants/toast-config";
+import AppProvider from "@/lib/providers/AppProvider";
+import { StoreProvider } from "@/store";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -42,26 +44,34 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={CustomDarkTheme}>
-      <WagmiProvider config={wagmiConfig}>
-        <QueryClientProvider client={queryClient}>
-          <SafeAreaProvider>
-            <SafeAreaView style={{ flex: 1 }}>
-              <Web3Modal />
-              <Stack>
-                <Stack.Screen
-                  name="(onboarding)"
-                  options={{ headerShown: false }}
-                />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="(zns)" options={{ headerShown: false }} />
-                <Stack.Screen name="+not-found" />
-              </Stack>
+      <StoreProvider>
+        <WagmiProvider config={wagmiConfig}>
+          <QueryClientProvider client={queryClient}>
+            <SafeAreaProvider>
+              <SafeAreaView style={{ flex: 1 }}>
+                <Web3Modal />
 
-              <ToastManager config={toastConfig} />
-            </SafeAreaView>
-          </SafeAreaProvider>
-        </QueryClientProvider>
-      </WagmiProvider>
+                <AppProvider />
+
+                <Stack>
+                  <Stack.Screen
+                    name="(onboarding)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="(tabs)"
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen name="(zns)" options={{ headerShown: false }} />
+                  <Stack.Screen name="+not-found" />
+                </Stack>
+
+                <ToastManager config={toastConfig} />
+              </SafeAreaView>
+            </SafeAreaProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </StoreProvider>
     </ThemeProvider>
   );
 }

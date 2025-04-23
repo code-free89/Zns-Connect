@@ -21,7 +21,6 @@ export default function NetworkSelect() {
   const [selectedNetwork, setSelectedNetwork] = useState(
     chain?.id.toString() || "1"
   );
-  console.log("chain", chain, isConnected);
 
   // Update selected network when chain changes
   useEffect(() => {

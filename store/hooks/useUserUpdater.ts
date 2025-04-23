@@ -1,30 +1,13 @@
-import { useCallback, useEffect } from "react";
-import { isEmpty } from "lodash";
-import { useAccount } from "wagmi";
-import { User } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { useAppDispatch, useAppSelector } from "@/store";
-import {
-  setFollowData,
-  setFollowersOfUser,
-  setLoadingUser,
-  setPDomainDB,
-  setStoreUser,
-  setUserCredit,
-  setUserDomainInfo,
-} from "@/store/slices/user";
-import { getDomain } from "@/lib/api/domain";
-import { UserDomainType } from "@/store/slices/user-domains";
-import { useUserCredit } from "@/lib/web3/hooks/view/useUserCredit";
-import { useUserDomainInfo } from "@/lib/web3/hooks/view/useUserDomainInfo";
-import {
-  fetchFollowByDomainId,
-  fetchFollowersByDomain,
-} from "@/lib/api/domain/follow";
-import useAuth from "@/lib/auth/useAuth";
-import { isChainSupported, NETWORKS } from "@/constants/web3/chains";
-import { getCurrentUser, updateReferCode } from "../../api/user";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
 
+import { isChainSupported } from "@/constants/web3/chains";
+import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
+import { useAppDispatch } from "@/store";
+import { setLoadingUser, setUserCredit } from "@/store/slices/user";
+
+/*
 export const useFetchUser = () => {
   const dispatch = useAppDispatch();
 
@@ -66,14 +49,13 @@ export const useFetchUser = () => {
     updateFollowerOfUser,
   };
 };
-
+*/
 const useUserUpdater = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAuth();
   const { address, chainId } = useAccount();
   const { fetchUserCredit } = useUserCredit();
+  /*
   const { fetchUserDomainInfo } = useUserDomainInfo(address);
-
   // Fetch User Primary Domain Contract Data
   const { data: userPrimaryContractData } = useQuery({
     queryKey: ["userPrimaryDomain", user?.address, chainId],
@@ -148,12 +130,12 @@ const useUserUpdater = () => {
   useEffect(() => {
     dispatch(setPDomainDB(userPrimaryDomainDBData ?? undefined));
   }, [userPrimaryDomainDBData]);
-
+*/
   // Fethcing User Credit
   const { data: userCreditCardData } = useQuery({
-    queryKey: ["userCredit", user?.address, chainId],
+    queryKey: ["userCredit", address, chainId],
     queryFn: async () => {
-      if (!!user?.address && isChainSupported(chainId ?? 0)) {
+      if (!!address && isChainSupported(chainId ?? 0)) {
         dispatch(setLoadingUser({ key: "isLoadingCreditData", value: true }));
         return await fetchUserCredit();
       } else {
@@ -167,9 +149,10 @@ const useUserUpdater = () => {
 
   // Update Redux store with fetched credit data
   useEffect(() => {
+    console.log("userCreditCardData", userCreditCardData);
     dispatch(setUserCredit(userCreditCardData ?? 0));
   }, [userCreditCardData]);
-
+  /*
   // Fetching User DB Info
   const { data: userStoreData } = useQuery({
     queryKey: ["currentUserStore", user?.address],
@@ -211,7 +194,7 @@ const useUserUpdater = () => {
       }
     }
   }, [user?.address]);
-
+*/
   // const referCode = localStorage.getItem("refCode") ?? "";
 };
 
