@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 import FormTextInput from "@/components/ui/forms/FormTextInput";
 import InteractiveButton from "@/components/ui/InteractiveButton";
 import ZnsText from "@/components/ui/Text";
-import EmptyGiftCards from "@/components/zns/general-settings/EmptyGiftCards";
+import GiftCardsView from "@/components/zns/general-settings/GiftCardsView";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
 import { useMintGiftCard } from "@/hooks/web3/write/useGiftCard";
@@ -125,12 +125,7 @@ export default function CreditsAndGiftCards() {
         />
       </View>
 
-      <View style={styles.giftCardsContainer}>
-        <ZnsText type="medium" style={styles.giftCardsTitle}>
-          Gift cards
-        </ZnsText>
-        <EmptyGiftCards />
-      </View>
+      <GiftCardsView />
     </View>
   );
 }
@@ -168,12 +163,5 @@ const styles = StyleSheet.create({
   },
   creditText: {
     color: "#243300",
-  },
-  giftCardsTitle: {
-    fontSize: 24,
-    color: CustomDarkTheme.colors.txtColor,
-  },
-  giftCardsContainer: {
-    gap: 12,
   },
 });
