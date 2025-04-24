@@ -5,9 +5,10 @@ import { CustomDarkTheme } from "@/constants/theme";
 
 type GiftCardProps = {
   credits: number;
+  onRedeem: () => void;
 };
 
-export default function GiftCard({ credits }: GiftCardProps) {
+export default function GiftCard({ credits, onRedeem }: GiftCardProps) {
   return (
     <View style={styles.giftCardContainer}>
       <Image
@@ -28,7 +29,7 @@ export default function GiftCard({ credits }: GiftCardProps) {
           CREDITS: {credits}
         </ZnsText>
       </View>
-      <Pressable style={styles.redeemButton}>
+      <Pressable style={styles.redeemButton} onPress={onRedeem}>
         <ZnsText type="medium" style={styles.redeemButtonText}>
           Redeem
         </ZnsText>
@@ -40,7 +41,6 @@ export default function GiftCard({ credits }: GiftCardProps) {
 const styles = StyleSheet.create({
   giftCardContainer: {
     borderRadius: 12,
-    backgroundColor: "red",
     flex: 1,
     aspectRatio: 1.78,
   },

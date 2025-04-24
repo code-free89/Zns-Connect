@@ -5,6 +5,7 @@ import { CartedDomain, FavouritedDomain, Domain } from "@/lib/model/domain";
 export interface SettingState {
   isInited: boolean; // if isInited is false, it means non-initedStats. Otherwise, it force updaters using carts after change.
   isPurchased: boolean; // if isInited is false, it means non-initedStats. Otherwise, it force updaters using carts after change.
+  isBlurModalVisible: boolean;
   carts: CartedDomain[];
   favourites: FavouritedDomain[];
 }
@@ -12,6 +13,7 @@ export interface SettingState {
 const initialState: SettingState = {
   isInited: false,
   isPurchased: false,
+  isBlurModalVisible: false,
   carts: [],
   favourites: [],
 };
@@ -119,6 +121,10 @@ export const settingSlice = createSlice({
     setPurchased: (state, action: PayloadAction<Partial<boolean>>) => {
       state.isPurchased = action.payload;
     },
+
+    toggleBlurModal: (state, action: PayloadAction<boolean>) => {
+      state.isBlurModalVisible = action.payload;
+    },
   },
 });
 
@@ -129,4 +135,5 @@ export const {
   cartDomains,
   setPurchased,
   handleDomainPeriod,
+  toggleBlurModal,
 } = settingSlice.actions;

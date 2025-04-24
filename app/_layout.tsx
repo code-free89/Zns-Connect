@@ -1,16 +1,17 @@
-import "./polyfills";
 import { ThemeProvider } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-gesture-handler";
 import "react-native-reanimated";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
+import "./polyfills";
 
+import BackDropModal from "@/components/ui/BackDropModal";
 import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
 import { toastConfig } from "@/constants/toast-config";
@@ -52,6 +53,8 @@ export default function RootLayout() {
                 <Web3Modal />
 
                 <AppProvider />
+
+                <BackDropModal />
 
                 <Stack>
                   <Stack.Screen

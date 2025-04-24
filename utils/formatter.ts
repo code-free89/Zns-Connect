@@ -25,3 +25,7 @@ export function isValidEthereumAddress(address: string): boolean {
 
   return hexRegex.test(hexPart);
 }
+
+export function formatCredits(credits: number | string) {
+  return Math.floor(Number(credits));
+}

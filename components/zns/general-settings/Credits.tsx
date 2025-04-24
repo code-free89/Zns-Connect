@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { useAccount } from "wagmi";
 
+import BackDropModal from "@/components/ui/BackDropModal";
 import Button from "@/components/ui/Button";
 import FormTextInput from "@/components/ui/forms/FormTextInput";
 import InteractiveButton from "@/components/ui/InteractiveButton";

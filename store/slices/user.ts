@@ -22,7 +22,7 @@ export type UserConfigStoreType = {
   totalEarnings: string;
 };
 
-export type GiftCard = {
+export type GiftCardType = {
   id: string;
   credits: string;
 };
@@ -33,7 +33,7 @@ export interface UserStates {
   userPrimaryDomain?: RegisterDomainType;
   userDomainConfig?: UserConfigStoreType;
   userPrimaryDomainDB?: StoreProfile;
-  giftCards: GiftCard[];
+  giftCards: GiftCardType[];
   followerByUser: any[];
   followingByUser: any[];
   isLoadingUserStore: boolean;
@@ -89,7 +89,7 @@ export const userSlices = createSlice({
       state.isLoadingPrimaryDomainDB = false;
     },
     //-----------------------------------------
-    setGiftCards: (state, action: PayloadAction<GiftCard[]>) => {
+    setGiftCards: (state, action: PayloadAction<GiftCardType[]>) => {
       state.giftCards = action.payload;
     },
     setFollowData: (
