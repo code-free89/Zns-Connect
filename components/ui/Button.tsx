@@ -1,19 +1,23 @@
-import { CustomDarkTheme } from "@/constants/theme";
 import React from "react";
 import {
+  ActivityIndicator,
   StyleSheet,
-  Text,
   TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
+  View,
 } from "react-native";
-import ZnsText from "./Text";
+
+import ZnsText from "@/components/ui/Text";
+import { CustomDarkTheme } from "@/constants/theme";
 
 interface ButtonProps extends TouchableOpacityProps {
   fontType?: "regular" | "medium" | "semiBold" | "bold";
   title?: string;
   textStyle?: TextStyle;
   variant?: "primary" | "secondary" | "outline" | "text";
+  loading?: boolean;
+  loadingText?: string;
 }
 
 export default function Button({
@@ -22,6 +26,8 @@ export default function Button({
   style,
   textStyle,
   fontType = "regular",
+  loading = false,
+  loadingText = "Submitting...",
   ...props
 }: ButtonProps) {
   return (
@@ -32,25 +38,46 @@ export default function Button({
         variant === "secondary" && styles.secondaryButton,
         variant === "outline" && styles.outlineButton,
         variant === "text" && styles.textButton,
-        props.disabled && styles.disabledButton,
+        (props.disabled || loading) && styles.disabledButton,
         style,
       ]}
+      disabled={loading || props.disabled}
       {...props}
     >
-      {props.children}
-      {!!title && (
-        <ZnsText
-          style={[
-            styles.text,
-            variant === "primary" && styles.primaryText,
-            variant === "secondary" && styles.secondaryText,
-            textStyle,
-            props.disabled && styles.disabledText,
-          ]}
-          type={fontType}
-        >
-          {title}
-        </ZnsText>
+      {loading ? (
+        <View style={styles.loadingContainer}>
+          <ZnsText
+            style={[
+              styles.text,
+              variant === "primary" && styles.primaryText,
+              variant === "secondary" && styles.secondaryText,
+              textStyle,
+              props.disabled && styles.disabledText,
+            ]}
+            type={fontType}
+          >
+            {loadingText}
+          </ZnsText>
+          <ActivityIndicator size="small" color="#000000" />
+        </View>
+      ) : (
+        <>
+          {props.children}
+          {!!title && (
+            <ZnsText
+              style={[
+                styles.text,
+                variant === "primary" && styles.primaryText,
+                variant === "secondary" && styles.secondaryText,
+                textStyle,
+                props.disabled && styles.disabledText,
+              ]}
+              type={fontType}
+            >
+              {title}
+            </ZnsText>
+          )}
+        </>
       )}
     </TouchableOpacity>
   );
@@ -93,5 +120,10 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: CustomDarkTheme.colors.p700,
+  },
+  loadingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });

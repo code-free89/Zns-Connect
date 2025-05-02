@@ -27,6 +27,7 @@
     "@walletconnect/react-native-compat": "^2.19.2",
     "@web3modal/wagmi": "^5.1.11",
     "@web3modal/wagmi-react-native": "^2.0.5",
+    "axios": "^1.8.4",
     "ethers": "^6.13.5",
     "expo": "~52.0.43",
     "expo-application": "~6.0.2",
@@ -49,7 +50,9 @@
     "fast-text-encoding": "^1.0.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "react-hook-form": "^7.56.1",
     "react-native": "0.76.9",
+    "react-native-autocomplete-dropdown": "^4.4.0",
     "react-native-confirmation-code-field": "^7.4.0",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-get-random-values": "~1.11.0",
@@ -70,7 +73,8 @@
     "redux-persist": "^6.0.0",
     "toastify-react-native": "^7.2.0",
     "viem": "^2.26.0",
-    "wagmi": "^2.14.16"
+    "wagmi": "^2.14.16",
+    "lottie-react-native": "7.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

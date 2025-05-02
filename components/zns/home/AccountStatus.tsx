@@ -1,22 +1,48 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import Feather from "@expo/vector-icons/Feather";
-
-import { CreditIcon, SilverMedalIcon, UserIcon } from "@/constants/icons";
-import { CustomDarkTheme } from "@/constants/theme";
+import { useRouter } from "expo-router";
 import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import { CreditIcon, UserIcon } from "@/constants/icons";
+import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
 
 const Row = ({ children }: { children: React.ReactNode }) => (
   <View style={styles.row}>{children}</View>
 );
 
 export default function AccountStatus() {
+  const { userCredit, user } = useAppSelector((state) => state.user);
+  const router = useRouter();
+
+  const goToCredits = () => {
+    router.push({
+      pathname: "/(zns)/general-settings",
+      params: {
+        source: "credits",
+      },
+    });
+  };
+
+  const goToHip = () => {
+    router.push({
+      pathname: "/(zns)/hip",
+    });
+  };
+
+  const goToBadges = () => {
+    router.push({
+      pathname: "/(zns)/badges",
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Row>
         {/* Your Credit */}
-        <TouchableOpacity style={styles.statusContainer}>
+        <TouchableOpacity style={styles.statusContainer} onPress={goToCredits}>
           <View style={styles.row}>
             <Text style={styles.label}>Your Credit</Text>
             <View style={styles.iconContainer}>
@@ -24,7 +50,7 @@ export default function AccountStatus() {
             </View>
           </View>
           <View style={styles.row}>
-            <Text style={styles.value}>0 Credits</Text>
+            <Text style={styles.value}>{userCredit} Credits</Text>
             <FontAwesome6
               name="chevron-right"
               size={13}
@@ -58,7 +84,7 @@ export default function AccountStatus() {
 
       <Row>
         {/* Badge earned */}
-        <TouchableOpacity style={styles.statusContainer}>
+        <TouchableOpacity style={styles.statusContainer} onPress={goToBadges}>
           <View style={styles.row}>
             <Text style={styles.label}>Badges earned</Text>
             <View style={styles.iconContainer}>
@@ -69,7 +95,9 @@ export default function AccountStatus() {
             </View>
           </View>
           <View style={styles.row}>
-            <Text style={styles.value}>0 badges</Text>
+            <Text style={styles.value}>
+              {(user?.badges ?? []).length} Badges
+            </Text>
             <FontAwesome6
               name="chevron-right"
               size={13}
@@ -79,7 +107,7 @@ export default function AccountStatus() {
         </TouchableOpacity>
 
         {/* HIP Protocol */}
-        <TouchableOpacity style={styles.statusContainer}>
+        <TouchableOpacity style={styles.statusContainer} onPress={goToHip}>
           <View style={styles.row}>
             <Text style={styles.label}>HIP Protocol</Text>
             <View style={styles.iconContainer}>

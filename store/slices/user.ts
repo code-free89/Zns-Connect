@@ -7,6 +7,11 @@ export type StoreUser =
   | (Omit<any, "dateJoined"> & { dateJoined?: string })
   | null;
 
+export type UserSession = {
+  id: string;
+  address: string;
+};
+
 type LoadingType =
   | "isLoadingUserStore"
   | "isLoadingCreditData"
@@ -22,7 +27,7 @@ export type UserConfigStoreType = {
   totalEarnings: string;
 };
 
-export type GiftCard = {
+export type GiftCardType = {
   id: string;
   credits: string;
 };
@@ -33,7 +38,7 @@ export interface UserStates {
   userPrimaryDomain?: RegisterDomainType;
   userDomainConfig?: UserConfigStoreType;
   userPrimaryDomainDB?: StoreProfile;
-  giftCards: GiftCard[];
+  giftCards: GiftCardType[];
   followerByUser: any[];
   followingByUser: any[];
   isLoadingUserStore: boolean;
@@ -43,6 +48,7 @@ export interface UserStates {
   isLoadingPrimaryDomainDB: boolean;
   isLoadingPrimaryDomainContract: boolean;
   followersOfUser: any[];
+  session?: UserSession;
 }
 
 const initialState: UserStates = {
@@ -66,6 +72,9 @@ export const userSlices = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUserSession: (state, action: PayloadAction<UserSession>) => {
+      state.session = action.payload;
+    },
     setStoreUser: (state, action: PayloadAction<StoreUser>) => {
       state.user = action.payload;
       state.isLoadingUserStore = false;
@@ -89,7 +98,7 @@ export const userSlices = createSlice({
       state.isLoadingPrimaryDomainDB = false;
     },
     //-----------------------------------------
-    setGiftCards: (state, action: PayloadAction<GiftCard[]>) => {
+    setGiftCards: (state, action: PayloadAction<GiftCardType[]>) => {
       state.giftCards = action.payload;
     },
     setFollowData: (
@@ -149,4 +158,5 @@ export const {
   setFollowersOfUser,
   setUserDomainInfo,
   setLoadingUser,
+  setUserSession,
 } = userSlices.actions;

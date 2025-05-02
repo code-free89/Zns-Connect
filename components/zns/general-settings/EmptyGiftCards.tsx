@@ -1,7 +1,6 @@
 import { Image, StyleSheet, View } from "react-native";
 
 import ZnsText from "@/components/ui/Text";
-import { CustomDarkTheme } from "@/constants/theme";
 
 export default function EmptyGiftCards() {
   return (
@@ -18,6 +17,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     gap: 12,
+    paddingBottom: 60,
   },
   title: {
     fontSize: 18,

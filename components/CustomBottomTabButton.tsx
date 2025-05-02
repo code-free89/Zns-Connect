@@ -1,7 +1,8 @@
 import { router, usePathname } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import ZnsText from "@/components/ui/Text";
 import {
   CartIcon,
   HomeIcon,
@@ -10,22 +11,18 @@ import {
   UserIcon,
 } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import ZnsText from "@/components/ui/Text";
+import { useAppSelector } from "@/store";
+
+type CustomBottomTabButtonProps = {
+  name: string;
+  href: any;
+  label: string;
+};
 
 const CustomBottomTabButton = forwardRef(
-  (
-    {
-      name,
-      href,
-      label,
-    }: {
-      name: string;
-      href: any;
-      label: string;
-    },
-    ref: any
-  ) => {
+  ({ name, href, label }: CustomBottomTabButtonProps, ref: any) => {
     const pathname = usePathname();
+    const { carts } = useAppSelector((state) => state.setting);
 
     return (
       <Pressable ref={ref} onPress={() => router.push(href)}>
@@ -59,13 +56,20 @@ const CustomBottomTabButton = forwardRef(
               />
             )}
             {name === "cart" && (
-              <CartIcon
-                color={
-                  pathname === href
-                    ? CustomDarkTheme.colors.p500
-                    : CustomDarkTheme.colors.body
-                }
-              />
+              <>
+                <CartIcon
+                  color={
+                    pathname === href
+                      ? CustomDarkTheme.colors.p500
+                      : CustomDarkTheme.colors.body
+                  }
+                />
+                {carts.length > 0 && (
+                  <View style={styles.badge}>
+                    <Text style={styles.badgeText}>{carts.length}</Text>
+                  </View>
+                )}
+              </>
             )}
             {name === "referrals" && (
               <UserAddIcon
@@ -104,5 +108,20 @@ const styles = StyleSheet.create({
   },
   activeLabel: {
     color: CustomDarkTheme.colors.p500,
+  },
+  badge: {
+    position: "absolute",
+    top: -5,
+    right: 5,
+    backgroundColor: CustomDarkTheme.colors.p500,
+    borderRadius: 100,
+    width: 14,
+    height: 14,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  badgeText: {
+    fontSize: 10,
+    color: "black",
   },
 });

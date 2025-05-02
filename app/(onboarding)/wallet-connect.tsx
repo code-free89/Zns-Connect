@@ -6,12 +6,19 @@ import { StyleSheet, View } from "react-native";
 import { useAccount } from "wagmi";
 
 import GetStartedModal from "@/components/zns/get-started/GetStartedModal";
+import OnboardingCarousel from "@/components/zns/onboarding/OnboardingCarousel";
 import { W3mButton } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
-// import AnimatedCarousel from "@/components/ui/AnimatedCarousel";
+import useScreenSize from "@/hooks/useScreenSize";
+import { getOrCreateUserIdByAddress } from "@/lib/api/user";
+import { useAppDispatch } from "@/store";
+import { setUserSession } from "@/store/slices/user";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function WalletConnectScreen() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { height, width } = useScreenSize();
   const { isConnected, address } = useAccount();
   const { walletInfo } = useWalletInfo();
   const [getStartedModalVisible, setGetStartedModalVisible] = useState(false);
@@ -23,12 +30,31 @@ export default function WalletConnectScreen() {
     };
 
     handleGetStartedStatus();
-  }, [isConnected]);
+
+    const handleGetOrCreateUserIdByAddress = async () => {
+      if (isConnected && address) {
+        const { data } = await getOrCreateUserIdByAddress(address);
+        const session = { id: data.id, address };
+        dispatch(setUserSession(session));
+      }
+    };
+
+    handleGetOrCreateUserIdByAddress();
+  }, [isConnected, address]);
 
   return (
     <View style={styles.container}>
-      {/* <AnimatedCarousel /> */}
-      {isConnected ? (
+      <LinearGradient
+        colors={["#0E1100", "#12060600"]}
+        style={[styles.gradient, { width: width, height: height }]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 1 }}
+        pointerEvents="none"
+      />
+      <View style={{ flex: 1, zIndex: 10 }}>
+        <OnboardingCarousel />
+      </View>
+      {isConnected && (
         <GetStartedModal
           isVisible={isConnected && getStartedModalVisible}
           walletAddress={address ?? ""}
@@ -39,7 +65,11 @@ export default function WalletConnectScreen() {
             router.replace("/(tabs)/home");
           }}
         />
-      ) : (
+      )}
+
+      <View
+        style={{ height: height / 10, minHeight: 50, paddingHorizontal: 16 }}
+      >
         <W3mButton
           connectStyle={{
             backgroundColor: CustomDarkTheme.colors.primary,
@@ -48,9 +78,12 @@ export default function WalletConnectScreen() {
             marginTop: "auto",
             marginBottom: 80,
           }}
+          accountStyle={{
+            backgroundColor: "red",
+          }}
           label="Connect Wallet"
         />
-      )}
+      </View>
     </View>
   );
 }
@@ -58,11 +91,13 @@ export default function WalletConnectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingVertical: 16,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  gradient: {
+    position: "absolute",
+    left: 0,
+    top: 1,
+    zIndex: 100,
+    opacity: 0.4,
   },
 });

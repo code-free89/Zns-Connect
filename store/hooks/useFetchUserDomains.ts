@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useAppDispatch } from "@/store";
-import { setUserDomainData, setLoading } from "@/store/slices/user-domains";
-import { useUserDomainData } from "@/lib/web3/hooks/useUserDomainData";
+import { useUserDomainData } from "@/hooks/web3/useUserDomainData";
 import useAuth from "@/lib/auth/useAuth";
+import { useAppDispatch } from "@/store";
+import { setLoading, setUserDomainData } from "@/store/slices/user-domains";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 
 export const useFetchUserDomain = () => {
   const dispatch = useAppDispatch();

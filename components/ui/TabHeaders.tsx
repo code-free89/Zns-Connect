@@ -2,12 +2,14 @@ import {
   ScrollView,
   StyleProp,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
   ViewStyle,
 } from "react-native";
 
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import ZnsText from "./Text";
 
 type TabHeadersProps = {
   selectedTab: string;
@@ -16,6 +18,7 @@ type TabHeadersProps = {
     value: string;
     onSelectTab: () => void;
   }[];
+  containerStyle?: StyleProp<ViewStyle>;
   tabStyle?: StyleProp<ViewStyle>;
   fullWidth?: boolean;
 };
@@ -24,35 +27,39 @@ export default function TabHeaders({
   selectedTab,
   tabs,
   tabStyle,
+  containerStyle,
   fullWidth = false,
 }: TabHeadersProps) {
   return (
-    <ScrollView
-      horizontal
-      contentContainerStyle={fullWidth && { width: "100%" }}
-    >
-      {tabs.map((tab) => (
-        <TouchableOpacity
-          style={[
-            styles.tab,
-            tabStyle,
-            selectedTab === tab.value && styles.selectedTab,
-            fullWidth && { width: `${100 / tabs.length}%` },
-          ]}
-          onPress={tab.onSelectTab}
-        >
-          <ZnsText
-            type="medium"
+    <View style={containerStyle}>
+      <ScrollView
+        horizontal
+        contentContainerStyle={fullWidth && { width: "100%" }}
+      >
+        {tabs.map((tab) => (
+          <TouchableOpacity
+            key={tab.value}
             style={[
-              styles.tabText,
-              selectedTab === tab.value && styles.selectedTabText,
+              styles.tab,
+              tabStyle,
+              selectedTab === tab.value && styles.selectedTab,
+              fullWidth && { width: `${100 / tabs.length}%` },
             ]}
+            onPress={tab.onSelectTab}
           >
-            {tab.label}
-          </ZnsText>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
+            <Text
+              style={[
+                fontStyles["Poppins-Medium"],
+                styles.tabText,
+                selectedTab === tab.value && styles.selectedTabText,
+              ]}
+            >
+              {tab.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 

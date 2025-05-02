@@ -1,4 +1,3 @@
-"use client";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { useDispatch, useSelector, useStore } from "react-redux";
 
@@ -11,7 +10,7 @@ import {
   REHYDRATE,
   persistReducer,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { settingSlice } from "./slices/setting";
 import { cartSlices } from "./slices/cart";
@@ -31,7 +30,7 @@ const persistConfig = {
   key: "primary",
   whitelist: PERSISTED_KEYS,
   blacklist: ["profile"],
-  storage,
+  storage: AsyncStorage,
   version: 1,
 };
 

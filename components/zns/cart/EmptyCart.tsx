@@ -8,8 +8,6 @@ export default function EmptyCart() {
     <View style={styles.container}>
       <Image
         source={require("@/assets/images/icons/empty.png")}
-        width={73}
-        height={77}
         style={{ width: 73, height: 77 }}
       />
       <Text style={styles.title}>Your cart is empty</Text>

@@ -1,34 +1,58 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { useMemo } from "react";
+import { Pressable, StyleSheet, Text } from "react-native";
 
-import { domainColors } from "@/constants/Colors";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getChainColor } from "@/constants/web3/chains";
+import useFavourite from "@/hooks/useFavourite";
+import { useTLD } from "@/hooks/web3/useTLD";
+import { RecentDomainType } from "@/store/slices/recents";
+import { formatPrice } from "@/utils/formatter";
+import { fontStyles } from "@/constants/fonts";
 
-interface MintItemProps {
-  name: string;
-  type: string;
-  price: string;
-}
+export default function MintItem({
+  chainId,
+  domainName,
+  price,
+  symbol,
+}: RecentDomainType) {
+  const tld = useTLD(chainId);
+  const fullDomain = useMemo(() => `${domainName}.${tld}`, [domainName, tld]);
+  const domainData = useMemo(
+    () => ({ domainName, chainId }),
+    [domainName, chainId]
+  );
+  const { isFavourite, onFavourite } = useFavourite(domainData);
+  const chainColor = useMemo(() => getChainColor(chainId), [chainId]);
 
-export default function MintItem({ name, type, price }: MintItemProps) {
+  const goToDomainProfile = () => {
+    router.push({
+      pathname: `/(tabs)/profile`,
+      params: {
+        domain: fullDomain,
+      },
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <AntDesign
-        name="hearto"
-        size={18}
-        color={CustomDarkTheme.colors.primary}
-      />
-      <Text style={styles.name}>
-        {name}
-        <Text
-          style={{ color: domainColors[type as keyof typeof domainColors] }}
-        >
-          .{type}
-        </Text>
+    <Pressable style={styles.container} onPress={goToDomainProfile}>
+      <Pressable onPress={onFavourite}>
+        <AntDesign
+          name={isFavourite ? "heart" : "hearto"}
+          size={18}
+          color={CustomDarkTheme.colors.primary}
+        />
+      </Pressable>
+      <Text style={[fontStyles["Poppins-Medium"], styles.name]}>
+        {domainName}
+        <Text style={{ color: chainColor }}>.{tld}</Text>
       </Text>
-      <Text style={styles.price}>{price}</Text>
+      <Text style={[fontStyles["Poppins-SemiBold"], styles.price]}>
+        {`${formatPrice(Number(price))} ${symbol}`}
+      </Text>
       <AntDesign name="right" size={13} color={CustomDarkTheme.colors.p500} />
-    </View>
+    </Pressable>
   );
 }
 
@@ -43,13 +67,11 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    fontWeight: 500,
     color: "white",
   },
   price: {
     flex: 1,
     fontSize: 14,
-    fontWeight: 600,
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "right",
   },

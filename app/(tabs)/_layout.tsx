@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { Tabs } from "expo-router";
 import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
 import React, { useEffect, useState } from "react";
 
@@ -29,7 +28,7 @@ export default function TabsLayout() {
           setReferralCodeModalVisible(false);
         }}
       />
-      <Tabs>
+      <Tabs options={{ unmountOnBlur: true }}>
         <TabSlot />
         <TabList
           style={{
@@ -57,7 +56,7 @@ export default function TabsLayout() {
             />
           </TabTrigger>
           <TabTrigger name="cart" href="/cart" asChild>
-            <CustomBottomTabButton name="cart" href="/cart" label="Cart" />
+            <CustomBottomTabButton name="cart" href="/cart" label="My Cart" />
           </TabTrigger>
           <TabTrigger name="referrals" href="/referrals" asChild>
             <CustomBottomTabButton

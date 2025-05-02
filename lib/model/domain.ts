@@ -1,6 +1,6 @@
-import { NETWORKS } from "@/config/chains";
-import { UserConfigStoreType } from "../store/slices/user";
-import { Domain as PrismaDomain } from "@prisma/client";
+import { NETWORKS } from "@/constants/web3/chains";
+import { UserConfigStoreType } from "@/store/slices/user";
+
 export interface Domain {
   domainName: string;
   chainId: NETWORKS;
@@ -50,17 +50,28 @@ export function convertUserDomainConfig(config: {
   };
 }
 
-export type ProfileAccountsType = Partial<
-  Pick<
-    PrismaDomain,
-    | "wrapcast"
-    | "twitter"
-    | "discord"
-    | "linkedin"
-    | "telegram"
-    | "website"
-    | "application"
-    | "medium"
-    | "mirror"
-  >
->;
+// export type ProfileAccountsType = Partial<
+//   Pick<
+//     PrismaDomain,
+//     | "wrapcast"
+//     | "twitter"
+//     | "discord"
+//     | "linkedin"
+//     | "telegram"
+//     | "website"
+//     | "application"
+//     | "medium"
+//     | "mirror"
+//   >
+// >;
+
+export type AvailableDomainType = {
+  chain: number;
+  color: string;
+  domain: string;
+  icon: number;
+  id: string;
+  label: string;
+  status: boolean;
+  tld: string;
+};

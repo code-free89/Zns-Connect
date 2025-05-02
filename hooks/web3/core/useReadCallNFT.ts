@@ -25,8 +25,6 @@ export const useReadCallNFTContract = () => {
     };
 
     const client = viemClients[chains[nft_type as keyof typeof chains]];
-    console.log(chains[nft_type as keyof typeof chains]);
-    console.log(_call, client);
     return await client.readContract(_call);
   }, []);
 

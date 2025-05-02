@@ -1,36 +1,36 @@
 import { useCallback } from "react";
 import { useAccount } from "wagmi";
 import { useQueryClient } from "@tanstack/react-query";
-import useAuth from "@/lib/auth/useAuth";
+// import useAuth from "@/lib/auth/useAuth";
 
 export const useInvalidateQuery = () => {
   const queryClient = useQueryClient();
-  const { user } = useAuth();
-  const { chainId } = useAccount();
+  // const { user } = useAuth();
+  const { chainId, address } = useAccount();
 
   const invalidateCredit = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ["userCredit", user?.address, chainId],
+      queryKey: ["userCredit", address, chainId],
     });
-  }, [queryClient, user, chainId]);
+  }, [queryClient, chainId]);
 
   const invalidateUserPDomain = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ["userPrimaryDomain", user?.address, chainId],
+      queryKey: ["userPrimaryDomain", address, chainId],
     });
-  }, [queryClient, user, chainId]);
+  }, [queryClient, chainId]);
 
   const invalidateUserStore = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ["currentUserStore", user?.address],
+      queryKey: ["currentUserStore", address],
     });
-  }, [queryClient, user]);
+  }, [queryClient]);
 
   const invalidateUserDomains = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: ["publicUserDomainData", user?.address],
+      queryKey: ["publicUserDomainData", address],
     });
-  }, [queryClient, user]);
+  }, [queryClient]);
 
   return {
     invalidateCredit,

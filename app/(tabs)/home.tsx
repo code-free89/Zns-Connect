@@ -1,15 +1,12 @@
-import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { useAccount, useBalance } from "wagmi";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import SplitLine from "@/components/ui/SplitLine";
-import AccountDomains from "@/components/zns/home/AccountDomains";
 import AccountInfo from "@/components/zns/home/AccountInfo";
 import AccountStatus from "@/components/zns/home/AccountStatus";
 import ActionButtons from "@/components/zns/home/ActionButtons";
 import NetworkSelect from "@/components/zns/home/NetworkSelect";
-import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
 
 export default function HomeScreen() {
   const account = useAccount();
