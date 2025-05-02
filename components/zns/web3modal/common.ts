@@ -19,7 +19,7 @@ import {
   monadTestnet,
 } from "viem/chains";
 
-const projectId = process.env.EXPO_PUBLIC_WALLETCONNECT_CLOUD_PROJECT_ID;
+const projectId = process.env.EXPO_PUBLIC_WALLETCONNECT_CLOUD_PROJECT_ID!;
 
 const metadata = {
   name: "ZNS Connect",

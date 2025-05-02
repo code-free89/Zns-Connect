@@ -1,28 +1,30 @@
 import { CustomDarkTheme } from "@/constants/theme";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { CategoryDataType } from "@/components/zns/register/DomainCategorySelector";
 
 interface DomainCategoryProps {
-  icon: any;
-  name: string;
-  value: string;
+  category: CategoryDataType;
   selected: boolean;
-  onPress: (type: string) => void;
+  onPress: (category: CategoryDataType) => void;
 }
 
 export default function DomainCategory({
-  icon,
-  name,
-  value,
+  category,
   selected,
   onPress,
 }: DomainCategoryProps) {
   return (
     <TouchableOpacity
       style={[styles.container, selected && styles.selected]}
-      onPress={() => onPress(value)}
+      onPress={() => onPress(category)}
     >
-      <Image source={icon} width={19} height={19} style={styles.icon} />
-      <Text style={styles.name}>{name}</Text>
+      <Image
+        source={category.banner}
+        width={19}
+        height={19}
+        style={styles.icon}
+      />
+      <Text style={styles.name}>{category.name}</Text>
     </TouchableOpacity>
   );
 }

@@ -7,6 +7,11 @@ export type StoreUser =
   | (Omit<any, "dateJoined"> & { dateJoined?: string })
   | null;
 
+export type UserSession = {
+  id: string;
+  address: string;
+};
+
 type LoadingType =
   | "isLoadingUserStore"
   | "isLoadingCreditData"
@@ -43,6 +48,7 @@ export interface UserStates {
   isLoadingPrimaryDomainDB: boolean;
   isLoadingPrimaryDomainContract: boolean;
   followersOfUser: any[];
+  session?: UserSession;
 }
 
 const initialState: UserStates = {
@@ -66,6 +72,9 @@ export const userSlices = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUserSession: (state, action: PayloadAction<UserSession>) => {
+      state.session = action.payload;
+    },
     setStoreUser: (state, action: PayloadAction<StoreUser>) => {
       state.user = action.payload;
       state.isLoadingUserStore = false;
@@ -149,4 +158,5 @@ export const {
   setFollowersOfUser,
   setUserDomainInfo,
   setLoadingUser,
+  setUserSession,
 } = userSlices.actions;

@@ -5,7 +5,6 @@ import { useAppSelector } from "@/store";
 
 export default function BackDropModal() {
   const { isBlurModalVisible } = useAppSelector((state) => state.setting);
-  console.log("isBlurModalVisible", isBlurModalVisible);
 
   return isBlurModalVisible ? (
     <BlurView intensity={90} tint="dark" style={styles.blurContainer} />

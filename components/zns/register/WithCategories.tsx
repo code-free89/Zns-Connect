@@ -1,37 +1,52 @@
-import { useState } from "react";
-import { Dimensions, FlatList, StyleSheet, View } from "react-native";
 import ZnsText from "@/components/ui/Text";
+import { useCallback, useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 
-import DomainCategory from "@/components/zns/DomainCategory";
-import GradientSlider from "@/components/zns/GradientSlider";
+import DomainCategorySelector, {
+  CategoryDataType,
+} from "@/components/zns/register/DomainCategorySelector";
+import GeneratedDomains from "@/components/zns/register/GeneratedDomains";
+import RecentlyMinted from "@/components/zns/register/RecentlyMinted";
 import { CustomDarkTheme } from "@/constants/theme";
-import RecentlyMinted from "./RecentlyMinted";
-
-const DOMAIN_CATEGORIES = [
-  {
-    icon: require("@/assets/images/app/categories/dictionary.png"),
-    name: "Crypto Slang",
-    value: "cryptoSlang",
-  },
-  {
-    icon: require("@/assets/images/app/categories/dictionary.png"),
-    name: "Powerful Keywords",
-    value: "powerfulKeywords",
-  },
-  {
-    icon: require("@/assets/images/app/categories/dictionary.png"),
-    name: "Powerful keywords New",
-    value: "powerfulKeywordsNew",
-  },
-];
+import { useCategoryAIDomains } from "@/hooks/useCategoryAIDomains";
+import { showErrorToast } from "@/utils/toast";
 
 const MAX_LETTERS = 24;
 
 export default function WithCategories() {
-  const [selectedCategory, setSelectedCategory] = useState(
-    DOMAIN_CATEGORIES[0].value
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryDataType | null>(null);
+  const [lettersToGenerate, setLettersToGenerate] = useState(4);
+  const {
+    isLoading: isGeneratingDomains,
+    error,
+    domains: generatedDomains,
+  } = useCategoryAIDomains({
+    category: selectedCategory,
+    count: 5,
+    lettersToGenerate:
+      selectedCategory?.key === "4-letter-english" ? 4 : lettersToGenerate,
+  });
+
+  const onSelectCategory = useCallback(
+    (category: CategoryDataType) => {
+      if (!isGeneratingDomains) {
+        setSelectedCategory(category);
+        // const urlParams = new URLSearchParams(searchParams);
+        // urlParams.set("category", category.key);
+        // router.push(`${pathname}?${urlParams}`, {
+        //   scroll: false,
+        // });
+      }
+    },
+    [isGeneratingDomains]
   );
-  const [numberOfLetters, setNumberOfLetters] = useState(4);
+
+  useEffect(() => {
+    if (error) {
+      showErrorToast(error);
+    }
+  }, [error]);
 
   return (
     <View style={styles.container}>
@@ -39,27 +54,20 @@ export default function WithCategories() {
         <ZnsText type="medium" style={styles.headerText}>
           Categories
         </ZnsText>
-        <ZnsText type="regular" style={styles.generateText}>
-          Re-generate
-        </ZnsText>
+        {selectedCategory && (
+          <ZnsText
+            type="regular"
+            style={styles.generateText}
+            onPress={() => setSelectedCategory({ ...selectedCategory })}
+          >
+            Re-generate
+          </ZnsText>
+        )}
       </View>
 
-      <FlatList
-        data={DOMAIN_CATEGORIES}
-        renderItem={({ item }) => (
-          <DomainCategory
-            key={item.name}
-            icon={item.icon}
-            name={item.name}
-            value={item.value}
-            selected={selectedCategory === item.value}
-            onPress={() => setSelectedCategory(item.value)}
-          />
-        )}
-        keyExtractor={(item) => item.name}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 14 }}
+      <DomainCategorySelector
+        selectedCategory={selectedCategory}
+        setSelectedCategory={onSelectCategory}
       />
 
       <View style={styles.numberOfLettersContainer}>
@@ -68,17 +76,22 @@ export default function WithCategories() {
             Number of letters to generate
           </ZnsText>
           <ZnsText type="semiBold" style={styles.progressText}>
-            {numberOfLetters}/{MAX_LETTERS}
+            {lettersToGenerate}/{MAX_LETTERS}
           </ZnsText>
         </View>
 
-        <GradientSlider
+        {/* <GradientSlider
           initialValue={4}
           width={Dimensions.get("window").width - 54}
           max={MAX_LETTERS}
           padding={27}
-        />
+        /> */}
       </View>
+
+      <GeneratedDomains
+        generatedDomains={generatedDomains}
+        isGeneratingDomains={isGeneratingDomains}
+      />
 
       <RecentlyMinted />
     </View>

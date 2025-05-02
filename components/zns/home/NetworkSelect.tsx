@@ -3,15 +3,14 @@ import { StyleSheet, View } from "react-native";
 import { useAccount, useSwitchChain } from "wagmi";
 
 import ZnsDropdown from "@/components/ui/Dropdown";
-import { chains } from "@/components/zns/web3modal/common";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getChainIcon } from "@/constants/web3/chains";
+import { CHAINS, getChainIcon } from "@/constants/web3/chains";
 import { showErrorToast } from "@/utils/toast";
 
-const NetworkItems = chains.map((chain) => ({
+const NetworkItems = CHAINS.map((chain) => ({
   label: chain.name,
   value: chain.id.toString(),
-  icon: getChainIcon(chain.id),
+  icon: chain.icon,
 }));
 
 export default function NetworkSelect() {

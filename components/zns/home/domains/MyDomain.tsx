@@ -56,7 +56,7 @@ export const MyDomain = () => {
           onClose={() => setIsDomainInfoModalVisible(false)}
         />
       )}
-      {domains.length ? (
+      {/* {domains.length ? (
         domains.map((domain, index) => (
           <DomainItem
             key={index}
@@ -70,7 +70,8 @@ export const MyDomain = () => {
         ))
       ) : (
         <NoDomain />
-      )}
+      )} */}
+      <NoDomain />
     </View>
   );
 };

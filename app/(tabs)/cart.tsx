@@ -1,32 +1,71 @@
-import { Image, StyleSheet, View } from "react-native";
+import { router } from "expo-router";
+import LottieView from "lottie-react-native";
+import React, { useRef, useState } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
-import ZnsScrollView from "@/components/ui/ScrollView";
-import EmptyCart from "@/components/zns/cart/EmptyCart";
 import CartItemList from "@/components/zns/cart/CartItemList";
 import CheckoutModal from "@/components/zns/cart/CheckoutModal";
-import { useState } from "react";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import { CartProvider } from "@/lib/providers/CartProvider";
 
 export default function CartScreen() {
+  const animation = useRef<LottieView>(null);
   const [isCheckoutModalVisible, setIsCheckoutModalVisible] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   return (
-    // <ZnsScrollView>
-    <View style={styles.container}>
-      {/* <EmptyCart /> */}
-      <CartItemList onCheckout={() => setIsCheckoutModalVisible(true)} />
-      <CheckoutModal
-        isVisible={isCheckoutModalVisible}
-        onClose={() => setIsCheckoutModalVisible(false)}
-      />
-    </View>
-    // </ZnsScrollView>
+    <>
+      <CartProvider />
+      <View style={styles.pageTitle}>
+        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+          My Cart
+        </Text>
+      </View>
+      <View style={{ flex: 1, padding: 16 }}>
+        <CartItemList onCheckout={() => setIsCheckoutModalVisible(true)} />
+        <CheckoutModal
+          isVisible={isCheckoutModalVisible}
+          onClose={(isSuccess) => {
+            setIsCheckoutModalVisible(false);
+            if (isSuccess) {
+              setIsSuccess(true);
+              animation.current?.play();
+              setTimeout(() => {
+                router.push("/(tabs)/home");
+              }, 1000);
+            }
+          }}
+        />
+        {isSuccess && (
+          <LottieView
+            autoPlay
+            ref={animation}
+            style={{
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").height,
+              backgroundColor: "transparent",
+              position: "absolute",
+              top: 0,
+            }}
+            // Find more Lottie files at https://lottiefiles.com/featured
+            source={require("@/assets/animations/congratulations.json")}
+          />
+        )}
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 16,
-    flexDirection: "column",
-    gap: 20,
+  pageTitle: {
+    height: 42,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    color: CustomDarkTheme.colors.txtColor,
   },
 });

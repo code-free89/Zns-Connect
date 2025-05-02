@@ -1,10 +1,15 @@
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
+import GenerateWithAI from "@/components/zns/register/GenerateWithAI";
 import RegisterTypeSelect from "@/components/zns/register/RegisterTypeSelect";
 import SmartSearch from "@/components/zns/register/SmartSearch";
 import WithCategories from "@/components/zns/register/WithCategories";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import DomainProvider from "@/lib/providers/DomainProvider";
+
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
 export default function RegisterScreen() {
@@ -12,18 +17,39 @@ export default function RegisterScreen() {
     useState<DomainRegisterType>("smartSearch");
 
   return (
-    <ZnsScrollView>
-      <RegisterTypeSelect
-        selectedType={selectedType}
-        setSelectedType={setSelectedType}
-      />
-
-      <View style={{ marginTop: 24 }}>
-        {selectedType === "smartSearch" && <SmartSearch />}
-        {selectedType === "withCategories" && <WithCategories />}
+    <>
+      <View style={styles.pageTitle}>
+        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+          Register a domain
+        </Text>
       </View>
-    </ZnsScrollView>
+      <ZnsScrollView>
+        <DomainProvider />
+
+        <RegisterTypeSelect
+          selectedType={selectedType}
+          setSelectedType={setSelectedType}
+        />
+
+        <View style={{ marginTop: 24 }}>
+          {selectedType === "smartSearch" && <SmartSearch />}
+          {selectedType === "withCategories" && <WithCategories />}
+          {selectedType === "generateWithAI" && <GenerateWithAI />}
+        </View>
+      </ZnsScrollView>
+    </>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  pageTitle: {
+    height: 42,
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    color: CustomDarkTheme.colors.txtColor,
+  },
+});

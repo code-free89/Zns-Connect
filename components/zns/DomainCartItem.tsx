@@ -1,16 +1,21 @@
-import { StyleSheet, View, Text } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
+import { StyleSheet, Text, View } from "react-native";
 
-import { domainColors } from "@/constants/Colors";
+import SplitLine from "@/components/ui/SplitLine";
+import DomainPrice from "@/components/zns/DomainPrice";
+import DomainText from "@/components/zns/DomainText";
 import { CustomDarkTheme } from "@/constants/theme";
-import SplitLine from "../ui/SplitLine";
-
+import { useAppDispatch } from "@/store";
+import {
+  CartDomainType,
+  handleCartDomainPeriod,
+  removeCartDomain,
+} from "@/store/slices/cart";
+import { cartDomain, handleDomainPeriod } from "@/store/slices/setting";
+import { useState } from "react";
+import RemoveCartModal from "./cart/RemoveCartModal";
 interface DomainCartItemProps {
-  name: string;
-  type: string;
-  price: number;
-  isAvailable: boolean;
-  onRemove: () => void;
+  data: CartDomainType;
 }
 
 const AvailableBadge = ({ isAvailable }: { isAvailable: boolean }) => {
@@ -25,48 +30,79 @@ const AvailableBadge = ({ isAvailable }: { isAvailable: boolean }) => {
   );
 };
 
-const QuantitySelector = () => {
+const QuantitySelector = ({
+  year,
+  onPress,
+}: {
+  year: number;
+  onPress: (isAdd: boolean, amount?: number) => void;
+}) => {
   return (
     <View style={styles.quantitySelector}>
-      <Feather name="minus" size={12} color="white" />
+      <Feather
+        name="minus"
+        size={12}
+        color="white"
+        onPress={() => onPress(false)}
+      />
       <View style={styles.quantityInput}>
         <Text style={styles.quantity}>
-          1<Text style={styles.quantityUnit}> Y</Text>
+          {year}
+          <Text style={styles.quantityUnit}> Y</Text>
         </Text>
       </View>
-      <Feather name="plus" size={12} color="white" />
+      <Feather
+        name="plus"
+        size={12}
+        color="white"
+        onPress={() => onPress(true)}
+      />
     </View>
   );
 };
 
-export default function DomainCartItem({
-  name,
-  type,
-  price,
-  isAvailable,
-  onRemove,
-}: DomainCartItemProps) {
+export default function DomainCartItem({ data }: DomainCartItemProps) {
+  const { id: domainId, price, domainName, chainId, year, symbol } = data;
+  const dispatch = useAppDispatch();
+  const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
+
+  const handlePeriod = (isAdd: boolean, amount?: number) => {
+    dispatch(handleDomainPeriod({ ...data, isAdd, updateAmount: amount }));
+    dispatch(handleCartDomainPeriod({ ...data, isAdd, updateAmount: amount }));
+  };
+
+  const removeItem = () => {
+    dispatch(cartDomain(data));
+    dispatch(removeCartDomain(data));
+    setIsRemoveModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.domainContainer}>
-        <Text style={styles.domain}>
-          {name}
-          <Text
-            style={{ color: domainColors[type as keyof typeof domainColors] }}
-          >
-            .{type}
-          </Text>
-        </Text>
-        <Text style={styles.price}>${price}</Text>
+        <DomainText domainName={domainName} chainId={chainId} />
+        <DomainPrice price={price} symbol={symbol} />
+        {/* <Text style={styles.price}>${price}</Text> */}
       </View>
 
-      <QuantitySelector />
+      <QuantitySelector year={year} onPress={handlePeriod} />
 
-      <AvailableBadge isAvailable={isAvailable} />
+      <AvailableBadge isAvailable={Number(domainId) === 0} />
 
       <SplitLine direction="vertical" />
 
-      <Feather name="trash-2" size={14} color={"#FF4444"} onPress={onRemove} />
+      <Feather
+        name="trash-2"
+        size={14}
+        color={"#FF4444"}
+        onPress={() => setIsRemoveModalVisible(true)}
+      />
+
+      <RemoveCartModal
+        isVisible={isRemoveModalVisible}
+        onClose={() => setIsRemoveModalVisible(false)}
+        onSubmit={removeItem}
+      />
     </View>
   );
 }
@@ -83,6 +119,7 @@ const styles = StyleSheet.create({
   },
   domainContainer: {
     flexDirection: "column",
+    alignItems: "flex-start",
   },
   domain: {
     fontSize: 14,

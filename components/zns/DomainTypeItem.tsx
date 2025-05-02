@@ -1,26 +1,35 @@
+import { useMemo } from "react";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
+
 import { CustomDarkTheme } from "@/constants/theme";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { CHAINS, NETWORKS } from "@/constants/web3/chains";
+import { tlds } from "@/constants/web3/tlds";
 
 interface DomainTypeItemProps {
-  icon: React.ReactNode;
-  name: string;
+  chainId: NETWORKS;
   isSelected: boolean;
   onPress: () => void;
 }
 
 export default function DomainTypeItem({
-  icon,
-  name,
+  chainId,
   isSelected,
   onPress,
 }: DomainTypeItemProps) {
+  const url = useMemo(
+    () => CHAINS.find((c) => c.id === chainId)?.icon ?? "",
+    [chainId]
+  );
+
   return (
     <TouchableOpacity
       style={[styles.container, isSelected && styles.selectedContainer]}
       onPress={onPress}
     >
-      {icon}
-      <Text style={styles.name}>.{name}</Text>
+      <Image source={url as any} style={styles.icon} />
+      <Text style={styles.name}>
+        .{tlds.find((tld) => tld.chainId === chainId)?.label ?? ""}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -28,16 +37,15 @@ export default function DomainTypeItem({
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#26262666",
     borderRadius: 12,
-    width: 87,
     height: 38,
     paddingLeft: 12,
     paddingRight: 19,
     borderWidth: 1,
     borderColor: "transparent",
+    gap: 8,
   },
   selectedContainer: {
     borderColor: CustomDarkTheme.colors.textPrimary,
@@ -46,5 +54,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     color: CustomDarkTheme.colors.txtColor,
+  },
+  icon: {
+    width: 17,
+    height: 17,
+    borderRadius: 9999,
   },
 });

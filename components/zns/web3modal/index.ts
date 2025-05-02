@@ -5,11 +5,15 @@ import {
   W3mButton,
   Web3Modal,
 } from "@web3modal/wagmi-react-native";
+import { ink } from "viem/chains";
 import { chains, metadata, projectId } from "./common";
-import { bsc } from "viem/chains";
 
 // Create Wagmi config
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+const wagmiConfig = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata,
+});
 
 // Init Web3Modal RN SDK
 createWeb3Modal({
@@ -17,7 +21,7 @@ createWeb3Modal({
   chains,
   wagmiConfig,
   themeMode: "dark",
-  defaultChain: bsc,
+  defaultChain: ink,
   includeWalletIds: [
     "c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96", // MetaMask
     "a797aa35c0fadbfc1a53e7f675162ed5226968b44a19ee3d24385c64d1d3c393", // Phantom
@@ -31,4 +35,4 @@ createWeb3Modal({
 });
 
 // Re-export components
-export { wagmiConfig, useWeb3Modal, W3mButton, Web3Modal };
+export { useWeb3Modal, W3mButton, wagmiConfig, Web3Modal };

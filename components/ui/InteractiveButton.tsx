@@ -16,6 +16,7 @@ interface InteractiveButtonProps extends TouchableOpacityProps {
   requiredChain?: number;
   keepContent?: boolean;
   children?: React.ReactNode;
+  error?: { isError: boolean; text: string };
 }
 
 export default function InteractiveButton({
@@ -23,6 +24,7 @@ export default function InteractiveButton({
   requiredChain,
   keepContent,
   children,
+  error,
   ...props
 }: InteractiveButtonProps) {
   const { chainId, address } = useAccount();
@@ -51,11 +53,21 @@ export default function InteractiveButton({
 
   if (requiredChain && requiredChain !== chainId) {
     return (
-      <Button {...props} onPress={handleSwitchNetwork}>
-        {keepContent ? children : "Switch Network"}
+      <Button
+        {...props}
+        title={keepContent ? undefined : "Switch Network"}
+        onPress={handleSwitchNetwork}
+      >
+        {keepContent && children}
       </Button>
     );
   }
 
-  return <Button {...props} />;
+  if (error?.isError) {
+    return (
+      <Button variant="secondary" {...props} title={error.text} disabled />
+    );
+  }
+
+  return <Button {...props}>{keepContent && children}</Button>;
 }

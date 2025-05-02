@@ -6,11 +6,13 @@ import Modal from "react-native-modal";
 interface RemoveCartModalProps {
   isVisible: boolean;
   onClose: () => void;
+  onSubmit: () => void;
 }
 
 export default function RemoveCartModal({
   isVisible,
   onClose,
+  onSubmit,
 }: RemoveCartModalProps) {
   return (
     <Modal isVisible={isVisible}>
@@ -28,7 +30,7 @@ export default function RemoveCartModal({
             title="Remove"
             style={{ flex: 1 }}
             textStyle={styles.errorText}
-            onPress={onClose}
+            onPress={onSubmit}
           />
         </View>
       </View>

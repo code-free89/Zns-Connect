@@ -1,8 +1,9 @@
 import { useCallback, useMemo } from "react";
-import { CONTRACT_DATA } from "@/constants/web3/contracts";
-import { viemClients } from "@/utils/viem";
+
 import { mainnets, NETWORKS } from "@/constants/web3/chains";
+import { CONTRACT_DATA } from "@/constants/web3/contracts";
 import { UseContractType } from "@/hooks/web3/core/type";
+import { viemClients } from "@/utils/viem";
 
 export type ReturnContractType<T> = {
   chainId: NETWORKS;

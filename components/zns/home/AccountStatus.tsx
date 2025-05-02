@@ -14,7 +14,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function AccountStatus() {
-  const { userCredit } = useAppSelector((state) => state.user);
+  const { userCredit, user } = useAppSelector((state) => state.user);
   const router = useRouter();
 
   const goToCredits = () => {
@@ -23,6 +23,18 @@ export default function AccountStatus() {
       params: {
         source: "credits",
       },
+    });
+  };
+
+  const goToHip = () => {
+    router.push({
+      pathname: "/(zns)/hip",
+    });
+  };
+
+  const goToBadges = () => {
+    router.push({
+      pathname: "/(zns)/badges",
     });
   };
 
@@ -72,7 +84,7 @@ export default function AccountStatus() {
 
       <Row>
         {/* Badge earned */}
-        <TouchableOpacity style={styles.statusContainer}>
+        <TouchableOpacity style={styles.statusContainer} onPress={goToBadges}>
           <View style={styles.row}>
             <Text style={styles.label}>Badges earned</Text>
             <View style={styles.iconContainer}>
@@ -83,7 +95,9 @@ export default function AccountStatus() {
             </View>
           </View>
           <View style={styles.row}>
-            <Text style={styles.value}>0 badges</Text>
+            <Text style={styles.value}>
+              {(user?.badges ?? []).length} Badges
+            </Text>
             <FontAwesome6
               name="chevron-right"
               size={13}
@@ -93,7 +107,7 @@ export default function AccountStatus() {
         </TouchableOpacity>
 
         {/* HIP Protocol */}
-        <TouchableOpacity style={styles.statusContainer}>
+        <TouchableOpacity style={styles.statusContainer} onPress={goToHip}>
           <View style={styles.row}>
             <Text style={styles.label}>HIP Protocol</Text>
             <View style={styles.iconContainer}>

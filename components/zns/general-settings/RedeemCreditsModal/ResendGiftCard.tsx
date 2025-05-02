@@ -69,7 +69,6 @@ export default function ResendGiftCardSection({
         loading={isTransferProcessing}
         textStyle={{ fontSize: 14, color: CustomDarkTheme.colors.p950 }}
         onPress={handleSubmit(onTransferGiftCard)}
-        // onPress={() => console.log("abc")}
       />
     </View>
   );

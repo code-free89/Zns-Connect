@@ -1,6 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { CartedDomain, FavouritedDomain, Domain } from "@/lib/model/domain";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { CartedDomain, Domain, FavouritedDomain } from "@/lib/model/domain";
 
 export interface SettingState {
   isInited: boolean; // if isInited is false, it means non-initedStats. Otherwise, it force updaters using carts after change.
@@ -44,7 +46,7 @@ export const settingSlice = createSlice({
         _favourites = [...state.favourites, data];
       }
 
-      localStorage.setItem("favorites", JSON.stringify(_favourites));
+      AsyncStorage.setItem("favorites", JSON.stringify(_favourites));
       state.favourites = _favourites;
     },
 
@@ -70,7 +72,7 @@ export const settingSlice = createSlice({
         _carts = [...state.carts, { ...data, year: 1 }];
       }
 
-      localStorage.setItem("carts", JSON.stringify(_carts));
+      AsyncStorage.setItem("carts", JSON.stringify(_carts));
       state.carts = _carts;
     },
     cartDomains: (state, action: PayloadAction<Domain[]>) => {
@@ -90,7 +92,7 @@ export const settingSlice = createSlice({
         }
       });
 
-      localStorage.setItem("carts", JSON.stringify(_carts));
+      AsyncStorage.setItem("carts", JSON.stringify(_carts));
       state.carts = _carts;
     },
 
@@ -115,7 +117,7 @@ export const settingSlice = createSlice({
         } else return item;
       });
 
-      localStorage.setItem("carts", JSON.stringify(_carts));
+      AsyncStorage.setItem("carts", JSON.stringify(_carts));
       state.carts = _carts;
     },
     setPurchased: (state, action: PayloadAction<Partial<boolean>>) => {

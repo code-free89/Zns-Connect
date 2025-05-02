@@ -1,60 +1,98 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  FlatList,
-} from "react-native";
-import DomainItem from "./DomainItem";
-import DomainTypeItem from "./DomainTypeItem";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { FlatList, StyleSheet, Text } from "react-native";
 
-const domainItems = [
-  {
-    icon: (
-      <Image
-        source={require("@/assets/images/icon.png")}
-        style={{ width: 17, height: 17 }}
-      />
-    ),
-    name: "poly",
-  },
-  {
-    icon: (
-      <Image
-        source={require("@/assets/images/icon.png")}
-        style={{ width: 17, height: 17 }}
-      />
-    ),
-    name: "cz",
-  },
-];
+import DomainTypeItem from "@/components/zns/DomainTypeItem";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import { CHAIN_IDS, mainnets, NETWORKS } from "@/constants/web3/chains";
 
-export default function DomainTypeSelect() {
-  const [selectedDomainType, setSelectedDomainType] = useState(domainItems[0]);
+type DomainTypeSelectProps = {
+  chains?: NETWORKS[];
+  chainData?: { chainId: NETWORKS; data: number | string }[];
+  value?: NETWORKS;
+  onSelect?: (chainId: NETWORKS) => void;
+  onNetworkSelect?: (network: "mainnet" | "testnet", inside: boolean) => void;
+  noNetworkFilter?: boolean;
+};
 
-  return (
+export default function DomainTypeSelect({
+  chains,
+  chainData,
+  value,
+  onSelect,
+  onNetworkSelect,
+  noNetworkFilter,
+}: DomainTypeSelectProps) {
+  const [isMainnet, setIsMainnet] = useState<boolean>(true);
+  const networks = useMemo(() => (chains ? chains : CHAIN_IDS), [chains]);
+  const handleSwitchChange = (newState: boolean, inside = false) => {
+    if (newState) {
+      onNetworkSelect && onNetworkSelect("mainnet", inside);
+    } else {
+      onNetworkSelect && onNetworkSelect("testnet", inside);
+    }
+    setIsMainnet(newState);
+  };
+
+  useEffect(() => {
+    if (value && CHAIN_IDS.includes(value) && !noNetworkFilter) {
+      const isMainnetBySelected = mainnets.includes(value);
+      if (isMainnetBySelected !== isMainnet) {
+        handleSwitchChange(isMainnetBySelected, true);
+      }
+    }
+  }, [value]);
+
+  const onChainSelect = (chainId: NETWORKS) => {
+    onSelect && onSelect(chainId);
+  };
+
+  const processedNetworks = useMemo(() => {
+    const chainOrder = Object.values(NETWORKS);
+
+    const filteredNetworks = noNetworkFilter
+      ? networks
+      : networks.filter((item) => isMainnet === mainnets.includes(item));
+
+    return filteredNetworks.sort(
+      (a, b) => chainOrder.indexOf(a) - chainOrder.indexOf(b)
+    );
+  }, [networks, noNetworkFilter, isMainnet]);
+
+  // const getChainData = (chainId: NETWORKS) => {
+  //   const chainInfo = _.find(chainData, { chainId });
+  //   return chainInfo ? chainInfo.data : 0;
+  // };
+
+  return processedNetworks.length > 0 ? (
     <FlatList
-      data={domainItems}
+      data={processedNetworks}
       renderItem={({ item }) => (
         <DomainTypeItem
-          icon={item.icon}
-          name={item.name}
-          isSelected={selectedDomainType.name === item.name}
-          onPress={() => setSelectedDomainType(item)}
+          chainId={item}
+          isSelected={value === item}
+          onPress={() => onChainSelect(item)}
         />
       )}
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.container}
     />
+  ) : (
+    <Text style={[fontStyles["Poppins-SemiBold"], styles.noNetwork]}>
+      No networks found
+    </Text>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     gap: 16,
-    height: 60,
+    // height: 60,
+  },
+  noNetwork: {
+    fontSize: 18,
+    color: CustomDarkTheme.colors.body,
+    textAlign: "center",
   },
 });

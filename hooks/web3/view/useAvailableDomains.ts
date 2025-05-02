@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
+
 import { CONTRACTS } from "@/constants/web3/contracts";
 import { RegisterDomainType } from "@/lib/model/domain";
-import { useDebouncedCall } from "@/utils/useDebouncedCall";
 import { ReturnContractType, useNetworksCall } from "../core/useNetworksCall";
 
-export const useDomainAvaliables = (
+export const useAvailableDomains = (
   domainName: string,
   onlyMainnet?: boolean
 ) => {
-  const [domainAvaliables, setDomainAvaliables] = useState<
+  const [availableDomains, setAvailableDomains] = useState<
     ReturnContractType<RegisterDomainType>[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { callContract: checkDomainAvaliable } =
+  const { callContract: checkDomainAvailable } =
     useNetworksCall<RegisterDomainType>({
       contract: CONTRACTS.REGISTRY,
       functionName: "registryLookupByName",
@@ -21,14 +21,14 @@ export const useDomainAvaliables = (
       onlyMainnet,
     });
 
-  const debouncedCheckDomain = useDebouncedCall(async () => {
-    const data = await checkDomainAvaliable();
+  const debouncedCheckDomain = async () => {
+    const data = await checkDomainAvailable();
     const filteredData = data.filter(
       (item) => item.data !== null
     ) as ReturnContractType<RegisterDomainType>[];
-    setDomainAvaliables(filteredData);
+    setAvailableDomains(filteredData);
     setIsLoading(false);
-  });
+  };
 
   useEffect(() => {
     (async () => {
@@ -38,5 +38,5 @@ export const useDomainAvaliables = (
     })();
   }, [domainName]);
 
-  return { isLoading, domainAvaliables };
+  return { isLoading, availableDomains };
 };

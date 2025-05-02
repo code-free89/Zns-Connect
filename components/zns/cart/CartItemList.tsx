@@ -1,61 +1,86 @@
-import { useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useEffect, useMemo } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 
 import Button from "@/components/ui/Button";
-import { CustomDarkTheme } from "@/constants/theme";
-import DomainTypeSelect from "../DomainTypeSelect";
-import DomainCartItem from "../DomainCartItem";
-import RemoveCartModal from "./RemoveCartModal";
-
-const domains = [
-  {
-    name: "wasiu",
-    type: "poly",
-    price: 100,
-    isAvailable: true,
-  },
-];
+import CartSummary from "@/components/zns/cart/CartSummary";
+import EmptyCart from "@/components/zns/cart/EmptyCart";
+import RemoveCartModal from "@/components/zns/cart/RemoveCartModal";
+import DomainCartItem from "@/components/zns/DomainCartItem";
+import DomainTypeSelect from "@/components/zns/DomainTypeSelect";
+import { CHAIN_IDS, NETWORKS } from "@/constants/web3/chains";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { selectChain } from "@/store/slices/cart";
 
 interface CartItemListProps {
   onCheckout: () => void;
 }
 
 export default function CartItemList({ onCheckout }: CartItemListProps) {
-  const [selectedDomainType, setSelectedDomainType] = useState("poly");
-  const [isRemoveModalVisible, setIsRemoveModalVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const { isInited, isPurchased, carts } = useAppSelector(
+    (state) => state.setting
+  );
+  const { domains, selectedChain } = useAppSelector((state) => state.cart);
 
-  return (
+  const domainsByChain = useMemo(
+    () => domains.filter((item) => item.chainId === selectedChain),
+    [domains, selectedChain]
+  );
+
+  const updateChain = (chain: NETWORKS) => {
+    dispatch(selectChain(chain));
+  };
+
+  // Filter CHAINS to include only those with associated domains and get the count
+  const chainsWithDomainCount = useMemo(() => {
+    return CHAIN_IDS.map((chainId) => {
+      const count = domains.filter(
+        (domain) => domain.chainId === chainId
+      ).length;
+      return { chainId: chainId, data: count };
+    }).filter((chain) => chain.data > 0);
+  }, [domains]);
+
+  const chains = useMemo(
+    () => chainsWithDomainCount.map((c) => c.chainId),
+    [chainsWithDomainCount]
+  );
+
+  useEffect(() => {
+    if (
+      chainsWithDomainCount.length > 0 &&
+      chainsWithDomainCount.findIndex(
+        (item) => item.chainId === selectedChain
+      ) < 0
+    ) {
+      dispatch(selectChain(chainsWithDomainCount[0].chainId));
+    }
+  }, [chainsWithDomainCount, selectedChain]);
+
+  return !isPurchased && isInited && carts.length < 1 ? (
+    <EmptyCart />
+  ) : (
     <View style={styles.container}>
-      <View style={styles.summaryContainer}>
-        <View style={styles.summary}>
-          <Text style={styles.summaryTitle}>Cart items</Text>
-          <Text style={styles.summaryCount}>5 items</Text>
-        </View>
-        <Text style={styles.summaryDescription}>
-          Domain purchases entail a single payment and come with a 90% discount
-          on renewal fees.
-        </Text>
+      <CartSummary />
+
+      <View>
+        <DomainTypeSelect
+          chains={chains}
+          chainData={chainsWithDomainCount}
+          value={selectedChain}
+          onSelect={(chainId) => updateChain(chainId)}
+        />
       </View>
 
-      <DomainTypeSelect />
-
       <FlatList
-        data={Array(10).fill(domains[0])}
-        renderItem={({ item }) => (
-          <DomainCartItem
-            {...item}
-            onRemove={() => setIsRemoveModalVisible(true)}
-          />
-        )}
+        data={domainsByChain}
+        renderItem={({ item }) => <DomainCartItem data={item} />}
         contentContainerStyle={styles.domainContainer}
+        keyExtractor={(_, index) => `cart-item-${index}`}
+        ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       />
 
       <Button title={"Checkout"} onPress={onCheckout} />
-
-      <RemoveCartModal
-        isVisible={isRemoveModalVisible}
-        onClose={() => setIsRemoveModalVisible(false)}
-      />
     </View>
   );
 }
@@ -65,37 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 30,
   },
-  summaryContainer: {
-    borderWidth: 0.5,
-    borderColor: "#FFFFFF33",
-    borderRadius: 15,
-    paddingHorizontal: 12,
-    paddingTop: 13,
-    paddingBottom: 17,
-  },
-  summary: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  summaryTitle: {
-    fontSize: 16,
-    fontWeight: 500,
-    color: "#FFFFFF",
-  },
-  summaryCount: {
-    fontSize: 12,
-    fontWeight: 500,
-    color: CustomDarkTheme.colors.primary,
-  },
-  summaryDescription: {
-    fontSize: 12,
-    fontWeight: 400,
-    color: CustomDarkTheme.colors.body,
-    marginTop: 10,
-  },
   domainContainer: {
-    flexDirection: "column",
-    gap: 12,
+    flex: 1,
   },
 });

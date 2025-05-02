@@ -1,19 +1,34 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { isChainSupported } from "@/constants/web3/chains";
+import { isChainSupported, NETWORKS } from "@/constants/web3/chains";
 import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
-import { useAppDispatch } from "@/store";
-import { setLoadingUser, setUserCredit } from "@/store/slices/user";
+import { useUserDomainInfo } from "@/hooks/web3/view/useUserDomainInfo";
+import {
+  fetchFollowByDomainId,
+  fetchFollowersByDomain,
+} from "@/lib/api/domain/follow";
+import { getCurrentUser } from "@/lib/api/user";
+import useAuth from "@/lib/auth/useAuth";
+import { useAppDispatch, useAppSelector } from "@/store";
+import {
+  setFollowData,
+  setFollowersOfUser,
+  setLoadingUser,
+  setPDomainDB,
+  setStoreUser,
+  setUserCredit,
+  setUserDomainInfo,
+} from "@/store/slices/user";
+import { UserDomainType } from "@/store/slices/user-domains";
 
-/*
 export const useFetchUser = () => {
   const dispatch = useAppDispatch();
 
   const { userDomainConfig } = useAppSelector((state) => state.user);
 
-  const updateFollowingdata = useCallback(async () => {
+  const updateFollowingData = useCallback(async () => {
     if (userDomainConfig?.primaryDomain) {
       dispatch(setLoadingUser({ key: "isLoadingFollowData", value: true }));
       const primaryId = userDomainConfig?.primaryDomain.toString();
@@ -27,7 +42,7 @@ export const useFetchUser = () => {
 
   const updateFollowerOfUser = useCallback(
     async (userDomains: UserDomainType[]) => {
-      if (userDomains && !isEmpty(userDomains)) {
+      if (userDomains && userDomains.length) {
         dispatch(
           setLoadingUser({ key: "isLoadingFollowerOfUserData", value: true })
         );
@@ -45,16 +60,17 @@ export const useFetchUser = () => {
   );
 
   return {
-    updateFollowingdata,
+    updateFollowingData,
     updateFollowerOfUser,
   };
 };
-*/
+
 const useUserUpdater = () => {
   const dispatch = useAppDispatch();
+  const { user } = useAuth();
   const { address, chainId } = useAccount();
   const { fetchUserCredit } = useUserCredit();
-  /*
+
   const { fetchUserDomainInfo } = useUserDomainInfo(address);
   // Fetch User Primary Domain Contract Data
   const { data: userPrimaryContractData } = useQuery({
@@ -89,7 +105,7 @@ const useUserUpdater = () => {
       })
     );
   }, [userPrimaryContractData]);
-
+  /*
   // Fetch User Primary Domain DB Data
   const { data: userPrimaryDomainDBData } = useQuery({
     queryKey: [
@@ -151,19 +167,19 @@ const useUserUpdater = () => {
   useEffect(() => {
     dispatch(setUserCredit(userCreditCardData ?? 0));
   }, [userCreditCardData]);
-  /*
+
   // Fetching User DB Info
   const { data: userStoreData } = useQuery({
     queryKey: ["currentUserStore", user?.address],
     queryFn: async () => {
-      if (user?.address) {
+      if (user && user.address) {
         // Indicate loading state
         dispatch(setLoadingUser({ key: "isLoadingUserStore", value: true }));
         // Fetch user's information from the database
-        const userDB = await getCurrentUser();
+        const userDB = await getCurrentUser(user.address);
 
         if (userDB) {
-          return serializeUser(userDB);
+          return userDB;
         }
       }
       return null;
@@ -174,7 +190,7 @@ const useUserUpdater = () => {
   });
 
   // Helper function to serialize user data
-  const serializeUser = (userDB: User) => ({
+  const serializeUser = (userDB: any) => ({
     ...userDB,
     dateJoined: userDB.dateJoined.toDateString(),
   });
@@ -186,14 +202,14 @@ const useUserUpdater = () => {
 
   // Update Refer Code
   useEffect(() => {
-    if (user?.address) {
-      const referCode = localStorage.getItem("refCode") ?? "";
-      if (referCode) {
-        updateReferCode(referCode);
-      }
-    }
+    // if (user?.address) {
+    //   const referCode = localStorage.getItem("refCode") ?? "";
+    //   if (referCode) {
+    //     updateReferCode(referCode);
+    //   }
+    // }
   }, [user?.address]);
-*/
+
   // const referCode = localStorage.getItem("refCode") ?? "";
 };
 

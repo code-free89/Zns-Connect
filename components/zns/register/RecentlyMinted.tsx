@@ -1,61 +1,29 @@
-import { StyleSheet, View, FlatList } from "react-native";
-import ZnsText from "@/components/ui/Text";
-import { CustomDarkTheme } from "@/constants/theme";
-import MintItem from "../MintItem";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-const mintedDomains = [
-  {
-    name: "connect",
-    type: "poly",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "alfredo",
-    type: "gold",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "connect",
-    type: "poly",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "alfredo",
-    type: "gold",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "connect",
-    type: "poly",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "alfredo",
-    type: "gold",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "connect",
-    type: "poly",
-    price: "0.0019 ETH",
-  },
-  {
-    name: "alfredo",
-    type: "gold",
-    price: "0.0019 ETH",
-  },
-];
+import MintItem from "@/components/zns/MintItem";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
 
 export default function RecentlyMinted() {
+  const { domains, isLoading } = useAppSelector((state) => state.recentMinted);
+
   return (
     <View style={styles.container}>
-      <ZnsText type="medium" style={styles.title}>
+      <Text style={[fontStyles["Poppins-Regular"], styles.title]}>
         Recently Minted
-      </ZnsText>
+      </Text>
 
-      {mintedDomains.map((domain) => (
-        <MintItem key={domain.name} {...domain} />
-      ))}
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color={CustomDarkTheme.colors.primary}
+        />
+      ) : (
+        domains.map((domain) => (
+          <MintItem key={domain.domainName} {...domain} />
+        ))
+      )}
     </View>
   );
 }

@@ -8,7 +8,7 @@ import ZnsText from "./Text";
 type ItemType = {
   label: string;
   value: string;
-  icon?: string;
+  icon?: any;
 };
 
 type Props = {
@@ -38,10 +38,7 @@ export default function ZnsDropdown({
       >
         {selectedItem ? (
           <View style={styles.selectedItem}>
-            <Image
-              source={{ uri: selectedItem.icon }}
-              style={styles.itemIcon}
-            />
+            <Image source={selectedItem.icon} style={styles.itemIcon} />
             <ZnsText type="medium" style={styles.selectedItemText}>
               {selectedItem.label}
             </ZnsText>
@@ -81,7 +78,7 @@ export default function ZnsDropdown({
                 }}
               >
                 {item.icon && (
-                  <Image source={{ uri: item.icon }} style={styles.itemIcon} />
+                  <Image source={item.icon} style={styles.itemIcon} />
                 )}
                 <ZnsText
                   style={[
@@ -148,7 +145,7 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingRight: 10,
     position: "absolute",
-    top: 84,
+    top: 88,
     zIndex: 1000,
     width: "100%",
     borderWidth: 2,

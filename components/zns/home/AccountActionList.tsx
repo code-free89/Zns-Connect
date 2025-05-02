@@ -2,10 +2,11 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Octicons from "@expo/vector-icons/Octicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Linking, Pressable, StyleSheet, View } from "react-native";
+import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
 
 import ZnsText from "@/components/ui/Text";
+import { fontStyles } from "@/constants/fonts";
 import { CopyIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { copyToClipboard } from "@/utils/helpers";
@@ -23,7 +24,9 @@ export default function AccountActionList({
   const disconnectWallet = async () => {
     disconnect();
     await AsyncStorage.removeItem("get_started");
-    router.replace("/(onboarding)/wallet-connect");
+    setTimeout(() => {
+      router.replace("/(onboarding)/wallet-connect");
+    }, 500);
   };
 
   const copyWalletAddress = async () => {
@@ -99,14 +102,15 @@ export default function AccountActionList({
             size={20}
             color={CustomDarkTheme.colors.error}
           />
-          <ZnsText
+          <Text
             style={[
+              fontStyles["Poppins-Regular"],
               styles.actionItemText,
               { color: CustomDarkTheme.colors.error },
             ]}
           >
             Disconnect wallet
-          </ZnsText>
+          </Text>
         </Pressable>
       </View>
     </View>
