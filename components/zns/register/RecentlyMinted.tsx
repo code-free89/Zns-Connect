@@ -20,9 +20,7 @@ export default function RecentlyMinted() {
           color={CustomDarkTheme.colors.primary}
         />
       ) : (
-        domains.map((domain) => (
-          <MintItem key={domain.domainName} {...domain} />
-        ))
+        domains.map((domain) => <MintItem key={domain.id} {...domain} />)
       )}
     </View>
   );

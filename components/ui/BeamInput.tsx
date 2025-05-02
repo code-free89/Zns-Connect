@@ -38,9 +38,14 @@ export default function BeamInput({
   });
 
   const handleSubmit = () => {
-    if (type === "search") {
-      // router.push(`/search?domain=${search}`);
-    }
+    // if (type === "search") {
+    router.push({
+      pathname: "/(tabs)/register",
+      params: {
+        domain: search,
+      },
+    });
+    // }
   };
 
   return (
