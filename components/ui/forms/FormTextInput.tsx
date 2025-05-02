@@ -19,7 +19,6 @@ export default function FormTextInput({
     <Controller
       control={control}
       name={name}
-      rules={{ required: true }}
       render={({ field: { onChange, value } }) => (
         <TextInput
           {...props}

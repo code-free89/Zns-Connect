@@ -37,8 +37,9 @@ export default function RedeemCreditsModal({
 
 const styles = StyleSheet.create({
   modalContainer: {
-    position: "absolute",
-    top: 0,
+    // position: "absolute",
+    // top: 0,
+    // width: "100%",
   },
   modalTitle: {
     color: "white",
