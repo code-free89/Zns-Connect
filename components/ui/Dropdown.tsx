@@ -1,9 +1,16 @@
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useState } from "react";
-import { FlatList, Image, Pressable, StyleSheet, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { CustomDarkTheme } from "@/constants/theme";
-import ZnsText from "./Text";
+import { fontStyles } from "@/constants/fonts";
 
 type ItemType = {
   label: string;
@@ -31,7 +38,11 @@ export default function ZnsDropdown({
 
   return (
     <View style={styles.container}>
-      {!!label && <ZnsText style={styles.label}>{label}</ZnsText>}
+      {!!label && (
+        <Text style={[fontStyles["Poppins-Regular"], styles.label]}>
+          {label}
+        </Text>
+      )}
       <Pressable
         style={styles.selectedItemContainer}
         onPress={() => setIsOpen(!isOpen)}
@@ -39,9 +50,11 @@ export default function ZnsDropdown({
         {selectedItem ? (
           <View style={styles.selectedItem}>
             <Image source={selectedItem.icon} style={styles.itemIcon} />
-            <ZnsText type="medium" style={styles.selectedItemText}>
+            <Text
+              style={[fontStyles["Poppins-Medium"], styles.selectedItemText]}
+            >
               {selectedItem.label}
-            </ZnsText>
+            </Text>
             <Icon
               name="chevron-down"
               size={20}
@@ -50,9 +63,11 @@ export default function ZnsDropdown({
           </View>
         ) : (
           <View style={styles.placeholder}>
-            <ZnsText type="medium" style={styles.placeholderText}>
+            <Text
+              style={[fontStyles["Poppins-Medium"], styles.placeholderText]}
+            >
               {placeholder ?? "Select an item"}
-            </ZnsText>
+            </Text>
             <Icon
               name="chevron-down"
               size={20}
@@ -63,34 +78,37 @@ export default function ZnsDropdown({
       </Pressable>
       {isOpen && (
         <View style={styles.dropdownContainer}>
-          <FlatList
-            data={items}
-            ItemSeparatorComponent={() => <View style={{ height: 14 }} />}
-            renderItem={({ item }) => (
-              <Pressable
-                style={[
-                  styles.item,
-                  item.value === value && styles.itemSelected,
-                ]}
-                onPress={() => {
-                  setValue(item.value);
-                  setIsOpen(false);
-                }}
-              >
-                {item.icon && (
-                  <Image source={item.icon} style={styles.itemIcon} />
-                )}
-                <ZnsText
+          <ScrollView>
+            {items.map((item, idx) => (
+              <View key={item.value}>
+                <Pressable
                   style={[
-                    styles.itemText,
-                    item.value === value && styles.textSelected,
+                    styles.item,
+                    item.value === value && styles.itemSelected,
                   ]}
+                  onPress={() => {
+                    setValue(item.value);
+                    setIsOpen(false);
+                  }}
                 >
-                  {item.label}
-                </ZnsText>
-              </Pressable>
-            )}
-          />
+                  {item.icon && (
+                    <Image source={item.icon} style={styles.itemIcon} />
+                  )}
+                  <Text
+                    style={[
+                      fontStyles["Poppins-Regular"],
+                      styles.itemText,
+                      item.value === value && styles.textSelected,
+                    ]}
+                  >
+                    {item.label}
+                  </Text>
+                </Pressable>
+                {/* Add separator except after last item */}
+                {idx < items.length - 1 && <View style={{ height: 14 }} />}
+              </View>
+            ))}
+          </ScrollView>
         </View>
       )}
     </View>
@@ -146,11 +164,12 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     position: "absolute",
     top: 88,
-    zIndex: 1000,
+    zIndex: 1,
     width: "100%",
     borderWidth: 2,
     borderColor: CustomDarkTheme.colors.gray900,
     height: 300,
+    overflow: "scroll",
   },
   item: {
     flexDirection: "row",
