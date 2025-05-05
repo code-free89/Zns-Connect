@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
 
 import StepWizard from "@/components/ui/StepWizard";
 import { fontStyles } from "@/constants/fonts";
@@ -136,7 +137,9 @@ export default function OnboardingCarousel() {
                 width: width,
                 position: "absolute",
                 left: width * 0.2,
+                top: height / 7,
               }}
+              resizeMode="contain"
             />
           </View>
         ))}
@@ -164,6 +167,38 @@ export default function OnboardingCarousel() {
           }}
         /> */}
       </Animated.View>
+
+      <LinearGradient
+        colors={["#0E1100", "#12060600"]}
+        locations={[0.2888, 0.906]}
+        start={{ x: 0.49, y: 1 }}
+        end={{ x: 0.51, y: 0 }}
+        style={{
+          position: "absolute",
+          left: 0,
+          top: -height * 0.25,
+          width: width, // your screen width
+          height: height * 2, // or desired height
+          zIndex: 10,
+        }}
+        pointerEvents="none"
+      />
+      <LinearGradient
+        colors={["#0D0D0D", "#0D0D0D00"]}
+        locations={[0.5136, 0.8049]} // 41.36% and 60.49%
+        style={{
+          position: "absolute",
+          left: 0,
+          top: height * 0.25,
+          width: width, // your screen width
+          height: height / 2, // or the height you want
+          zIndex: 10,
+        }}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 0, y: 0 }}
+        pointerEvents="none"
+      />
+
       <View style={styles.stepWizardContainer}>
         <StepWizard
           stepCount={ONBOARDING_DATA.length}
@@ -174,6 +209,7 @@ export default function OnboardingCarousel() {
         style={{
           flex: 1,
           justifyContent: "center",
+          zIndex: 100,
         }}
       >
         <Animated.Text
@@ -224,5 +260,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
+    zIndex: 100,
   },
 });

@@ -44,14 +44,7 @@ export default function WalletConnectScreen() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={["#0E1100", "#12060600"]}
-        style={[styles.gradient, { width: width, height: height }]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 1 }}
-        pointerEvents="none"
-      />
-      <View style={{ flex: 1, zIndex: 10 }}>
+      <View style={{ flex: 1 }}>
         <OnboardingCarousel />
       </View>
       {isConnected && (
