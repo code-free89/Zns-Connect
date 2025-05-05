@@ -13,7 +13,6 @@ import useScreenSize from "@/hooks/useScreenSize";
 import { getOrCreateUserIdByAddress } from "@/lib/api/user";
 import { useAppDispatch } from "@/store";
 import { setUserSession } from "@/store/slices/user";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default function WalletConnectScreen() {
   const router = useRouter();
