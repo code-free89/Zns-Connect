@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect } from "react";
 import { useAccount } from "wagmi";
 
-import { isChainSupported, NETWORKS } from "@/constants/web3/chains";
+import { isChainSupported } from "@/constants/web3/chains";
 import { useUserCredit } from "@/hooks/web3/view/useUserCredit";
 import { useUserDomainInfo } from "@/hooks/web3/view/useUserDomainInfo";
 import {
@@ -16,7 +16,6 @@ import {
   setFollowData,
   setFollowersOfUser,
   setLoadingUser,
-  setPDomainDB,
   setStoreUser,
   setUserCredit,
   setUserDomainInfo,
