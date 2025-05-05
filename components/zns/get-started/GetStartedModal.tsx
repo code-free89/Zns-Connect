@@ -4,9 +4,9 @@ import Modal from "react-native-modal";
 
 import Button from "@/components/ui/Button";
 import CheckBox from "@/components/ui/CheckBox";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
-import ZnsText from "@/components/ui/Text";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -41,14 +41,14 @@ export default function GetStartedModal({
             <Image source={{ uri: walletInfo.icon }} width={67} height={67} />
           </View>
         </View>
-        <ZnsText type="semiBold" style={styles.walletAddress}>
+        <Text style={[fontStyles["Poppins-SemiBold"], styles.walletAddress]}>
           {formatWalletAddress(walletAddress)}
-        </ZnsText>
-        <ZnsText type="medium" style={styles.subtitle}>
+        </Text>
+        <Text style={[fontStyles["Poppins-Medium"], styles.subtitle]}>
           {
             "You are now ready to claim your web3 page \n and build high profile credibility"
           }
-        </ZnsText>
+        </Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
             value={isChecked}
@@ -56,19 +56,25 @@ export default function GetStartedModal({
             color={isChecked ? "#4CAF50" : undefined}
             style={styles.checkbox}
           />
-          <ZnsText
-            style={styles.terms}
+          <Text
+            style={[fontStyles["Poppins-Regular"], styles.terms]}
             onPress={() => setIsChecked(!isChecked)}
           >
             I agree to ZNS{" "}
-            <ZnsText style={styles.link} onPress={openTerms}>
+            <Text
+              style={[fontStyles["Poppins-Regular"], styles.link]}
+              onPress={openTerms}
+            >
               terms of service
-            </ZnsText>{" "}
+            </Text>{" "}
             and{" "}
-            <ZnsText style={styles.link} onPress={openPrivacy}>
+            <Text
+              style={[fontStyles["Poppins-Regular"], styles.link]}
+              onPress={openPrivacy}
+            >
               Privacy Policy
-            </ZnsText>
-          </ZnsText>
+            </Text>
+          </Text>
         </View>
         <Button
           fontType="regular"
