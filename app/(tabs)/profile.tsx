@@ -5,7 +5,7 @@ import ZnsScrollView from "@/components/ui/ScrollView";
 import ProfileAccounts from "@/components/zns/profile/ProfileAccounts";
 import ProfileBio from "@/components/zns/profile/ProfileBio";
 import ProfileHIP from "@/components/zns/profile/ProfileHIP";
-import ProfileInfo from "@/components/zns/profile/ProfileInfo";
+import ProfileInfoTabs from "@/components/zns/profile/ProfileInfoTabs";
 import ProfileType from "@/components/zns/profile/ProfileType";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 
@@ -25,10 +25,10 @@ export default function HomeScreen() {
           <ProfileAccounts />
         </View>
 
-        <ProfileInfo />
+        <ProfileInfoTabs />
       </View>
 
-      <ProfileProvider domain="tertetrtr.mnd" />
+      <ProfileProvider domain="hello.ink" />
     </ZnsScrollView>
   );
 }

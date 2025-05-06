@@ -1,5 +1,6 @@
 import { NETWORKS } from "@/constants/web3/chains";
 import axios from "@/lib/api/axios";
+import { DomainInfoType } from "@/store/slices/profile";
 
 export type DomainType = {
   domainName: string;
@@ -22,6 +23,21 @@ export const createDomain = async (domains: DomainType[]) => {
     return data;
   } catch (e) {
     console.error(e);
+    return null;
+  }
+};
+
+export const fetchDomain = async (
+  data: DomainType,
+  domainInfo?: DomainInfoType
+) => {
+  try {
+    const { data: responseData } = await axios.post("/domain/fetch", {
+      domain: data,
+      domainInfo,
+    });
+    return responseData;
+  } catch (e) {
     return null;
   }
 };

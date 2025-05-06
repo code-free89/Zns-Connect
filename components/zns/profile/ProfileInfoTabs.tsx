@@ -1,35 +1,46 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import TabHeaders from "@/components/ui/TabHeaders";
+import SocialAccounts from "@/components/zns/profile/accounts";
 import BadgeList from "@/components/zns/profile/BadgeList";
-import SocialAccounts from "@/components/zns/profile/SocialAccounts";
 import ProfileFollowers from "@/components/zns/profile/Followers";
+import { useAppSelector } from "@/store";
+import React from "react";
 
-type InfoTab = "socials" | "badges" | "followers";
+type InfoTab = "socials" | "badges" | "followers" | "following";
 
 export default function ProfileInfoTabs() {
+  const { profile, ownerStore } = useAppSelector((state) => state.profile);
   const [selectedTab, setSelectedTab] = useState<InfoTab>("socials");
-  const tabs = [
-    {
-      label: "Socials",
-      value: "socials",
-      onSelectTab: () => setSelectedTab("socials"),
-    },
-    {
-      label: "Badges",
-      value: "badges",
-      onSelectTab: () => setSelectedTab("badges"),
-    },
-    {
-      label: "Followers",
-      value: "followers",
-      onSelectTab: () => setSelectedTab("followers"),
-    },
-  ];
+  const tabs = useMemo(
+    () => [
+      {
+        label: "Socials",
+        value: "socials",
+        onSelectTab: () => setSelectedTab("socials"),
+      },
+      {
+        label: `Badges(${ownerStore?.badges?.length || 0})`,
+        value: "badges",
+        onSelectTab: () => setSelectedTab("badges"),
+      },
+      {
+        label: `Followers(${ownerStore?.followers?.length || 0})`,
+        value: "followers",
+        onSelectTab: () => setSelectedTab("followers"),
+      },
+      {
+        label: `Following(${ownerStore?.following?.length || 0})`,
+        value: "following",
+        onSelectTab: () => setSelectedTab("following"),
+      },
+    ],
+    [profile, ownerStore]
+  );
 
   return (
-    <View>
+    <React.Fragment>
       <TabHeaders
         selectedTab={selectedTab}
         tabs={tabs}
@@ -42,13 +53,15 @@ export default function ProfileInfoTabs() {
         {selectedTab === "badges" && <BadgeList />}
         {selectedTab === "followers" && <ProfileFollowers />}
       </View>
-    </View>
+    </React.Fragment>
   );
 }
 
 const styles = StyleSheet.create({
   tabContent: {
+    flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 32,
+    paddingTop: 32,
+    paddingBottom: 40,
   },
 });

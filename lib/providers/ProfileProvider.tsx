@@ -8,7 +8,7 @@ import { useValidDomain } from "@/hooks/useValidDomain";
 import { useUserDomainData } from "@/hooks/web3/useUserDomainData";
 import { useAppDispatch } from "@/store";
 import { useHIPUpdater } from "@/store/hooks/useHIPUpdater";
-import { setInited, setOwnDomainData } from "@/store/slices/profile";
+import { setInitiated, setOwnDomainData } from "@/store/slices/profile";
 import { setDomainData } from "@/store/slices/profile";
 import { useFetchUser } from "@/store/hooks/useUserUpdater";
 import { NETWORKS } from "@/constants/web3/chains";
@@ -49,7 +49,7 @@ export default function ProfileProvider({ domain }: ProfileProviderProps) {
       domainInfo?.owner != "0x0000000000000000000000000000000000000000"
     ) {
       dispatch(setDomainData(data));
-      dispatch(setInited({ key: "profile", value: false }));
+      dispatch(setInitiated({ key: "profile", value: false }));
       fetchDomainProfileByDB(domainInfo);
 
       await fetchHIPData(domainInfo.owner);
@@ -101,7 +101,7 @@ export default function ProfileProvider({ domain }: ProfileProviderProps) {
 
   // Fetch Profile Owner Domains
   const debouncedUserDomainData = useDebouncedCall(async () => {
-    dispatch(setInited({ key: "ownerDomains", value: false }));
+    dispatch(setInitiated({ key: "ownerDomains", value: false }));
     const data = await fetchUserDomainData();
     if (data) {
       dispatch(setOwnDomainData(data));

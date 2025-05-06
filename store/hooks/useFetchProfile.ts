@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import {
   DomainInfoType,
   setDomainInfo,
-  setInited,
+  setInitiated,
   setOwnerStore,
   setProfile,
 } from "@/store/slices/profile";
@@ -53,7 +53,7 @@ const useFetchProfile = (
   );
 
   const fetchDomainInfoByContract = useCallback(async () => {
-    dispatch(setInited({ key: "info", value: false }));
+    dispatch(setInitiated({ key: "info", value: false }));
     const domainInfo = await fetchDomainInfo();
     if (domainInfo) {
       dispatch(setDomainInfo(domainInfo));
@@ -64,7 +64,7 @@ const useFetchProfile = (
 
   const fetchOwnerStore = useCallback(async () => {
     if (domainOwner) {
-      dispatch(setInited({ key: "info", value: false }));
+      dispatch(setInitiated({ key: "info", value: false }));
       const ownerStore = await getUser(domainOwner);
       if (ownerStore) {
         dispatch(

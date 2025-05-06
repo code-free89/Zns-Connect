@@ -1,11 +1,20 @@
-import { Image, StyleSheet, View } from "react-native";
-import ZnsText from "@/components/ui/Text";
+import React from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import GradientText from "@/components/ui/GradientText";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
 
 export default function ProfileBio() {
+  const { profile, domain, tld } = useAppSelector((state) => state.profile);
+  const bio = profile?.bio ?? " ";
+  const maxLength = 160;
+
+  const truncatedBio =
+    bio.length > maxLength ? bio.substring(0, maxLength) : bio;
+
   return (
     <View style={styles.container}>
       <View>
@@ -15,24 +24,34 @@ export default function ProfileBio() {
             flexDirection: "row",
           }}
         >
-          <GradientText text={"Binance Labs"} textStyle={styles.gradientText} />
+          <GradientText
+            text={profile?.name ?? ""}
+            textStyle={[fontStyles["Poppins-SemiBold"], styles.gradientText]}
+          />
         </View>
-        <ZnsText type="regular" style={styles.bioText}>
-          binance-web3adfdfbgnhgga.cz
-        </ZnsText>
+        <Text style={[fontStyles["Poppins-Regular"], styles.bioText]}>
+          {domain ? `${domain}.${tld}` : ""}
+        </Text>
       </View>
 
       <GradientBorderViewWrapper
         gradientColors={CustomDarkTheme.gradientColors.linear2}
       >
         <View style={styles.shortIntroContainer}>
-          <Image source={require("@/assets/images/icons/intro.png")} />
-          <ZnsText type="regular" style={styles.shortIntroText}>
-            Short intro about you appear here
-          </ZnsText>
-          <ZnsText type="regular" style={styles.editButton}>
-            Edit
-          </ZnsText>
+          {!!profile?.bio ? (
+            <Text style={[fontStyles["Poppins-Regular"], styles.bioText]}>
+              {truncatedBio}
+            </Text>
+          ) : (
+            <React.Fragment>
+              <Image source={require("@/assets/images/icons/intro.png")} />
+              <Text
+                style={[fontStyles["Poppins-Regular"], styles.shortIntroText]}
+              >
+                Short intro about you appear here
+              </Text>
+            </React.Fragment>
+          )}
         </View>
       </GradientBorderViewWrapper>
     </View>
@@ -45,13 +64,12 @@ const styles = StyleSheet.create({
   },
   gradientText: {
     fontSize: 24,
-    fontWeight: 600,
     marginLeft: 0,
   },
   bioText: {
     fontSize: 14,
-    fontWeight: 400,
     color: CustomDarkTheme.colors.txtColor,
+    lineHeight: 14 * 1.5,
   },
   shortIntroContainer: {
     padding: 9,

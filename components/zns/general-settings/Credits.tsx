@@ -52,7 +52,6 @@ export default function CreditsAndGiftCards() {
     );
 
   const onBuyGiftCard = (data: BuyCreditsForm) => {
-    console.log("data.credits", data.credits);
     if (data.credits) {
       buyGiftCard();
     } else {
