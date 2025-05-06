@@ -34,6 +34,7 @@ export default function TabHeaders({
     <View style={containerStyle}>
       <ScrollView
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={fullWidth && { width: "100%" }}
       >
         {tabs.map((tab) => (

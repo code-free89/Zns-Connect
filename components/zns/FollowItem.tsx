@@ -49,6 +49,7 @@ export default function FollowItem({ item, isOwner }: FollowItemProps) {
       {userPrimaryDomainDB?.id !== item.id && (
         <InteractiveButton
           keepContent
+          variant={isFollowed ? "outline" : "primary"}
           style={styles.statusButton}
           loading={isProcessing}
           onPress={() => handleFollow(isFollowed ? "unfollow" : "follow")}

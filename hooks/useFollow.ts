@@ -29,6 +29,7 @@ export const useFollow = (
 
   const handleFollow = async (mode: "follow" | "unfollow") => {
     if (isProcessing) return;
+    console.log("user", user);
     if (!user?.id) {
       open && open();
       return;

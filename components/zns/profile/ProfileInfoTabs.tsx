@@ -1,12 +1,12 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import TabHeaders from "@/components/ui/TabHeaders";
 import SocialAccounts from "@/components/zns/profile/accounts";
 import BadgeList from "@/components/zns/profile/badges";
 import ProfileFollowers from "@/components/zns/profile/followers";
+import ProfileFollowingList from "@/components/zns/profile/following";
 import { useAppSelector } from "@/store";
-import React from "react";
 
 type InfoTab = "socials" | "badges" | "followers" | "following";
 
@@ -31,7 +31,7 @@ export default function ProfileInfoTabs() {
         onSelectTab: () => setSelectedTab("followers"),
       },
       {
-        label: `Following(${profile?.followers?.length || 0})`,
+        label: `Following(${profile?.following?.length || 0})`,
         value: "following",
         onSelectTab: () => setSelectedTab("following"),
       },
@@ -52,6 +52,7 @@ export default function ProfileInfoTabs() {
         {selectedTab === "socials" && <SocialAccounts />}
         {selectedTab === "badges" && <BadgeList />}
         {selectedTab === "followers" && <ProfileFollowers />}
+        {selectedTab === "following" && <ProfileFollowingList />}
       </View>
     </React.Fragment>
   );

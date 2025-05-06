@@ -19,7 +19,7 @@ export const fetchFollowByDomainId = async (domainId: string) => {
         domainId,
       },
     });
-    return data;
+    return data.data;
   } catch (e) {
     console.error(e);
     return null;
