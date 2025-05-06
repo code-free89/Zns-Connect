@@ -2,16 +2,19 @@ import Entypo from "@expo/vector-icons/Entypo";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
+import { LinearGradient } from "expo-linear-gradient";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { LinearGradient } from "expo-linear-gradient";
+import useScreenSize from "@/hooks/useScreenSize";
 
 export default function ProfileHIP() {
   const { isConnected } = useAccount();
+  const { width } = useScreenSize();
   const hipData = useAppSelector((state) => state.hip);
+  const progressWidth = width - 56 - 16;
 
   const handleHIP = () => {
     router.push("/(zns)/hip");
@@ -30,7 +33,14 @@ export default function ProfileHIP() {
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           />
-          <View style={styles.scoreThumb} />
+          <View
+            style={[
+              styles.scoreThumb,
+              {
+                left: (hipData.totalPoints / hipData.maxPoints) * progressWidth,
+              },
+            ]}
+          />
         </View>
         <View style={styles.statusContainer}>
           <View style={styles.statusItem}>

@@ -30,6 +30,7 @@ export const useHIPUpdater = () => {
             id: hipData.id,
             walletAddress,
             totalPoints: hipData.totalPoints,
+            maxPoints: rankedHips[0].totalPoints,
             totalEarnings: hipData.totalEarnings,
             discordVerified: hipData.discordVerified,
             twitterVerified: hipData.twitterVerified,
