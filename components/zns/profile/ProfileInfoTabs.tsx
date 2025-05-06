@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import TabHeaders from "@/components/ui/TabHeaders";
 import SocialAccounts from "@/components/zns/profile/accounts";
-import BadgeList from "@/components/zns/profile/BadgeList";
+import BadgeList from "@/components/zns/profile/badges";
 import ProfileFollowers from "@/components/zns/profile/Followers";
 import { useAppSelector } from "@/store";
 import React from "react";
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 32,
+    paddingTop: 16,
     paddingBottom: 40,
   },
 });
