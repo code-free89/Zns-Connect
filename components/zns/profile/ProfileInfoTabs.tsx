@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import TabHeaders from "@/components/ui/TabHeaders";
 import SocialAccounts from "@/components/zns/profile/accounts";
 import BadgeList from "@/components/zns/profile/badges";
-import ProfileFollowers from "@/components/zns/profile/Followers";
+import ProfileFollowers from "@/components/zns/profile/followers";
 import { useAppSelector } from "@/store";
 import React from "react";
 
@@ -26,12 +26,12 @@ export default function ProfileInfoTabs() {
         onSelectTab: () => setSelectedTab("badges"),
       },
       {
-        label: `Followers(${ownerStore?.followers?.length || 0})`,
+        label: `Followers(${profile?.followers?.length || 0})`,
         value: "followers",
         onSelectTab: () => setSelectedTab("followers"),
       },
       {
-        label: `Following(${ownerStore?.following?.length || 0})`,
+        label: `Following(${profile?.followers?.length || 0})`,
         value: "following",
         onSelectTab: () => setSelectedTab("following"),
       },

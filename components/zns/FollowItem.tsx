@@ -1,50 +1,76 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import React, { useMemo } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
+import InteractiveButton from "@/components/ui/InteractiveButton";
+import DomainAvatar from "@/components/zns/DomainAvatar";
 import { CustomDarkTheme } from "@/constants/theme";
-import Button from "@/components/ui/Button";
+import { getChainByChain } from "@/constants/web3/chains";
+import { useFollow } from "@/hooks/useFollow";
+import { useTLD } from "@/hooks/web3/useTLD";
+import { useAppSelector } from "@/store";
 
 interface FollowItemProps {
   item: {
-    name: string;
-    avatar: any;
-    description: string;
-    isFollowing: boolean;
+    id: string;
+    domainName: string;
+    chain: string;
+    dId: string;
   };
+  isOwner: boolean;
 }
 
-export default function FollowItem({ item }: FollowItemProps) {
+export default function FollowItem({ item, isOwner }: FollowItemProps) {
+  const { userPrimaryDomainDB } = useAppSelector((state) => state.user);
+  const chainId = useMemo(
+    () => (item.chain ? getChainByChain(item.chain).id : 0),
+    [item]
+  );
+  const tld = useTLD(chainId);
+  const domain = item?.domainName && tld ? `${item?.domainName}.${tld}` : "";
+  const { isProcessing, isFollowed, handleFollow } = useFollow(
+    item.id,
+    domain,
+    false,
+    isOwner
+  );
+
   return (
     <View style={styles.container}>
-      <Image source={item.avatar} style={styles.avatar} />
+      <DomainAvatar
+        chainId={item.chain as any}
+        domainId={item.dId}
+        style={styles.avatar}
+      />
       <View style={{ width: 150 }}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.name}>{item.domainName}</Text>
+        {/* <Text style={styles.description}>{item.description}</Text> */}
       </View>
-      <Button
-        variant={item.isFollowing ? "outline" : "primary"}
-        style={styles.statusButton}
-      >
-        {item.isFollowing ? (
-          <AntDesign
-            name="checkcircleo"
-            size={12}
-            color={CustomDarkTheme.colors.p700}
-          />
-        ) : (
-          <AntDesign
-            name="pluscircleo"
-            size={12}
-            color={CustomDarkTheme.colors.p950}
-          />
-        )}
-        <Text
-          style={item.isFollowing ? styles.followingText : styles.followText}
+      {userPrimaryDomainDB?.id !== item.id && (
+        <InteractiveButton
+          keepContent
+          style={styles.statusButton}
+          loading={isProcessing}
+          onPress={() => handleFollow(isFollowed ? "unfollow" : "follow")}
         >
-          {item.isFollowing ? "Followed" : "Follow"}
-        </Text>
-      </Button>
+          {isFollowed ? (
+            <AntDesign
+              name="checkcircleo"
+              size={12}
+              color={CustomDarkTheme.colors.p700}
+            />
+          ) : (
+            <AntDesign
+              name="pluscircleo"
+              size={12}
+              color={CustomDarkTheme.colors.p950}
+            />
+          )}
+          <Text style={isFollowed ? styles.followingText : styles.followText}>
+            {isFollowed ? "Followed" : "Follow"}
+          </Text>
+        </InteractiveButton>
+      )}
     </View>
   );
 }
@@ -60,8 +86,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   avatar: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 100,
   },
   name: {

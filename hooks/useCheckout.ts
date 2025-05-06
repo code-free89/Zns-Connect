@@ -221,7 +221,6 @@ export const useCheckout = (successCallback?: () => void) => {
   const { value: costWithGas } = useCostWithGas(purchaseCall, selectedChain);
 
   const isEnoughBalance = useMemo(() => {
-    // console.log(costWithGas, userBalance, finalPrice);
     if (costWithGas) {
       return userBalance && userBalance?.value >= Number(costWithGas);
     }
