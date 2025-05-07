@@ -7,6 +7,8 @@ import {
   ViewStyle,
 } from "react-native";
 
+import { getHeightSize } from "@/utils/size";
+
 type Props = {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
@@ -31,6 +33,6 @@ export default function ZnsScrollView({ children, style }: Props) {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    padding: 16,
+    padding: getHeightSize(16),
   },
 });

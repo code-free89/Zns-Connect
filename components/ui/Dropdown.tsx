@@ -6,11 +6,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 
-import { CustomDarkTheme } from "@/constants/theme";
 import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type ItemType = {
   label: string;
@@ -38,11 +41,7 @@ export default function ZnsDropdown({
 
   return (
     <View style={styles.container}>
-      {!!label && (
-        <Text style={[fontStyles["Poppins-Regular"], styles.label]}>
-          {label}
-        </Text>
-      )}
+      {!!label && <Text style={styles.label}>{label}</Text>}
       <Pressable
         style={styles.selectedItemContainer}
         onPress={() => setIsOpen(!isOpen)}
@@ -117,69 +116,73 @@ export default function ZnsDropdown({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
-    gap: 8,
+    gap: getHeightSize(8),
   },
   label: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: 14,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
   },
   selectedItemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: getWidthSize(4),
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
+    paddingVertical: getHeightSize(10),
+    paddingHorizontal: getWidthSize(8),
   },
   selectedItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: getWidthSize(4),
   },
   selectedItemText: {
+    ...fontStyles["Poppins-Medium"],
     flex: 1,
-    fontSize: 16,
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    marginTop: 2,
+    lineHeight: getHeightSize(16 * 1.5),
   },
   placeholder: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingLeft: 8,
-    paddingRight: 4,
+    paddingLeft: getWidthSize(8),
+    paddingRight: getWidthSize(4),
   },
   placeholderText: {
+    ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.body,
-    fontSize: 16,
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
     textAlign: "left",
   },
   dropdownContainer: {
     backgroundColor: "black",
     borderRadius: 12,
-    padding: 16,
-    paddingRight: 10,
+    padding: getWidthSize(12),
+    paddingRight: getWidthSize(8),
     position: "absolute",
-    top: 88,
+    top: getHeightSize(80),
     zIndex: 1,
     width: "100%",
     borderWidth: 2,
     borderColor: CustomDarkTheme.colors.gray900,
-    height: 300,
+    height: getHeightSize(300),
     overflow: "scroll",
   },
   item: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    marginRight: 6,
+    paddingVertical: getHeightSize(10),
+    paddingHorizontal: getWidthSize(12),
+    marginRight: getWidthSize(6),
     borderWidth: 1,
     borderColor: "transparent",
   },
@@ -189,14 +192,16 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   selectedTextStyle: {
-    fontSize: 16,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.txtColor,
+    lineHeight: getHeightSize(16 * 1.5),
   },
   itemText: {
-    fontSize: 16,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    marginTop: 2,
+    lineHeight: getHeightSize(16 * 1.5),
   },
   itemSelected: {
     borderWidth: 1,

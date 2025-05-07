@@ -7,7 +7,6 @@ type Props = {
   text: string;
   icon?: React.ReactNode;
   textStyle?: TextStyle | TextStyle[];
-  type?: "regular" | "medium" | "semiBold" | "bold";
 };
 
 const GRADIENT_COLORS = [
@@ -21,20 +20,14 @@ export default function GradientText({ text, textStyle, icon }: Props) {
     () => (
       <View style={{ flexDirection: "row", gap: 4 }}>
         {icon}
-        <Text style={[textStyle, { margin: "auto" }]}>{text}</Text>
+        <Text style={textStyle}>{text}</Text>
       </View>
     ),
     [text, textStyle]
   );
 
   return (
-    <MaskedView
-      style={{
-        width: "100%",
-        height: "100%",
-      }}
-      maskElement={maskElement}
-    >
+    <MaskedView style={{ flex: 1 }} maskElement={maskElement}>
       <LinearGradient
         colors={GRADIENT_COLORS}
         locations={[0, 0.6364, 0.8189]}

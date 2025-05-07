@@ -5,11 +5,12 @@ import { useRouter } from "expo-router";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
 
-import ZnsText from "@/components/ui/Text";
 import { fontStyles } from "@/constants/fonts";
 import { CopyIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { copyToClipboard } from "@/utils/helpers";
+import { getWidthSize } from "@/utils/size";
+import { getHeightSize } from "@/utils/size";
 import { showSuccessToast } from "@/utils/toast";
 
 export default function AccountActionList({
@@ -55,7 +56,7 @@ export default function AccountActionList({
       <View style={styles.container}>
         <Pressable style={styles.actionItem} onPress={copyWalletAddress}>
           <CopyIcon />
-          <ZnsText style={styles.actionItemText}>Copy wallet address</ZnsText>
+          <Text style={styles.actionItemText}>Copy wallet address</Text>
         </Pressable>
 
         <Pressable style={styles.actionItem} onPress={goToGeneralSettings}>
@@ -64,7 +65,7 @@ export default function AccountActionList({
             size={20}
             color={CustomDarkTheme.colors.txtColor}
           />
-          <ZnsText style={styles.actionItemText}>General settings</ZnsText>
+          <Text style={styles.actionItemText}>General settings</Text>
         </Pressable>
 
         <View style={styles.actionItem}>
@@ -73,27 +74,27 @@ export default function AccountActionList({
             height={20}
             color={CustomDarkTheme.colors.txtColor}
           />
-          <ZnsText style={styles.actionItemText}>Community</ZnsText>
+          <Text style={styles.actionItemText}>Community</Text>
         </View>
         <View style={styles.communityContainer}>
-          <ZnsText
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Blog")}
           >
             Blog
-          </ZnsText>
-          <ZnsText
+          </Text>
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Docs")}
           >
             Docs
-          </ZnsText>
-          <ZnsText
+          </Text>
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Socials")}
           >
             Socials
-          </ZnsText>
+          </Text>
         </View>
 
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
@@ -122,34 +123,33 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: CustomDarkTheme.colors.gray900,
     backgroundColor: "black",
-    padding: 16,
+    padding: getWidthSize(16),
     borderRadius: 12,
-    position: "absolute",
-    top: 40,
-    right: 0,
-    width: 280,
+    width: getWidthSize(280),
   },
   container: {
     flexDirection: "column",
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 16,
-    padding: 20,
-    gap: 24,
+    padding: getWidthSize(14),
+    gap: getHeightSize(24),
   },
   actionItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   actionItemText: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: 16,
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
   },
   communityContainer: {
-    gap: 16,
+    gap: getHeightSize(16),
   },
   communityItem: {
     color: CustomDarkTheme.colors.txtColor,
-    marginLeft: 30,
+    marginLeft: getWidthSize(30),
   },
 });

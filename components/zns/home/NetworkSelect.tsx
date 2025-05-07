@@ -39,26 +39,12 @@ export default function NetworkSelect() {
   };
 
   return (
-    <View style={styles.container}>
-      <ZnsDropdown
-        label="Switch Network"
-        placeholder="Select a network"
-        value={selectedNetwork}
-        setValue={handleNetworkChange}
-        items={NetworkItems}
-      />
-    </View>
+    <ZnsDropdown
+      label="Switch Network"
+      placeholder="Select a network"
+      value={selectedNetwork}
+      setValue={handleNetworkChange}
+      items={NetworkItems}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  title: {
-    color: CustomDarkTheme.colors.body,
-    fontWeight: 400,
-    fontSize: 14,
-    marginBottom: 8,
-  },
-});

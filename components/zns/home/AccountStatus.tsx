@@ -5,9 +5,11 @@ import { useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { fontStyles } from "@/constants/fonts";
 import { CreditIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 const Row = ({ children }: { children: React.ReactNode }) => (
   <View style={styles.row}>{children}</View>
@@ -137,35 +139,36 @@ export default function AccountStatus() {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: "auto",
     width: "100%",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   statusContainer: {
     flex: 1,
     borderWidth: 0,
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.grey2,
-    padding: 12,
+    padding: getWidthSize(12),
     flexDirection: "column",
     justifyContent: "space-between",
-    height: 120,
+    height: getHeightSize(120),
   },
   row: {
     flexDirection: "row",
-    gap: 8,
+    gap: getWidthSize(8),
     justifyContent: "space-between",
     alignItems: "center",
   },
   label: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontWeight: 400,
-    fontSize: 14,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
   },
   value: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontWeight: 400,
-    fontSize: 16,
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
   },
   iconContainer: {
     padding: 4,
@@ -174,8 +177,9 @@ const styles = StyleSheet.create({
     backgroundColor: CustomDarkTheme.colors.actionBg,
   },
   mintLabel: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.primary,
-    fontWeight: 400,
-    fontSize: 12,
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
   },
 });
