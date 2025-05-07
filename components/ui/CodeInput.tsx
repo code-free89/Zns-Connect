@@ -1,4 +1,5 @@
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import React, { Dispatch, SetStateAction } from "react";
 import { Platform, StyleProp, StyleSheet, Text, ViewStyle } from "react-native";
 import {
@@ -35,7 +36,7 @@ export default function CodeInput({
       value={value}
       onChangeText={setValue}
       cellCount={cellCount}
-      rootStyle={[styles.codeFieldRoot, style]}
+      rootStyle={style}
       keyboardType="number-pad"
       textContentType="oneTimeCode"
       autoComplete={Platform.select({
@@ -61,24 +62,21 @@ export default function CodeInput({
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, padding: 20 },
-  title: { textAlign: "center", fontSize: 30 },
-  codeFieldRoot: { marginTop: 0 },
   cell: {
-    width: 48,
-    height: 48,
+    width: getWidthSize(48),
+    height: getWidthSize(48),
     borderRadius: 12,
     borderWidth: 1.65,
     borderColor: "#3D3B26",
     color: CustomDarkTheme.colors.textPrimary,
-    lineHeight: 38,
-    fontSize: 24,
+    lineHeight: getHeightSize(36),
+    fontSize: getHeightSize(24),
     textAlign: "center",
   },
   focusCell: {
     borderColor: CustomDarkTheme.colors.primary,
   },
   margin: {
-    marginRight: 12,
+    marginRight: getWidthSize(12),
   },
 });
