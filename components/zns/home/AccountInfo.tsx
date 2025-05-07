@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Avatar from "@/components/ui/Avatar";
-import ZnsText from "@/components/ui/Text";
 import AccountActionList from "@/components/zns/home/AccountActionList";
 import AddressQRModal from "@/components/zns/home/AddressQRModal";
 import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatBalance, formatWalletAddress } from "@/utils/formatter";
+import { fontStyles } from "@/constants/fonts";
 
 type Props = {
   account: {
@@ -25,12 +25,12 @@ export default function AccountInfo({ account }: Props) {
     <View style={styles.container}>
       <Avatar />
       <View style={styles.walletInfoContainer}>
-        <ZnsText type="semiBold" style={styles.walletAddress}>
+        <Text style={styles.walletAddress}>
           {formatWalletAddress(account.address)}
-        </ZnsText>
-        <ZnsText type="semiBold" style={styles.balance}>
+        </Text>
+        <Text style={styles.balance}>
           {formatBalance(Number(account.balance))} {account.symbol}
-        </ZnsText>
+        </Text>
       </View>
       <TouchableOpacity
         style={styles.actionButtonContainer}
@@ -70,11 +70,13 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   walletAddress: {
+    ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.body,
     fontSize: 14,
     lineHeight: 30,
   },
   balance: {
+    ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.grey1,
     fontSize: 24,
     lineHeight: 30,

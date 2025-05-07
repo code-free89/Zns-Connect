@@ -6,7 +6,7 @@ import ReferralStatus from "@/components/zns/referral/ReferralStatus";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 
-export default function HomeScreen() {
+export default function ReferralsScreen() {
   return (
     <>
       <View style={styles.pageTitle}>
