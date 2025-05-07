@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import { useEffect, useMemo, useState } from "react";
 import {
   Animated,
@@ -6,13 +7,13 @@ import {
   useAnimatedValue,
   View,
 } from "react-native";
-import { useSharedValue } from "react-native-reanimated";
-import { LinearGradient } from "expo-linear-gradient";
 
 import StepWizard from "@/components/ui/StepWizard";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useScreenSize from "@/hooks/useScreenSize";
+import { Text } from "react-native";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 const ONBOARDING_DATA = [
   {
@@ -36,55 +37,54 @@ const ONBOARDING_DATA = [
 ];
 
 export default function OnboardingCarousel() {
-  const scrollOffsetValue = useSharedValue<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [previousTouchOffset, setPreviousTouchOffset] = useState<number>(0);
   const { height, width } = useScreenSize();
 
-  const translateYAnim = useAnimatedValue(0);
-  const translateYReverseAnim = useAnimatedValue(0);
-  const opacityAnim = useAnimatedValue(0.2);
-  const imageTranslateAnim = useAnimatedValue(0);
+  const enterInTranslateXAnim = useAnimatedValue(width);
+  const enterInScaleAnim = useAnimatedValue(1);
+
+  const enterOutTranslateXAnim = useAnimatedValue(0);
+  const enterOutScaleAnim = useAnimatedValue(1);
+
   useEffect(() => {
-    translateYAnim.setValue(-height / 14);
-    translateYReverseAnim.setValue(height / 14);
-    opacityAnim.setValue(0.2);
-    imageTranslateAnim.setValue(0);
+    enterInTranslateXAnim.setValue(width);
+    enterInScaleAnim.setValue(0.3);
+    enterOutTranslateXAnim.setValue(0);
+    enterOutScaleAnim.setValue(1);
 
-    Animated.timing(translateYAnim, {
+    Animated.timing(enterInTranslateXAnim, {
       toValue: 0,
-      duration: 1000,
+      duration: 600,
       useNativeDriver: true,
     }).start();
 
-    Animated.timing(translateYReverseAnim, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start();
-
-    Animated.timing(opacityAnim, {
+    Animated.timing(enterInScaleAnim, {
       toValue: 1,
-      duration: 1000,
+      duration: 600,
       useNativeDriver: true,
     }).start();
 
-    Animated.timing(imageTranslateAnim, {
-      toValue: -width * 1.25,
-      duration: 1000,
+    Animated.timing(enterOutTranslateXAnim, {
+      toValue: -width,
+      duration: 600,
+      useNativeDriver: true,
+    }).start();
+
+    Animated.timing(enterOutScaleAnim, {
+      toValue: 0.3,
+      duration: 600,
       useNativeDriver: true,
     }).start();
   }, [currentIndex]);
 
-  const carouselImages = useMemo(() => {
+  const carouselData = useMemo(() => {
     const length = ONBOARDING_DATA.length;
-    const images = [];
+    const data = [];
     for (let i = 0; i < 2; i++) {
-      images.push(
-        ONBOARDING_DATA[(currentIndex + i + length - 1) % length].image
-      );
+      data.push(ONBOARDING_DATA[(currentIndex + i + length - 1) % length]);
     }
-    return images;
+    return data;
   }, [currentIndex]);
 
   useEffect(() => {
@@ -98,75 +98,65 @@ export default function OnboardingCarousel() {
   return (
     <View
       style={{ flex: 1 }}
-      onTouchStart={(event) => {
-        setPreviousTouchOffset(event.nativeEvent.locationX);
-      }}
-      onTouchEnd={(event) => {
-        if (event.nativeEvent.locationX > previousTouchOffset) {
-          setCurrentIndex(
-            (currentIndex - 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
-          );
-        } else {
-          setCurrentIndex(
-            (currentIndex + 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
-          );
-        }
-      }}
+      // onTouchStart={(event) => {
+      //   setPreviousTouchOffset(event.nativeEvent.locationX);
+      // }}
+      // onTouchEnd={(event) => {
+      //   if (event.nativeEvent.locationX > previousTouchOffset) {
+      //     setCurrentIndex(
+      //       (currentIndex - 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
+      //     );
+      //   } else {
+      //     setCurrentIndex(
+      //       (currentIndex + 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
+      //     );
+      //   }
+      // }}
     >
-      <Animated.View
+      <View
         style={{
-          width: width * 2.5,
+          width: width * 2,
           height: height / 2,
           flexDirection: "row",
           overflow: "hidden",
-          transform: [{ translateX: imageTranslateAnim }],
         }}
       >
-        {carouselImages.map((image, index) => (
-          <View
-            key={index}
-            style={{
-              width: width * 1.25,
-              // backgroundColor: index % 2 === 0 ? "red" : "blue",
-              overflow: index === 0 ? "visible" : "hidden",
-            }}
-          >
-            <Image
-              source={image}
-              style={{
-                width: width,
-                position: "absolute",
-                left: width * 0.2,
-                top: height / 7,
-              }}
-              resizeMode="contain"
-            />
-          </View>
-        ))}
-        {/* <Carousel
-          ref={carouselRef}
-          loop={true}
-          width={width}
-          height={height / 2}
-          autoPlay
-          snapEnabled={true}
-          pagingEnabled={true}
-          autoPlayInterval={4000}
-          scrollAnimationDuration={1500}
-          data={ONBOARDING_DATA}
-          defaultScrollOffsetValue={scrollOffsetValue}
-          style={{ width: "100%", height: 400 }}
-          onConfigurePanGesture={(g: { enabled: (arg0: boolean) => any }) => {
-            "worklet";
-            g.enabled(false);
+        <Animated.View
+          style={{
+            width: width,
+            height: "100%",
+            alignItems: "center",
+            transform: [
+              { translateX: enterOutTranslateXAnim },
+              { scale: enterOutScaleAnim },
+            ],
           }}
-          renderItem={OnboardingSlideItem()}
-          onScrollStart={() => {
-            const _currentIndex = carouselRef.current?.getCurrentIndex();
-            setCurrentIndex(_currentIndex ?? 0);
+        >
+          <Image
+            source={carouselData[0].image}
+            style={{ width, marginTop: "15%" }}
+            resizeMode="contain"
+          />
+        </Animated.View>
+        <Animated.View
+          style={{
+            position: "absolute",
+            width: width,
+            height: "100%",
+            alignItems: "center",
+            transform: [
+              { translateX: enterInTranslateXAnim },
+              { scale: enterInScaleAnim },
+            ],
           }}
-        /> */}
-      </Animated.View>
+        >
+          <Image
+            source={carouselData[1].image}
+            style={{ width, marginTop: "15%" }}
+            resizeMode="contain"
+          />
+        </Animated.View>
+      </View>
 
       <LinearGradient
         colors={["#0E1100", "#12060600"]}
@@ -205,37 +195,58 @@ export default function OnboardingCarousel() {
           currentStep={currentIndex}
         />
       </View>
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          zIndex: 100,
-        }}
-      >
-        <Animated.Text
-          style={[
-            fontStyles["Poppins-Bold"],
-            {
-              transform: [{ translateY: translateYAnim }],
-              opacity: opacityAnim,
-            },
-            styles.title,
-          ]}
+
+      <View style={styles.textContainer}>
+        <View
+          style={{
+            width: width * 2,
+            height: "100%",
+            flexDirection: "row",
+            overflow: "hidden",
+          }}
         >
-          {ONBOARDING_DATA[currentIndex].title}
-        </Animated.Text>
-        <Animated.Text
-          style={[
-            fontStyles["Poppins-Regular"],
-            {
-              transform: [{ translateY: translateYReverseAnim }],
-              opacity: opacityAnim,
-            },
-            styles.description,
-          ]}
-        >
+          <Animated.View
+            style={{
+              width: width,
+              height: "100%",
+              alignItems: "center",
+              transform: [
+                { translateX: enterOutTranslateXAnim },
+                { scale: enterOutScaleAnim },
+              ],
+            }}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{carouselData[0].title}</Text>
+              <Text style={styles.description}>
+                {carouselData[0].description}
+              </Text>
+            </View>
+          </Animated.View>
+          <Animated.View
+            style={{
+              position: "absolute",
+              width: width,
+              height: "100%",
+              alignItems: "center",
+              transform: [
+                { translateX: enterInTranslateXAnim },
+                { scale: enterInScaleAnim },
+              ],
+            }}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.title}>{carouselData[1].title}</Text>
+              <Text style={styles.description}>
+                {carouselData[1].description}
+              </Text>
+            </View>
+          </Animated.View>
+        </View>
+        {/* <Text style={styles.title}>{ONBOARDING_DATA[currentIndex].title}</Text>
+        <Text style={styles.description}>
           {ONBOARDING_DATA[currentIndex].description}
-        </Animated.Text>
+        </Text> */}
       </View>
     </View>
   );
@@ -243,23 +254,30 @@ export default function OnboardingCarousel() {
 
 const styles = StyleSheet.create({
   title: {
+    ...fontStyles["Poppins-Bold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: 24,
-    lineHeight: 24 * 1.5,
+    fontSize: getWidthSize(24),
+    lineHeight: getWidthSize(24) * 1.5,
     textAlign: "center",
   },
   description: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: 14,
-    lineHeight: 14 * 1.5,
+    fontSize: getWidthSize(14),
+    lineHeight: getWidthSize(14) * 1.5,
     textAlign: "center",
-    marginTop: 8,
+    marginTop: getHeightSize(8),
   },
   stepWizardContainer: {
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 16,
+    zIndex: 100,
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: "center",
     zIndex: 100,
   },
 });

@@ -1,24 +1,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useWalletInfo } from "@web3modal/wagmi-react-native";
+import { useWalletInfo, useWeb3Modal } from "@web3modal/wagmi-react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useAccount } from "wagmi";
 
+import W3ModalButton from "@/components/ui/W3ModalButton";
 import GetStartedModal from "@/components/zns/get-started/GetStartedModal";
 import OnboardingCarousel from "@/components/zns/onboarding/OnboardingCarousel";
-import { W3mButton } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
-import useScreenSize from "@/hooks/useScreenSize";
 import { getOrCreateUserIdByAddress } from "@/lib/api/user";
 import { useAppDispatch } from "@/store";
 import { setUserSession } from "@/store/slices/user";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function WalletConnectScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { height, width } = useScreenSize();
   const { isConnected, address } = useAccount();
+  const { open } = useWeb3Modal();
   const { walletInfo } = useWalletInfo();
   const [getStartedModalVisible, setGetStartedModalVisible] = useState(false);
 
@@ -46,6 +46,7 @@ export default function WalletConnectScreen() {
       <View style={{ flex: 1 }}>
         <OnboardingCarousel />
       </View>
+
       {isConnected && (
         <GetStartedModal
           isVisible={isConnected && getStartedModalVisible}
@@ -59,22 +60,8 @@ export default function WalletConnectScreen() {
         />
       )}
 
-      <View
-        style={{ height: height / 10, minHeight: 50, paddingHorizontal: 16 }}
-      >
-        <W3mButton
-          connectStyle={{
-            backgroundColor: CustomDarkTheme.colors.primary,
-            borderRadius: 11,
-            height: 50,
-            marginTop: "auto",
-            marginBottom: 80,
-          }}
-          accountStyle={{
-            backgroundColor: "red",
-          }}
-          label="Connect Wallet"
-        />
+      <View style={styles.W3ButtonContainer}>
+        <W3ModalButton />
       </View>
     </View>
   );
@@ -83,13 +70,19 @@ export default function WalletConnectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
+    paddingVertical: getHeightSize(16),
   },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    top: 1,
-    zIndex: 100,
-    opacity: 0.4,
+  W3Button: {
+    backgroundColor: CustomDarkTheme.colors.primary,
+    borderRadius: 11,
+    height: getHeightSize(50),
+    marginTop: "auto",
+    zIndex: 1000,
+  },
+  W3ButtonContainer: {
+    minHeight: getHeightSize(50),
+    paddingHorizontal: getWidthSize(16),
+    marginBottom: getHeightSize(80),
+    zIndex: 1000,
   },
 });

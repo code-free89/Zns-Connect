@@ -2,6 +2,7 @@ import React from "react";
 import {
   ActivityIndicator,
   StyleSheet,
+  Text,
   TextStyle,
   TouchableOpacity,
   TouchableOpacityProps,
@@ -10,9 +11,10 @@ import {
 
 import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getWidthSize } from "@/utils/size";
+import { getHeightSize } from "@/utils/size";
 
 interface ButtonProps extends TouchableOpacityProps {
-  fontType?: "regular" | "medium" | "semiBold" | "bold";
   title?: string;
   textStyle?: TextStyle;
   variant?: "primary" | "secondary" | "outline" | "text";
@@ -25,7 +27,6 @@ export default function Button({
   variant = "primary",
   style,
   textStyle,
-  fontType = "regular",
   loading = false,
   loadingText = "Submitting...",
   ...props
@@ -46,7 +47,7 @@ export default function Button({
     >
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ZnsText
+          <Text
             style={[
               styles.text,
               variant === "primary" && styles.primaryText,
@@ -54,17 +55,16 @@ export default function Button({
               textStyle,
               props.disabled && styles.disabledText,
             ]}
-            type={fontType}
           >
             {loadingText}
-          </ZnsText>
+          </Text>
           <ActivityIndicator size="small" color="#000000" />
         </View>
       ) : (
         <>
           {props.children}
           {!!title && (
-            <ZnsText
+            <Text
               style={[
                 styles.text,
                 variant === "primary" && styles.primaryText,
@@ -72,10 +72,9 @@ export default function Button({
                 textStyle,
                 props.disabled && styles.disabledText,
               ]}
-              type={fontType}
             >
               {title}
-            </ZnsText>
+            </Text>
           )}
         </>
       )}
@@ -85,8 +84,8 @@ export default function Button({
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: 14,
-    paddingHorizontal: 24,
+    paddingVertical: getHeightSize(14),
+    paddingHorizontal: getWidthSize(24),
     borderRadius: 12,
     width: "100%",
     alignItems: "center",
@@ -101,14 +100,12 @@ const styles = StyleSheet.create({
   secondaryButton: {
     backgroundColor: CustomDarkTheme.colors.secondaryBtn,
   },
-  text: {
-    fontSize: 16,
-  },
+  text: {},
   disabledText: {
     color: CustomDarkTheme.colors.textDisabled,
   },
   primaryText: {
-    color: "#000000",
+    color: "#101010",
   },
   secondaryText: {
     color: CustomDarkTheme.colors.primary,
@@ -124,6 +121,6 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
   },
 });

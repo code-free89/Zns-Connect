@@ -25,7 +25,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const queryClient = new QueryClient();
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Poppins-Light": require("../assets/fonts/Poppins/Poppins-Light.ttf"),
     "Poppins-Regular": require("../assets/fonts/Poppins/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins/Poppins-Medium.ttf"),
@@ -45,12 +45,12 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    if (fontsLoaded) {
+      SplashScreen.hide();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
@@ -60,7 +60,7 @@ export default function RootLayout() {
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <AutocompleteDropdownContextProvider>
-              <StatusBar style="dark" />
+              <StatusBar style="light" backgroundColor="#000" />
               <SafeAreaProvider>
                 <SafeAreaView style={{ flex: 1 }}>
                   <Web3Modal />
@@ -69,19 +69,10 @@ export default function RootLayout() {
 
                   <BackDropModal />
 
-                  <Stack>
-                    <Stack.Screen
-                      name="(onboarding)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(tabs)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(zns)"
-                      options={{ headerShown: false }}
-                    />
+                  <Stack screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="(onboarding)" />
+                    <Stack.Screen name="(tabs)" />
+                    <Stack.Screen name="(zns)" />
                     <Stack.Screen name="+not-found" />
                   </Stack>
 

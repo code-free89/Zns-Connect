@@ -2,7 +2,6 @@ import {
   createWeb3Modal,
   defaultWagmiConfig,
   useWeb3Modal,
-  W3mButton,
   Web3Modal,
 } from "@web3modal/wagmi-react-native";
 import { ink } from "viem/chains";
@@ -35,4 +34,4 @@ createWeb3Modal({
 });
 
 // Re-export components
-export { useWeb3Modal, W3mButton, wagmiConfig, Web3Modal };
+export { useWeb3Modal, wagmiConfig, Web3Modal };
