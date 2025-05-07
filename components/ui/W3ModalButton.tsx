@@ -20,7 +20,7 @@ export default function W3ModalButton() {
 const styles = StyleSheet.create({
   W3ButtonText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getWidthSize(14),
+    fontSize: getHeightSize(14),
     lineHeight: getHeightSize(20),
   },
 });

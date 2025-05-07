@@ -256,14 +256,14 @@ const styles = StyleSheet.create({
   title: {
     ...fontStyles["Poppins-Bold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: getWidthSize(24),
+    fontSize: getHeightSize(24),
     lineHeight: getWidthSize(24) * 1.5,
     textAlign: "center",
   },
   description: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getWidthSize(14),
+    fontSize: getHeightSize(14),
     lineHeight: getWidthSize(14) * 1.5,
     textAlign: "center",
     marginTop: getHeightSize(8),
