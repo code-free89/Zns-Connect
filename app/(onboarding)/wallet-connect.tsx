@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useWalletInfo, useWeb3Modal } from "@web3modal/wagmi-react-native";
+import { useWalletInfo } from "@web3modal/wagmi-react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -18,7 +18,6 @@ export default function WalletConnectScreen() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { isConnected, address } = useAccount();
-  const { open } = useWeb3Modal();
   const { walletInfo } = useWalletInfo();
   const [getStartedModalVisible, setGetStartedModalVisible] = useState(false);
 

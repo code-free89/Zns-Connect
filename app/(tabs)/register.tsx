@@ -18,12 +18,13 @@ export default function RegisterScreen() {
 
   return (
     <>
-      <View style={styles.pageTitle}>
-        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          Register a domain
-        </Text>
-      </View>
       <ZnsScrollView>
+        <View style={styles.pageTitle}>
+          <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+            Register a domain
+          </Text>
+        </View>
+
         <DomainProvider />
 
         <RegisterTypeSelect
@@ -43,7 +44,6 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",

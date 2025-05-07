@@ -1,4 +1,11 @@
-import { ScrollView, StyleProp, StyleSheet, ViewStyle } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleProp,
+  StyleSheet,
+  ViewStyle,
+} from "react-native";
 
 type Props = {
   children: React.ReactNode;
@@ -7,12 +14,17 @@ type Props = {
 
 export default function ZnsScrollView({ children, style }: Props) {
   return (
-    <ScrollView
-      contentContainerStyle={{ paddingBottom: 30 }}
-      style={[styles.scrollView, style]}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
-      {children}
-    </ScrollView>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 30 }}
+        style={[styles.scrollView, style]}
+      >
+        {children}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -1,12 +1,26 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
+// import { getHeaderTitle } from "@react-navigation/elements";
 import React, { useEffect, useState } from "react";
 
-import CustomBottomTabButton from "@/components/CustomBottomTabButton";
 import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
+import { fontStyles } from "@/constants/fonts";
+import {
+  CartIcon,
+  HomeIcon,
+  SearchIcon,
+  UserAddIcon,
+  UserIcon,
+} from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
+import { getHeightSize } from "@/utils/size";
+import { Tabs, useNavigation, usePathname } from "expo-router";
+import { Text } from "react-native";
 
 export default function TabsLayout() {
+  const pathname = usePathname();
+  const navigation = useNavigation();
+  const { carts } = useAppSelector((state) => state.setting);
   const [referralCodeModalVisible, setReferralCodeModalVisible] =
     useState(false);
 
@@ -17,6 +31,10 @@ export default function TabsLayout() {
     };
 
     handleReferralStatus();
+
+    navigation.addListener("tabPress", () => {
+      console.log("tabPress");
+    });
   }, []);
 
   return (
@@ -28,11 +46,144 @@ export default function TabsLayout() {
           setReferralCodeModalVisible(false);
         }}
       />
-      <Tabs options={{ unmountOnBlur: true }}>
+      <Tabs
+        screenOptions={{
+          tabBarHideOnKeyboard: true,
+          tabBarActiveTintColor: CustomDarkTheme.colors.primary,
+          tabBarInactiveTintColor: CustomDarkTheme.colors.body,
+          tabBarStyle: {
+            backgroundColor: CustomDarkTheme.colors.grey3,
+            paddingVertical: getHeightSize(17),
+            height: getHeightSize(64),
+          },
+          tabBarItemStyle: {
+            paddingTop: 4,
+          },
+          freezeOnBlur: true,
+          popToTopOnBlur: true,
+          headerStyle: {
+            backgroundColor: "black",
+          },
+          animation: "shift",
+          headerShown: false,
+          // header: ({
+          //   navigation,
+          //   route,
+          //   options,
+          // }: {
+          //   navigation: any;
+          //   route: any;
+          //   options: any;
+          // }) => {
+          //   const title = getHeaderTitle(options, route.name);
+
+          //   return (
+          //     <Text
+          //       style={[
+          //         fontStyles["Poppins-Medium"],
+          //         {
+          //           textAlign: "center",
+          //           fontSize: getHeightSize(18),
+          //           color: CustomDarkTheme.colors.txtColor,
+          //           padding: getHeightSize(8),
+          //         },
+          //       ]}
+          //     >
+          //       {title}
+          //     </Text>
+          //   );
+          // },
+        }}
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            tabBarIcon: ({ color }: { color: string }) => (
+              <HomeIcon color={color} />
+            ),
+            tabBarLabel: "Home",
+            tabBarLabelStyle: [
+              pathname === "/home"
+                ? fontStyles["Poppins-SemiBold"]
+                : fontStyles["Poppins-Regular"],
+            ],
+          }}
+        />
+        <Tabs.Screen
+          name="register"
+          options={{
+            tabBarIcon: ({ color }: { color: string }) => (
+              <SearchIcon color={color} />
+            ),
+            title: "Register a domain",
+            tabBarLabel: "Register",
+            tabBarLabelStyle: [
+              pathname === "/register"
+                ? fontStyles["Poppins-SemiBold"]
+                : fontStyles["Poppins-Regular"],
+            ],
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            tabBarIcon: ({ color }: { color: string }) => (
+              <UserIcon color={color} />
+            ),
+            title: "Profile",
+            tabBarLabelStyle: [
+              pathname === "/profile"
+                ? fontStyles["Poppins-SemiBold"]
+                : fontStyles["Poppins-Regular"],
+            ],
+          }}
+        />
+        <Tabs.Screen
+          name="cart"
+          options={{
+            tabBarIcon: ({ color }: { color: string }) => (
+              <CartIcon color={color} />
+            ),
+            title: "My Cart",
+            tabBarBadge: carts.length > 0 ? carts.length : undefined,
+            tabBarBadgeStyle: {
+              backgroundColor: CustomDarkTheme.colors.primary,
+              color: "black",
+            },
+            tabBarLabelStyle: [
+              pathname === "/cart"
+                ? fontStyles["Poppins-SemiBold"]
+                : fontStyles["Poppins-Regular"],
+            ],
+          }}
+        />
+        <Tabs.Screen
+          name="referrals"
+          options={{
+            tabBarIcon: ({ color }: { color: string }) => (
+              <UserAddIcon color={color} />
+            ),
+            title: "Affiliate for users",
+            tabBarLabel: "Referrals",
+            tabBarLabelStyle: [
+              pathname === "/referrals"
+                ? fontStyles["Poppins-SemiBold"]
+                : fontStyles["Poppins-Regular"],
+            ],
+          }}
+        />
+      </Tabs>
+      {/* <Tabs
+        options={{
+          unmountOnBlur: true,
+          detachInactiveScreens: true,
+          tabBarHideOnKeyboard: true,
+        }}
+      >
         <TabSlot />
         <TabList
           style={{
-            paddingVertical: 17,
+            paddingVertical: getHeightSize(17),
             backgroundColor: CustomDarkTheme.colors.grey3,
             flexDirection: "row",
             justifyContent: "space-around",
@@ -66,7 +217,7 @@ export default function TabsLayout() {
             />
           </TabTrigger>
         </TabList>
-      </Tabs>
+      </Tabs> */}
     </>
   );
 }

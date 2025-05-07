@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     color: CustomDarkTheme.colors.textPrimary,
     lineHeight: getHeightSize(36),
     fontSize: getHeightSize(24),
+    paddingTop: getWidthSize(6),
     textAlign: "center",
   },
   focusCell: {

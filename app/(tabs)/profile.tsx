@@ -31,12 +31,12 @@ export default function ProfileScreen() {
 
   return (
     <>
-      <View style={styles.pageTitle}>
-        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          Profile
-        </Text>
-      </View>
       <ZnsScrollView style={{ padding: 0 }}>
+        <View style={styles.pageTitle}>
+          <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+            Profile
+          </Text>
+        </View>
         <View style={styles.container}>
           <ProfileOverView />
 
