@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import { useAccount, useSwitchChain } from "wagmi";
 
 import ZnsDropdown from "@/components/ui/Dropdown";
@@ -13,7 +13,11 @@ const NetworkItems = CHAINS.map((chain) => ({
   icon: chain.icon,
 }));
 
-export default function NetworkSelect() {
+type Props = {
+  containerStyle?: StyleProp<ViewStyle>;
+};
+
+export default function NetworkSelect({ containerStyle }: Props) {
   const { chain } = useAccount();
   const { switchChainAsync } = useSwitchChain();
   const [selectedNetwork, setSelectedNetwork] = useState(
@@ -45,6 +49,7 @@ export default function NetworkSelect() {
       value={selectedNetwork}
       setValue={handleNetworkChange}
       items={NetworkItems}
+      containerStyle={containerStyle}
     />
   );
 }

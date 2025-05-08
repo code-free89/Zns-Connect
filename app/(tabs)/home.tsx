@@ -31,8 +31,6 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <AccountInfo />
 
-        <SplitLine />
-
         <NetworkSelect />
 
         <AccountStatus />

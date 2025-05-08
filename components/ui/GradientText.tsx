@@ -7,6 +7,7 @@ type Props = {
   text: string;
   icon?: React.ReactNode;
   textStyle?: TextStyle | TextStyle[];
+  size?: { width: number; height: number };
 };
 
 const GRADIENT_COLORS = [
@@ -15,10 +16,10 @@ const GRADIENT_COLORS = [
   "#BB981C",
 ] as const;
 
-export default function GradientText({ text, textStyle, icon }: Props) {
+export default function GradientText({ text, textStyle, icon, size }: Props) {
   const maskElement = useMemo(
     () => (
-      <View style={{ flexDirection: "row", gap: 4 }}>
+      <View style={{ flexDirection: "row", gap: 4, alignItems: "center" }}>
         {icon}
         <Text style={textStyle}>{text}</Text>
       </View>
@@ -27,7 +28,10 @@ export default function GradientText({ text, textStyle, icon }: Props) {
   );
 
   return (
-    <MaskedView style={{ flex: 1 }} maskElement={maskElement}>
+    <MaskedView
+      style={{ width: size?.width ?? 0, height: size?.height ?? 0 }}
+      maskElement={maskElement}
+    >
       <LinearGradient
         colors={GRADIENT_COLORS}
         locations={[0, 0.6364, 0.8189]}

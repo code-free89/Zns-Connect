@@ -1,11 +1,13 @@
 import { router, Stack } from "expo-router";
 import React from "react";
 
-import { NavigationBackIcon } from "@/constants/icons";
-import { CustomDarkTheme } from "@/constants/theme";
-import { Pressable, Text, StyleSheet } from "react-native";
 import ZnsText from "@/components/ui/Text";
 import { fontStyles } from "@/constants/fonts";
+import { NavigationBackIcon } from "@/constants/icons";
+import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Header } from "react-native/Libraries/NewAppScreen";
 
 export default function ZnsLayout() {
   return (
@@ -14,13 +16,20 @@ export default function ZnsLayout() {
         headerStyle: {
           backgroundColor: "black",
         },
+        headerShown: false,
         headerTitleStyle: {
-          fontFamily: "Poppins-Medium",
-          fontSize: 18,
+          ...fontStyles["Poppins-Medium"],
+          fontSize: getHeightSize(18),
+          lineHeight: getHeightSize(18 * 1.5),
           color: CustomDarkTheme.colors.txtColor,
         },
         headerLeft: () => (
-          <Pressable onPress={() => router.dismiss()}>
+          <Pressable
+            onPress={() => {
+              if (router.canGoBack()) router.back();
+              else router.replace("/(tabs)/home");
+            }}
+          >
             <NavigationBackIcon />
           </Pressable>
         ),
@@ -72,6 +81,29 @@ export default function ZnsLayout() {
               Human Identity Pass
             </Text>
           ),
+        }}
+      />
+      <Stack.Screen
+        name="my-domains"
+        options={{
+          title: "My domains",
+          headerShown: true,
+          header: ({ options }: any) => {
+            return (
+              <View
+                style={{
+                  height: getHeightSize(72),
+                  flexDirection: "row",
+                  paddingHorizontal: getWidthSize(16),
+                  gap: getWidthSize(12),
+                  alignItems: "center",
+                }}
+              >
+                {options.headerLeft()}
+                <Text style={options.headerTitleStyle}>{options.title}</Text>
+              </View>
+            );
+          },
         }}
       />
     </Stack>

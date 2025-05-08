@@ -4,11 +4,11 @@ import {
   Image,
   Pressable,
   ScrollView,
+  StyleProp,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
+  ViewStyle,
 } from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
@@ -27,6 +27,7 @@ type Props = {
   setValue: (newVal: string) => void;
   items: ItemType[];
   placeholder?: string;
+  containerStyle?: StyleProp<ViewStyle>;
 };
 
 export default function ZnsDropdown({
@@ -35,6 +36,7 @@ export default function ZnsDropdown({
   setValue,
   items,
   placeholder,
+  containerStyle,
 }: Props) {
   const selectedItem = items.find((item) => item.value === value);
   const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +45,7 @@ export default function ZnsDropdown({
     <View style={styles.container}>
       {!!label && <Text style={styles.label}>{label}</Text>}
       <Pressable
-        style={styles.selectedItemContainer}
+        style={[styles.selectedItemContainer, containerStyle]}
         onPress={() => setIsOpen(!isOpen)}
       >
         {selectedItem ? (

@@ -1,15 +1,12 @@
 import { useMemo, useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import Modal from "react-native-modal";
 import { useAccount, useBalance } from "wagmi";
 
 import Avatar from "@/components/ui/Avatar";
+import DummyText from "@/components/ui/DummyText";
 import GradientText from "@/components/ui/GradientText";
+import SplitLine from "@/components/ui/SplitLine";
 import AccountActionList from "@/components/zns/home/AccountActionList";
 import AddressQRModal from "@/components/zns/home/AddressQRModal";
 import { fontStyles } from "@/constants/fonts";
@@ -19,7 +16,6 @@ import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppSelector } from "@/store";
 import { formatBalance, formatWalletAddress } from "@/utils/formatter";
 import { getHeightSize, getWidthSize } from "@/utils/size";
-import Modal from "react-native-modal";
 
 export default function AccountInfo() {
   const account = useAccount();
@@ -28,6 +24,10 @@ export default function AccountInfo() {
   const balance = useBalance({ address: account.address });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isActionListVisible, setIsActionListVisible] = useState(false);
+  const [primaryDomainSize, setPrimaryDomainSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const { userPrimaryDomain } = useAppSelector((state) => state.user);
   const hasPrimaryDomain = !!userPrimaryDomain?.domainName;
@@ -43,15 +43,19 @@ export default function AccountInfo() {
   return (
     <View style={styles.container}>
       <Avatar width={getWidthSize(56)} />
-
-      <View style={styles.walletInfoContainer}>
+      <View style={{ alignItems: "center", marginTop: getHeightSize(2) }}>
         {hasPrimaryDomain ? (
-          <View
-            style={{
-              height: getHeightSize(24),
-            }}
-          >
-            <GradientText text={primaryDomain} textStyle={styles.avatarText} />
+          <View>
+            <DummyText
+              text={primaryDomain}
+              textStyle={styles.avatarText}
+              setSize={setPrimaryDomainSize}
+            />
+            <GradientText
+              text={primaryDomain}
+              textStyle={styles.avatarText}
+              size={primaryDomainSize}
+            />
           </View>
         ) : (
           <Text style={styles.walletAddress}>
@@ -64,29 +68,35 @@ export default function AccountInfo() {
         </Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.actionButtonContainer}
-        onPress={() => setIsModalVisible(true)}
-      >
-        <BarCodeScanIcon color={CustomDarkTheme.colors.primary} />
-      </TouchableOpacity>
-      <View>
+      <View style={{ width: "100%", marginTop: getHeightSize(2) }}>
+        <SplitLine />
+      </View>
+
+      <View style={styles.actionContainer}>
         <Pressable
           style={styles.actionButtonContainer}
-          onPress={() => setIsActionListVisible(!isActionListVisible)}
+          onPress={() => setIsModalVisible(true)}
         >
-          <ThreeDotIcon />
+          <BarCodeScanIcon color={CustomDarkTheme.colors.primary} />
         </Pressable>
-        <Modal
-          isVisible={isActionListVisible}
-          backdropColor="transparent"
-          onBackdropPress={() => setIsActionListVisible(false)}
-          style={{ position: "absolute", right: 0, top: 48 }}
-          animationIn="fadeIn"
-          animationOut="fadeOut"
-        >
-          <AccountActionList onClose={() => setIsActionListVisible(false)} />
-        </Modal>
+        <View>
+          <Pressable
+            style={styles.actionButtonContainer}
+            onPress={() => setIsActionListVisible(!isActionListVisible)}
+          >
+            <ThreeDotIcon />
+          </Pressable>
+          <Modal
+            isVisible={isActionListVisible}
+            backdropColor="transparent"
+            onBackdropPress={() => setIsActionListVisible(false)}
+            style={{ position: "absolute", right: 0, top: 48 }}
+            animationIn="fadeIn"
+            animationOut="fadeOut"
+          >
+            <AccountActionList onClose={() => setIsActionListVisible(false)} />
+          </Modal>
+        </View>
       </View>
 
       <AddressQRModal
@@ -100,8 +110,8 @@ export default function AccountInfo() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     gap: getWidthSize(12),
     zIndex: 100,
   },
@@ -121,7 +131,7 @@ const styles = StyleSheet.create({
     lineHeight: getHeightSize(24 * 1.25),
   },
   actionButtonContainer: {
-    padding: 10,
+    padding: getHeightSize(10),
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.actionBg,
     position: "relative",
@@ -130,5 +140,12 @@ const styles = StyleSheet.create({
     ...fontStyles["Poppins-SemiBold"],
     fontSize: getHeightSize(14),
     lineHeight: getHeightSize(14 * 1.5),
+  },
+  actionContainer: {
+    position: "absolute",
+    right: 0,
+    top: getHeightSize(12),
+    flexDirection: "row",
+    gap: getWidthSize(12),
   },
 });

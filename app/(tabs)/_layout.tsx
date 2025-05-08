@@ -14,12 +14,10 @@ import {
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { getHeightSize } from "@/utils/size";
-import { Tabs, useNavigation, usePathname } from "expo-router";
-import { Text } from "react-native";
+import { Tabs, usePathname } from "expo-router";
 
 export default function TabsLayout() {
   const pathname = usePathname();
-  const navigation = useNavigation();
   const { carts } = useAppSelector((state) => state.setting);
   const [referralCodeModalVisible, setReferralCodeModalVisible] =
     useState(false);
@@ -31,10 +29,6 @@ export default function TabsLayout() {
     };
 
     handleReferralStatus();
-
-    navigation.addListener("tabPress", () => {
-      console.log("tabPress");
-    });
   }, []);
 
   return (

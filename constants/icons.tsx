@@ -23,20 +23,20 @@ export function HomeIcon(props: any) {
       <Path
         d="M8 11.3335H8.00599"
         stroke={props.color}
-        stroke-width="1.33334"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.33334"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M13.3332 5.66675V9.00008C13.3332 11.5142 13.3332 12.7713 12.5521 13.5524C11.7711 14.3334 10.514 14.3334 7.99984 14.3334C5.48568 14.3334 4.2286 14.3334 3.44755 13.5524C2.6665 12.7713 2.6665 11.5142 2.6665 9.00008V5.66675"
         stroke={props.color}
-        stroke-width="1.00001"
+        strokeWidth="1.00001"
       />
       <Path
         d="M14.6666 6.99996L11.7712 4.22362C9.99338 2.51896 9.10449 1.66663 7.99992 1.66663C6.89535 1.66663 6.00646 2.51895 4.22869 4.22361L1.33325 6.99996"
         stroke={props.color}
-        stroke-width="1.00001"
-        stroke-linecap="round"
+        strokeWidth="1.00001"
+        strokeLinecap="round"
       />
     </Svg>
   );
@@ -107,40 +107,40 @@ export function UserAddIcon(props: any) {
       <Path
         d="M8.00008 8.00004C9.84103 8.00004 11.3334 6.50766 11.3334 4.66671C11.3334 2.82576 9.84103 1.33337 8.00008 1.33337C6.15913 1.33337 4.66675 2.82576 4.66675 4.66671C4.66675 6.50766 6.15913 8.00004 8.00008 8.00004Z"
         stroke={props.color}
-        stroke-width="1.03125"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.03125"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M2.27344 14.6667C2.27344 12.0867 4.8401 10 8.0001 10C8.6401 10 9.26011 10.0867 9.84011 10.2467"
         stroke={props.color}
-        stroke-width="1.03125"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.03125"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M14.6666 12C14.6666 12.2134 14.6399 12.42 14.5866 12.62C14.5266 12.8867 14.4199 13.1467 14.2799 13.3734C13.8199 14.1467 12.9733 14.6667 11.9999 14.6667C11.3133 14.6667 10.6932 14.4067 10.2266 13.98C10.0266 13.8067 9.85324 13.6 9.71991 13.3734C9.47324 12.9734 9.33325 12.5 9.33325 12C9.33325 11.28 9.61992 10.6201 10.0866 10.1401C10.5733 9.64006 11.2533 9.33337 11.9999 9.33337C12.7866 9.33337 13.4999 9.67339 13.9799 10.2201C14.4066 10.6934 14.6666 11.32 14.6666 12Z"
         stroke={props.color}
-        stroke-width="1.03125"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.03125"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M12.9932 11.9868H11.0066"
         stroke={props.color}
-        stroke-width="1.03125"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.03125"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M12 11.0134V13.0068"
         stroke={props.color}
-        stroke-width="1.03125"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.03125"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
@@ -191,17 +191,17 @@ export function ThreeDotIcon(props: any) {
       <Path
         d="M6.66675 11.361C6.66675 12.0027 7.26675 12.5277 8.00008 12.5277C8.73341 12.5277 9.33341 12.0027 9.33341 11.361C9.33341 10.7194 8.73341 10.1944 8.00008 10.1944C7.26675 10.1944 6.66675 10.7194 6.66675 11.361Z"
         stroke="#E8E8E8"
-        stroke-width="0.851852"
+        strokeWidth="0.851852"
       />
       <Path
         d="M6.66675 3.19436C6.66675 3.83602 7.26675 4.36102 8.00008 4.36102C8.73341 4.36102 9.33341 3.83602 9.33341 3.19436C9.33341 2.55269 8.73341 2.02769 8.00008 2.02769C7.26675 2.02769 6.66675 2.55269 6.66675 3.19436Z"
         stroke="#E8E8E8"
-        stroke-width="0.851852"
+        strokeWidth="0.851852"
       />
       <Path
         d="M6.66675 7.27773C6.66675 7.9194 7.26675 8.4444 8.00008 8.4444C8.73341 8.4444 9.33341 7.9194 9.33341 7.27773C9.33341 6.63606 8.73341 6.11106 8.00008 6.11106C7.26675 6.11106 6.66675 6.63606 6.66675 7.27773Z"
         stroke="#E8E8E8"
-        stroke-width="0.851852"
+        strokeWidth="0.851852"
       />
     </Svg>
   );
@@ -261,7 +261,7 @@ export function SilverMedalIcon() {
           transform="rotate(-180 5.50191 9.2878)"
           fill="#E3E3E3"
           stroke="#404040"
-          stroke-width="0.0771525"
+          strokeWidth="0.0771525"
         />
         <Circle
           cx="5.50194"
@@ -371,9 +371,9 @@ export function SendIcon() {
       <Path
         d="M13.3599 6.94653L5.63327 2.87987C3.79993 1.9132 1.8066 3.86653 2.73327 5.71987L3.81327 7.87987C4.11327 8.47987 4.11327 9.18653 3.81327 9.78653L2.73327 11.9465C1.8066 13.7999 3.79993 15.7465 5.63327 14.7865L13.3599 10.7199C14.8799 9.91987 14.8799 7.74653 13.3599 6.94653Z"
         stroke="#E8E8E8"
-        stroke-width="1.01562"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.01562"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
@@ -385,23 +385,23 @@ export function ReceiveIcon() {
       <Path
         d="M3.33325 12.5L12.6666 3.16663"
         stroke="#E8E8E8"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M3.33325 5.6532V12.4999H10.1799"
         stroke="#E8E8E8"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M2.33325 15.4999H13.6666"
         stroke="#E8E8E8"
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
@@ -413,28 +413,28 @@ export function BuyIcon(props: any) {
       <Path
         d="M5.5 5.94659V5.29992C5.5 3.79992 6.70667 2.32659 8.20667 2.18659C9.99333 2.01326 11.5 3.41992 11.5 5.17326V6.09326"
         stroke={props.color || "#E8E8E8"}
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M6.49988 15.5H10.4999C13.1799 15.5 13.6599 14.4266 13.7999 13.12L14.2999 9.11996C14.4799 7.49329 14.0132 6.16663 11.1666 6.16663H5.83322C2.98655 6.16663 2.51988 7.49329 2.69988 9.11996L3.19988 13.12C3.33988 14.4266 3.81988 15.5 6.49988 15.5Z"
         stroke={props.color || "#E8E8E8"}
-        stroke-miterlimit="10"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M10.8304 8.83321H10.8364"
         stroke={props.color || "#E8E8E8"}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M6.16292 8.83321H6.16891"
         stroke={props.color || "#E8E8E8"}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
@@ -446,16 +446,16 @@ export function CopyIcon() {
       <Path
         d="M7.50049 12.5001C7.50049 10.143 7.50049 8.96453 8.23272 8.23229C8.96495 7.50006 10.1435 7.50006 12.5005 7.50006L13.3338 7.50006C15.6908 7.50006 16.8694 7.50006 17.6016 8.23229C18.3338 8.96453 18.3338 10.143 18.3338 12.5001V13.3334C18.3338 15.6904 18.3338 16.8689 17.6016 17.6012C16.8694 18.3334 15.6908 18.3334 13.3338 18.3334H12.5005C10.1435 18.3334 8.96495 18.3334 8.23272 17.6012C7.50049 16.8689 7.50049 15.6904 7.50049 13.3334L7.50049 12.5001Z"
         stroke="#A2A2A2"
-        stroke-width="1.19446"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.19446"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <Path
         d="M14.1669 7.50008C14.1649 5.03584 14.1276 3.75942 13.4104 2.88544C13.2718 2.71666 13.1171 2.56189 12.9483 2.42338C12.0263 1.66675 10.6566 1.66675 7.91699 1.66675C5.17742 1.66675 3.80764 1.66675 2.88568 2.42338C2.7169 2.56189 2.56214 2.71666 2.42362 2.88544C1.66699 3.8074 1.66699 5.17718 1.66699 7.91675C1.66699 10.6563 1.66699 12.0261 2.42362 12.9481C2.56214 13.1168 2.7169 13.2716 2.88568 13.4101C3.75966 14.1274 5.03608 14.1647 7.50032 14.1666"
         stroke="#A2A2A2"
-        stroke-width="1.19446"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.19446"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
@@ -464,15 +464,12 @@ export function CopyIcon() {
 export function NavigationBackIcon() {
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <G id="Frame 1000002554">
-        <Path
-          id="Vector 140"
-          d="M15 6L10.4142 10.5858C9.63317 11.3668 9.63317 12.6332 10.4142 13.4142L15 18"
-          stroke="#E5E5E5"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-      </G>
+      <Path
+        d="M15 6L10.4142 10.5858C9.63317 11.3668 9.63317 12.6332 10.4142 13.4142L15 18"
+        stroke="#E5E5E5"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
     </Svg>
   );
 }
