@@ -3,10 +3,10 @@ import { useState } from "react";
 import {
   Pressable,
   PressableProps,
+  StyleProp,
   StyleSheet,
   Text,
   View,
-  StyleProp,
   ViewStyle,
 } from "react-native";
 import { useAccount } from "wagmi";

@@ -31,11 +31,11 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <AccountInfo />
 
-        <NetworkSelect />
-
         <ActionButtons />
 
         <AccountStatus />
+
+        <NetworkSelect />
 
         <SplitLine />
 

@@ -66,10 +66,10 @@ export default function AccountStatus() {
           <View style={styles.row}>
             <Text style={styles.label}>Referrals</Text>
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcons
-                name="link-variant"
+              <Feather
+                name="link"
                 size={13}
-                color="white"
+                color={CustomDarkTheme.colors.txtColor}
               />
             </View>
           </View>
@@ -85,6 +85,33 @@ export default function AccountStatus() {
       </Row>
 
       <Row>
+        {/* HIP Protocol */}
+        <TouchableOpacity style={styles.statusContainer} onPress={goToHip}>
+          <View style={styles.row}>
+            <Text style={styles.label}>HIP Protocol</Text>
+            <View style={styles.iconContainer}>
+              <UserIcon
+                width={15}
+                height={15}
+                color={CustomDarkTheme.colors.txtColor}
+              />
+            </View>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.value}>0</Text>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+            >
+              <Text style={styles.mintLabel}>Mint HIP</Text>
+              <FontAwesome6
+                name="chevron-right"
+                size={13}
+                color={CustomDarkTheme.colors.primary}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+
         {/* Badge earned */}
         <TouchableOpacity style={styles.statusContainer} onPress={goToBadges}>
           <View style={styles.row}>
@@ -107,31 +134,6 @@ export default function AccountStatus() {
             />
           </View>
         </TouchableOpacity>
-
-        {/* HIP Protocol */}
-        <TouchableOpacity style={styles.statusContainer} onPress={goToHip}>
-          <View style={styles.row}>
-            <Text style={styles.label}>HIP Protocol</Text>
-            <View style={styles.iconContainer}>
-              <UserIcon
-                width={13}
-                height={13}
-                color={CustomDarkTheme.colors.txtColor}
-              />
-            </View>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.value}>0</Text>
-            <View style={{ flexDirection: "row", gap: 2 }}>
-              <Text style={styles.mintLabel}>Mint HIP</Text>
-              <FontAwesome6
-                name="chevron-right"
-                size={13}
-                color={CustomDarkTheme.colors.primary}
-              />
-            </View>
-          </View>
-        </TouchableOpacity>
       </Row>
     </View>
   );
@@ -144,13 +146,14 @@ const styles = StyleSheet.create({
   },
   statusContainer: {
     flex: 1,
-    borderWidth: 0,
+    borderWidth: 1,
+    borderColor: CustomDarkTheme.colors.stroke,
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.grey2,
     padding: getWidthSize(12),
     flexDirection: "column",
     justifyContent: "space-between",
-    height: getHeightSize(120),
+    height: getHeightSize(118),
   },
   row: {
     flexDirection: "row",
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     lineHeight: getHeightSize(16 * 1.5),
   },
   iconContainer: {
-    padding: 4,
+    padding: getWidthSize(6),
     borderWidth: 0,
     borderRadius: 10,
     backgroundColor: CustomDarkTheme.colors.actionBg,
@@ -181,5 +184,6 @@ const styles = StyleSheet.create({
     color: CustomDarkTheme.colors.primary,
     fontSize: getHeightSize(12),
     lineHeight: getHeightSize(12 * 1.5),
+    marginTop: 2,
   },
 });
