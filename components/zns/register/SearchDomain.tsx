@@ -13,6 +13,7 @@ import BadgeLoader from "@/components/zns/BadgeLoader";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useDomainSearch from "@/hooks/useDomainSearch";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type SearchDomainProps = {
   onSelectItem: (item: any) => void;
@@ -45,12 +46,23 @@ export default function SearchDomain({ onSelectItem }: SearchDomainProps) {
       inputContainerStyle={styles.inputContainer}
       textInputProps={{
         placeholder: "Search domains",
+        placeholderTextColor: CustomDarkTheme.colors.caption,
+        style: [
+          fontStyles["Poppins-Regular"],
+          {
+            color: CustomDarkTheme.colors.txtColor,
+            fontSize: getHeightSize(16),
+            lineHeight: getHeightSize(16 * 1.5),
+          },
+        ],
       }}
       debounce={600}
-      suggestionsListMaxHeight={Dimensions.get("window").height * 0.4}
+      suggestionsListMaxHeight={Dimensions.get("window").height * 0.3}
       onChangeText={setSearchInputText}
       suggestionsListContainerStyle={styles.suggestionsListContainer}
-      ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+      ItemSeparatorComponent={() => (
+        <View style={{ height: getHeightSize(10) }} />
+      )}
       renderItem={(item: any) => {
         return (
           <View style={styles.suggestionItem}>
@@ -92,16 +104,17 @@ const styles = StyleSheet.create({
   suggestionsListText: {
     flex: 1,
     color: CustomDarkTheme.colors.txtColor,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
   },
   suggestionItem: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(10),
     borderRadius: 12,
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    height: 45,
+    gap: getWidthSize(8),
   },
   icon: {
     width: 17,

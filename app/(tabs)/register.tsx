@@ -9,6 +9,7 @@ import WithCategories from "@/components/zns/register/WithCategories";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import DomainProvider from "@/lib/providers/DomainProvider";
+import { getHeightSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -20,9 +21,7 @@ export default function RegisterScreen() {
     <>
       <ZnsScrollView>
         <View style={styles.pageTitle}>
-          <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-            Register a domain
-          </Text>
+          <Text style={styles.title}>REGISTER A DOMAIN</Text>
         </View>
 
         <DomainProvider />
@@ -47,9 +46,12 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

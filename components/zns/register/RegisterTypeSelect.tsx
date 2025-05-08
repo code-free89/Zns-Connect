@@ -1,10 +1,11 @@
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import ZnsText from "@/components/ui/Text";
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 import Button from "@/components/ui/Button";
 import GradientBorderButtonWrapper from "@/components/ui/GradientBorderButtonWrapper";
-import { SearchIcon } from "@/constants/icons";
+import { fontStyles } from "@/constants/fonts";
+import { BuyIcon, SearchIcon, StarIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -13,6 +14,7 @@ interface RegisterTypeButtonProps {
   selectedType: DomainRegisterType;
   onSelect: (type: DomainRegisterType) => void;
   label: string;
+  icon: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -21,6 +23,7 @@ const RegisterTypeButton = ({
   selectedType,
   onSelect,
   label,
+  icon,
   style,
 }: RegisterTypeButtonProps) => {
   const isSelected = type === selectedType;
@@ -28,18 +31,11 @@ const RegisterTypeButton = ({
     <View
       style={[
         styles.domainRegisterTypeContainer,
-        { borderWidth: isSelected ? 0 : 0.65 },
+        { borderWidth: isSelected ? 0 : 0.65, borderColor: "transparent" },
       ]}
     >
-      <SearchIcon
-        color={
-          isSelected
-            ? CustomDarkTheme.colors.primary
-            : CustomDarkTheme.colors.txtColor
-        }
-      />
-      <ZnsText
-        type="regular"
+      {icon}
+      <Text
         style={[
           styles.domainRegisterTypeText,
           {
@@ -50,7 +46,7 @@ const RegisterTypeButton = ({
         ]}
       >
         {label}
-      </ZnsText>
+      </Text>
     </View>
   );
 
@@ -69,10 +65,26 @@ const RegisterTypeButton = ({
   );
 };
 
-const REGISTER_OPTIONS: Array<{ type: DomainRegisterType; label: string }> = [
-  { type: "smartSearch", label: "Smart Search" },
-  { type: "withCategories", label: "With Categories" },
-  { type: "generateWithAI", label: "Generate with AI" },
+const REGISTER_OPTIONS: Array<{
+  type: DomainRegisterType;
+  label: string;
+  icon: (color: string) => React.ReactNode;
+}> = [
+  {
+    type: "smartSearch",
+    label: "Smart Search",
+    icon: (color: string) => <SearchIcon color={color} />,
+  },
+  {
+    type: "withCategories",
+    label: "With Categories",
+    icon: (color: string) => <BuyIcon color={color} />,
+  },
+  {
+    type: "generateWithAI",
+    label: "Generate with AI",
+    icon: (color: string) => <StarIcon />,
+  },
 ];
 
 interface RegisterTypeSelectProps {
@@ -91,6 +103,15 @@ export default function RegisterTypeSelect({
         selectedType={selectedType}
         onSelect={setSelectedType}
         label="Smart Search"
+        icon={
+          <SearchIcon
+            color={
+              selectedType === "smartSearch"
+                ? CustomDarkTheme.colors.p500
+                : "white"
+            }
+          />
+        }
         style={styles.topButton}
       />
 
@@ -102,6 +123,11 @@ export default function RegisterTypeSelect({
               selectedType={selectedType}
               onSelect={setSelectedType}
               label={option.label}
+              icon={option.icon(
+                selectedType === option.type
+                  ? CustomDarkTheme.colors.p500
+                  : "white"
+              )}
               style={styles.bottomButton}
             />
           </View>
@@ -113,34 +139,35 @@ export default function RegisterTypeSelect({
 
 const styles = StyleSheet.create({
   domainGenerateContainer: {
-    padding: 6,
+    padding: getWidthSize(6),
     borderRadius: 16,
     backgroundColor: CustomDarkTheme.colors.bg,
   },
   domainRegisterTypeContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
+    gap: getWidthSize(5),
   },
   domainRegisterTypeText: {
-    fontSize: 12,
-    fontWeight: "400",
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
   },
   buttonBase: {
-    paddingVertical: 8,
+    paddingVertical: getHeightSize(8),
   },
   topButton: {
-    paddingVertical: 8,
+    paddingVertical: getHeightSize(8),
   },
   bottomRow: {
     flexDirection: "row",
-    marginTop: 4,
+    marginTop: getHeightSize(4),
   },
   bottomButtonContainer: {
     width: "50%",
-    paddingHorizontal: 6,
+    paddingHorizontal: getWidthSize(6),
   },
   bottomButton: {
-    paddingVertical: 8,
+    paddingVertical: getHeightSize(8),
   },
 });

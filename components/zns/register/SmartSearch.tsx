@@ -9,6 +9,7 @@ import { NETWORKS } from "@/constants/web3/chains";
 import { AvailableDomainType } from "@/lib/model/domain";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setSearchResult } from "@/store/slices/recents";
+import { getHeightSize } from "@/utils/size";
 
 export default function SmartSearch() {
   const dispatch = useAppDispatch();
@@ -46,6 +47,6 @@ export default function SmartSearch() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 24,
+    gap: getHeightSize(24),
   },
 });

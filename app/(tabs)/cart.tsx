@@ -8,6 +8,7 @@ import CheckoutModal from "@/components/zns/cart/CheckoutModal";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CartProvider } from "@/lib/providers/CartProvider";
+import { getHeightSize } from "@/utils/size";
 
 export default function CartScreen() {
   const animation = useRef<LottieView>(null);
@@ -59,10 +60,11 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
     fontSize: 18,

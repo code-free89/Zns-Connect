@@ -345,8 +345,8 @@ export function SilverMedalIcon() {
           y2="12.7136"
           gradientUnits="userSpaceOnUse"
         >
-          <Stop stop-color="#9CA1A3" />
-          <Stop offset="1" stop-color="#9CA1A3" stop-opacity="0" />
+          <Stop stopColor="#9CA1A3" />
+          <Stop offset="1" stopColor="#9CA1A3" stop-opacity="0" />
         </LinearGradient>
         <LinearGradient
           id="paint1_linear_2636_30405"
@@ -356,9 +356,9 @@ export function SilverMedalIcon() {
           y2="7.23701"
           gradientUnits="userSpaceOnUse"
         >
-          <Stop stop-color="#F1F5F5" />
-          <Stop offset="0.0001" stop-color="white" />
-          <Stop offset="1" stop-color="#F1F5F5" />
+          <Stop stopColor="#F1F5F5" />
+          <Stop offset="0.0001" stopColor="white" />
+          <Stop offset="1" stopColor="#F1F5F5" />
         </LinearGradient>
       </Defs>
     </Svg>
@@ -407,32 +407,32 @@ export function ReceiveIcon() {
   );
 }
 
-export function BuyIcon() {
+export function BuyIcon(props: any) {
   return (
     <Svg width="17" height="17" viewBox="0 0 17 17" fill="none">
       <Path
         d="M5.5 5.94659V5.29992C5.5 3.79992 6.70667 2.32659 8.20667 2.18659C9.99333 2.01326 11.5 3.41992 11.5 5.17326V6.09326"
-        stroke="#E8E8E8"
+        stroke={props.color || "#E8E8E8"}
         stroke-miterlimit="10"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M6.49988 15.5H10.4999C13.1799 15.5 13.6599 14.4266 13.7999 13.12L14.2999 9.11996C14.4799 7.49329 14.0132 6.16663 11.1666 6.16663H5.83322C2.98655 6.16663 2.51988 7.49329 2.69988 9.11996L3.19988 13.12C3.33988 14.4266 3.81988 15.5 6.49988 15.5Z"
-        stroke="#E8E8E8"
+        stroke={props.color || "#E8E8E8"}
         stroke-miterlimit="10"
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M10.8304 8.83321H10.8364"
-        stroke="#E8E8E8"
+        stroke={props.color || "#E8E8E8"}
         stroke-linecap="round"
         stroke-linejoin="round"
       />
       <Path
         d="M6.16292 8.83321H6.16891"
-        stroke="#E8E8E8"
+        stroke={props.color || "#E8E8E8"}
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -483,8 +483,8 @@ export function CartIconFilled() {
       <G id="solar:cart-check-bold">
         <Path
           id="Vector"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M3.03986 2.79186C2.85209 2.72595 2.64582 2.73734 2.46644 2.82351C2.28707 2.90968 2.14927 3.06358 2.08336 3.25136C2.01745 3.43913 2.02884 3.64539 2.11501 3.82477C2.20119 4.00415 2.35509 4.14195 2.54286 4.20786L2.80386 4.29886C3.47186 4.53386 3.91086 4.68886 4.23386 4.84786C4.53686 4.99686 4.66986 5.11786 4.75786 5.24586C4.84786 5.37786 4.91786 5.55986 4.95786 5.92286C4.99786 6.30286 4.99986 6.79786 4.99986 7.53786V10.1399C4.99986 13.0819 5.06286 14.0519 5.92986 14.9659C6.79586 15.8799 8.18986 15.8799 10.9799 15.8799H16.2819C17.8429 15.8799 18.6239 15.8799 19.1749 15.4299C19.7269 14.9799 19.8849 14.2159 20.1999 12.6879L20.6999 10.2629C21.0469 8.52286 21.2199 7.65386 20.7759 7.07686C20.3319 6.49986 18.8159 6.49986 17.1309 6.49986H6.49186C6.48764 6.25337 6.47329 6.00716 6.44886 5.76186C6.39486 5.26486 6.27886 4.81186 5.99686 4.39986C5.71286 3.98386 5.33486 3.71786 4.89386 3.50086C4.48186 3.29886 3.95786 3.11486 3.34186 2.89786L3.03986 2.79186ZM15.5169 8.95686C15.8169 9.24286 15.8289 9.71686 15.5429 10.0169L12.6859 13.0169C12.6158 13.0904 12.5316 13.1489 12.4382 13.1889C12.3449 13.2289 12.2444 13.2495 12.1429 13.2495C12.0413 13.2495 11.9408 13.2289 11.8475 13.1889C11.7542 13.1489 11.6699 13.0904 11.5999 13.0169L10.4569 11.8169C10.386 11.7461 10.3301 11.662 10.2923 11.5693C10.2545 11.4766 10.2356 11.3773 10.2368 11.2772C10.238 11.1771 10.2592 11.0783 10.2992 10.9865C10.3391 10.8948 10.3971 10.8119 10.4696 10.7429C10.5421 10.6739 10.6276 10.6201 10.7212 10.5846C10.8149 10.5492 10.9146 10.5329 11.0146 10.5366C11.1147 10.5403 11.2129 10.564 11.3036 10.6063C11.3944 10.6486 11.4757 10.7086 11.5429 10.7829L12.1429 11.4129L14.4569 8.98286C14.594 8.8389 14.7827 8.7553 14.9815 8.75042C15.1802 8.74555 15.3728 8.8198 15.5169 8.95686Z"
           fill="url(#paint0_linear_2674_45839)"
         />
@@ -503,11 +503,11 @@ export function CartIconFilled() {
           y2="10.9556"
           gradientUnits="userSpaceOnUse"
         >
-          <Stop offset="0.0789265" stop-color="#1C96FD" />
-          <Stop offset="0.241295" stop-color="#33E360" />
-          <Stop offset="0.466466" stop-color="#F4C630" />
-          <Stop offset="0.69319" stop-color="#CB1245" />
-          <Stop offset="1" stop-color="#AD00FE" />
+          <Stop offset="0.0789265" stopColor="#1C96FD" />
+          <Stop offset="0.241295" stopColor="#33E360" />
+          <Stop offset="0.466466" stopColor="#F4C630" />
+          <Stop offset="0.69319" stopColor="#CB1245" />
+          <Stop offset="1" stopColor="#AD00FE" />
         </LinearGradient>
         <LinearGradient
           id="paint1_linear_2674_45839"
@@ -517,11 +517,11 @@ export function CartIconFilled() {
           y2="20.3744"
           gradientUnits="userSpaceOnUse"
         >
-          <Stop offset="0.0789265" stop-color="#1C96FD" />
-          <Stop offset="0.241295" stop-color="#33E360" />
-          <Stop offset="0.466466" stop-color="#F4C630" />
-          <Stop offset="0.69319" stop-color="#CB1245" />
-          <Stop offset="1" stop-color="#AD00FE" />
+          <Stop offset="0.0789265" stopColor="#1C96FD" />
+          <Stop offset="0.241295" stopColor="#33E360" />
+          <Stop offset="0.466466" stopColor="#F4C630" />
+          <Stop offset="0.69319" stopColor="#CB1245" />
+          <Stop offset="1" stopColor="#AD00FE" />
         </LinearGradient>
       </Defs>
     </Svg>
@@ -596,6 +596,30 @@ export function MediumIcon() {
         d="M9.21875 20.5L6.9375 23.4062V23.7344H12.5625V23.4062L10.2969 20.5V13L15.1562 23.7344H15.8438L20 13V21.8125L18.2969 23.4062V23.7344H25.75V23.4062L24.0938 21.8125V10.7188L25.75 9.17188V8.79688H20.6094L16.8594 18L12.6719 8.79688H7.20312V9.17188L9.21875 11.5625V20.5Z"
         fill="white"
       />
+    </Svg>
+  );
+}
+
+export function StarIcon() {
+  return (
+    <Svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <Path
+        d="M8.05908 0.895508C8.05908 8.00005 8.05908 8.00005 15.1636 8.00005C8.05908 8.00005 8.05908 8.00005 8.05908 15.1046C8.05908 8.00005 8.05908 8.00005 0.954537 8.00005C8.05908 8.00005 8.05908 8.00005 8.05908 0.895508Z"
+        fill="url(#paint0_linear_3753_41419)"
+      />
+      <Defs>
+        <LinearGradient
+          id="paint0_linear_3753_41419"
+          x1="7.09028"
+          y1="7.03125"
+          x2="5.79342"
+          y2="5.73439"
+          gradientUnits="userSpaceOnUse"
+        >
+          <Stop stopColor="#ADDF7C" stopOpacity="0.88" />
+          <Stop offset="1" stopColor="#BB981C" />
+        </LinearGradient>
+      </Defs>
     </Svg>
   );
 }

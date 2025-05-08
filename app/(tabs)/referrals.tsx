@@ -5,6 +5,7 @@ import GetLinkCarousel from "@/components/zns/referral/GetLinkCarousel";
 import ReferralStatus from "@/components/zns/referral/ReferralStatus";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize } from "@/utils/size";
 
 export default function ReferralsScreen() {
   return (
@@ -60,10 +61,11 @@ export default function ReferralsScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
     fontSize: 18,

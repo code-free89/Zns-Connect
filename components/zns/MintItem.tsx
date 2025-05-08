@@ -10,6 +10,7 @@ import { useTLD } from "@/hooks/web3/useTLD";
 import { RecentDomainType } from "@/store/slices/recents";
 import { formatPrice } from "@/utils/formatter";
 import { fontStyles } from "@/constants/fonts";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function MintItem({
   chainId,
@@ -44,7 +45,7 @@ export default function MintItem({
           color={CustomDarkTheme.colors.primary}
         />
       </Pressable>
-      <Text style={[fontStyles["Poppins-Medium"], styles.name]}>
+      <Text style={styles.name}>
         {domainName}
         <Text style={{ color: chainColor }}>.{tld}</Text>
       </Text>
@@ -60,18 +61,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    padding: 12,
+    gap: getWidthSize(6),
+    padding: getWidthSize(12),
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.grey2,
   },
   name: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: "white",
   },
   price: {
     flex: 1,
-    fontSize: 14,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "right",
   },

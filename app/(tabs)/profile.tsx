@@ -15,6 +15,7 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 import { useAppSelector } from "@/store";
+import { getHeightSize } from "@/utils/size";
 
 export default function ProfileScreen() {
   const { domain } = useLocalSearchParams();
@@ -64,10 +65,11 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
     fontSize: 18,
