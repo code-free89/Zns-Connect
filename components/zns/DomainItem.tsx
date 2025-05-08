@@ -20,6 +20,7 @@ import { useDomain } from "@/hooks/web3/useDomain";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { cartDomain } from "@/store/slices/setting";
+import { getWidthSize } from "@/utils/size";
 import { showSuccessToast } from "@/utils/toast";
 
 type Props = {
@@ -29,6 +30,7 @@ type Props = {
   chainId?: number;
   showEdit?: boolean;
   showCart?: boolean;
+  showChainSelect?: boolean;
 };
 
 const defaultChainId = CHAINS[0].id;
@@ -40,6 +42,7 @@ export default function DomainItem({
   chainId = defaultChainId,
   showEdit = false,
   showCart = false,
+  showChainSelect = true,
 }: Props) {
   const dispatch = useAppDispatch();
   const [selectedChainId, setSelectedChainId] = useState(chainId);
@@ -122,11 +125,13 @@ export default function DomainItem({
         </TouchableOpacity>
       )}
 
-      <ChainSelector
-        domainName={domainName}
-        selectedChainId={selectedChainId}
-        setSelectedChainId={setSelectedChainId}
-      />
+      {showChainSelect && (
+        <ChainSelector
+          domainName={domainName}
+          selectedChainId={selectedChainId}
+          setSelectedChainId={setSelectedChainId}
+        />
+      )}
 
       {Number(domainId) ? (
         <View style={styles.actionIcon}>
@@ -152,10 +157,10 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.grey2,
-    padding: 12,
+    padding: getWidthSize(12),
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: getWidthSize(6),
   },
   index: {
     fontWeight: 700,

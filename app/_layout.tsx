@@ -43,6 +43,12 @@ export default function RootLayout() {
     "SpaceGrotesk-Medium": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-Medium.ttf"),
     "SpaceGrotesk-SemiBold": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-SemiBold.ttf"),
     "SpaceGrotesk-Bold": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-Bold.ttf"),
+
+    "SpaceMono-Regular": require("../assets/fonts/Space_Mono/SpaceMono-Regular.ttf"),
+    "SpaceMono-Bold": require("../assets/fonts/Space_Mono/SpaceMono-Bold.ttf"),
+
+    "WorkSans-Regular": require("../assets/fonts/WorkSans/WorkSans-Regular.ttf"),
+    "WorkSans-Medium": require("../assets/fonts/WorkSans/WorkSans-Medium.ttf"),
   });
 
   useEffect(() => {

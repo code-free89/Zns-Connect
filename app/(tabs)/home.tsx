@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import SplitLine from "@/components/ui/SplitLine";
+import AccountDomains from "@/components/zns/home/AccountDomains";
 import AccountInfo from "@/components/zns/home/AccountInfo";
 import AccountStatus from "@/components/zns/home/AccountStatus";
 import ActionButtons from "@/components/zns/home/ActionButtons";
@@ -43,12 +44,13 @@ export default function HomeScreen() {
         <Text style={styles.myDomainsTitle}>
           MY DOMAINS ({domains?.length || 0})
         </Text>
-
-        {/* <AccountDomains /> */}
       </View>
+
       <View style={{ marginVertical: getHeightSize(12) }}>
         <SplitLine />
       </View>
+
+      <AccountDomains />
     </ZnsScrollView>
   );
 }

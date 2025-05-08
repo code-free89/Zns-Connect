@@ -79,7 +79,10 @@ export default function ZnsDropdown({
       </Pressable>
       {isOpen && (
         <View style={styles.dropdownContainer}>
-          <ScrollView>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}
+          >
             {items.map((item, idx) => (
               <View key={item.value}>
                 <Pressable

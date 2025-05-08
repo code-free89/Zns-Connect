@@ -49,6 +49,7 @@ export default function AccountInfo() {
             <DummyText
               text={primaryDomain}
               textStyle={styles.avatarText}
+              size={primaryDomainSize}
               setSize={setPrimaryDomainSize}
             />
             <GradientText

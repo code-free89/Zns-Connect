@@ -24,9 +24,3 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
-
-export const domainColors = {
-  poly: "#8345E6",
-  honey: "#FD7107",
-  gold: "#72E1EA",
-};
