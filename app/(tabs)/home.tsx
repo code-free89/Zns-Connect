@@ -33,9 +33,9 @@ export default function HomeScreen() {
 
         <NetworkSelect />
 
-        <AccountStatus />
-
         <ActionButtons />
+
+        <AccountStatus />
 
         <SplitLine />
 
