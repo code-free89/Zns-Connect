@@ -79,7 +79,7 @@ function MyDomainItem({
   );
 }
 
-export const MyDomain = () => {
+export const MyDomain = ({ sortOption }: { sortOption: string }) => {
   const [isDomainInfoModalVisible, setIsDomainInfoModalVisible] =
     useState(false);
   const [selectedDomain, setSelectedDomain] = useState<UserDomainType | null>(
@@ -88,11 +88,19 @@ export const MyDomain = () => {
   const [selectedNetwork, setSelectedNetwork] = useState<NETWORKS>();
   const { domains } = useAppSelector((state) => state.userDomains);
   const filteredDomains = useMemo(() => {
+    let filters = domains ? [...domains] : [];
     if (selectedNetwork) {
-      return domains?.filter((domain) => domain.chainId === selectedNetwork);
+      filters = filters.filter((domain) => domain.chainId === selectedNetwork);
     }
-    return domains;
-  }, [domains, selectedNetwork]);
+    if (sortOption === "name") {
+      filters = filters.sort((a, b) =>
+        a.domainName.localeCompare(b.domainName)
+      );
+    } else if (sortOption === "length") {
+      filters = filters.sort((a, b) => a.lengthOfDomain - b.lengthOfDomain);
+    }
+    return filters;
+  }, [domains, selectedNetwork, sortOption]);
 
   return (
     <View style={styles.container}>
