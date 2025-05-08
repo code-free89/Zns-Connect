@@ -1,5 +1,6 @@
 import "./polyfills";
 import { ThemeProvider } from "@react-navigation/native";
+import { AppKit } from "@reown/appkit-wagmi-react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -14,7 +15,7 @@ import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
 
 import BackDropModal from "@/components/ui/BackDropModal";
-import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
+import { wagmiConfig } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
 import { toastConfig } from "@/constants/toast-config";
 import AppProvider from "@/lib/providers/AppProvider";
@@ -63,8 +64,7 @@ export default function RootLayout() {
               <StatusBar style="light" backgroundColor="#000" />
               <SafeAreaProvider>
                 <SafeAreaView style={{ flex: 1 }}>
-                  <Web3Modal />
-
+                  <AppKit />
                   <AppProvider />
 
                   <BackDropModal />

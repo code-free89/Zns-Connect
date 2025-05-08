@@ -1,12 +1,12 @@
-import { useWeb3Modal } from "@web3modal/wagmi-react-native";
+import { useAppKit } from "@reown/appkit-wagmi-react-native";
 import { StyleSheet } from "react-native";
 
 import Button from "@/components/ui/Button";
 import { fontStyles } from "@/constants/fonts";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getHeightSize } from "@/utils/size";
 
 export default function W3ModalButton() {
-  const { open } = useWeb3Modal();
+  const { open } = useAppKit();
 
   return (
     <Button

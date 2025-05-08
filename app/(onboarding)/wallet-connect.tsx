@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useWalletInfo } from "@web3modal/wagmi-react-native";
+import { useWalletInfo } from "@reown/appkit-wagmi-react-native";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";

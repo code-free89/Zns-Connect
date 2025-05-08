@@ -1,5 +1,5 @@
 import { Chain } from "viem";
-import { chains } from "@/components/zns/web3modal/common";
+import { chains } from "@/components/zns/web3modal";
 
 export enum NETWORKS {
   DEFAULT = 57073,

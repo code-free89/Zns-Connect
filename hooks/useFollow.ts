@@ -1,3 +1,4 @@
+import { useAppKit } from "@reown/appkit-wagmi-react-native";
 import { useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 
@@ -7,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/store";
 import useFetchProfile from "@/store/hooks/useFetchProfile";
 import { setFollow } from "@/store/slices/user";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
-import { useWeb3Modal } from "@web3modal/wagmi-react-native";
 
 export const useFollow = (
   domainId?: string,
@@ -25,7 +25,7 @@ export const useFollow = (
 
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const { open } = useWeb3Modal();
+  const { open } = useAppKit();
 
   const handleFollow = async (mode: "follow" | "unfollow") => {
     if (isProcessing) return;

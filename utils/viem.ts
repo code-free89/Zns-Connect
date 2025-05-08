@@ -1,4 +1,4 @@
-import { chains } from "@/components/zns/web3modal/common";
+import { chains } from "@/components/zns/web3modal";
 import { NETWORKS } from "@/constants/web3/chains";
 import { PublicClient, createPublicClient, http } from "viem";
 
