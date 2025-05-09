@@ -2,8 +2,7 @@ import { TextStyle, TouchableOpacityProps } from "react-native";
 import { useAccount, useSwitchChain } from "wagmi";
 
 import Button from "@/components/ui/Button";
-import { W3mButton } from "@/components/zns/web3modal";
-import { CustomDarkTheme } from "@/constants/theme";
+import W3ModalButton from "./W3ModalButton";
 
 interface InteractiveButtonProps extends TouchableOpacityProps {
   fontType?: "regular" | "medium" | "semiBold" | "bold";
@@ -31,16 +30,7 @@ export default function InteractiveButton({
   const { switchChainAsync } = useSwitchChain();
 
   if (!address && (requiredConnect || requiredChain)) {
-    return (
-      <W3mButton
-        connectStyle={{
-          backgroundColor: CustomDarkTheme.colors.primary,
-          borderRadius: 11,
-          height: 50,
-        }}
-        label="Connect Wallet"
-      />
-    );
+    return <W3ModalButton />;
   }
 
   const handleSwitchNetwork = async () => {

@@ -1,14 +1,16 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
-import ZnsText from "@/components/ui/Text";
+import { fontStyles } from "@/constants/fonts";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function EmptyGiftCards() {
   return (
     <View style={styles.container}>
-      <Image source={require("@/assets/images/icons/gift-card-empty.png")} />
-      <ZnsText type="bold" style={styles.title}>
-        You don’t have any gift card
-      </ZnsText>
+      <Image
+        source={require("@/assets/images/icons/empty/gift.png")}
+        style={{ width: getWidthSize(87), height: getHeightSize(87) }}
+      />
+      <Text style={styles.title}>You don’t have any gift card</Text>
     </View>
   );
 }
@@ -16,11 +18,12 @@ export default function EmptyGiftCards() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    gap: 12,
-    paddingBottom: 60,
+    gap: getHeightSize(12),
+    paddingBottom: getHeightSize(60),
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["SpaceGrotesk-Bold"],
+    fontSize: getHeightSize(18),
     color: "white",
   },
 });

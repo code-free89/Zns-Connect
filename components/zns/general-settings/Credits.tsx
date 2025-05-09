@@ -5,15 +5,17 @@ import { useAccount } from "wagmi";
 import Button from "@/components/ui/Button";
 import FormTextInput from "@/components/ui/forms/FormTextInput";
 import InteractiveButton from "@/components/ui/InteractiveButton";
-import ZnsText from "@/components/ui/Text";
 import GiftCardsView from "@/components/zns/general-settings/GiftCardsView";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
 import { useMintGiftCard } from "@/hooks/web3/write/useGiftCard";
 import { useAppSelector } from "@/store";
 import { useFetchGiftCard } from "@/store/hooks/useFetchGiftCard";
 import { isValidEthereumAddress } from "@/utils/formatter";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
+import { Text } from "react-native";
 
 type BuyCreditsForm = {
   credits: number;
@@ -74,14 +76,11 @@ export default function CreditsAndGiftCards() {
   return (
     <View style={styles.container}>
       <View style={styles.creditsContainer}>
-        <ZnsText type="medium" style={styles.title}>
-          Buy credits
-        </ZnsText>
+        <Text style={styles.title}>Buy credits</Text>
         <View style={styles.creditContainer}>
-          <ZnsText style={styles.key}>Current credits</ZnsText>
+          <Text style={styles.key}>Current credits</Text>
           <Button
             title={`${userCredit} credits`}
-            fontType="medium"
             style={styles.creditButton}
             textStyle={styles.creditText}
           />
@@ -94,7 +93,6 @@ export default function CreditsAndGiftCards() {
         />
         <InteractiveButton
           title="Buy credits"
-          fontType="medium"
           loading={isBuyProcessing}
           onPress={handleSubmit(onBuyGiftCard)}
           requiredConnect
@@ -102,9 +100,7 @@ export default function CreditsAndGiftCards() {
       </View>
 
       <View style={styles.creditsContainer}>
-        <ZnsText type="medium" style={styles.title}>
-          Send credits
-        </ZnsText>
+        <Text style={styles.title}>Send credits</Text>
         <FormTextInput
           control={control}
           name="send_amount"
@@ -132,14 +128,14 @@ export default function CreditsAndGiftCards() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 24,
-    gap: 24,
+    marginTop: getHeightSize(24),
+    gap: getHeightSize(24),
   },
   creditsContainer: {
-    padding: 16,
-    gap: 12,
+    padding: getWidthSize(16),
+    gap: getHeightSize(12),
     backgroundColor: CustomDarkTheme.colors.grey2,
-    borderRadius: 10,
+    borderRadius: getWidthSize(10),
   },
   creditContainer: {
     flexDirection: "row",
@@ -147,21 +143,27 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   title: {
-    fontSize: 16,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.txtColor,
   },
   key: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.body,
   },
   creditButton: {
-    borderRadius: 12,
+    borderRadius: getWidthSize(12),
     width: "auto",
     backgroundColor: "#05ABFF",
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingHorizontal: getWidthSize(15),
+    paddingVertical: getHeightSize(11),
   },
   creditText: {
     color: "#243300",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
   },
 });

@@ -39,20 +39,15 @@ export default function ZnsLayout() {
         name="general-settings"
         options={{
           title: "General settings",
-          headerTitle: (props: any) => (
-            <ZnsText
-              {...props}
-              type="medium"
-              style={{
-                fontSize: 18,
-                color: "white",
-                marginTop: 4,
-                marginLeft: 12,
-              }}
-            >
-              General settings
-            </ZnsText>
-          ),
+          headerShown: true,
+          header: ({ options }: any) => {
+            return (
+              <View style={styles.headerContainer}>
+                {options.headerLeft()}
+                <Text style={options.headerTitleStyle}>{options.title}</Text>
+              </View>
+            );
+          },
         }}
       />
       <Stack.Screen

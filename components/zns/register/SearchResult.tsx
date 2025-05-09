@@ -12,7 +12,6 @@ import { getHeightSize } from "@/utils/size";
 
 export default function SearchResult() {
   const { searchResult } = useAppSelector((state) => state.recentMinted);
-  console.log("searchResult", searchResult);
   const { chain, domain } = searchResult ?? { chain: "", domain: "" };
   const { availableDomains, isLoading } = useAvailableDomains(domain);
 
