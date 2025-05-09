@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 
+import GradientSlider from "@/components/zns/GradientSlider";
 import DomainCategorySelector, {
   CategoryDataType,
 } from "@/components/zns/register/DomainCategorySelector";
@@ -78,12 +79,12 @@ export default function WithCategories() {
           </Text>
         </View>
 
-        {/* <GradientSlider
+        <GradientSlider
           initialValue={4}
-          width={Dimensions.get("window").width - 54}
-          max={MAX_LETTERS}
-          padding={27}
-        /> */}
+          maxValue={MAX_LETTERS}
+          onChangeValue={(value) => setLettersToGenerate(value)}
+          containerWidth={Dimensions.get("window").width - 54}
+        />
       </View>
 
       <GeneratedDomains
@@ -120,7 +121,8 @@ const styles = StyleSheet.create({
   numberOfLettersContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
     paddingHorizontal: getWidthSize(11),
-    paddingVertical: getHeightSize(7),
+    paddingTop: getHeightSize(7),
+    paddingBottom: getHeightSize(16),
     borderRadius: getWidthSize(8),
   },
   numberOfLettersTextContainer: {

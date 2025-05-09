@@ -13,6 +13,7 @@ import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import BackDropModal from "@/components/ui/BackDropModal";
 import { wagmiConfig } from "@/components/zns/web3modal";
@@ -69,21 +70,23 @@ export default function RootLayout() {
             <AutocompleteDropdownContextProvider>
               <StatusBar style="light" backgroundColor="#000" />
               <SafeAreaProvider>
-                <SafeAreaView style={{ flex: 1 }}>
-                  <AppKit />
-                  <AppProvider />
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <SafeAreaView style={{ flex: 1 }}>
+                    <AppKit />
+                    <AppProvider />
 
-                  <BackDropModal />
+                    <BackDropModal />
 
-                  <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="(onboarding)" />
-                    <Stack.Screen name="(tabs)" />
-                    <Stack.Screen name="(zns)" />
-                    <Stack.Screen name="+not-found" />
-                  </Stack>
+                    <Stack screenOptions={{ headerShown: false }}>
+                      <Stack.Screen name="(onboarding)" />
+                      <Stack.Screen name="(tabs)" />
+                      <Stack.Screen name="(zns)" />
+                      <Stack.Screen name="+not-found" />
+                    </Stack>
 
-                  <ToastManager config={toastConfig} />
-                </SafeAreaView>
+                    <ToastManager config={toastConfig} />
+                  </SafeAreaView>
+                </GestureHandlerRootView>
               </SafeAreaProvider>
             </AutocompleteDropdownContextProvider>
           </QueryClientProvider>

@@ -1,10 +1,11 @@
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useCallback, useEffect, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import TextInput from "@/components/ui/TextInput";
+import GradientSlider from "@/components/zns/GradientSlider";
 import EmptyResult from "@/components/zns/register/generate-with-ai/EmptyResult";
 import GeneratedDomains from "@/components/zns/register/GeneratedDomains";
 import { fontStyles } from "@/constants/fonts";
@@ -110,12 +111,12 @@ export default function GenerateWithAI() {
           </Text>
         </View>
 
-        {/* <GradientSlider
+        <GradientSlider
           initialValue={4}
-          width={Dimensions.get("window").width - 54}
-          max={MAX_LETTERS}
-          padding={27}
-        /> */}
+          maxValue={MAX_LETTERS}
+          onChangeValue={(value) => setLettersToGenerate(value)}
+          containerWidth={Dimensions.get("window").width - 54}
+        />
       </View>
 
       <View style={styles.generateDomainsContainer}>
@@ -235,8 +236,9 @@ const styles = StyleSheet.create({
   numberOfLettersContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
     paddingHorizontal: getWidthSize(11),
-    paddingVertical: getHeightSize(7),
     borderRadius: getWidthSize(8),
+    paddingTop: getHeightSize(7),
+    paddingBottom: getHeightSize(16),
   },
   numberOfLettersTextContainer: {
     flexDirection: "row",
