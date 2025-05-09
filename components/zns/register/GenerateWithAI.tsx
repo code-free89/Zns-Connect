@@ -10,6 +10,7 @@ import GeneratedDomains from "@/components/zns/register/GeneratedDomains";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAIDomains } from "@/hooks/useAIDomains";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
 
 const MAX_LETTERS = 24;
@@ -68,7 +69,7 @@ export default function GenerateWithAI() {
 
   return (
     <View style={styles.container}>
-      <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+      <Text style={styles.title}>
         Provide up to 5 related keywords, and our AI will craft unique, tailored
         domain names for you.
       </Text>
@@ -81,23 +82,16 @@ export default function GenerateWithAI() {
             placeholderTextColor={CustomDarkTheme.colors.body}
             value={keyword}
             onChangeText={setKeyword}
+            onSubmitEditing={handleAddKeyword}
           />
         </View>
-        <Text
-          style={[fontStyles["Poppins-Medium"], styles.addKeyword]}
-          onPress={handleAddKeyword}
-        >
-          Add
-        </Text>
       </View>
 
       <GradientBorderViewWrapper style={{ marginTop: 16, marginBottom: 24 }}>
         <View style={styles.keywordsContainer}>
           {keywords.map((keyword, index) => (
             <View key={index} style={styles.keywordItem}>
-              <Text style={(fontStyles["Poppins-Medium"], styles.keyword)}>
-                {keyword}
-              </Text>
+              <Text style={styles.keyword}>{keyword}</Text>
               <Pressable onPress={() => handleRemoveKeyword(index)}>
                 <Text style={styles.removeKeyword}>X</Text>
               </Pressable>
@@ -108,12 +102,10 @@ export default function GenerateWithAI() {
 
       <View style={styles.numberOfLettersContainer}>
         <View style={styles.numberOfLettersTextContainer}>
-          <Text
-            style={[fontStyles["Poppins-Regular"], styles.numberOfLettersText]}
-          >
+          <Text style={styles.numberOfLettersText}>
             Number of letters to generate
           </Text>
-          <Text style={[fontStyles["Poppins-SemiBold"], styles.progressText]}>
+          <Text style={styles.progressText}>
             {lettersToGenerate}/{MAX_LETTERS}
           </Text>
         </View>
@@ -131,9 +123,7 @@ export default function GenerateWithAI() {
           style={styles.numberOfWordsContainer}
           onPress={handleOpenNumberOfWords}
         >
-          <Text
-            style={[fontStyles["Poppins-Regular"], styles.numberOfWordsText]}
-          >
+          <Text style={styles.numberOfWordsText}>
             Generate words {numberOfWords}
           </Text>
           <Icon
@@ -151,12 +141,7 @@ export default function GenerateWithAI() {
                     style={styles.numberOfWordsModalItem}
                     onPress={() => handleSetNumberOfWords(index + 1)}
                   >
-                    <Text
-                      style={[
-                        fontStyles["Poppins-Medium"],
-                        styles.numberOfWordsModalItemText,
-                      ]}
-                    >
+                    <Text style={styles.numberOfWordsModalItemText}>
                       Generate Words{" "}
                       {index + 1 === PRO_GENERATE_LIMIT ? index + 1 : ""}
                     </Text>
@@ -171,23 +156,11 @@ export default function GenerateWithAI() {
                             paddingVertical: 2,
                           }}
                         >
-                          <Text
-                            style={[
-                              fontStyles["Poppins-Medium"],
-                              styles.proGenerateText,
-                            ]}
-                          >
-                            ✨ Pro
-                          </Text>
+                          <Text style={styles.proGenerateText}>✨ Pro</Text>
                         </View>
                       </GradientBorderViewWrapper>
                     ) : (
-                      <Text
-                        style={[
-                          fontStyles["Poppins-Medium"],
-                          styles.numberOfWordsModalItemText,
-                        ]}
-                      >
+                      <Text style={styles.numberOfWordsModalItemText}>
                         {index + 1}
                       </Text>
                     )}
@@ -200,9 +173,7 @@ export default function GenerateWithAI() {
           style={{ flex: 1, paddingVertical: 11, paddingHorizontal: 0 }}
           onPress={GenerateAIDomains}
         >
-          <Text style={[fontStyles["Poppins-Medium"], styles.generateDomains]}>
-            Generate domains
-          </Text>
+          <Text style={styles.generateDomains}>Generate domains</Text>
         </Button>
       </View>
 
@@ -219,31 +190,28 @@ export default function GenerateWithAI() {
 const styles = StyleSheet.create({
   container: {},
   title: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
     color: CustomDarkTheme.colors.body,
-    paddingHorizontal: 26,
+    paddingHorizontal: getWidthSize(26),
     textAlign: "center",
-    marginBottom: 16,
+    marginBottom: getHeightSize(16),
   },
   keywordInputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-  },
-  addKeyword: {
-    fontSize: 16,
-    color: CustomDarkTheme.colors.primary,
-    marginTop: 30,
+    gap: getWidthSize(12),
   },
   keywordsContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 20,
+    paddingHorizontal: getWidthSize(15),
+    paddingVertical: getHeightSize(20),
     backgroundColor: "black",
-    borderRadius: 12,
-    height: 150,
+    borderRadius: getWidthSize(12),
+    height: getHeightSize(150),
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   keywordItem: {
     flexDirection: "row",
@@ -255,40 +223,44 @@ const styles = StyleSheet.create({
     borderRadius: 32,
   },
   keyword: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
     color: CustomDarkTheme.colors.txtColor,
   },
   removeKeyword: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
     color: CustomDarkTheme.colors.txtColor,
   },
   numberOfLettersContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 11,
-    paddingVertical: 7,
-    borderRadius: 8,
+    paddingHorizontal: getWidthSize(11),
+    paddingVertical: getHeightSize(7),
+    borderRadius: getWidthSize(8),
   },
   numberOfLettersTextContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 6,
+    marginBottom: getHeightSize(6),
   },
   numberOfLettersText: {
-    fontSize: 14,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   progressText: {
-    fontSize: 16,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   generateDomainsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 18,
-    marginTop: 40,
+    gap: getWidthSize(18),
+    marginTop: getHeightSize(40),
   },
   numberOfWordsContainer: {
     flex: 1,
@@ -296,7 +268,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 12,
+    borderRadius: getWidthSize(12),
     width: "100%",
     height: "100%",
     borderWidth: 2,
@@ -304,46 +276,56 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   generateDomains: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.p950,
-    fontSize: 14,
   },
   numberOfWordsText: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
     color: "#A5A5A5",
   },
   resultsTitle: {
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
+    lineHeight: getHeightSize(18 * 1.5),
     color: "white",
-    marginTop: 40,
-    marginBottom: 20,
+    marginTop: getHeightSize(40),
+    marginBottom: getHeightSize(20),
   },
   numberOfWordsModal: {
     position: "absolute",
     left: 0,
     top: 50,
     backgroundColor: "black",
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: getWidthSize(12),
+    padding: getWidthSize(12),
     borderColor: "#292925C4",
     borderWidth: 2,
-    gap: 8,
+    gap: getWidthSize(8),
   },
   numberOfWordsModalItem: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 12,
-    gap: 12,
+    paddingHorizontal: getWidthSize(16),
+    paddingVertical: getHeightSize(8),
+    borderRadius: getWidthSize(12),
+    gap: getWidthSize(12),
   },
   numberOfWordsModalItemText: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
   proGenerateText: {
-    fontSize: 10,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(10),
+    lineHeight: getHeightSize(10 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
 });
