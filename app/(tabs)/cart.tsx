@@ -20,7 +20,7 @@ export default function CartScreen() {
       <CartProvider />
       <View style={styles.pageTitle}>
         <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          My Cart
+          YOUR CART
         </Text>
       </View>
       <View style={{ flex: 1, padding: 16 }}>
@@ -33,14 +33,18 @@ export default function CartScreen() {
               setIsSuccess(true);
               animation.current?.play();
               setTimeout(() => {
-                router.push("/(tabs)/home");
-              }, 1000);
+                setIsSuccess(false);
+                animation.current?.pause();
+                router.push("/(zns)/my-domains");
+              }, 3000);
             }
           }}
         />
         {isSuccess && (
           <LottieView
             autoPlay
+            loop={false}
+            duration={2000}
             ref={animation}
             style={{
               width: Dimensions.get("window").width,

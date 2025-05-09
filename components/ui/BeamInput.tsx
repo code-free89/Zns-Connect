@@ -1,5 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, TextInput, Pressable, Text, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  Pressable,
+  Text,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,12 +23,14 @@ export interface BeamInputProps {
   type: "subscribe" | "search";
   placeholder: string;
   title: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export default function BeamInput({
   type,
   placeholder,
   title,
+  style,
 }: BeamInputProps) {
   const router = useRouter();
   const [search, setSearch] = useState<string>("");
@@ -49,7 +59,7 @@ export default function BeamInput({
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {/* <Animated.View style={[styles.beamEffect, animatedStyle]} /> */}
       <LinearGradient
         colors={["rgba(255,255,255,0.2)", "rgba(255,255,255,0.1)"]}
@@ -74,12 +84,6 @@ export default function BeamInput({
           ]}
         >
           <Text style={styles.buttonText}>{title}</Text>
-          <Ionicons
-            name={type === "search" ? "search" : "arrow-forward"}
-            size={15}
-            color="white"
-            style={styles.icon}
-          />
         </Pressable>
       </LinearGradient>
     </View>

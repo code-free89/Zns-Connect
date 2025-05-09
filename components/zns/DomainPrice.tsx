@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   price: {
     ...fontStyles["Poppins-SemiBold"],
     fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
-    color: CustomDarkTheme.colors.txtColor,
+    lineHeight: getHeightSize(20),
+    color: CustomDarkTheme.colors.p500,
     textAlign: "right",
   },
 });

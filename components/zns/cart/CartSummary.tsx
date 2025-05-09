@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function CartSummary() {
   const { carts } = useAppSelector((state) => state.setting);
@@ -9,7 +11,7 @@ export default function CartSummary() {
   return (
     <View style={styles.summaryContainer}>
       <View style={styles.summary}>
-        <Text style={styles.summaryTitle}>Cart items</Text>
+        <Text style={styles.summaryTitle}>Your Cart</Text>
         <Text style={styles.summaryCount}>{carts.length} items</Text>
       </View>
       <Text style={styles.summaryDescription}>
@@ -25,9 +27,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#FFFFFF33",
     borderRadius: 15,
-    paddingHorizontal: 12,
-    paddingTop: 13,
-    paddingBottom: 17,
+    paddingHorizontal: getWidthSize(12),
+    paddingTop: getWidthSize(13),
+    paddingBottom: getWidthSize(17),
   },
   summary: {
     flexDirection: "row",
@@ -35,19 +37,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   summaryTitle: {
-    fontSize: 16,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.1),
     color: "#FFFFFF",
   },
   summaryCount: {
-    fontSize: 12,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.1),
     color: CustomDarkTheme.colors.primary,
   },
   summaryDescription: {
-    fontSize: 12,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
     color: CustomDarkTheme.colors.body,
-    marginTop: 10,
+    marginTop: getHeightSize(10),
+    textTransform: "capitalize",
   },
 });

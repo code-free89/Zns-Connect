@@ -9,10 +9,9 @@ import {
   View,
 } from "react-native";
 
-import ZnsText from "@/components/ui/Text";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getWidthSize } from "@/utils/size";
-import { getHeightSize } from "@/utils/size";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -100,7 +99,12 @@ const styles = StyleSheet.create({
   secondaryButton: {
     backgroundColor: CustomDarkTheme.colors.secondaryBtn,
   },
-  text: {},
+  text: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
+    color: CustomDarkTheme.colors.p950,
+  },
   disabledText: {
     color: CustomDarkTheme.colors.textDisabled,
   },

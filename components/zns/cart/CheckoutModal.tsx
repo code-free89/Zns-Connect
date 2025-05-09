@@ -13,6 +13,8 @@ import { getChainByID, isChainSupported } from "@/constants/web3/chains";
 import { useCheckout } from "@/hooks/useCheckout";
 import { useAppSelector } from "@/store";
 import { formatPrice } from "@/utils/formatter";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+
 interface CheckoutModalProps {
   isVisible: boolean;
   onClose: (isSuccess?: boolean) => void;
@@ -26,11 +28,7 @@ const RegistrationBadge = () => {
         size={20}
         color={CustomDarkTheme.colors.p500}
       />
-      <Text
-        style={[fontStyles["Poppins-Medium"], styles.registrationBadgeText]}
-      >
-        REGISTRATION
-      </Text>
+      <Text style={styles.registrationBadgeText}>REGISTRATION</Text>
     </View>
   );
 };
@@ -84,12 +82,10 @@ export default function CheckoutModal({
   }, [selectedDomains, isEnoughBalance, isProcessing]);
 
   return (
-    <Modal isVisible={isVisible}>
+    <Modal isVisible={isVisible} backdropColor="#171810" backdropOpacity={0.9}>
       <View style={styles.modalContent}>
         <View style={styles.header}>
-          <Text style={[fontStyles["Poppins-SemiBold"], styles.title]}>
-            Checkout
-          </Text>
+          <Text style={styles.title}>Checkout</Text>
           <AntDesign
             name="close"
             size={14}
@@ -100,18 +96,14 @@ export default function CheckoutModal({
         </View>
 
         <View style={styles.orderSummaryContainer}>
-          <Text
-            style={[fontStyles["Poppins-SemiBold"], styles.orderSummaryTitle]}
-          >
+          <Text style={styles.orderSummaryTitle}>
             Order Summary for {networkShortName}
           </Text>
 
           <RegistrationBadge />
 
           <View style={styles.priceSummaryContainer}>
-            <Text
-              style={[fontStyles["Poppins-SemiBold"], styles.priceSummaryTitle]}
-            >
+            <Text style={styles.priceSummaryTitle}>
               Registration Price for {selectedDomains.length} Domain (
               {networkShortName})
             </Text>
@@ -129,28 +121,22 @@ export default function CheckoutModal({
           />
 
           <View style={styles.priceContainer}>
-            <Text style={[fontStyles["Poppins-Regular"], styles.priceTitle]}>
-              Subtotal
-            </Text>
-            <Text style={[fontStyles["Poppins-SemiBold"], styles.priceValue]}>
+            <Text style={styles.priceTitle}>Subtotal</Text>
+            <Text style={styles.priceValue}>
               {`${formatPrice(Number(formatEther(totalPrice)))}`}{" "}
               <Text style={styles.priceCurrency}>{symbol}</Text>
             </Text>
           </View>
           <View style={styles.priceContainer}>
-            <Text style={[fontStyles["Poppins-Regular"], styles.priceTitle]}>
-              Available Credits
-            </Text>
-            <Text style={[fontStyles["Poppins-SemiBold"], styles.priceValue]}>
+            <Text style={styles.priceTitle}>Available Credits</Text>
+            <Text style={styles.priceValue}>
               {`${formatPrice(creditPrice)}`}{" "}
               <Text style={styles.priceCurrency}>{symbol}</Text>
             </Text>
           </View>
           <View style={styles.priceContainer}>
-            <Text style={[fontStyles["Poppins-Regular"], styles.priceTitle]}>
-              Total Price
-            </Text>
-            <Text style={[fontStyles["Poppins-SemiBold"], styles.priceValue]}>
+            <Text style={styles.priceTitle}>Total Price</Text>
+            <Text style={styles.priceValue}>
               {`${formatPrice(Number(formatEther(finalPrice)))}`}{" "}
               <Text style={styles.priceCurrency}>{symbol}</Text>
             </Text>
@@ -174,12 +160,12 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: CustomDarkTheme.colors.modalBackground,
     borderRadius: 16,
-    paddingHorizontal: 14,
-    paddingVertical: 16,
+    paddingHorizontal: getWidthSize(14),
+    paddingVertical: getHeightSize(16),
     flexDirection: "column",
     position: "absolute",
     bottom: 0,
-    gap: 16,
+    gap: getHeightSize(16),
   },
   header: {
     flexDirection: "row",
@@ -188,13 +174,17 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   title: {
+    ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: 14,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.4),
   },
   orderSummaryTitle: {
-    fontSize: 20,
+    ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.txtColor,
-    marginBottom: 8,
+    fontSize: getHeightSize(20),
+    lineHeight: getHeightSize(20 * 1.5),
+    marginBottom: getHeightSize(8),
   },
   orderSummaryContainer: {
     flexDirection: "column",
@@ -203,54 +193,59 @@ const styles = StyleSheet.create({
   registrationBadge: {
     backgroundColor: "#283200",
     borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: getWidthSize(8),
+    paddingVertical: getHeightSize(4),
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   registrationBadgeText: {
     color: CustomDarkTheme.colors.p500,
-    fontSize: 14,
-    lineHeight: 14 * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
   },
   priceSummaryContainer: {
     width: "100%",
     backgroundColor: CustomDarkTheme.colors.secondaryBtn,
     borderRadius: 15,
-    paddingHorizontal: 12,
-    paddingVertical: 20,
-    marginVertical: 20,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(20),
+    marginVertical: getHeightSize(20),
   },
   priceSummaryTitle: {
+    ...fontStyles["Poppins-SemiBold"],
     color: `${CustomDarkTheme.colors.txtColor}C2`,
-    fontSize: 14,
-    marginBottom: 11,
-    lineHeight: 14 * 1.5,
+    fontSize: getHeightSize(14),
+    marginBottom: getHeightSize(11),
+    lineHeight: getHeightSize(14 * 1.5),
   },
   price: {
     color: CustomDarkTheme.colors.primary,
-    fontSize: 16,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.1),
   },
   priceCurrency: {
-    fontSize: 12,
+    fontSize: getHeightSize(12),
   },
   priceContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
-    paddingVertical: 16,
+    paddingVertical: getHeightSize(16),
     width: "100%",
   },
   priceTitle: {
-    fontSize: 16,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.body,
-    lineHeight: 16 * 1.5,
+    lineHeight: getHeightSize(16 * 1.5),
   },
   priceValue: {
-    fontSize: 16,
-    lineHeight: 16 * 1.1,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.1),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

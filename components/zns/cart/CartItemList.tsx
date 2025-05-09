@@ -4,13 +4,12 @@ import { FlatList, StyleSheet, View } from "react-native";
 import Button from "@/components/ui/Button";
 import CartSummary from "@/components/zns/cart/CartSummary";
 import EmptyCart from "@/components/zns/cart/EmptyCart";
-import RemoveCartModal from "@/components/zns/cart/RemoveCartModal";
 import DomainCartItem from "@/components/zns/DomainCartItem";
 import DomainTypeSelect from "@/components/zns/DomainTypeSelect";
 import { CHAIN_IDS, NETWORKS } from "@/constants/web3/chains";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { selectChain } from "@/store/slices/cart";
-
+import { getHeightSize } from "@/utils/size";
 interface CartItemListProps {
   onCheckout: () => void;
 }
@@ -88,7 +87,7 @@ export default function CartItemList({ onCheckout }: CartItemListProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 30,
+    gap: getHeightSize(30),
   },
   domainContainer: {
     flex: 1,
