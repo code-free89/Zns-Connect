@@ -9,5 +9,4 @@ export default function MyDomainsPage() {
       <AccountDomains />
     </ZnsScrollView>
   );
-  // return <AccountDomains />;
 }

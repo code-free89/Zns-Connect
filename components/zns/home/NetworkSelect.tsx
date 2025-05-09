@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 import { useAccount, useSwitchChain } from "wagmi";
 
-import ZnsDropdown from "@/components/ui/Dropdown";
-import { CustomDarkTheme } from "@/constants/theme";
-import { CHAINS, getChainIcon } from "@/constants/web3/chains";
+import NetworkSelectDropdown from "@/components/zns/NetworkSelectDropdown";
+import { CHAINS } from "@/constants/web3/chains";
 import { showErrorToast } from "@/utils/toast";
-
-const NetworkItems = CHAINS.map((chain) => ({
-  label: chain.name,
-  value: chain.id.toString(),
-  icon: chain.icon,
-}));
 
 type Props = {
   containerStyle?: StyleProp<ViewStyle>;
@@ -23,6 +16,12 @@ export default function NetworkSelect({ containerStyle }: Props) {
   const [selectedNetwork, setSelectedNetwork] = useState(
     chain?.id.toString() || "1"
   );
+  const NetworkItems = CHAINS.map((chain) => ({
+    id: chain.id,
+    label: chain.name,
+    value: chain.id.toString(),
+    icon: chain.icon,
+  }));
 
   // Update selected network when chain changes
   useEffect(() => {
@@ -43,7 +42,7 @@ export default function NetworkSelect({ containerStyle }: Props) {
   };
 
   return (
-    <ZnsDropdown
+    <NetworkSelectDropdown
       label="Switch Network"
       placeholder="Select a network"
       value={selectedNetwork}

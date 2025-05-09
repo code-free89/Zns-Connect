@@ -13,9 +13,11 @@ import {
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { tlds } from "@/constants/web3/tlds";
 import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type ItemType = {
+  id: number;
   label: string;
   value: string;
   icon?: any;
@@ -30,7 +32,7 @@ type Props = {
   containerStyle?: StyleProp<ViewStyle>;
 };
 
-export default function ZnsDropdown({
+export default function NetworkSelectDropdown({
   label,
   value,
   setValue,
@@ -83,35 +85,39 @@ export default function ZnsDropdown({
             showsVerticalScrollIndicator={false}
             nestedScrollEnabled={true}
           >
-            {items.map((item, idx) => (
-              <View key={item.value}>
-                <Pressable
-                  style={[
-                    styles.item,
-                    item.value === value && styles.itemSelected,
-                  ]}
-                  onPress={() => {
-                    setValue(item.value);
-                    setIsOpen(false);
-                  }}
-                >
-                  {item.icon && (
-                    <Image source={item.icon} style={styles.itemIcon} />
-                  )}
-                  <Text
+            {items.map((item, idx) => {
+              const tld =
+                tlds.find((tld) => tld.chainId === item.id)?.label ?? "";
+              return (
+                <View key={item.value}>
+                  <Pressable
                     style={[
-                      fontStyles["Poppins-Regular"],
-                      styles.itemText,
-                      item.value === value && styles.textSelected,
+                      styles.item,
+                      item.value === value && styles.itemSelected,
                     ]}
+                    onPress={() => {
+                      setValue(item.value);
+                      setIsOpen(false);
+                    }}
                   >
-                    {item.label}
-                  </Text>
-                </Pressable>
-                {/* Add separator except after last item */}
-                {idx < items.length - 1 && <View style={{ height: 14 }} />}
-              </View>
-            ))}
+                    {item.icon && (
+                      <Image source={item.icon} style={styles.itemIcon} />
+                    )}
+                    <Text
+                      style={[
+                        fontStyles["Poppins-Regular"],
+                        styles.itemText,
+                        item.value === value && styles.textSelected,
+                      ]}
+                    >
+                      .{tld}
+                    </Text>
+                  </Pressable>
+                  {/* Add separator except after last item */}
+                  {idx < items.length - 1 && <View style={{ height: 14 }} />}
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
       )}
