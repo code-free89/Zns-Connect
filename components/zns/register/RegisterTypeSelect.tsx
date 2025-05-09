@@ -1,9 +1,13 @@
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 import Button from "@/components/ui/Button";
-import GradientBorderButtonWrapper from "@/components/ui/GradientBorderButtonWrapper";
 import { fontStyles } from "@/constants/fonts";
-import { BuyIcon, SearchIcon, StarIcon } from "@/constants/icons";
+import {
+  BuyIcon,
+  SearchIcon,
+  StarIcon,
+  StartIconSelected,
+} from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getHeightSize, getWidthSize } from "@/utils/size";
 
@@ -14,7 +18,7 @@ interface RegisterTypeButtonProps {
   selectedType: DomainRegisterType;
   onSelect: (type: DomainRegisterType) => void;
   label: string;
-  icon: React.ReactNode;
+  icon: (color: string) => React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -28,19 +32,22 @@ const RegisterTypeButton = ({
 }: RegisterTypeButtonProps) => {
   const isSelected = type === selectedType;
   const content = (
-    <View
-      style={[
-        styles.domainRegisterTypeContainer,
-        { borderWidth: isSelected ? 0 : 0.65, borderColor: "transparent" },
-      ]}
-    >
-      {icon}
+    <View style={[styles.domainRegisterTypeContainer]}>
+      {isSelected && type === "generateWithAI" ? (
+        <StartIconSelected />
+      ) : (
+        icon(
+          isSelected
+            ? CustomDarkTheme.colors.bg
+            : CustomDarkTheme.colors.txtColor
+        )
+      )}
       <Text
         style={[
           styles.domainRegisterTypeText,
           {
             color: isSelected
-              ? CustomDarkTheme.colors.p500
+              ? CustomDarkTheme.colors.bg
               : CustomDarkTheme.colors.txtColor,
           },
         ]}
@@ -50,19 +57,29 @@ const RegisterTypeButton = ({
     </View>
   );
 
-  return isSelected ? (
-    <GradientBorderButtonWrapper onPress={() => onSelect(type)}>
-      {content}
-    </GradientBorderButtonWrapper>
-  ) : (
+  return (
     <Button
-      variant="text"
+      variant={isSelected ? "primary" : "text"}
       onPress={() => onSelect(type)}
       style={[styles.buttonBase, style]}
     >
       {content}
     </Button>
   );
+
+  // return isSelected ? (
+  //   <Pressable style={styles.selectedContainer} onPress={() => onSelect(type)}>
+  //     {content}
+  //   </Pressable>
+  // ) : (
+  //   <Button
+  //     variant="text"
+  //     onPress={() => onSelect(type)}
+  //     style={[styles.buttonBase, style]}
+  //   >
+  //     {content}
+  //   </Button>
+  // );
 };
 
 const REGISTER_OPTIONS: Array<{
@@ -103,15 +120,7 @@ export default function RegisterTypeSelect({
         selectedType={selectedType}
         onSelect={setSelectedType}
         label="Smart Search"
-        icon={
-          <SearchIcon
-            color={
-              selectedType === "smartSearch"
-                ? CustomDarkTheme.colors.p500
-                : "white"
-            }
-          />
-        }
+        icon={(color: string) => <SearchIcon color={color} />}
         style={styles.topButton}
       />
 
@@ -123,11 +132,7 @@ export default function RegisterTypeSelect({
               selectedType={selectedType}
               onSelect={setSelectedType}
               label={option.label}
-              icon={option.icon(
-                selectedType === option.type
-                  ? CustomDarkTheme.colors.p500
-                  : "white"
-              )}
+              icon={(color: string) => option.icon(color)}
               style={styles.bottomButton}
             />
           </View>
@@ -154,20 +159,25 @@ const styles = StyleSheet.create({
     lineHeight: getHeightSize(12 * 1.5),
   },
   buttonBase: {
+    borderWidth: 1,
+    borderColor: `${CustomDarkTheme.colors.stroke}B0`,
     paddingVertical: getHeightSize(8),
   },
   topButton: {
-    paddingVertical: getHeightSize(8),
+    // paddingVertical: getHeightSize(8),
   },
   bottomRow: {
     flexDirection: "row",
-    marginTop: getHeightSize(4),
+    marginTop: getHeightSize(8),
+    gap: getWidthSize(8),
   },
   bottomButtonContainer: {
-    width: "50%",
-    paddingHorizontal: getWidthSize(6),
+    flex: 1,
   },
   bottomButton: {
-    paddingVertical: getHeightSize(8),
+    // paddingVertical: getHeightSize(8),
+  },
+  selectedContainer: {
+    backgroundColor: "red",
   },
 });
