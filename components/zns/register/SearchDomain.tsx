@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     borderColor: "#292925CC",
+    paddingVertical: 1,
   },
   suggestionsListContainer: {
     backgroundColor: "black",

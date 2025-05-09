@@ -2,6 +2,7 @@ import { Dimensions, View } from "react-native";
 
 import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "./theme";
+import { getWidthSize } from "@/utils/size";
 
 export const toastConfig = {
   success: (props: any) => (
@@ -10,7 +11,7 @@ export const toastConfig = {
         backgroundColor: CustomDarkTheme.colors.grey2,
         padding: 16,
         borderRadius: 10,
-        width: "90%",
+        width: Dimensions.get("window").width - getWidthSize(32),
         bottom: 40,
       }}
     >
@@ -28,7 +29,8 @@ export const toastConfig = {
         backgroundColor: CustomDarkTheme.colors.grey2,
         padding: 16,
         borderRadius: 10,
-        width: Dimensions.get("window").width - 32,
+        width: Dimensions.get("window").width - getWidthSize(32),
+        bottom: 40,
       }}
     >
       <ZnsText type="bold" style={{ color: CustomDarkTheme.colors.error }}>

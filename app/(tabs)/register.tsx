@@ -31,7 +31,7 @@ export default function RegisterScreen() {
           setSelectedType={setSelectedType}
         />
 
-        <View style={{ marginTop: 24 }}>
+        <View style={{ marginTop: 16 }}>
           {selectedType === "smartSearch" && <SmartSearch />}
           {selectedType === "withCategories" && <WithCategories />}
           {selectedType === "generateWithAI" && <GenerateWithAI />}

@@ -1,15 +1,16 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router } from "expo-router";
 import { useMemo } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Image, Pressable, StyleSheet, Text } from "react-native";
 
+import { fontStyles } from "@/constants/fonts";
+import { HeartIcon, HeartIconFill } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getChainColor } from "@/constants/web3/chains";
+import { getChainColor, getChainIcon } from "@/constants/web3/chains";
 import useFavourite from "@/hooks/useFavourite";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { RecentDomainType } from "@/store/slices/recents";
 import { formatPrice } from "@/utils/formatter";
-import { fontStyles } from "@/constants/fonts";
 import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function MintItem({
@@ -26,6 +27,7 @@ export default function MintItem({
   );
   const { isFavourite, onFavourite } = useFavourite(domainData);
   const chainColor = useMemo(() => getChainColor(chainId), [chainId]);
+  const chainIcon = useMemo(() => getChainIcon(chainId), [chainId]);
 
   const goToDomainProfile = () => {
     router.push({
@@ -39,12 +41,9 @@ export default function MintItem({
   return (
     <Pressable style={styles.container} onPress={goToDomainProfile}>
       <Pressable onPress={onFavourite}>
-        <AntDesign
-          name={isFavourite ? "heart" : "hearto"}
-          size={18}
-          color={CustomDarkTheme.colors.primary}
-        />
+        {isFavourite ? <HeartIconFill /> : <HeartIcon />}
       </Pressable>
+      <Image source={chainIcon} style={styles.icon} />
       <Text style={styles.name}>
         {domainName}
         <Text style={{ color: chainColor }}>.{tld}</Text>
@@ -66,10 +65,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: CustomDarkTheme.colors.grey2,
   },
+  icon: {
+    width: getWidthSize(24),
+    height: getHeightSize(24),
+    borderRadius: 9999,
+  },
   name: {
     ...fontStyles["Poppins-Medium"],
     fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    lineHeight: getHeightSize(18),
     color: "white",
   },
   price: {

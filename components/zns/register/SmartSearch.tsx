@@ -47,6 +47,6 @@ export default function SmartSearch() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: getHeightSize(24),
+    gap: getHeightSize(29),
   },
 });
