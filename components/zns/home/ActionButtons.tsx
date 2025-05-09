@@ -99,8 +99,5 @@ const styles = StyleSheet.create({
     fontSize: getHeightSize(14),
     lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.grey1,
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    textDecorationColor: CustomDarkTheme.colors.grey1,
   },
 });
