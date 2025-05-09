@@ -59,14 +59,15 @@ export default function ZnsLayout() {
         name="badges"
         options={{
           title: "My badges",
-          headerTitle: (props: any) => (
-            <Text
-              style={[fontStyles["Poppins-Medium"], styles.headerTitle]}
-              {...props}
-            >
-              My badges
-            </Text>
-          ),
+          headerShown: true,
+          header: ({ options }: any) => {
+            return (
+              <View style={styles.headerContainer}>
+                {options.headerLeft()}
+                <Text style={options.headerTitleStyle}>{options.title}</Text>
+              </View>
+            );
+          },
         }}
       />
       <Stack.Screen
@@ -90,15 +91,7 @@ export default function ZnsLayout() {
           headerShown: true,
           header: ({ options }: any) => {
             return (
-              <View
-                style={{
-                  height: getHeightSize(72),
-                  flexDirection: "row",
-                  paddingHorizontal: getWidthSize(16),
-                  gap: getWidthSize(12),
-                  alignItems: "center",
-                }}
-              >
+              <View style={styles.headerContainer}>
                 {options.headerLeft()}
                 <Text style={options.headerTitleStyle}>{options.title}</Text>
               </View>
@@ -111,6 +104,13 @@ export default function ZnsLayout() {
 }
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    height: getHeightSize(72),
+    flexDirection: "row",
+    paddingHorizontal: getWidthSize(16),
+    gap: getWidthSize(12),
+    alignItems: "center",
+  },
   headerTitle: {
     fontSize: 18,
     color: "white",

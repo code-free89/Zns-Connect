@@ -4,6 +4,7 @@ import { View } from "react-native";
 import TabHeaders from "@/components/ui/TabHeaders";
 import BadgeView from "@/components/zns/badges/BadgeView";
 import BadgeProvider from "@/lib/providers/BadgeProvider";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type InfoTab = "all" | "unclaimed" | "claimed" | "not_available";
 
@@ -40,9 +41,9 @@ export default function Badges() {
         selectedTab={selectedTab}
         tabs={tabs}
         tabStyle={{
-          paddingHorizontal: 40,
+          paddingHorizontal: getWidthSize(40),
         }}
-        containerStyle={{ height: 60 }}
+        containerStyle={{ height: getHeightSize(60) }}
       />
       <BadgeView selectedTab={selectedTab} />
     </View>
