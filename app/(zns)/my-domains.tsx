@@ -1,5 +1,13 @@
-import { View } from "react-native";
+import React from "react";
 
-export default function MyDomains() {
-  return <View></View>;
+import ZnsScrollView from "@/components/ui/ScrollView";
+import AccountDomains from "@/components/zns/home/AccountDomains";
+
+export default function MyDomainsPage() {
+  return (
+    <ZnsScrollView>
+      <AccountDomains />
+    </ZnsScrollView>
+  );
+  // return <AccountDomains />;
 }
