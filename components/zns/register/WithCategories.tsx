@@ -1,14 +1,15 @@
-import ZnsText from "@/components/ui/Text";
 import { useCallback, useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import DomainCategorySelector, {
   CategoryDataType,
 } from "@/components/zns/register/DomainCategorySelector";
 import GeneratedDomains from "@/components/zns/register/GeneratedDomains";
 import RecentlyMinted from "@/components/zns/register/RecentlyMinted";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useCategoryAIDomains } from "@/hooks/useCategoryAIDomains";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
 
 const MAX_LETTERS = 24;
@@ -51,17 +52,14 @@ export default function WithCategories() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <ZnsText type="medium" style={styles.headerText}>
-          Categories
-        </ZnsText>
+        <Text style={styles.headerText}>Categories</Text>
         {selectedCategory && (
-          <ZnsText
-            type="regular"
+          <Text
             style={styles.generateText}
             onPress={() => setSelectedCategory({ ...selectedCategory })}
           >
             Re-generate
-          </ZnsText>
+          </Text>
         )}
       </View>
 
@@ -72,12 +70,12 @@ export default function WithCategories() {
 
       <View style={styles.numberOfLettersContainer}>
         <View style={styles.numberOfLettersTextContainer}>
-          <ZnsText type="regular" style={styles.numberOfLettersText}>
+          <Text style={styles.numberOfLettersText}>
             Number of letters to generate
-          </ZnsText>
-          <ZnsText type="semiBold" style={styles.progressText}>
+          </Text>
+          <Text style={styles.progressText}>
             {lettersToGenerate}/{MAX_LETTERS}
-          </ZnsText>
+          </Text>
         </View>
 
         {/* <GradientSlider
@@ -100,7 +98,7 @@ export default function WithCategories() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 12,
+    gap: getHeightSize(12),
   },
   header: {
     flexDirection: "row",
@@ -108,35 +106,39 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
+    lineHeight: getHeightSize(18 * 1.5),
     color: "white",
   },
   generateText: {
-    fontSize: 14,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.p500,
   },
   numberOfLettersContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 11,
-    paddingVertical: 7,
-    borderRadius: 8,
+    paddingHorizontal: getWidthSize(11),
+    paddingVertical: getHeightSize(7),
+    borderRadius: getWidthSize(8),
   },
   numberOfLettersTextContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 6,
+    marginBottom: getHeightSize(6),
   },
   numberOfLettersText: {
-    fontSize: 14,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   progressText: {
-    fontSize: 16,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
 });
