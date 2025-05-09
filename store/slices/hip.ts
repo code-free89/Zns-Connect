@@ -5,6 +5,7 @@ export interface HIPState {
   walletAddress: string;
   totalEarnings: number;
   totalPoints: number;
+  maxPoints: number;
   rank: number;
   mainImgUrl: string;
   name: string;
@@ -27,6 +28,7 @@ const initialState: HIPState = {
   walletAddress: "",
   totalEarnings: 0,
   totalPoints: 0,
+  maxPoints: 0,
   rank: 0,
   mainImgUrl: "",
   name: "",

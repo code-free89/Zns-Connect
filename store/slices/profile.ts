@@ -17,7 +17,7 @@ type AccountVerified = keyof Pick<
   "discord" | "twitter" | "wrapcast" | "linkedin" | "telegram"
 >;
 
-export type CombindedProfile = StoreProfile & {
+export type CombinedProfile = StoreProfile & {
   following?: (Partial<any> & {
     to?: Partial<any>;
     from?: Partial<any>;
@@ -32,15 +32,15 @@ export interface ProfileState {
   domain: string | null;
   tld: string;
   chainId: NETWORKS | null;
-  profile: CombindedProfile | null;
+  profile: CombinedProfile | null;
   domainInfo?: DomainInfoType | null;
   ownerStore?: StoreUser;
   ownerDomains: UserDomainType[] | null;
-  isInitedInfo: boolean;
-  isInitedDomain: boolean;
-  isInitedProfile: boolean;
-  isInitedOwnerDomain: boolean;
-  isInitedOwnerStore: boolean;
+  isInitiatedInfo: boolean;
+  isInitiatedDomain: boolean;
+  isInitiatedProfile: boolean;
+  isInitiatedOwnerDomain: boolean;
+  isInitiatedOwnerStore: boolean;
 }
 
 const initialState: ProfileState = {
@@ -49,11 +49,11 @@ const initialState: ProfileState = {
   tld: "",
   profile: null,
   domainInfo: undefined,
-  isInitedDomain: false,
-  isInitedInfo: false,
-  isInitedProfile: false,
-  isInitedOwnerDomain: false,
-  isInitedOwnerStore: false,
+  isInitiatedDomain: false,
+  isInitiatedInfo: false,
+  isInitiatedProfile: false,
+  isInitiatedOwnerDomain: false,
+  isInitiatedOwnerStore: false,
   ownerDomains: [],
 };
 
@@ -68,19 +68,19 @@ export const profileSlices = createSlice({
       state.domain = action.payload.domain;
       state.chainId = action.payload.chainId;
       state.tld = action.payload.tld;
-      state.isInitedDomain = true;
+      state.isInitiatedDomain = true;
     },
     setOwnerStore: (state, action: PayloadAction<StoreUser>) => {
       state.ownerStore = action.payload;
-      state.isInitedOwnerStore = true;
+      state.isInitiatedOwnerStore = true;
     },
-    setProfile: (state, action: PayloadAction<CombindedProfile>) => {
+    setProfile: (state, action: PayloadAction<CombinedProfile>) => {
       state.profile = action.payload;
-      state.isInitedProfile = true;
+      state.isInitiatedProfile = true;
     },
     setDomainInfo: (state, action: PayloadAction<DomainInfoType | null>) => {
       state.domainInfo = action.payload;
-      state.isInitedInfo = true;
+      state.isInitiatedInfo = true;
     },
     setDomainVerify: (state, action: PayloadAction<AccountVerified>) => {
       if (state.profile) {
@@ -89,7 +89,7 @@ export const profileSlices = createSlice({
         state.profile = updatedProfile;
       }
     },
-    setInited: (
+    setInitiated: (
       state,
       action: PayloadAction<{
         key: "domain" | "info" | "profile" | "ownerDomains" | "ownerStore";
@@ -98,19 +98,19 @@ export const profileSlices = createSlice({
     ) => {
       switch (action.payload.key) {
         case "domain":
-          state.isInitedDomain = action.payload.value;
+          state.isInitiatedDomain = action.payload.value;
           break;
         case "info":
-          state.isInitedInfo = action.payload.value;
+          state.isInitiatedInfo = action.payload.value;
           break;
         case "profile":
-          state.isInitedProfile = action.payload.value;
+          state.isInitiatedProfile = action.payload.value;
           break;
         case "ownerDomains":
-          state.isInitedOwnerDomain = action.payload.value;
+          state.isInitiatedOwnerDomain = action.payload.value;
           break;
         case "ownerStore":
-          state.isInitedOwnerStore = action.payload.value;
+          state.isInitiatedOwnerStore = action.payload.value;
           break;
       }
     },
@@ -130,7 +130,7 @@ export const profileSlices = createSlice({
       action: PayloadAction<UserDomainType[] | null>
     ) => {
       state.ownerDomains = action.payload;
-      state.isInitedOwnerDomain = true;
+      state.isInitiatedOwnerDomain = true;
     },
 
     updateProfileMainImage: (state, action: PayloadAction<string>) => {
@@ -143,7 +143,7 @@ export const profileSlices = createSlice({
 });
 
 export const {
-  setInited,
+  setInitiated,
   setProfile,
   setDomainInfo,
   setOwnerStore,

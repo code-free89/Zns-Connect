@@ -42,4 +42,20 @@ export const fontStyles: { [key in string]: TextStyle } = {
   "SpaceGrotesk-Bold": {
     fontFamily: "SpaceGrotesk-Bold",
   },
+
+  // SpaceMono
+  "SpaceMono-Regular": {
+    fontFamily: "SpaceMono-Regular",
+  },
+  "SpaceMono-Bold": {
+    fontFamily: "SpaceMono-Bold",
+  },
+
+  // Work Sans
+  "WorkSans-Regular": {
+    fontFamily: "WorkSans-Regular",
+  },
+  "WorkSans-Medium": {
+    fontFamily: "WorkSans-Medium",
+  },
 };

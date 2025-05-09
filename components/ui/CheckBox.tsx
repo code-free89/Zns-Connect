@@ -1,25 +1,41 @@
-import Checkbox, { CheckboxProps } from "expo-checkbox";
-import { CustomDarkTheme } from "@/constants/theme";
-import { StyleSheet } from "react-native";
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from "react-native";
+import Feather from "@expo/vector-icons/Feather";
 
-export default function CheckBox(props: CheckboxProps) {
+import { CustomDarkTheme } from "@/constants/theme";
+import { getWidthSize } from "@/utils/size";
+
+type CheckBoxProps = {
+  checked: boolean;
+  onChange: () => void;
+  style?: StyleProp<ViewStyle>;
+};
+
+export default function CheckBox({ checked, onChange, style }: CheckBoxProps) {
   return (
-    <Checkbox
-      {...props}
-      color={CustomDarkTheme.colors.primary}
-      style={[props.style, styles.checkbox]}
-    />
+    <Pressable style={[styles.checkbox, style]} onPress={onChange}>
+      {checked && (
+        <Feather name="check" size={8} color={CustomDarkTheme.colors.primary} />
+      )}
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   checkbox: {
-    color: CustomDarkTheme.colors.primary,
-    borderColor: CustomDarkTheme.colors.primary,
-    backgroundColor: "transparent",
-    borderRadius: 4,
+    width: getWidthSize(13),
+    height: getWidthSize(13),
+    borderRadius: 3.6,
+    backgroundColor: "#262B10",
     borderWidth: 0.5,
-    width: 16,
-    height: 16,
+    borderColor: CustomDarkTheme.colors.primary,
+    overflow: "hidden",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

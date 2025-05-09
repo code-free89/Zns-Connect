@@ -1,10 +1,15 @@
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
-import ZnsText from "@/components/ui/Text";
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 
 import Button from "@/components/ui/Button";
-import GradientBorderButtonWrapper from "@/components/ui/GradientBorderButtonWrapper";
-import { SearchIcon } from "@/constants/icons";
+import { fontStyles } from "@/constants/fonts";
+import {
+  BuyIcon,
+  SearchIcon,
+  StarIcon,
+  StartIconSelected,
+} from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -13,6 +18,7 @@ interface RegisterTypeButtonProps {
   selectedType: DomainRegisterType;
   onSelect: (type: DomainRegisterType) => void;
   label: string;
+  icon: (color: string) => React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -21,58 +27,81 @@ const RegisterTypeButton = ({
   selectedType,
   onSelect,
   label,
+  icon,
   style,
 }: RegisterTypeButtonProps) => {
   const isSelected = type === selectedType;
   const content = (
-    <View
-      style={[
-        styles.domainRegisterTypeContainer,
-        { borderWidth: isSelected ? 0 : 0.65 },
-      ]}
-    >
-      <SearchIcon
-        color={
+    <View style={[styles.domainRegisterTypeContainer]}>
+      {isSelected && type === "generateWithAI" ? (
+        <StartIconSelected />
+      ) : (
+        icon(
           isSelected
-            ? CustomDarkTheme.colors.primary
+            ? CustomDarkTheme.colors.bg
             : CustomDarkTheme.colors.txtColor
-        }
-      />
-      <ZnsText
-        type="regular"
+        )
+      )}
+      <Text
         style={[
           styles.domainRegisterTypeText,
           {
             color: isSelected
-              ? CustomDarkTheme.colors.p500
+              ? CustomDarkTheme.colors.bg
               : CustomDarkTheme.colors.txtColor,
           },
         ]}
       >
         {label}
-      </ZnsText>
+      </Text>
     </View>
   );
 
-  return isSelected ? (
-    <GradientBorderButtonWrapper onPress={() => onSelect(type)}>
-      {content}
-    </GradientBorderButtonWrapper>
-  ) : (
+  return (
     <Button
-      variant="text"
+      variant={isSelected ? "primary" : "text"}
       onPress={() => onSelect(type)}
       style={[styles.buttonBase, style]}
     >
       {content}
     </Button>
   );
+
+  // return isSelected ? (
+  //   <Pressable style={styles.selectedContainer} onPress={() => onSelect(type)}>
+  //     {content}
+  //   </Pressable>
+  // ) : (
+  //   <Button
+  //     variant="text"
+  //     onPress={() => onSelect(type)}
+  //     style={[styles.buttonBase, style]}
+  //   >
+  //     {content}
+  //   </Button>
+  // );
 };
 
-const REGISTER_OPTIONS: Array<{ type: DomainRegisterType; label: string }> = [
-  { type: "smartSearch", label: "Smart Search" },
-  { type: "withCategories", label: "With Categories" },
-  { type: "generateWithAI", label: "Generate with AI" },
+const REGISTER_OPTIONS: Array<{
+  type: DomainRegisterType;
+  label: string;
+  icon: (color: string) => React.ReactNode;
+}> = [
+  {
+    type: "smartSearch",
+    label: "Smart Search",
+    icon: (color: string) => <SearchIcon color={color} />,
+  },
+  {
+    type: "withCategories",
+    label: "With Categories",
+    icon: (color: string) => <BuyIcon color={color} />,
+  },
+  {
+    type: "generateWithAI",
+    label: "Generate with AI",
+    icon: (color: string) => <StarIcon />,
+  },
 ];
 
 interface RegisterTypeSelectProps {
@@ -91,6 +120,7 @@ export default function RegisterTypeSelect({
         selectedType={selectedType}
         onSelect={setSelectedType}
         label="Smart Search"
+        icon={(color: string) => <SearchIcon color={color} />}
         style={styles.topButton}
       />
 
@@ -102,6 +132,7 @@ export default function RegisterTypeSelect({
               selectedType={selectedType}
               onSelect={setSelectedType}
               label={option.label}
+              icon={(color: string) => option.icon(color)}
               style={styles.bottomButton}
             />
           </View>
@@ -113,34 +144,40 @@ export default function RegisterTypeSelect({
 
 const styles = StyleSheet.create({
   domainGenerateContainer: {
-    padding: 6,
+    padding: getWidthSize(6),
     borderRadius: 16,
     backgroundColor: CustomDarkTheme.colors.bg,
   },
   domainRegisterTypeContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
+    gap: getWidthSize(5),
   },
   domainRegisterTypeText: {
-    fontSize: 12,
-    fontWeight: "400",
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
   },
   buttonBase: {
-    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: `${CustomDarkTheme.colors.stroke}B0`,
+    paddingVertical: getHeightSize(8),
   },
   topButton: {
-    paddingVertical: 8,
+    // paddingVertical: getHeightSize(8),
   },
   bottomRow: {
     flexDirection: "row",
-    marginTop: 4,
+    marginTop: getHeightSize(8),
+    gap: getWidthSize(8),
   },
   bottomButtonContainer: {
-    width: "50%",
-    paddingHorizontal: 6,
+    flex: 1,
   },
   bottomButton: {
-    paddingVertical: 8,
+    // paddingVertical: getHeightSize(8),
+  },
+  selectedContainer: {
+    backgroundColor: "red",
   },
 });

@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import DomainTypeItem from "@/components/zns/DomainTypeItem";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CHAIN_IDS, mainnets, NETWORKS } from "@/constants/web3/chains";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainTypeSelectProps = {
   chains?: NETWORKS[];
@@ -65,20 +66,50 @@ export default function DomainTypeSelect({
   // };
 
   return processedNetworks.length > 0 ? (
-    <FlatList
-      data={processedNetworks}
-      renderItem={({ item }) => (
-        <DomainTypeItem
-          chainId={item}
-          isSelected={value === item}
-          onPress={() => onChainSelect(item)}
-        />
-      )}
+    <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.container}
-    />
+      contentContainerStyle={{ flexDirection: "column", gap: getHeightSize(8) }}
+    >
+      <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
+        {processedNetworks.map((item, index) =>
+          index % 2 == 0 ? (
+            <DomainTypeItem
+              key={item}
+              chainId={item}
+              isSelected={value === item}
+              onPress={() => onChainSelect(item)}
+            />
+          ) : null
+        )}
+      </View>
+      <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
+        {processedNetworks.map((item, index) =>
+          index % 2 == 1 ? (
+            <DomainTypeItem
+              key={item}
+              chainId={item}
+              isSelected={value === item}
+              onPress={() => onChainSelect(item)}
+            />
+          ) : null
+        )}
+      </View>
+    </ScrollView>
   ) : (
+    // <FlatList
+    //   data={processedNetworks}
+    //   renderItem={({ item }) => (
+    //     <DomainTypeItem
+    //       chainId={item}
+    //       isSelected={value === item}
+    //       onPress={() => onChainSelect(item)}
+    //     />
+    //   )}
+    //   horizontal
+    //   showsHorizontalScrollIndicator={false}
+    //   contentContainerStyle={styles.container}
+    // />
     <Text style={[fontStyles["Poppins-SemiBold"], styles.noNetwork]}>
       No networks found
     </Text>

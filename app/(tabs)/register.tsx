@@ -9,6 +9,7 @@ import WithCategories from "@/components/zns/register/WithCategories";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import DomainProvider from "@/lib/providers/DomainProvider";
+import { getHeightSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -18,12 +19,11 @@ export default function RegisterScreen() {
 
   return (
     <>
-      <View style={styles.pageTitle}>
-        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          Register a domain
-        </Text>
-      </View>
       <ZnsScrollView>
+        <View style={styles.pageTitle}>
+          <Text style={styles.title}>REGISTER A DOMAIN</Text>
+        </View>
+
         <DomainProvider />
 
         <RegisterTypeSelect
@@ -31,7 +31,7 @@ export default function RegisterScreen() {
           setSelectedType={setSelectedType}
         />
 
-        <View style={{ marginTop: 24 }}>
+        <View style={{ marginTop: 16 }}>
           {selectedType === "smartSearch" && <SmartSearch />}
           {selectedType === "withCategories" && <WithCategories />}
           {selectedType === "generateWithAI" && <GenerateWithAI />}
@@ -43,13 +43,15 @@ export default function RegisterScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

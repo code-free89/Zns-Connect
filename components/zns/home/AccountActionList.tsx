@@ -4,22 +4,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
+import Feather from "@expo/vector-icons/Feather";
 
-import ZnsText from "@/components/ui/Text";
+import NetworkSelect from "@/components/zns/home/NetworkSelect";
 import { fontStyles } from "@/constants/fonts";
-import { CopyIcon, UserIcon } from "@/constants/icons";
+import { CopyIcon, CreditIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
 import { copyToClipboard } from "@/utils/helpers";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import { showSuccessToast } from "@/utils/toast";
 
-export default function AccountActionList({
-  onClose,
-}: {
+type Props = {
   onClose: () => void;
-}) {
+};
+
+export default function AccountActionList({ onClose }: Props) {
   const router = useRouter();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
+  const { userCredit, user } = useAppSelector((state) => state.user);
 
   const disconnectWallet = async () => {
     disconnect();
@@ -40,22 +44,69 @@ export default function AccountActionList({
     router.push("/(zns)/general-settings");
   };
 
-  const openCommunity = (community: string) => {
-    if (community === "Blog") {
-      Linking.openURL("https://znsconnect.medium.com");
-    } else if (community === "Docs") {
-      Linking.openURL("https://docs.znsconnect.io");
-    } else if (community === "Socials") {
-      Linking.openURL("https://docs.znsconnect.io");
-    }
+  // const openCommunity = (community: string) => {
+  //   if (community === "Blog") {
+  //     Linking.openURL("https://znsconnect.medium.com");
+  //   } else if (community === "Docs") {
+  //     Linking.openURL("https://docs.znsconnect.io");
+  //   } else if (community === "Socials") {
+  //     Linking.openURL("https://docs.znsconnect.io");
+  //   }
+  // };
+
+  const goToCredits = () => {
+    onClose();
+    router.push("/(zns)/general-settings");
+  };
+
+  const goToProfile = () => {
+    onClose();
+    router.push("/(tabs)/profile");
+  };
+
+  const goToMyDomains = () => {
+    onClose();
+    router.push("/(zns)/my-domains");
   };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Pressable style={styles.actionItem} onPress={copyWalletAddress}>
-          <CopyIcon />
-          <ZnsText style={styles.actionItemText}>Copy wallet address</ZnsText>
+        <NetworkSelect containerStyle={styles.networkSelect} />
+        <Pressable onPress={goToCredits}>
+          <Text style={styles.actionDescription}>Credits & gift cards</Text>
+          <View style={styles.creditsContainer}>
+            <CreditIcon />
+            <Text
+              style={[
+                styles.actionItemText,
+                {
+                  fontSize: getHeightSize(14),
+                  lineHeight: getHeightSize(14 * 1.5),
+                },
+              ]}
+            >
+              {userCredit} credits
+            </Text>
+          </View>
+        </Pressable>
+
+        <Pressable style={styles.actionItem} onPress={goToProfile}>
+          <UserIcon
+            width={20}
+            height={20}
+            color={CustomDarkTheme.colors.txtColor}
+          />
+          <Text style={styles.actionItemText}>View Profile</Text>
+        </Pressable>
+
+        <Pressable style={styles.actionItem} onPress={goToMyDomains}>
+          <Feather
+            name="link"
+            size={20}
+            color={CustomDarkTheme.colors.txtColor}
+          />
+          <Text style={styles.actionItemText}>My domains</Text>
         </Pressable>
 
         <Pressable style={styles.actionItem} onPress={goToGeneralSettings}>
@@ -64,38 +115,34 @@ export default function AccountActionList({
             size={20}
             color={CustomDarkTheme.colors.txtColor}
           />
-          <ZnsText style={styles.actionItemText}>General settings</ZnsText>
+          <Text style={styles.actionItemText}>General settings</Text>
         </Pressable>
 
-        <View style={styles.actionItem}>
-          <UserIcon
-            width={20}
-            height={20}
-            color={CustomDarkTheme.colors.txtColor}
-          />
-          <ZnsText style={styles.actionItemText}>Community</ZnsText>
-        </View>
-        <View style={styles.communityContainer}>
-          <ZnsText
+        <Pressable style={styles.actionItem} onPress={copyWalletAddress}>
+          <CopyIcon />
+          <Text style={styles.actionItemText}>Copy wallet address</Text>
+        </Pressable>
+
+        {/* <View style={styles.communityContainer}>
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Blog")}
           >
             Blog
-          </ZnsText>
-          <ZnsText
+          </Text>
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Docs")}
           >
             Docs
-          </ZnsText>
-          <ZnsText
+          </Text>
+          <Text
             style={styles.communityItem}
             onPress={() => openCommunity("Socials")}
           >
             Socials
-          </ZnsText>
-        </View>
-
+          </Text>
+        </View> */}
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
             name="logout"
@@ -113,6 +160,10 @@ export default function AccountActionList({
           </Text>
         </Pressable>
       </View>
+
+      <Pressable style={styles.closeContainer} onPress={onClose}>
+        <AntDesign name="close" size={14} color="white" />
+      </Pressable>
     </View>
   );
 }
@@ -122,34 +173,60 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: CustomDarkTheme.colors.gray900,
     backgroundColor: "black",
-    padding: 16,
+    padding: getWidthSize(16),
     borderRadius: 12,
-    position: "absolute",
-    top: 40,
-    right: 0,
-    width: 280,
+    width: getWidthSize(280),
   },
   container: {
     flexDirection: "column",
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 16,
-    padding: 20,
-    gap: 24,
+    paddingHorizontal: getWidthSize(14),
+    paddingVertical: getHeightSize(20),
+    gap: getHeightSize(24),
   },
   actionItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   actionItemText: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: 16,
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
   },
-  communityContainer: {
-    gap: 16,
+  // communityContainer: {
+  //   gap: getHeightSize(16),
+  // },
+  // communityItem: {
+  //   color: CustomDarkTheme.colors.txtColor,
+  //   marginLeft: getWidthSize(30),
+  // },
+  networkSelect: {
+    backgroundColor: CustomDarkTheme.colors.grey3,
   },
-  communityItem: {
-    color: CustomDarkTheme.colors.txtColor,
-    marginLeft: 30,
+  actionDescription: {
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
+    color: CustomDarkTheme.colors.body,
+  },
+  creditsContainer: {
+    borderRadius: 12,
+    paddingHorizontal: getWidthSize(20),
+    paddingVertical: getHeightSize(10),
+    flexDirection: "row",
+    alignItems: "center",
+    gap: getWidthSize(10),
+    backgroundColor: CustomDarkTheme.colors.grey3,
+    marginTop: getHeightSize(4),
+  },
+  closeContainer: {
+    marginTop: getHeightSize(16),
+    marginHorizontal: "auto",
+    padding: getWidthSize(10),
+    borderRadius: 9999,
+    backgroundColor: CustomDarkTheme.colors.grey2,
   },
 });

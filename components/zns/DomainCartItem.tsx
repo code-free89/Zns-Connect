@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import SplitLine from "@/components/ui/SplitLine";
 import DomainPrice from "@/components/zns/DomainPrice";
 import DomainText from "@/components/zns/DomainText";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppDispatch } from "@/store";
 import {
@@ -12,6 +13,7 @@ import {
   removeCartDomain,
 } from "@/store/slices/cart";
 import { cartDomain, handleDomainPeriod } from "@/store/slices/setting";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 import { useState } from "react";
 import RemoveCartModal from "./cart/RemoveCartModal";
 interface DomainCartItemProps {
@@ -82,7 +84,6 @@ export default function DomainCartItem({ data }: DomainCartItemProps) {
       <View style={styles.domainContainer}>
         <DomainText domainName={domainName} chainId={chainId} />
         <DomainPrice price={price} symbol={symbol} />
-        {/* <Text style={styles.price}>${price}</Text> */}
       </View>
 
       <QuantitySelector year={year} onPress={handlePeriod} />
@@ -112,29 +113,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 10,
-    paddingVertical: 9,
-    borderRadius: 12,
-    gap: 10,
+    paddingHorizontal: getWidthSize(10),
+    paddingVertical: getHeightSize(9),
+    borderRadius: getWidthSize(12),
+    gap: getWidthSize(10),
   },
   domainContainer: {
     flexDirection: "column",
     alignItems: "flex-start",
   },
-  domain: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: "white",
-  },
-  price: {
-    fontSize: 12,
-    fontWeight: 500,
-    color: CustomDarkTheme.colors.textPrimary,
-  },
   availableBadge: {
     borderRadius: 8,
-    width: 77,
-    height: 25,
+    width: getWidthSize(77),
+    paddingVertical: getHeightSize(4),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -143,8 +134,8 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   availableBadgeText: {
-    fontSize: 10,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(10),
     color: "#FF0505AD",
   },
   bgAvailable: {
@@ -165,21 +156,22 @@ const styles = StyleSheet.create({
   quantityInput: {
     borderWidth: 1,
     borderColor: "#FFFFFF33",
-    height: 25,
-    paddingHorizontal: 12,
+    // height: getHeightSize(30),
+    paddingHorizontal: getWidthSize(12),
     borderRadius: 8,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: getHeightSize(4),
   },
   quantity: {
-    fontSize: 14,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
     color: "white",
   },
   quantityUnit: {
-    fontSize: 12,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
     color: CustomDarkTheme.colors.body,
   },
 });

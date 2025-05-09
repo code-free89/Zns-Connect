@@ -1,6 +1,8 @@
 import Button from "@/components/ui/Button";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { View, StyleSheet, Text } from "react-native";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
 
 interface RemoveCartModalProps {
@@ -15,22 +17,27 @@ export default function RemoveCartModal({
   onSubmit,
 }: RemoveCartModalProps) {
   return (
-    <Modal isVisible={isVisible}>
+    <Modal isVisible={isVisible} backdropColor="black">
       <View style={styles.modalContent}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Remove from cart?</Text>
           <Text style={styles.description}>
-            {"The selected domain will\nbe removed from cart"}
+            {"The selected domain will be\nremoved from cart"}
           </Text>
         </View>
         <View style={styles.buttonContainer}>
-          <Button title="No" onPress={onClose} style={{ flex: 1 }} />
           <Button
             variant="text"
             title="Remove"
             style={{ flex: 1 }}
             textStyle={styles.errorText}
             onPress={onSubmit}
+          />
+          <Button
+            title="No"
+            textStyle={styles.noText}
+            onPress={onClose}
+            style={{ flex: 1 }}
           />
         </View>
       </View>
@@ -43,35 +50,45 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "black",
     borderRadius: 14,
-    paddingHorizontal: 10,
-    paddingVertical: 40,
+    paddingHorizontal: getWidthSize(16),
+    paddingVertical: getHeightSize(40),
     flexDirection: "column",
-    gap: 24,
+    gap: getHeightSize(24),
   },
   buttonContainer: {
     flexDirection: "row",
   },
   errorText: {
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.error,
+  },
+  noText: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
+    color: CustomDarkTheme.colors.p950,
   },
   titleContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    gap: 12,
+    paddingHorizontal: getWidthSize(20),
+    paddingVertical: getHeightSize(16),
+    gap: getHeightSize(12),
   },
   title: {
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: 18,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
+    lineHeight: getHeightSize(18 * 1.5),
     textAlign: "center",
   },
   description: {
-    fontSize: 14,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.5),
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
-    lineHeight: 20,
   },
 });

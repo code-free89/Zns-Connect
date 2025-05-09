@@ -1,5 +1,5 @@
 import { Chain } from "viem";
-import { chains } from "@/components/zns/web3modal/common";
+import { chains } from "@/components/zns/web3modal";
 
 export enum NETWORKS {
   DEFAULT = 57073,
@@ -771,6 +771,7 @@ export const getChainByChain = (chain: PrismaChain) =>
   CHAINS.find((item) => item.chain === chain) ?? CHAINS[0];
 
 export const getChainColor = (id: NETWORKS) => CHAIN_COLOR[id];
-export const getChainIcon = (id: NETWORKS) => CHAIN_ICON[id];
+export const getChainIcon = (id: NETWORKS) =>
+  CHAINS.find((chain) => chain.id === id)?.icon;
 export const isChainSupported = (chainId: number) =>
   (CHAIN_IDS as number[]).includes(chainId);

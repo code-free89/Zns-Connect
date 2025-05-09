@@ -13,7 +13,7 @@ const initialState: FavoriteStates = {
 };
 
 export const favoriteSlices = createSlice({
-  name: "favoirtes",
+  name: "favorites",
   initialState,
   reducers: {
     setFavoriteDomains: (

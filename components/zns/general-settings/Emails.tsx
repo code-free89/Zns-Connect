@@ -1,27 +1,22 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import Button from "@/components/ui/Button";
-import ZnsText from "@/components/ui/Text";
 import TextInput from "@/components/ui/TextInput";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function EmailSettings() {
   return (
     <View style={styles.container}>
       <View style={styles.creditsContainer}>
-        <ZnsText type="medium" style={styles.title}>
-          Security
-        </ZnsText>
+        <Text style={styles.title}>Security</Text>
         <TextInput label="Enter your email below" placeholder="" />
-        <Button
-          title="Verify Email"
-          fontType="medium"
-          style={styles.verifyButton}
-        />
-        <ZnsText style={styles.resendText}>
+        <Button title="Verify Email" style={styles.verifyButton} />
+        <Text style={styles.resendText}>
           Didn’t receive the email?{"  "}
-          <ZnsText style={styles.resendCodeText}>Resend code</ZnsText>
-        </ZnsText>
+          <Text style={styles.resendCodeText}>Resend code</Text>
+        </Text>
       </View>
     </View>
   );
@@ -29,19 +24,23 @@ export default function EmailSettings() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 24,
+    marginTop: getHeightSize(24),
   },
   creditsContainer: {
-    padding: 16,
-    gap: 12,
+    padding: getWidthSize(16),
+    gap: getHeightSize(12),
     backgroundColor: CustomDarkTheme.colors.grey2,
-    borderRadius: 10,
+    borderRadius: getWidthSize(10),
   },
   title: {
-    fontSize: 16,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
     color: CustomDarkTheme.colors.txtColor,
   },
   resendText: {
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(14),
+    letterSpacing: 0.28,
     textAlign: "center",
     color: "#DFE5F3",
   },
@@ -49,6 +48,6 @@ const styles = StyleSheet.create({
     color: CustomDarkTheme.colors.primary,
   },
   verifyButton: {
-    marginTop: 20,
+    marginTop: getHeightSize(20),
   },
 });

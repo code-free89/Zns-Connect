@@ -1,16 +1,17 @@
 import { useCallback, useMemo } from "react";
+
+import { NETWORKS } from "@/constants/web3/chains";
+import { useDomainInfo } from "@/hooks/web3/useDomain";
 import { fetchDomain } from "@/lib/api/domain";
+import { getCurrentUser } from "@/lib/api/user";
 import { useAppDispatch, useAppSelector } from "@/store";
 import {
   DomainInfoType,
   setDomainInfo,
-  setInited,
+  setInitiated,
   setOwnerStore,
   setProfile,
 } from "@/store/slices/profile";
-import { NETWORKS } from "@/constants/web3/chains";
-import { getUser } from "@/api/user";
-import { useDomainInfo } from "@/hooks/web3/core/useDomain";
 
 const useFetchProfile = (
   validDomain: string | null,
@@ -53,7 +54,7 @@ const useFetchProfile = (
   );
 
   const fetchDomainInfoByContract = useCallback(async () => {
-    dispatch(setInited({ key: "info", value: false }));
+    dispatch(setInitiated({ key: "info", value: false }));
     const domainInfo = await fetchDomainInfo();
     if (domainInfo) {
       dispatch(setDomainInfo(domainInfo));
@@ -64,8 +65,8 @@ const useFetchProfile = (
 
   const fetchOwnerStore = useCallback(async () => {
     if (domainOwner) {
-      dispatch(setInited({ key: "info", value: false }));
-      const ownerStore = await getUser(domainOwner);
+      dispatch(setInitiated({ key: "info", value: false }));
+      const ownerStore = await getCurrentUser(domainOwner);
       if (ownerStore) {
         dispatch(
           setOwnerStore({

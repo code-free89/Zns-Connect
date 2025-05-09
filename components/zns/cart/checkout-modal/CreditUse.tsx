@@ -1,10 +1,12 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import TextInput from "@/components/ui/TextInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { router } from "expo-router";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+3;
 
 type CreditUseProps = {
   creditAmount: string;
@@ -42,15 +44,13 @@ export default function CreditUse({
           />
         </View>
         <Pressable style={styles.maxContainer} onPress={onMaxAmount}>
-          <Text style={[fontStyles["Poppins-Medium"], styles.maxText]}>
-            Max
-          </Text>
+          <Text style={styles.maxText}>Max</Text>
         </Pressable>
       </View>
 
       <View style={styles.moreCreditsContainer}>
         <Ionicons name="gift-outline" size={14} color="white" />
-        <Text style={[fontStyles["Poppins-Medium"], styles.moreCreditsText]}>
+        <Text style={styles.moreCreditsText}>
           Need more credits?{" "}
           <Text style={styles.moreCreditsLink} onPress={onGetMoreCredits}>
             Get them here
@@ -65,21 +65,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 4,
+    padding: getHeightSize(4),
     borderWidth: 1,
     borderRadius: 16,
     borderColor: `${CustomDarkTheme.colors.stroke}CC`,
     width: "100%",
   },
   maxContainer: {
-    paddingHorizontal: 22,
-    paddingVertical: 8,
+    paddingHorizontal: getWidthSize(22),
+    paddingVertical: getHeightSize(8),
     borderRadius: 12,
     backgroundColor: "#3898FF",
   },
   maxText: {
-    fontSize: 16,
-    lineHeight: 12 * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
     color: "#CFD4D4",
   },
   creditsInput: {
@@ -95,8 +96,9 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   moreCreditsText: {
-    fontSize: 12,
-    lineHeight: 12 * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
   moreCreditsLink: {

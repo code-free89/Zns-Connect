@@ -1,12 +1,13 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
-import ZnsText from "@/components/ui/Text";
 
 import Button from "@/components/ui/Button";
 import CodeInput from "@/components/ui/CodeInput";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -17,31 +18,26 @@ export default function ReferralCodeModal({ isVisible, onClose }: Props) {
   const [referralCode, setReferralCode] = useState("");
 
   return (
-    <Modal isVisible={isVisible} backdropColor="#171810">
+    <Modal isVisible={isVisible}>
       <View style={styles.modalContent}>
         <Ionicons
           name="alert-circle-outline"
-          size={24}
+          size={getHeightSize(24)}
           color={CustomDarkTheme.colors.textPrimary}
         />
-        <ZnsText type="semiBold" style={styles.referralText}>
+        <Text style={styles.referralText}>
           Enter referral code to get{" "}
-          <ZnsText type="semiBold" style={styles.bonusText}>
-            25% bonus
-          </ZnsText>
-        </ZnsText>
+          <Text style={styles.bonusText}>25% bonus</Text>
+        </Text>
         <CodeInput value={referralCode} setValue={setReferralCode} />
         <Button
-          fontType="regular"
           title="Done"
           onPress={onClose}
           style={styles.doneButton}
           textStyle={styles.doneButtonText}
         />
         <TouchableOpacity style={styles.noInvitation} onPress={onClose}>
-          <ZnsText type="medium" style={styles.noInvitationText}>
-            I have no invitation code
-          </ZnsText>
+          <Text style={styles.noInvitationText}>I have no invitation code</Text>
         </TouchableOpacity>
       </View>
     </Modal>
@@ -55,29 +51,36 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     flexDirection: "column",
     alignItems: "center",
-    paddingHorizontal: 24,
-    paddingVertical: 16,
+    paddingHorizontal: getWidthSize(24),
+    paddingVertical: getHeightSize(16),
   },
   referralText: {
+    ...fontStyles["Poppins-SemiBold"],
     color: "white",
-    fontSize: 16,
-    lineHeight: 18,
-    marginVertical: 20,
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.5),
+    marginVertical: getHeightSize(20),
   },
   bonusText: {
     color: CustomDarkTheme.colors.textPrimary,
   },
   doneButton: {
-    marginTop: 48,
+    marginTop: getHeightSize(48),
   },
   doneButtonText: {
+    ...fontStyles["Poppins-Regular"],
     color: "#101010",
-    fontSize: 14,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.35),
   },
   noInvitation: {
-    marginTop: 24,
+    marginTop: getHeightSize(24),
   },
   noInvitationText: {
+    ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.textPrimary,
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(20),
+    letterSpacing: getWidthSize(0.14),
   },
 });

@@ -1,6 +1,7 @@
 import { useCallback } from "react";
+
+import { getAllHIPs, getHIPByAddress } from "@/lib/api/hip";
 import { useAppDispatch } from "@/store";
-import { getHIPByAddress, getAllHIPs } from "@/lib/api/hip";
 import { setHIPData } from "@/store/slices/hip";
 
 export const useHIPUpdater = () => {
@@ -12,21 +13,24 @@ export const useHIPUpdater = () => {
 
       if (hipData) {
         // Fetch all HIPs to calculate rank and total users
-        const allHips = await getAllHIPs();
+        const allHips: any = await getAllHIPs();
         const rankedHips = allHips
-          .sort((a, b) => b.totalPoints - a.totalPoints)
-          .map((hip, index) => ({
+          .sort((a: any, b: any) => b.totalPoints - a.totalPoints)
+          .map((hip: any, index: number) => ({
             ...hip,
             rank: index + 1,
           }));
 
-        const myRank = rankedHips.find((item) => item.id === hipData.id)?.rank;
+        const myRank = rankedHips.find(
+          (item: any) => item.id === hipData.id
+        )?.rank;
 
         dispatch(
           setHIPData({
             id: hipData.id,
             walletAddress,
             totalPoints: hipData.totalPoints,
+            maxPoints: rankedHips[0].totalPoints,
             totalEarnings: hipData.totalEarnings,
             discordVerified: hipData.discordVerified,
             twitterVerified: hipData.twitterVerified,

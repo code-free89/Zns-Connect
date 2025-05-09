@@ -1,19 +1,22 @@
 import { useMemo } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-import MintItem from "@/components/zns/MintItem";
+import DomainItem from "@/components/zns/DomainItem";
 import EmptySearchResult from "@/components/zns/register/EmptySearchResult";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
-import { useTLD } from "@/hooks/web3/useTLD";
 import { useAvailableDomains } from "@/hooks/web3/view/useAvailableDomains";
+import { AvailableDomainType } from "@/lib/model/domain";
 import { useAppSelector } from "@/store";
-import DomainItem from "../DomainItem";
+import { getHeightSize } from "@/utils/size";
 
-export default function SearchResult() {
+type SearchResultProps = {
+  suggestions: AvailableDomainType[];
+};
+
+export default function SearchResult({ suggestions }: SearchResultProps) {
   const { searchResult } = useAppSelector((state) => state.recentMinted);
-  const tld = useTLD(searchResult?.chain ?? "");
   const { chain, domain } = searchResult ?? { chain: "", domain: "" };
   const { availableDomains, isLoading } = useAvailableDomains(domain);
 
@@ -31,12 +34,22 @@ export default function SearchResult() {
     );
   }, [availableDomains, chain]);
 
-  return searchResult ? (
+  const filteredSuggestions = useMemo(() => {
+    const strChain = chain?.toString();
+    if (chain && strChain && !!strChain && strChain !== "0") {
+      return suggestions.filter((item) => item.chain.toString() === strChain);
+    }
+    return suggestions;
+  }, [suggestions, chain]);
+
+  return searchResult && searchResult.chain ? (
     <View>
-      <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-        Search Results For{"  "}
-        <Text style={{ color: "#FFD640" }}>.{tld}</Text>
-      </Text>
+      <View style={styles.titleContainer}>
+        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+          Search Results For{"  "}
+          <Text style={{ color: "#FFD640" }}>{domain}</Text>
+        </Text>
+      </View>
       {isLoading ? (
         <ActivityIndicator
           size="small"
@@ -51,10 +64,35 @@ export default function SearchResult() {
               domainName={domain}
               chainId={item.chainId}
               showCart
+              showChainSelect={false}
             />
           );
         })
       )}
+    </View>
+  ) : filteredSuggestions.length > 0 ? (
+    <View>
+      <View style={styles.titleContainer}>
+        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
+          Search Results For{"  "}
+          <Text style={{ color: "#FFD640" }}>{domain}</Text>
+        </Text>
+      </View>
+
+      <View style={styles.suggestionsContainer}>
+        {suggestions.map((item, index) => {
+          return (
+            <DomainItem
+              key={item.chain}
+              index={index}
+              domainName={item.domain}
+              chainId={item.chain}
+              showChainSelect={false}
+              showCart={true}
+            />
+          );
+        })}
+      </View>
     </View>
   ) : (
     <EmptySearchResult />
@@ -65,6 +103,20 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     color: CustomDarkTheme.colors.txtColor,
-    marginBottom: 12,
+  },
+  titleContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "#26262666",
+    borderColor: "#C9FC0180",
+    paddingVertical: getHeightSize(8),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: getHeightSize(15),
+    marginBottom: getHeightSize(29),
+  },
+  suggestionsContainer: {
+    gap: getHeightSize(14),
   },
 });

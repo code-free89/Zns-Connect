@@ -1,5 +1,6 @@
 import "./polyfills";
 import { ThemeProvider } from "@react-navigation/native";
+import { AppKit } from "@reown/appkit-wagmi-react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -12,9 +13,10 @@ import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import BackDropModal from "@/components/ui/BackDropModal";
-import { wagmiConfig, Web3Modal } from "@/components/zns/web3modal";
+import { wagmiConfig } from "@/components/zns/web3modal";
 import { CustomDarkTheme } from "@/constants/theme";
 import { toastConfig } from "@/constants/toast-config";
 import AppProvider from "@/lib/providers/AppProvider";
@@ -25,12 +27,13 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const queryClient = new QueryClient();
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Poppins-Light": require("../assets/fonts/Poppins/Poppins-Light.ttf"),
     "Poppins-Regular": require("../assets/fonts/Poppins/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins/Poppins-Medium.ttf"),
     "Poppins-SemiBold": require("../assets/fonts/Poppins/Poppins-SemiBold.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins/Poppins-Bold.ttf"),
+    "Poppins-ExtraBold": require("../assets/fonts/Poppins/Poppins-ExtraBold.ttf"),
 
     "Orbitron-Regular": require("../assets/fonts/Orbitron/Orbitron-Regular.ttf"),
     "Orbitron-Medium": require("../assets/fonts/Orbitron/Orbitron-Medium.ttf"),
@@ -41,15 +44,21 @@ export default function RootLayout() {
     "SpaceGrotesk-Medium": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-Medium.ttf"),
     "SpaceGrotesk-SemiBold": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-SemiBold.ttf"),
     "SpaceGrotesk-Bold": require("../assets/fonts/Space_Grotesk/SpaceGrotesk-Bold.ttf"),
+
+    "SpaceMono-Regular": require("../assets/fonts/Space_Mono/SpaceMono-Regular.ttf"),
+    "SpaceMono-Bold": require("../assets/fonts/Space_Mono/SpaceMono-Bold.ttf"),
+
+    "WorkSans-Regular": require("../assets/fonts/WorkSans/WorkSans-Regular.ttf"),
+    "WorkSans-Medium": require("../assets/fonts/WorkSans/WorkSans-Medium.ttf"),
   });
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    if (fontsLoaded) {
+      SplashScreen.hide();
     }
-  }, [loaded]);
+  }, [fontsLoaded]);
 
-  if (!loaded) {
+  if (!fontsLoaded) {
     return null;
   }
 
@@ -59,33 +68,25 @@ export default function RootLayout() {
         <WagmiProvider config={wagmiConfig}>
           <QueryClientProvider client={queryClient}>
             <AutocompleteDropdownContextProvider>
-              <StatusBar style="dark" />
+              <StatusBar style="light" backgroundColor="#000" />
               <SafeAreaProvider>
-                <SafeAreaView style={{ flex: 1 }}>
-                  <Web3Modal />
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <SafeAreaView style={{ flex: 1 }}>
+                    <AppKit />
+                    <AppProvider />
 
-                  <AppProvider />
+                    <BackDropModal />
 
-                  <BackDropModal />
+                    <Stack screenOptions={{ headerShown: false }}>
+                      <Stack.Screen name="(onboarding)" />
+                      <Stack.Screen name="(tabs)" />
+                      <Stack.Screen name="(zns)" />
+                      <Stack.Screen name="+not-found" />
+                    </Stack>
 
-                  <Stack>
-                    <Stack.Screen
-                      name="(onboarding)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(tabs)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                      name="(zns)"
-                      options={{ headerShown: false }}
-                    />
-                    <Stack.Screen name="+not-found" />
-                  </Stack>
-
-                  <ToastManager config={toastConfig} />
-                </SafeAreaView>
+                    <ToastManager config={toastConfig} />
+                  </SafeAreaView>
+                </GestureHandlerRootView>
               </SafeAreaProvider>
             </AutocompleteDropdownContextProvider>
           </QueryClientProvider>

@@ -2,7 +2,7 @@ import { router, usePathname } from "expo-router";
 import React, { forwardRef } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import ZnsText from "@/components/ui/Text";
+import { fontStyles } from "@/constants/fonts";
 import {
   CartIcon,
   HomeIcon,
@@ -12,6 +12,7 @@ import {
 } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getHeightSize } from "@/utils/size";
 
 type CustomBottomTabButtonProps = {
   name: string;
@@ -80,12 +81,17 @@ const CustomBottomTabButton = forwardRef(
                 }
               />
             )}
-            <ZnsText
-              type={pathname === href ? "semiBold" : "regular"}
-              style={[styles.label, pathname === href && styles.activeLabel]}
+            <Text
+              style={[
+                pathname === href
+                  ? fontStyles["Poppins-SemiBold"]
+                  : fontStyles["Poppins-Regular"],
+                styles.label,
+                pathname === href && styles.activeLabel,
+              ]}
             >
               {label}
-            </ZnsText>
+            </Text>
           </View>
         )}
       </Pressable>
@@ -103,8 +109,9 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   label: {
-    fontSize: 10,
+    fontSize: getHeightSize(10),
     color: CustomDarkTheme.colors.body,
+    lineHeight: getHeightSize(10 * 1.5),
   },
   activeLabel: {
     color: CustomDarkTheme.colors.p500,
@@ -115,13 +122,13 @@ const styles = StyleSheet.create({
     right: 5,
     backgroundColor: CustomDarkTheme.colors.p500,
     borderRadius: 100,
-    width: 14,
-    height: 14,
+    width: getHeightSize(14),
+    height: getHeightSize(14),
     justifyContent: "center",
     alignItems: "center",
   },
   badgeText: {
-    fontSize: 10,
+    fontSize: getHeightSize(10),
     color: "black",
   },
 });

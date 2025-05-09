@@ -8,6 +8,7 @@ import CheckoutModal from "@/components/zns/cart/CheckoutModal";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CartProvider } from "@/lib/providers/CartProvider";
+import { getHeightSize } from "@/utils/size";
 
 export default function CartScreen() {
   const animation = useRef<LottieView>(null);
@@ -19,7 +20,7 @@ export default function CartScreen() {
       <CartProvider />
       <View style={styles.pageTitle}>
         <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          My Cart
+          YOUR CART
         </Text>
       </View>
       <View style={{ flex: 1, padding: 16 }}>
@@ -32,14 +33,18 @@ export default function CartScreen() {
               setIsSuccess(true);
               animation.current?.play();
               setTimeout(() => {
-                router.push("/(tabs)/home");
-              }, 1000);
+                setIsSuccess(false);
+                animation.current?.pause();
+                router.push("/(zns)/my-domains");
+              }, 3000);
             }
           }}
         />
         {isSuccess && (
           <LottieView
             autoPlay
+            loop={false}
+            duration={2000}
             ref={animation}
             style={{
               width: Dimensions.get("window").width,
@@ -59,10 +64,11 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    height: 42,
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
+    paddingTop: getHeightSize(5),
+    paddingBottom: getHeightSize(21),
   },
   title: {
     fontSize: 18,

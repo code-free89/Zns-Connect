@@ -1,25 +1,18 @@
-import Button from "@/components/ui/Button";
-import { CustomDarkTheme } from "@/constants/theme";
-import { View, StyleSheet, Text, Image } from "react-native";
-import DomainItem from "../../DomainItem";
-import { IZnsDomain } from "@/types/zns";
-import DomainInfoModal from "../DomainInfoModal";
-import { useState } from "react";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { router } from "expo-router";
+import { useMemo, useState } from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-const domains: IZnsDomain[] = [
-  {
-    icon: (
-      <Image
-        width={26}
-        height={26}
-        style={{ width: 26, height: 26 }}
-        source={require("@/assets/images/icon.png")}
-      />
-    ),
-    name: "poly",
-    type: "poly",
-  },
-];
+import Button from "@/components/ui/Button";
+import DomainTypeSelect from "@/components/zns/DomainTypeSelect";
+import DomainInfoModal from "@/components/zns/home/DomainInfoModal";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
+import { CHAINS, getChainColor, NETWORKS } from "@/constants/web3/chains";
+import { useTLD } from "@/hooks/web3/useTLD";
+import { useAppSelector } from "@/store";
+import { UserDomainType } from "@/store/slices/user-domains";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 const NoDomain = () => {
   return (
@@ -34,18 +27,80 @@ const NoDomain = () => {
       </View>
 
       <Button
-        variant="secondary"
+        variant="outline"
         title="Register a Domain"
-        style={{ width: "100%" }}
+        style={{ backgroundColor: "#13150A" }}
+        textStyle={styles.registerDomainButton}
+        onPress={() => router.push("/(tabs)/register")}
       />
     </View>
   );
 };
 
-export const MyDomain = () => {
+function MyDomainItem({
+  domain,
+  index,
+  onEdit,
+}: {
+  domain: UserDomainType;
+  index: number;
+  onEdit: () => void;
+}) {
+  const { chainId, domainName, isPrimary } = domain;
+  const chain = CHAINS.find((chain) => chain.id === chainId);
+  const tld = useTLD(chainId);
+
+  return (
+    <View style={styles.myDomainItem}>
+      <Text style={styles.domainIndex}>{index}</Text>
+      <Image source={chain?.icon} style={styles.domainIcon} />
+      <Text style={styles.domainName}>
+        {domainName}
+        <Text style={{ color: getChainColor(chainId) }}>.{tld}</Text>
+      </Text>
+      {isPrimary && (
+        <View
+          style={[
+            styles.primaryContainer,
+            { borderColor: getChainColor(chainId) },
+          ]}
+        >
+          <Text style={styles.primaryText}>Primary</Text>
+        </View>
+      )}
+      <Pressable style={styles.editButton} onPress={onEdit}>
+        <FontAwesome6
+          name="edit"
+          size={12}
+          color={CustomDarkTheme.colors.p700}
+        />
+      </Pressable>
+    </View>
+  );
+}
+
+export const MyDomain = ({ sortOption }: { sortOption: string }) => {
   const [isDomainInfoModalVisible, setIsDomainInfoModalVisible] =
     useState(false);
-  const [selectedDomain, setSelectedDomain] = useState<IZnsDomain | null>(null);
+  const [selectedDomain, setSelectedDomain] = useState<UserDomainType | null>(
+    null
+  );
+  const [selectedNetwork, setSelectedNetwork] = useState<NETWORKS>();
+  const { domains } = useAppSelector((state) => state.userDomains);
+  const filteredDomains = useMemo(() => {
+    let filters = domains ? [...domains] : [];
+    if (selectedNetwork) {
+      filters = filters.filter((domain) => domain.chainId === selectedNetwork);
+    }
+    if (sortOption === "name") {
+      filters = filters.sort((a, b) =>
+        a.domainName.localeCompare(b.domainName)
+      );
+    } else if (sortOption === "length") {
+      filters = filters.sort((a, b) => a.lengthOfDomain - b.lengthOfDomain);
+    }
+    return filters;
+  }, [domains, selectedNetwork, sortOption]);
 
   return (
     <View style={styles.container}>
@@ -56,43 +111,103 @@ export const MyDomain = () => {
           onClose={() => setIsDomainInfoModalVisible(false)}
         />
       )}
-      {/* {domains.length ? (
-        domains.map((domain, index) => (
-          <DomainItem
-            key={index}
-            index={index + 1}
-            domain={domain}
-            onEdit={() => {
-              setSelectedDomain(domain);
-              setIsDomainInfoModalVisible(true);
-            }}
-          />
-        ))
-      ) : (
-        <NoDomain />
-      )} */}
-      <NoDomain />
+
+      <DomainTypeSelect value={selectedNetwork} onSelect={setSelectedNetwork} />
+
+      <View style={{ gap: getHeightSize(20), marginTop: 24 }}>
+        {filteredDomains?.length ? (
+          filteredDomains.map((domain, index) => (
+            <MyDomainItem
+              key={index}
+              index={index + 1}
+              domain={domain}
+              onEdit={() => {
+                setSelectedDomain(domain);
+                setIsDomainInfoModalVisible(true);
+              }}
+            />
+          ))
+        ) : (
+          <NoDomain />
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginVertical: getHeightSize(20),
+  },
   textContainer: {
     flexDirection: "column",
-    gap: 8,
-    marginVertical: 54,
+    gap: getHeightSize(8),
+    marginVertical: getHeightSize(48),
   },
   title: {
-    fontWeight: 600,
-    fontSize: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(18),
+    lineHeight: getHeightSize(18 * 1.5),
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },
   description: {
-    fontWeight: 400,
-    fontSize: 12,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
+  },
+  registerDomainButton: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.35),
+    color: CustomDarkTheme.colors.primary,
+  },
+  myDomainItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: getWidthSize(10),
+    borderRadius: getHeightSize(12),
+    backgroundColor: "#26262666",
+  },
+  domainIndex: {
+    ...fontStyles["SpaceMono-Bold"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(14 * 1.35),
+    color: CustomDarkTheme.colors.caption,
+  },
+  domainIcon: {
+    width: getWidthSize(26),
+    height: getWidthSize(26),
+    borderRadius: 9999,
+    marginLeft: getWidthSize(8),
+    marginRight: getWidthSize(16),
+  },
+  domainName: {
+    ...fontStyles["WorkSans-Medium"],
+    fontSize: getHeightSize(16),
+    lineHeight: getHeightSize(16 * 1.4),
+    color: "white",
+  },
+  editButton: {
+    padding: getHeightSize(8),
+    borderRadius: 10,
+    borderColor: CustomDarkTheme.colors.p700,
+    borderWidth: 0.65,
+    marginLeft: "auto",
+  },
+  primaryContainer: {
+    borderWidth: 0.5,
+    borderRadius: 23,
+    paddingVertical: getHeightSize(2),
+    paddingHorizontal: getWidthSize(6),
+    marginLeft: getWidthSize(8),
+  },
+  primaryText: {
+    ...fontStyles["WorkSans-Medium"],
+    fontSize: getHeightSize(12),
+    lineHeight: getHeightSize(12 * 1.5),
+    color: "white",
   },
 });

@@ -19,14 +19,14 @@ export default function OnboardingLayout() {
       }
     };
 
-    handleReferralStatus();
-
     const handleGetOrCreateUserIdByAddress = async () => {
       if (isConnected && address) {
         const { data } = await getOrCreateUserIdByAddress(address);
         const session = { id: data.id, address };
         dispatch(setUserSession(session));
       }
+
+      handleReferralStatus();
     };
 
     handleGetOrCreateUserIdByAddress();

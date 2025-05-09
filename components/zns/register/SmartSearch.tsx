@@ -9,11 +9,13 @@ import { NETWORKS } from "@/constants/web3/chains";
 import { AvailableDomainType } from "@/lib/model/domain";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setSearchResult } from "@/store/slices/recents";
+import { getHeightSize } from "@/utils/size";
 
 export default function SmartSearch() {
   const dispatch = useAppDispatch();
   const [selectedNetwork, setSelectedNetwork] = useState<NETWORKS>();
   const { searchResult } = useAppSelector((state) => state.recentMinted);
+  const [suggestions, setSuggestions] = useState<AvailableDomainType[]>([]);
 
   useEffect(() => {
     if (selectedNetwork && searchResult) {
@@ -33,11 +35,14 @@ export default function SmartSearch() {
 
   return (
     <View style={styles.container}>
-      <SearchDomain onSelectItem={onDomainSelected} />
+      <SearchDomain
+        onSelectItem={onDomainSelected}
+        onChangeSuggestions={setSuggestions}
+      />
 
       <DomainTypeSelect value={selectedNetwork} onSelect={setSelectedNetwork} />
 
-      <SearchResult />
+      <SearchResult suggestions={suggestions} />
 
       <RecentlyMinted />
     </View>
@@ -46,6 +51,6 @@ export default function SmartSearch() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 24,
+    gap: getHeightSize(29),
   },
 });

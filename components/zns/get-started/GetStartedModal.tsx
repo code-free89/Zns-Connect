@@ -4,9 +4,10 @@ import Modal from "react-native-modal";
 
 import Button from "@/components/ui/Button";
 import CheckBox from "@/components/ui/CheckBox";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
-import ZnsText from "@/components/ui/Text";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -38,40 +39,38 @@ export default function GetStartedModal({
         <Text style={styles.title}>Wallet Connected</Text>
         <View style={styles.walletIconWrapper}>
           <View style={styles.walletIcon}>
-            <Image source={{ uri: walletInfo.icon }} width={67} height={67} />
+            <Image
+              source={{ uri: walletInfo.icon }}
+              style={{ width: getHeightSize(67), height: getHeightSize(67) }}
+            />
           </View>
         </View>
-        <ZnsText type="semiBold" style={styles.walletAddress}>
+        <Text style={styles.walletAddress}>
           {formatWalletAddress(walletAddress)}
-        </ZnsText>
-        <ZnsText type="medium" style={styles.subtitle}>
+        </Text>
+        <Text style={styles.subtitle}>
           {
             "You are now ready to claim your web3 page \n and build high profile credibility"
           }
-        </ZnsText>
+        </Text>
         <View style={styles.checkboxContainer}>
           <CheckBox
-            value={isChecked}
-            onValueChange={setIsChecked}
-            color={isChecked ? "#4CAF50" : undefined}
+            checked={isChecked}
+            onChange={() => setIsChecked((prev) => !prev)}
             style={styles.checkbox}
           />
-          <ZnsText
-            style={styles.terms}
-            onPress={() => setIsChecked(!isChecked)}
-          >
+          <Text style={styles.terms} onPress={() => setIsChecked(!isChecked)}>
             I agree to ZNS{" "}
-            <ZnsText style={styles.link} onPress={openTerms}>
+            <Text style={styles.link} onPress={openTerms}>
               terms of service
-            </ZnsText>{" "}
+            </Text>{" "}
             and{" "}
-            <ZnsText style={styles.link} onPress={openPrivacy}>
+            <Text style={styles.link} onPress={openPrivacy}>
               Privacy Policy
-            </ZnsText>
-          </ZnsText>
+            </Text>
+          </Text>
         </View>
         <Button
-          fontType="regular"
           title="Get Started"
           onPress={onGetStarted}
           disabled={!isChecked}
@@ -88,64 +87,69 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: CustomDarkTheme.colors.modalBackground,
     borderRadius: 16,
-    paddingHorizontal: 6,
-    paddingVertical: 16,
+    paddingHorizontal: getWidthSize(6),
+    paddingVertical: getHeightSize(16),
     flexDirection: "column",
     alignItems: "center",
     position: "absolute",
     bottom: 0,
   },
   title: {
+    ...fontStyles["Poppins-Bold"],
     color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: getWidthSize(20),
     textAlign: "center",
+    lineHeight: getWidthSize(20 * 1.5),
   },
   walletIconWrapper: {
     borderWidth: 1.35,
     borderColor: "#C9FC0199",
     borderRadius: 30,
-    padding: 14,
-    marginBottom: 24,
-    marginTop: 57,
+    padding: getWidthSize(14),
+    marginBottom: getHeightSize(24),
+    marginTop: getHeightSize(57),
     boxShadow: "0px 0px 25.73px 0px #88AA02DB",
   },
   walletIcon: {
     backgroundColor: "#F9E7CD",
-    padding: 12,
+    padding: getWidthSize(12),
     borderRadius: 24,
   },
   walletAddress: {
-    fontSize: 16,
-    lineHeight: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getHeightSize(16),
+    lineHeight: getWidthSize(16 * 1.5),
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: getHeightSize(8),
     color: "white",
   },
   subtitle: {
+    ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.body,
-    fontSize: 12,
+    fontSize: getHeightSize(12),
     textAlign: "center",
-    marginBottom: 57,
-    lineHeight: 18,
+    marginBottom: getHeightSize(57),
+    lineHeight: getHeightSize(12 * 1.5),
   },
   checkboxContainer: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "center",
     marginBottom: 23,
   },
   checkbox: {
-    marginRight: 4,
+    marginRight: getWidthSize(4),
   },
   terms: {
+    ...fontStyles["Poppins-Regular"],
     color: "#E8E8E8",
-    fontSize: 12,
+    fontSize: getHeightSize(12),
   },
   link: {
     color: CustomDarkTheme.colors.primary,
   },
   buttonText: {
+    ...fontStyles["Poppins-Regular"],
     color: "#101010",
-    fontSize: 14,
   },
 });

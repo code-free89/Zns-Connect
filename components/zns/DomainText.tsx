@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 import { StyleSheet, Text } from "react-native";
 
+import { fontStyles } from "@/constants/fonts";
 import { getChainColor } from "@/constants/web3/chains";
 import { useTLD } from "@/hooks/web3/useTLD";
-import { fontStyles } from "@/constants/fonts";
+import { getHeightSize } from "@/utils/size";
 
 type DomainTextProps = {
   domainName: string;
@@ -15,7 +16,7 @@ export default function DomainText({ domainName, chainId }: DomainTextProps) {
   const chainColor = useMemo(() => getChainColor(chainId), [chainId]);
 
   return (
-    <Text style={[fontStyles["Poppins-Medium"], styles.domainName]}>
+    <Text style={styles.domainName}>
       {domainName}
       <Text style={{ color: chainColor }}>.{tld}</Text>
     </Text>
@@ -24,7 +25,9 @@ export default function DomainText({ domainName, chainId }: DomainTextProps) {
 
 const styles = StyleSheet.create({
   domainName: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(14),
+    lineHeight: getHeightSize(24),
     color: "white",
   },
 });

@@ -45,7 +45,7 @@ const persistedReducer = persistReducer(
     profile: profileSlices.reducer,
     userDomains: userDomainsSlices.reducer,
     category: domainCategoryDataSlice.reducer,
-    favoirtes: favoriteSlices.reducer,
+    favourites: favoriteSlices.reducer,
     recentMinted: recentMintedSlices.reducer,
     hip: hipSlice.reducer,
   })
