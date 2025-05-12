@@ -13,7 +13,12 @@ const scale = width / baseWidth;
 const verticalScale = height / baseHeight;
 
 export const getWidthSize = (size: number) => {
-  return Math.round(size * scale);
+  const newSize = size * scale;
+  if (Platform.OS === "ios") {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 1;
+  }
 };
 
 export const getHeightSize = (size: number) => {
