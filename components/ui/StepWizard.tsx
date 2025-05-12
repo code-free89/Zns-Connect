@@ -8,22 +8,32 @@ const STEP_GAP = 4;
 type StepWizardProps = {
   stepCount: number;
   currentStep: number;
+  direction: "forward" | "backward";
 };
 
 export default function StepWizard({
   stepCount,
   currentStep,
+  direction,
 }: StepWizardProps) {
   const translateXAnim = useAnimatedValue(0);
   useEffect(() => {
-    if (currentStep === 0) {
-      translateXAnim.setValue((stepCount - 1) * (STEP_WIDTH + STEP_GAP));
+    if (direction === "forward") {
+      if (currentStep === 0) {
+        translateXAnim.setValue((stepCount - 1) * (STEP_WIDTH + STEP_GAP));
+      } else {
+        translateXAnim.setValue((currentStep - 1) * (STEP_WIDTH + STEP_GAP));
+      }
     } else {
-      translateXAnim.setValue((currentStep - 1) * (STEP_WIDTH + STEP_GAP));
+      if (currentStep === stepCount - 1) {
+        translateXAnim.setValue(0);
+      } else {
+        translateXAnim.setValue((currentStep + 1) * (STEP_WIDTH + STEP_GAP));
+      }
     }
 
     Animated.timing(translateXAnim, {
-      toValue: currentStep === 0 ? 0 : currentStep * (STEP_WIDTH + STEP_GAP),
+      toValue: currentStep * (STEP_WIDTH + STEP_GAP),
       duration: 1000,
       useNativeDriver: true,
     }).start();

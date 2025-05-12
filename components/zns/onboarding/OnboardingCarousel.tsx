@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import {
   Animated,
   Image,
@@ -39,6 +39,8 @@ const ONBOARDING_DATA = [
 export default function OnboardingCarousel() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [previousTouchOffset, setPreviousTouchOffset] = useState<number>(0);
+  const [direction, setDirection] = useState<"forward" | "backward">("forward");
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const { height, width } = useScreenSize();
 
   const enterInTranslateXAnim = useAnimatedValue(width);
@@ -48,31 +50,31 @@ export default function OnboardingCarousel() {
   const enterOutScaleAnim = useAnimatedValue(1);
 
   useEffect(() => {
-    enterInTranslateXAnim.setValue(width);
-    enterInScaleAnim.setValue(0.3);
-    enterOutTranslateXAnim.setValue(0);
-    enterOutScaleAnim.setValue(1);
+    enterInTranslateXAnim.setValue(direction === "forward" ? width : 0);
+    enterInScaleAnim.setValue(direction === "forward" ? 0.3 : 1);
+    enterOutTranslateXAnim.setValue(direction === "forward" ? 0 : -width);
+    enterOutScaleAnim.setValue(direction === "forward" ? 1 : 0.3);
 
     Animated.timing(enterInTranslateXAnim, {
-      toValue: 0,
+      toValue: direction === "forward" ? 0 : width,
       duration: 600,
       useNativeDriver: true,
     }).start();
 
     Animated.timing(enterInScaleAnim, {
-      toValue: 1,
+      toValue: direction === "forward" ? 1 : 0.3,
       duration: 600,
       useNativeDriver: true,
     }).start();
 
     Animated.timing(enterOutTranslateXAnim, {
-      toValue: -width,
+      toValue: direction === "forward" ? -width : 0,
       duration: 600,
       useNativeDriver: true,
     }).start();
 
     Animated.timing(enterOutScaleAnim, {
-      toValue: 0.3,
+      toValue: direction === "forward" ? 0.3 : 1,
       duration: 600,
       useNativeDriver: true,
     }).start();
@@ -82,36 +84,60 @@ export default function OnboardingCarousel() {
     const length = ONBOARDING_DATA.length;
     const data = [];
     for (let i = 0; i < 2; i++) {
-      data.push(ONBOARDING_DATA[(currentIndex + i + length - 1) % length]);
+      if (direction === "forward") {
+        data.push(ONBOARDING_DATA[(currentIndex + i + length - 1) % length]);
+      } else {
+        data.push(ONBOARDING_DATA[(currentIndex + i) % length]);
+      }
     }
     return data;
   }, [currentIndex]);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
+  const startAutoSlide = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    timerRef.current = setInterval(() => {
+      setDirection("forward");
       setCurrentIndex((prev) => (prev + 1) % ONBOARDING_DATA.length);
     }, 5000);
+  };
 
-    return () => clearInterval(timer);
+  useEffect(() => {
+    startAutoSlide();
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
   }, []);
 
   return (
     <View
       style={{ flex: 1 }}
-      // onTouchStart={(event) => {
-      //   setPreviousTouchOffset(event.nativeEvent.locationX);
-      // }}
-      // onTouchEnd={(event) => {
-      //   if (event.nativeEvent.locationX > previousTouchOffset) {
-      //     setCurrentIndex(
-      //       (currentIndex - 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
-      //     );
-      //   } else {
-      //     setCurrentIndex(
-      //       (currentIndex + 1 + ONBOARDING_DATA.length) % ONBOARDING_DATA.length
-      //     );
-      //   }
-      // }}
+      onTouchStart={(event) => {
+        setPreviousTouchOffset(event.nativeEvent.locationX);
+      }}
+      onTouchEnd={(event) => {
+        const offset = Math.abs(
+          event.nativeEvent.locationX - previousTouchOffset
+        );
+        if (offset > width / 5) {
+          const isForward = event.nativeEvent.locationX < previousTouchOffset;
+          setDirection(isForward ? "forward" : "backward");
+
+          if (isForward) {
+            setCurrentIndex((currentIndex + 1) % ONBOARDING_DATA.length);
+          } else {
+            setCurrentIndex(
+              (currentIndex - 1 + ONBOARDING_DATA.length) %
+                ONBOARDING_DATA.length
+            );
+          }
+
+          startAutoSlide();
+        }
+      }}
     >
       <View
         style={{
@@ -197,6 +223,7 @@ export default function OnboardingCarousel() {
 
       <View style={styles.stepWizardContainer}>
         <StepWizard
+          direction={direction}
           stepCount={ONBOARDING_DATA.length}
           currentStep={currentIndex}
         />
