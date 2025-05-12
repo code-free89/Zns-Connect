@@ -31,5 +31,5 @@ export const getHeightSize = (size: number) => {
 };
 
 export const getFontSize = (size: number) => {
-  return Math.round(getWidthSize(size) * fontScale);
+  return getWidthSize(size);
 };
