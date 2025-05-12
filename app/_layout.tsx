@@ -14,6 +14,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ClickOutsideProvider } from "react-native-click-outside";
 
 import BackDropModal from "@/components/ui/BackDropModal";
 import { wagmiConfig } from "@/components/zns/web3modal";
@@ -72,19 +73,21 @@ export default function RootLayout() {
               <SafeAreaProvider>
                 <GestureHandlerRootView style={{ flex: 1 }}>
                   <SafeAreaView style={{ flex: 1 }}>
-                    <AppKit />
-                    <AppProvider />
+                    <ClickOutsideProvider>
+                      <AppKit />
+                      <AppProvider />
 
-                    <BackDropModal />
+                      <BackDropModal />
 
-                    <Stack screenOptions={{ headerShown: false }}>
-                      <Stack.Screen name="(onboarding)" />
-                      <Stack.Screen name="(tabs)" />
-                      <Stack.Screen name="(zns)" />
-                      <Stack.Screen name="+not-found" />
-                    </Stack>
+                      <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="(onboarding)" />
+                        <Stack.Screen name="(tabs)" />
+                        <Stack.Screen name="(zns)" />
+                        <Stack.Screen name="+not-found" />
+                      </Stack>
 
-                    <ToastManager config={toastConfig} />
+                      <ToastManager config={toastConfig} />
+                    </ClickOutsideProvider>
                   </SafeAreaView>
                 </GestureHandlerRootView>
               </SafeAreaProvider>

@@ -31,48 +31,40 @@ export default function ProfileScreen() {
   );
 
   return (
-    <>
-      <ZnsScrollView style={{ padding: 0 }}>
-        <View style={styles.pageTitle}>
-          <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-            Profile
-          </Text>
-        </View>
-        <View style={styles.container}>
-          <ProfileOverView />
+    <ZnsScrollView style={{ paddingHorizontal: 0 }}>
+      <View style={styles.pageTitle}>
+        <Text style={styles.title}>Profile</Text>
+      </View>
+      <ProfileOverView />
 
-          <View style={{ paddingHorizontal: 16, gap: 20 }}>
-            <ProfileBio />
+      <View style={{ paddingHorizontal: 16, gap: 20 }}>
+        <ProfileBio />
 
-            <ProfileHIP />
+        <ProfileHIP />
 
-            <ProfileType />
+        <ProfileType />
 
-            <ProfileAccounts />
-          </View>
+        <ProfileAccounts />
+      </View>
 
-          <ProfileInfoTabs />
-        </View>
+      <ProfileInfoTabs />
 
-        <ProfileProvider domain={(domain as string) || primaryDomain} />
-      </ZnsScrollView>
-    </>
+      <ProfileProvider domain={(domain as string) || primaryDomain} />
+    </ZnsScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 20,
-  },
   pageTitle: {
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: getHeightSize(5),
-    paddingBottom: getHeightSize(21),
+    paddingVertical: getHeightSize(8),
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getHeightSize(18),
+    lineHeight: getHeightSize(18 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

@@ -91,7 +91,7 @@ export default function AccountInfo() {
             isVisible={isActionListVisible}
             backdropColor="transparent"
             onBackdropPress={() => setIsActionListVisible(false)}
-            style={{ position: "absolute", right: 0, top: 48 }}
+            style={{ position: "absolute", right: 0, top: getHeightSize(48) }}
             animationIn="fadeIn"
             animationOut="fadeOut"
           >
