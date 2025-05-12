@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   W3Button: {
     backgroundColor: CustomDarkTheme.colors.primary,
-    borderRadius: 11,
+    borderRadius: getWidthSize(11),
     height: getHeightSize(50),
     marginTop: "auto",
     zIndex: 1000,

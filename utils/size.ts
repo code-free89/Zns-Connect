@@ -1,11 +1,30 @@
-import { Dimensions } from "react-native";
+import { Dimensions, PixelRatio, Platform } from "react-native";
 
-const { width, height } = Dimensions.get("window");
+const { width, height, fontScale } = Dimensions.get("window");
+
+// Base dimensions for scaling (iPhone X dimensions as base)
+const baseWidth = 375;
+const baseHeight = 812;
+
+// Scale factor based on width
+const scale = width / baseWidth;
+
+// Scale factor based on height
+const verticalScale = height / baseHeight;
 
 export const getWidthSize = (size: number) => {
-  return Math.round(size * (width / 375));
+  return Math.round(size * scale);
 };
 
 export const getHeightSize = (size: number) => {
-  return Math.round(size * (height / 812));
+  const newSize = size * verticalScale;
+  if (Platform.OS === "ios") {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 1;
+  }
+};
+
+export const getFontSize = (size: number) => {
+  return Math.round(getWidthSize(size) * fontScale);
 };

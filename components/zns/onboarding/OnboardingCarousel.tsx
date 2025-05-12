@@ -13,7 +13,7 @@ import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useScreenSize from "@/hooks/useScreenSize";
 import { Text } from "react-native";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const ONBOARDING_DATA = [
   {
@@ -134,7 +134,10 @@ export default function OnboardingCarousel() {
         >
           <Image
             source={carouselData[0].image}
-            style={{ width, marginTop: "15%" }}
+            style={{
+              width: getWidthSize(width),
+              marginTop: "15%",
+            }}
             resizeMode="contain"
           />
         </Animated.View>
@@ -152,7 +155,10 @@ export default function OnboardingCarousel() {
         >
           <Image
             source={carouselData[1].image}
-            style={{ width, marginTop: "15%" }}
+            style={{
+              width: getWidthSize(width),
+              marginTop: "15%",
+            }}
             resizeMode="contain"
           />
         </Animated.View>
@@ -167,8 +173,8 @@ export default function OnboardingCarousel() {
           position: "absolute",
           left: 0,
           top: -height * 0.25,
-          width: width, // your screen width
-          height: height * 2, // or desired height
+          width: getWidthSize(width),
+          height: getHeightSize(height * 2),
           zIndex: 10,
         }}
         pointerEvents="none"
@@ -180,8 +186,8 @@ export default function OnboardingCarousel() {
           position: "absolute",
           left: 0,
           top: height * 0.25,
-          width: width, // your screen width
-          height: height / 2, // or the height you want
+          width: getWidthSize(width),
+          height: getHeightSize(height / 2),
           zIndex: 10,
         }}
         start={{ x: 0, y: 1 }}
@@ -256,15 +262,15 @@ const styles = StyleSheet.create({
   title: {
     ...fontStyles["Poppins-Bold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: getHeightSize(24),
-    lineHeight: getWidthSize(24) * 1.5,
+    fontSize: getFontSize(24),
+    lineHeight: getWidthSize(36),
     textAlign: "center",
   },
   description: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(14),
-    lineHeight: getWidthSize(14) * 1.5,
+    fontSize: getFontSize(14),
+    lineHeight: getWidthSize(21),
     textAlign: "center",
     marginTop: getHeightSize(8),
   },
@@ -272,7 +278,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 16,
+    marginTop: getHeightSize(16),
     zIndex: 100,
   },
   textContainer: {
