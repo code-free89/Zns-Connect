@@ -94,6 +94,21 @@ export default function ZnsLayout() {
           },
         }}
       />
+      <Stack.Screen
+        name="manage-profile"
+        options={{
+          title: "Manage profile",
+          headerShown: true,
+          header: ({ options }: any) => {
+            return (
+              <View style={styles.headerContainer}>
+                {options.headerLeft()}
+                <Text style={options.headerTitleStyle}>{options.title}</Text>
+              </View>
+            );
+          },
+        }}
+      />
     </Stack>
   );
 }

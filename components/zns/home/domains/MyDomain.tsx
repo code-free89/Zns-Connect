@@ -40,18 +40,27 @@ const NoDomain = () => {
 function MyDomainItem({
   domain,
   index,
-  onEdit,
+  onOpenProfile,
 }: {
   domain: UserDomainType;
   index: number;
-  onEdit: () => void;
+  onOpenProfile: () => void;
 }) {
   const { chainId, domainName, isPrimary } = domain;
   const chain = CHAINS.find((chain) => chain.id === chainId);
   const tld = useTLD(chainId);
 
+  const handleEditProfile = () => {
+    router.push({
+      pathname: "/(zns)/manage-profile",
+      params: {
+        domainId: domain.domainId,
+      },
+    });
+  };
+
   return (
-    <View style={styles.myDomainItem}>
+    <Pressable style={styles.myDomainItem} onPress={onOpenProfile}>
       <Text style={styles.domainIndex}>{index}</Text>
       <Image source={chain?.icon} style={styles.domainIcon} />
       <Text style={styles.domainName}>
@@ -68,14 +77,14 @@ function MyDomainItem({
           <Text style={styles.primaryText}>Primary</Text>
         </View>
       )}
-      <Pressable style={styles.editButton} onPress={onEdit}>
+      <Pressable style={styles.editButton} onPress={handleEditProfile}>
         <FontAwesome6
           name="edit"
           size={12}
           color={CustomDarkTheme.colors.p700}
         />
       </Pressable>
-    </View>
+    </Pressable>
   );
 }
 
@@ -121,7 +130,7 @@ export const MyDomain = ({ sortOption }: { sortOption: string }) => {
               key={index}
               index={index + 1}
               domain={domain}
-              onEdit={() => {
+              onOpenProfile={() => {
                 setSelectedDomain(domain);
                 setIsDomainInfoModalVisible(true);
               }}
