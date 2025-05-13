@@ -5,6 +5,7 @@ import Modal from "react-native-modal";
 import Button from "@/components/ui/Button";
 import CheckBox from "@/components/ui/CheckBox";
 import { fontStyles } from "@/constants/fonts";
+import { MetaMaskIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
 import { getHeightSize, getWidthSize } from "@/utils/size";
@@ -23,6 +24,7 @@ export default function GetStartedModal({
   onGetStarted,
   children,
 }: Props) {
+  console.log("walletInfo", walletInfo);
   const [isChecked, setIsChecked] = useState(false);
 
   const openTerms = () => {
@@ -39,10 +41,17 @@ export default function GetStartedModal({
         <Text style={styles.title}>Wallet Connected</Text>
         <View style={styles.walletIconWrapper}>
           <View style={styles.walletIcon}>
-            <Image
-              source={{ uri: walletInfo.icon }}
-              style={{ width: getHeightSize(67), height: getHeightSize(67) }}
-            />
+            {walletInfo.name === "MetaMask Wallet" ? (
+              <MetaMaskIcon
+                width={getHeightSize(67)}
+                height={getHeightSize(67)}
+              />
+            ) : (
+              <Image
+                source={{ uri: walletInfo.icon }}
+                style={{ width: getHeightSize(67), height: getHeightSize(67) }}
+              />
+            )}
           </View>
         </View>
         <Text style={styles.walletAddress}>
