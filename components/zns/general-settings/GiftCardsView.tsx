@@ -7,7 +7,7 @@ import GiftCard from "@/components/zns/GiftCard";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { GiftCardType } from "@/store/slices/user";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function GiftCardsView() {
   const giftCards = useAppSelector((state) => state.user.giftCards);
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     gap: getHeightSize(12),
   },
   giftCardsTitle: {
-    fontSize: getHeightSize(24),
+    fontSize: getFontSize(24),
     color: CustomDarkTheme.colors.txtColor,
   },
   wrapper: {

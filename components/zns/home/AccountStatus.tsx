@@ -1,6 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -9,7 +8,7 @@ import { fontStyles } from "@/constants/fonts";
 import { CreditIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const Row = ({ children }: { children: React.ReactNode }) => (
   <View style={styles.row}>{children}</View>
@@ -164,14 +163,14 @@ const styles = StyleSheet.create({
   label: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   value: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
   },
   iconContainer: {
     padding: getWidthSize(6),
@@ -182,8 +181,8 @@ const styles = StyleSheet.create({
   mintLabel: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.primary,
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     marginTop: 2,
   },
 });

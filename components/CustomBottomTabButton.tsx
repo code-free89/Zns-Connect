@@ -12,7 +12,7 @@ import {
 } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 type CustomBottomTabButtonProps = {
   name: string;
@@ -109,9 +109,9 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   label: {
-    fontSize: getHeightSize(10),
+    fontSize: getFontSize(10),
     color: CustomDarkTheme.colors.body,
-    lineHeight: getHeightSize(10 * 1.5),
+    lineHeight: getFontSize(10) * 1.5,
   },
   activeLabel: {
     color: CustomDarkTheme.colors.p500,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   badgeText: {
-    fontSize: getHeightSize(10),
+    fontSize: getFontSize(10),
     color: "black",
   },
 });

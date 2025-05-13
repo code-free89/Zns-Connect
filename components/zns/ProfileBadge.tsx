@@ -10,7 +10,7 @@ import { claimBadge } from "@/lib/api/user/badge";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setStoreUser } from "@/store/slices/user";
 import { showSuccessToast } from "@/utils/toast";
-
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 interface ProfileBadgeProps {
   badge: {
     data: BadgeDataType;
@@ -49,9 +49,7 @@ export default function ProfileBadge({ badge }: ProfileBadgeProps) {
           resizeMode="stretch"
         />
       </View>
-      <Text style={[fontStyles["Poppins-Medium"], styles.name]}>
-        {badge.title}
-      </Text>
+      <Text style={styles.name}>{badge.title}</Text>
       <InteractiveButton
         style={[
           styles.claimButton,
@@ -70,17 +68,11 @@ export default function ProfileBadge({ badge }: ProfileBadgeProps) {
         onPress={onClaim}
       >
         {badge.data.status === BadgeStatus.claimed ? (
-          <Text style={[fontStyles["Poppins-Medium"], styles.claimed]}>
-            Claimed
-          </Text>
+          <Text style={styles.claimed}>Claimed</Text>
         ) : badge.data.status === BadgeStatus.ready ? (
-          <Text style={[fontStyles["Poppins-Medium"], styles.available]}>
-            Claim
-          </Text>
+          <Text style={styles.available}>Claim</Text>
         ) : (
-          <Text style={[fontStyles["Poppins-Medium"], styles.not_available]}>
-            Not Available
-          </Text>
+          <Text style={styles.not_available}>Not Available</Text>
         )}
         <IconSymbol
           name="chevron.right"
@@ -102,46 +94,50 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   name: {
-    fontSize: 12,
-    fontWeight: "500",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
-    marginTop: 2,
+    marginTop: getHeightSize(2),
     textAlign: "left",
     width: "100%",
-    paddingLeft: 4,
-    paddingVertical: 2,
+    paddingLeft: getWidthSize(4),
+    paddingVertical: getHeightSize(2),
   },
   claimed: {
-    fontSize: 12,
-    fontWeight: "500",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: `${CustomDarkTheme.colors.p500}40`,
-    marginTop: 2,
+    marginTop: getHeightSize(2),
   },
   available: {
-    fontSize: 12,
-    fontWeight: "500",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.p950,
-    marginTop: 2,
+    marginTop: getHeightSize(2),
   },
   not_available: {
-    fontSize: 12,
-    fontWeight: "500",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: `${CustomDarkTheme.colors.p500}40`,
-    marginTop: 2,
+    marginTop: getHeightSize(2),
   },
   status: {
     width: "100%",
-    borderBottomStartRadius: 12,
-    borderBottomEndRadius: 12,
-    paddingHorizontal: 4,
-    padding: 4,
+    borderBottomStartRadius: getWidthSize(12),
+    borderBottomEndRadius: getWidthSize(12),
+    paddingHorizontal: getWidthSize(4),
+    padding: getHeightSize(4),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
   claimButton: {
-    paddingHorizontal: 4,
-    paddingVertical: 2,
+    paddingHorizontal: getWidthSize(4),
+    paddingVertical: getHeightSize(2),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

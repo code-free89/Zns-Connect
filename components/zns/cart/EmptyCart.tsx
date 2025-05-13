@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import BeamInput from "@/components/ui/BeamInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function EmptyCart() {
   return (
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(24),
+    fontSize: getFontSize(24),
     color: CustomDarkTheme.colors.body,
     marginTop: getHeightSize(11),
   },
   description: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.body,
     marginTop: getHeightSize(6),
     textAlign: "center",

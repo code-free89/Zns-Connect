@@ -1,13 +1,11 @@
 import { router, Stack } from "expo-router";
 import React from "react";
 
-import ZnsText from "@/components/ui/Text";
 import { fontStyles } from "@/constants/fonts";
 import { NavigationBackIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { Header } from "react-native/Libraries/NewAppScreen";
 
 export default function ZnsLayout() {
   return (
@@ -19,8 +17,8 @@ export default function ZnsLayout() {
         headerShown: false,
         headerTitleStyle: {
           ...fontStyles["Poppins-Medium"],
-          fontSize: getHeightSize(18),
-          lineHeight: getHeightSize(18 * 1.5),
+          fontSize: getFontSize(18),
+          lineHeight: getFontSize(18) * 1.5,
           color: CustomDarkTheme.colors.txtColor,
         },
         headerLeft: () => (
@@ -69,14 +67,15 @@ export default function ZnsLayout() {
         name="hip"
         options={{
           title: "Human Identity Pass",
-          headerTitle: (props: any) => (
-            <Text
-              style={[fontStyles["Poppins-Medium"], styles.headerTitle]}
-              {...props}
-            >
-              Human Identity Pass
-            </Text>
-          ),
+          headerShown: true,
+          header: ({ options }: any) => {
+            return (
+              <View style={styles.headerContainer}>
+                {options.headerLeft()}
+                <Text style={options.headerTitleStyle}>{options.title}</Text>
+              </View>
+            );
+          },
         }}
       />
       <Stack.Screen
@@ -120,11 +119,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: getWidthSize(16),
     gap: getWidthSize(12),
     alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: 18,
-    color: "white",
-    marginTop: 4,
-    marginLeft: 12,
   },
 });

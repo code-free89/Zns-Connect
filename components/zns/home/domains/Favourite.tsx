@@ -8,7 +8,7 @@ import { SearchIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
 import { useAppSelector } from "@/store";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 const NoFavourite = () => {
   return (
@@ -68,13 +68,13 @@ const styles = StyleSheet.create({
   emptyTitle: {
     ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.5),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
   },
   emptyDescription: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     letterSpacing: 0.32,
     textAlign: "center",
   },

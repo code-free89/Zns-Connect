@@ -6,6 +6,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getFontSize, getWidthSize } from "@/utils/size";
 import { useMemo } from "react";
 
 export default function ProfileAccounts() {
@@ -47,7 +48,7 @@ export default function ProfileAccounts() {
       {/* Location */}
       <View style={styles.typeContainer}>
         <Image source={require("@/assets/images/icons/location.png")} />
-        <Text style={[fontStyles["Poppins-Medium"], styles.typeText]}>
+        <Text style={styles.typeText}>
           {profile?.location || "No Location"}
         </Text>
       </View>
@@ -60,7 +61,7 @@ export default function ProfileAccounts() {
             {socialAccount.isVerified && (
               <MaterialCommunityIcons
                 name="check-decagram"
-                size={17}
+                size={getWidthSize(17)}
                 color={CustomDarkTheme.colors.badge}
                 style={styles.verifiedBadge}
               />
@@ -77,20 +78,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    gap: 10,
+    gap: getWidthSize(10),
   },
   typeContainer: {
     height: "100%",
-    borderRadius: 83,
-    paddingHorizontal: 12,
+    borderRadius: getWidthSize(83),
+    paddingHorizontal: getWidthSize(12),
     backgroundColor: CustomDarkTheme.colors.grey2,
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: getWidthSize(6),
   },
   typeText: {
-    fontSize: 12,
-    lineHeight: 12 * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   socialContainer: {
@@ -102,8 +104,8 @@ const styles = StyleSheet.create({
   socialItem: {
     borderRadius: 100,
     backgroundColor: CustomDarkTheme.colors.grey2,
-    width: 37,
-    height: 37,
+    width: getWidthSize(37),
+    height: getWidthSize(37),
     alignItems: "center",
     justifyContent: "center",
   },

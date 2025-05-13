@@ -7,7 +7,7 @@ import Button from "@/components/ui/Button";
 import CodeInput from "@/components/ui/CodeInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   referralText: {
     ...fontStyles["Poppins-SemiBold"],
     color: "white",
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     marginVertical: getHeightSize(20),
   },
   bonusText: {
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   doneButtonText: {
     ...fontStyles["Poppins-Regular"],
     color: "#101010",
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.35),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.35,
   },
   noInvitation: {
     marginTop: getHeightSize(24),
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
   noInvitationText: {
     ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.textPrimary,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(20),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.47,
     fontFeatureSettings: "liga off",
     fontVariant: ["tabular-nums", "lining-nums"],
   },

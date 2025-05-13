@@ -10,7 +10,7 @@ import { MyDomain } from "@/components/zns/home/domains/MyDomain";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const SORT_OPTIONS = [
   { label: "None", value: "none" },
@@ -165,8 +165,8 @@ const styles = StyleSheet.create({
   },
   selectedTitle: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.body,
     borderBottomWidth: 2,
     paddingVertical: getHeightSize(10),
@@ -174,15 +174,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.body,
     borderBottomWidth: 2,
     paddingVertical: getHeightSize(10),
     paddingHorizontal: getWidthSize(4),
-  },
-  tabText: {
-    fontSize: 14,
   },
   defaultText: {
     color: CustomDarkTheme.colors.body,
@@ -202,7 +199,7 @@ const styles = StyleSheet.create({
   sortItemText: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16) * 1.5,
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
   },
 });

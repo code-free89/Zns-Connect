@@ -1,14 +1,13 @@
-import { Text, View, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize } from "@/utils/size";
 
 export default function EmptyBadges() {
   return (
     <View style={styles.container}>
-      <Text style={[fontStyles["Poppins-SemiBold"], styles.noBadges]}>
-        You don't have any badges yet
-      </Text>
+      <Text style={styles.noBadges}>You don't have any badges yet</Text>
     </View>
   );
 }
@@ -20,7 +19,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   noBadges: {
-    fontSize: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },

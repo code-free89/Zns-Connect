@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function EmptyGiftCards() {
   return (
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["SpaceGrotesk-Bold"],
-    fontSize: getHeightSize(18),
+    fontSize: getFontSize(18),
     color: "white",
   },
 });

@@ -11,7 +11,7 @@ import GeneratedDomains from "@/components/zns/register/GeneratedDomains";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAIDomains } from "@/hooks/useAIDomains";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
 
 const MAX_LETTERS = 24;
@@ -192,8 +192,8 @@ const styles = StyleSheet.create({
   container: {},
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
     paddingHorizontal: getWidthSize(26),
     textAlign: "center",
@@ -225,12 +225,12 @@ const styles = StyleSheet.create({
   },
   keyword: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.txtColor,
   },
   removeKeyword: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.txtColor,
   },
   numberOfLettersContainer: {
@@ -248,14 +248,14 @@ const styles = StyleSheet.create({
   },
   numberOfLettersText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   progressText: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16 * 1.5),
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   generateDomainsContainer: {
@@ -279,20 +279,20 @@ const styles = StyleSheet.create({
   },
   generateDomains: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14 * 1.5),
     color: CustomDarkTheme.colors.p950,
   },
   numberOfWordsText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12 * 1.5),
     color: "#A5A5A5",
   },
   resultsTitle: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.5),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18 * 1.5),
     color: "white",
     marginTop: getHeightSize(40),
     marginBottom: getHeightSize(20),
@@ -320,14 +320,14 @@ const styles = StyleSheet.create({
   },
   numberOfWordsModalItemText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
   proGenerateText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(10),
-    lineHeight: getHeightSize(10 * 1.5),
+    fontSize: getFontSize(10),
+    lineHeight: getFontSize(10 * 1.5),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

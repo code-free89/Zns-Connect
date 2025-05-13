@@ -15,7 +15,7 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppSelector } from "@/store";
 import { formatBalance, formatWalletAddress } from "@/utils/formatter";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function AccountInfo() {
   const account = useAccount();
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
   walletAddress: {
     ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   balance: {
     ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: getHeightSize(24),
-    lineHeight: getHeightSize(24 * 1.25),
+    fontSize: getFontSize(24),
+    lineHeight: getFontSize(24) * 1.25,
   },
   actionButtonContainer: {
     padding: getHeightSize(10),
@@ -136,8 +136,8 @@ const styles = StyleSheet.create({
   },
   avatarText: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   actionContainer: {
     position: "absolute",

@@ -11,7 +11,7 @@ import {
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 interface ButtonProps extends TouchableOpacityProps {
   title?: string;
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
   },
   text: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.p950,
   },
   disabledText: {

@@ -7,7 +7,7 @@ import { fontStyles } from "@/constants/fonts";
 import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileOverView() {
   const { profile, ownerStore } = useAppSelector((state) => state.profile);
@@ -50,23 +50,6 @@ export default function ProfileOverView() {
                 onClose={() => setIsActionListVisible(false)}
               />
             </AbsoluteDropdown>
-
-            {/* <Modal
-              isVisible={isActionListVisible}
-              backdropColor="transparent"
-              onBackdropPress={() => setIsActionListVisible(false)}
-              style={{
-                position: "absolute",
-                right: -getWidthSize(4),
-                top: getHeightSize(96),
-              }}
-              animationIn="fadeIn"
-              animationOut="fadeOut"
-            >
-              <MoreProfileList
-              // onClose={() => setIsActionListVisible(false)}
-              />
-            </Modal> */}
           </View>
         </View>
         {bannerURL ? (
@@ -171,14 +154,14 @@ const styles = StyleSheet.create({
   },
   overviewItemValue: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   overviewItemTitle: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: "#A3A3A3",
   },
 });

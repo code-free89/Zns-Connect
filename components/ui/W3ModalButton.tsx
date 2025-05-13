@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 import Button from "@/components/ui/Button";
 import { fontStyles } from "@/constants/fonts";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize } from "@/utils/size";
 
 export default function W3ModalButton() {
   const { open } = useAppKit();
@@ -20,7 +20,7 @@ export default function W3ModalButton() {
 const styles = StyleSheet.create({
   W3ButtonText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(20),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
 });

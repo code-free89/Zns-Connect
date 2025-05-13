@@ -1,7 +1,8 @@
-import { Image, Pressable, StyleSheet, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-import ZnsText from "@/components/ui/Text";
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type GiftCardProps = {
   credits: number;
@@ -13,8 +14,8 @@ export default function GiftCard({ credits, onRedeem }: GiftCardProps) {
     <View style={styles.giftCardContainer}>
       <Image
         source={require("@/assets/images/app/gift-card.png")}
-        width={85}
-        height={45}
+        width={getWidthSize(85)}
+        height={getWidthSize(45)}
         style={styles.giftCard}
       />
       <Image
@@ -22,17 +23,11 @@ export default function GiftCard({ credits, onRedeem }: GiftCardProps) {
         style={styles.logo}
       />
       <View style={styles.creditsContainer}>
-        <ZnsText type="bold" style={styles.creditsTitle}>
-          ZNS GIFT CARD
-        </ZnsText>
-        <ZnsText type="bold" style={styles.creditsAmount}>
-          CREDITS: {credits}
-        </ZnsText>
+        <Text style={styles.creditsTitle}>ZNS GIFT CARD</Text>
+        <Text style={styles.creditsAmount}>CREDITS: {credits}</Text>
       </View>
       <Pressable style={styles.redeemButton} onPress={onRedeem}>
-        <ZnsText type="medium" style={styles.redeemButtonText}>
-          Redeem
-        </ZnsText>
+        <Text style={styles.redeemButtonText}>Redeem</Text>
       </Pressable>
     </View>
   );
@@ -51,39 +46,45 @@ const styles = StyleSheet.create({
   },
   logo: {
     position: "absolute",
-    left: 8,
-    top: -2,
+    left: getWidthSize(8),
+    top: getHeightSize(-2),
     width: "30%",
     aspectRatio: 3,
     resizeMode: "contain",
   },
   creditsContainer: {
     position: "absolute",
-    bottom: 6,
-    left: 8,
+    bottom: getHeightSize(6),
+    left: getWidthSize(8),
   },
   creditsTitle: {
-    fontSize: 9,
+    ...fontStyles["Poppins-Bold"],
+    fontSize: getFontSize(9),
+    lineHeight: getFontSize(9) * 1.5,
     color: CustomDarkTheme.colors.primary,
   },
   creditsAmount: {
-    fontSize: 9,
+    ...fontStyles["Poppins-Bold"],
+    fontSize: getFontSize(9),
+    lineHeight: getFontSize(9) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   redeemButton: {
     position: "absolute",
-    bottom: 6,
-    right: 8,
+    bottom: getHeightSize(6),
+    right: getWidthSize(8),
     backgroundColor: CustomDarkTheme.colors.secondaryBtn,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 19,
-    borderWidth: 0.7,
+    paddingHorizontal: getWidthSize(8),
+    paddingVertical: getHeightSize(4),
+    borderRadius: getWidthSize(19),
+    borderWidth: getWidthSize(0.7),
     borderColor: CustomDarkTheme.colors.primary,
   },
   redeemButtonText: {
-    fontSize: 10,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(10),
+    lineHeight: getFontSize(10) * 1.5,
     color: CustomDarkTheme.colors.primary,
-    marginTop: 2,
+    marginTop: getHeightSize(2),
   },
 });

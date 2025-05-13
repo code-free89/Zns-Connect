@@ -77,7 +77,7 @@ export default function TabsLayout() {
           //         fontStyles["Poppins-Medium"],
           //         {
           //           textAlign: "center",
-          //           fontSize: getHeightSize(18),
+          //           fontSize: getFontSize(18),
           //           color: CustomDarkTheme.colors.txtColor,
           //           padding: getHeightSize(8),
           //         },

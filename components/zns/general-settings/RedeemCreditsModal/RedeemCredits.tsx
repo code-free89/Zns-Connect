@@ -1,8 +1,7 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { useAccount } from "wagmi";
 
 import InteractiveButton from "@/components/ui/InteractiveButton";
-import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
 import { useBurnGiftCard } from "@/hooks/web3/write/useGiftCard";
@@ -11,6 +10,8 @@ import { useFetchGiftCard } from "@/store/hooks/useFetchGiftCard";
 import { useInvalidateQuery } from "@/store/hooks/useInvalidateQuery";
 import { GiftCardType } from "@/store/slices/user";
 import { formatCredits } from "@/utils/formatter";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 
 type RedeemCreditsSectionProps = {
   giftCard?: GiftCardType;
@@ -40,26 +41,23 @@ export default function RedeemCreditsSection({
 
   return (
     <View style={styles.redeemContainer}>
-      <ZnsText type="medium" style={styles.redeemTitle}>
-        Redeem Credits
-      </ZnsText>
+      <Text style={styles.redeemTitle}>Redeem Credits</Text>
       <View style={styles.currentCreditsContainer}>
-        <ZnsText type="medium" style={styles.currentCreditsLabel}>
-          Current credits
-        </ZnsText>
+        <Text style={styles.currentCreditsLabel}>Current credits</Text>
         <View style={styles.currentCreditsWrapper}>
-          <ZnsText type="medium" style={styles.currentCredits}>
-            {userCredit} Credits
-          </ZnsText>
+          <Text style={styles.currentCredits}>{userCredit} Credits</Text>
         </View>
       </View>
       <InteractiveButton
-        fontType="medium"
         title={`Redeem ${formatCredits(giftCard?.credits ?? 0)} credits now`}
         requiredConnect
         loading={isBurnProcessing}
-        style={{ marginTop: 12 }}
-        textStyle={{ fontSize: 14, color: CustomDarkTheme.colors.p950 }}
+        style={{ marginTop: getHeightSize(12) }}
+        textStyle={{
+          fontSize: getFontSize(14),
+          lineHeight: getFontSize(14) * 1.5,
+          color: CustomDarkTheme.colors.p950,
+        }}
         onPress={onBurn}
       />
     </View>
@@ -69,13 +67,14 @@ export default function RedeemCreditsSection({
 const styles = StyleSheet.create({
   redeemContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    padding: 16,
-    borderRadius: 10,
-    gap: 12,
+    padding: getWidthSize(16),
+    borderRadius: getWidthSize(10),
+    gap: getWidthSize(12),
   },
   redeemTitle: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: 16,
   },
   currentCreditsContainer: {
     flexDirection: "row",
@@ -84,16 +83,20 @@ const styles = StyleSheet.create({
   },
   currentCreditsWrapper: {
     backgroundColor: "#05ABFF",
-    borderRadius: 12,
-    paddingHorizontal: 15,
-    paddingVertical: 11,
+    borderRadius: getWidthSize(12),
+    paddingHorizontal: getWidthSize(15),
+    paddingVertical: getHeightSize(11),
   },
   currentCreditsLabel: {
-    fontSize: 16,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   currentCredits: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.p950,
   },
 });

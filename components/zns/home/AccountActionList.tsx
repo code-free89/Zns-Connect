@@ -1,10 +1,10 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
+import Feather from "@expo/vector-icons/Feather";
 import Octicons from "@expo/vector-icons/Octicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
-import Feather from "@expo/vector-icons/Feather";
 
 import NetworkSelect from "@/components/zns/home/NetworkSelect";
 import { fontStyles } from "@/constants/fonts";
@@ -12,7 +12,7 @@ import { CopyIcon, CreditIcon, UserIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { copyToClipboard } from "@/utils/helpers";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showSuccessToast } from "@/utils/toast";
 
 type Props = {
@@ -81,8 +81,8 @@ export default function AccountActionList({ onClose }: Props) {
               style={[
                 styles.actionItemText,
                 {
-                  fontSize: getHeightSize(14),
-                  lineHeight: getHeightSize(14 * 1.5),
+                  fontSize: getFontSize(14),
+                  lineHeight: getFontSize(14) * 1.5,
                 },
               ]}
             >
@@ -193,23 +193,16 @@ const styles = StyleSheet.create({
   actionItemText: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
   },
-  // communityContainer: {
-  //   gap: getHeightSize(16),
-  // },
-  // communityItem: {
-  //   color: CustomDarkTheme.colors.txtColor,
-  //   marginLeft: getWidthSize(30),
-  // },
   networkSelect: {
     backgroundColor: CustomDarkTheme.colors.grey3,
   },
   actionDescription: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   creditsContainer: {

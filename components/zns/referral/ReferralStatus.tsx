@@ -1,28 +1,23 @@
-import GradientText from "@/components/ui/GradientText";
+import { StyleSheet, Text, View } from "react-native";
+
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { StyleSheet, Text, View } from "react-native";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ReferralStatus() {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.itemContainer}>
-          <Text style={[fontStyles["SpaceGrotesk-Bold"], styles.value]}>
-            45
-          </Text>
-          <Text style={[fontStyles["Poppins-Medium"], styles.description]}>
-            Total Referrals
-          </Text>
+          <Text style={styles.value}>45</Text>
+          <Text style={styles.description}>Total Referrals</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Text style={[fontStyles["SpaceGrotesk-Bold"], styles.value]}>
+          <Text style={styles.value}>
             250
             {/* <GradientText text="ETH" /> */}
           </Text>
-          <Text style={[fontStyles["Poppins-Medium"], styles.description]}>
-            Total Earnings
-          </Text>
+          <Text style={styles.description}>Total Earnings</Text>
         </View>
       </View>
     </View>
@@ -41,17 +36,19 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 16,
+    paddingHorizontal: getWidthSize(16),
+    paddingVertical: getHeightSize(12),
+    borderRadius: getWidthSize(16),
     flex: 1,
   },
   value: {
-    fontSize: 24,
+    ...fontStyles["SpaceGrotesk-Bold"],
+    fontSize: getFontSize(24),
     color: CustomDarkTheme.colors.primary,
   },
   description: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
     color: "#A3A3A3",
   },
 });

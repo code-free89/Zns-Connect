@@ -14,7 +14,7 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 import { useAppSelector } from "@/store";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 export default function HomeScreen() {
   const { chainId } = useAccount();
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "center",
-    fontSize: getHeightSize(20),
+    fontSize: getFontSize(20),
     letterSpacing: -1.2,
   },
 });

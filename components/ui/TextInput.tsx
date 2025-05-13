@@ -9,6 +9,7 @@ import {
 
 import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 interface Props extends TextInputProps {
   label?: string;
@@ -32,15 +33,15 @@ export default function TextInput({ label, containerStyle, ...props }: Props) {
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 14,
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.body,
-    marginBottom: 8,
+    marginBottom: getHeightSize(8),
   },
   container: {
-    padding: 14,
+    padding: getWidthSize(14),
     borderWidth: 1,
     borderColor: CustomDarkTheme.colors.stroke,
-    borderRadius: 16,
+    borderRadius: getWidthSize(16),
   },
   input: {
     color: CustomDarkTheme.colors.txtColor,

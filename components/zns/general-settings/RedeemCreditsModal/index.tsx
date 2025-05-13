@@ -1,10 +1,12 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
 
 import CloseButton from "@/components/ui/CloseButton";
-import ZnsText from "@/components/ui/Text";
 import RedeemCreditsSection from "@/components/zns/general-settings/RedeemCreditsModal/RedeemCredits";
+import { fontStyles } from "@/constants/fonts";
+import { CustomDarkTheme } from "@/constants/theme";
 import { GiftCardType } from "@/store/slices/user";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import ResendGiftCardSection from "./ResendGiftCard";
 
 type RedeemCreditsModalProps = {
@@ -22,9 +24,7 @@ export default function RedeemCreditsModal({
     <Modal isVisible={isVisible}>
       <CloseButton onClose={onClose} />
       <View style={styles.modalContainer}>
-        <ZnsText type="medium" style={styles.modalTitle}>
-          Redeem or Send credits
-        </ZnsText>
+        <Text style={styles.modalTitle}>Redeem or Send credits</Text>
         <View style={styles.modalContent}>
           <RedeemCreditsSection giftCard={giftCard} onClose={onClose} />
 
@@ -42,19 +42,21 @@ const styles = StyleSheet.create({
     // width: "100%",
   },
   modalTitle: {
-    color: "white",
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
+    color: CustomDarkTheme.colors.txtColor,
     textAlign: "center",
-    marginBottom: 28,
-    marginTop: 50,
+    marginBottom: getHeightSize(28),
+    marginTop: getHeightSize(50),
   },
   modalContent: {
     backgroundColor: "black",
-    borderRadius: 14,
-    borderWidth: 2,
+    borderRadius: getWidthSize(14),
+    borderWidth: getWidthSize(2),
     borderColor: "rgba(41, 41, 37, 0.80)",
-    paddingHorizontal: 12,
-    paddingVertical: 20,
-    gap: 24,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(20),
+    gap: getWidthSize(24),
   },
 });

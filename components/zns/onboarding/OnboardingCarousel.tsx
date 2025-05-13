@@ -1,9 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Animated,
   Image,
   StyleSheet,
+  Text,
   useAnimatedValue,
   View,
 } from "react-native";
@@ -12,7 +13,6 @@ import StepWizard from "@/components/ui/StepWizard";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Text } from "react-native";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const ONBOARDING_DATA = [
@@ -199,8 +199,8 @@ export default function OnboardingCarousel() {
           position: "absolute",
           left: 0,
           top: -height * 0.25,
-          width: getWidthSize(width),
-          height: getHeightSize(height * 2),
+          width: width,
+          height: height * 2,
           zIndex: 10,
         }}
         pointerEvents="none"
@@ -212,8 +212,8 @@ export default function OnboardingCarousel() {
           position: "absolute",
           left: 0,
           top: height * 0.25,
-          width: getWidthSize(width),
-          height: getHeightSize(height / 2),
+          width: width,
+          height: height / 2,
           zIndex: 10,
         }}
         start={{ x: 0, y: 1 }}
@@ -276,10 +276,6 @@ export default function OnboardingCarousel() {
             </View>
           </Animated.View>
         </View>
-        {/* <Text style={styles.title}>{ONBOARDING_DATA[currentIndex].title}</Text>
-        <Text style={styles.description}>
-          {ONBOARDING_DATA[currentIndex].description}
-        </Text> */}
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
 import Button from "@/components/ui/Button";
@@ -13,9 +13,8 @@ import { useMintGiftCard } from "@/hooks/web3/write/useGiftCard";
 import { useAppSelector } from "@/store";
 import { useFetchGiftCard } from "@/store/hooks/useFetchGiftCard";
 import { isValidEthereumAddress } from "@/utils/formatter";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
-import { Text } from "react-native";
 
 type BuyCreditsForm = {
   credits: number;
@@ -114,7 +113,6 @@ export default function CreditsAndGiftCards() {
         />
         <InteractiveButton
           title="Transfer"
-          fontType="medium"
           loading={isTransferProcessing}
           onPress={handleSubmit(onTransferCredits)}
           requiredConnect
@@ -144,13 +142,13 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
   },
   key: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   creditButton: {
@@ -163,7 +161,7 @@ const styles = StyleSheet.create({
   creditText: {
     color: "#243300",
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
   },
 });

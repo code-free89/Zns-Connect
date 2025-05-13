@@ -13,6 +13,7 @@ import {
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 function SocialAccount({
   icon,
@@ -34,12 +35,10 @@ function SocialAccount({
   return (
     <Pressable style={styles.socialContainer} onPress={handleOpenLink}>
       <Image source={icon} style={styles.socialIcon} />
-      <Text style={[fontStyles["Poppins-Medium"], styles.socialLabel]}>
-        {label}
-      </Text>
+      <Text style={styles.socialLabel}>{label}</Text>
       <MaterialCommunityIcons
         name="dots-vertical"
-        size={20}
+        size={getWidthSize(20)}
         color="white"
         onPress={handlePressMore}
       />
@@ -93,8 +92,10 @@ export default function CommunityView() {
       data={links}
       numColumns={2}
       renderItem={({ item }) => <SocialAccount {...item} />}
-      ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-      columnWrapperStyle={{ gap: 16 }}
+      ItemSeparatorComponent={() => (
+        <View style={{ height: getHeightSize(16) }} />
+      )}
+      columnWrapperStyle={{ gap: getWidthSize(16) }}
       scrollEnabled={false}
     />
   );
@@ -103,22 +104,23 @@ export default function CommunityView() {
 const styles = StyleSheet.create({
   socialContainer: {
     flex: 0.5,
-    borderRadius: 16,
-    paddingHorizontal: 12,
-    paddingVertical: 20,
+    borderRadius: getWidthSize(16),
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(20),
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: CustomDarkTheme.colors.grey2,
-    gap: 10,
+    gap: getWidthSize(10),
   },
   socialIcon: {
-    width: 24,
-    height: 24,
+    width: getWidthSize(24),
+    height: getWidthSize(24),
   },
   socialLabel: {
     flex: 1,
-    fontSize: 14,
-    lineHeight: 14 * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
 });

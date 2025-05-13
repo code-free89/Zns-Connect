@@ -5,7 +5,6 @@ import Button from "@/components/ui/Button";
 import W3ModalButton from "./W3ModalButton";
 
 interface InteractiveButtonProps extends TouchableOpacityProps {
-  fontType?: "regular" | "medium" | "semiBold" | "bold";
   title?: string;
   textStyle?: TextStyle;
   variant?: "primary" | "secondary" | "outline" | "text";

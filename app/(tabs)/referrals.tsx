@@ -5,18 +5,16 @@ import GetLinkCarousel from "@/components/zns/referral/GetLinkCarousel";
 import ReferralStatus from "@/components/zns/referral/ReferralStatus";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ReferralsScreen() {
   return (
     <>
       <View style={styles.pageTitle}>
-        <Text style={[fontStyles["Poppins-Medium"], styles.title]}>
-          Affiliate for users
-        </Text>
+        <Text style={styles.title}>Affiliate for users</Text>
       </View>
-      <View style={{ flex: 1, padding: 16 }}>
-        <Text style={[fontStyles["Poppins-Regular"], styles.getRewardTitle]}>
+      <View style={{ flex: 1, padding: getWidthSize(16) }}>
+        <Text style={styles.getRewardTitle}>
           {"Get rewarded for bringing\nfriends on board!"}
         </Text>
 
@@ -68,14 +66,17 @@ const styles = StyleSheet.create({
     paddingBottom: getHeightSize(21),
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   getRewardTitle: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(14),
     letterSpacing: 0.28,
     color: "#DFE5F3",
     textAlign: "center",
-    marginVertical: 12,
+    marginVertical: getHeightSize(12),
   },
 });

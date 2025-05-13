@@ -1,5 +1,3 @@
-import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
 import React, { Dispatch, SetStateAction } from "react";
 import { Platform, StyleProp, StyleSheet, Text, ViewStyle } from "react-native";
 import {
@@ -8,6 +6,9 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
+
+import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getWidthSize } from "@/utils/size";
 
 type Props = {
   cellCount?: number;
@@ -69,8 +70,8 @@ const styles = StyleSheet.create({
     borderWidth: 1.65,
     borderColor: "#3D3B26",
     color: CustomDarkTheme.colors.textPrimary,
-    lineHeight: getHeightSize(36),
-    fontSize: getHeightSize(24),
+    fontSize: getFontSize(24),
+    lineHeight: getFontSize(24) * 1.5,
     paddingTop: getWidthSize(6),
     textAlign: "center",
   },

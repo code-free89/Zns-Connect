@@ -8,7 +8,7 @@ import { fontStyles } from "@/constants/fonts";
 import { MetaMaskIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { formatWalletAddress } from "@/utils/formatter";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type Props = PropsWithChildren<{
   isVisible: boolean;
@@ -105,9 +105,9 @@ const styles = StyleSheet.create({
   title: {
     ...fontStyles["Poppins-Bold"],
     color: "white",
-    fontSize: getWidthSize(20),
+    fontSize: getFontSize(20),
     textAlign: "center",
-    lineHeight: getWidthSize(20 * 1.5),
+    lineHeight: getFontSize(20) * 1.5,
   },
   walletIconWrapper: {
     borderWidth: 1.35,
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
   },
   walletAddress: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(16),
-    lineHeight: getWidthSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     textAlign: "center",
     marginBottom: getHeightSize(8),
     color: "white",
@@ -134,10 +134,10 @@ const styles = StyleSheet.create({
   subtitle: {
     ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(12),
+    fontSize: getFontSize(12),
     textAlign: "center",
     marginBottom: getHeightSize(57),
-    lineHeight: getHeightSize(12 * 1.5),
+    lineHeight: getFontSize(12) * 1.5,
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
   terms: {
     ...fontStyles["Poppins-Regular"],
     color: "#E8E8E8",
-    fontSize: getHeightSize(12),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
   },
   link: {
     color: CustomDarkTheme.colors.primary,

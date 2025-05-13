@@ -11,7 +11,7 @@ import useFavourite from "@/hooks/useFavourite";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { RecentDomainType } from "@/store/slices/recents";
 import { formatPrice } from "@/utils/formatter";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function MintItem({
   chainId,
@@ -72,15 +72,15 @@ const styles = StyleSheet.create({
   },
   name: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(18),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.2,
     color: "white",
   },
   price: {
     flex: 1,
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "right",
   },

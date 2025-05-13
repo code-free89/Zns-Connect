@@ -13,7 +13,7 @@ import { getChainByID, isChainSupported } from "@/constants/web3/chains";
 import { useCheckout } from "@/hooks/useCheckout";
 import { useAppSelector } from "@/store";
 import { formatPrice } from "@/utils/formatter";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 interface CheckoutModalProps {
   isVisible: boolean;
@@ -176,14 +176,14 @@ const styles = StyleSheet.create({
   title: {
     ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.grey1,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.4),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.4,
   },
   orderSummaryTitle: {
     ...fontStyles["Poppins-SemiBold"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: getHeightSize(20),
-    lineHeight: getHeightSize(20 * 1.5),
+    fontSize: getFontSize(20),
+    lineHeight: getFontSize(20) * 1.5,
     marginBottom: getHeightSize(8),
   },
   orderSummaryContainer: {
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
   registrationBadgeText: {
     color: CustomDarkTheme.colors.p500,
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   priceSummaryContainer: {
     width: "100%",
@@ -216,18 +216,18 @@ const styles = StyleSheet.create({
   priceSummaryTitle: {
     ...fontStyles["Poppins-SemiBold"],
     color: `${CustomDarkTheme.colors.txtColor}C2`,
-    fontSize: getHeightSize(14),
+    fontSize: getFontSize(14),
     marginBottom: getHeightSize(11),
-    lineHeight: getHeightSize(14 * 1.5),
+    lineHeight: getFontSize(14) * 1.5,
   },
   price: {
     color: CustomDarkTheme.colors.primary,
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.1),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.1,
   },
   priceCurrency: {
-    fontSize: getHeightSize(12),
+    fontSize: getFontSize(12),
   },
   priceContainer: {
     flexDirection: "row",
@@ -238,14 +238,14 @@ const styles = StyleSheet.create({
   },
   priceTitle: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.body,
-    lineHeight: getHeightSize(16 * 1.5),
+    lineHeight: getFontSize(16) * 1.5,
   },
   priceValue: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.1),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.1,
     color: CustomDarkTheme.colors.txtColor,
   },
 });

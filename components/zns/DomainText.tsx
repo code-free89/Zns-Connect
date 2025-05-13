@@ -4,7 +4,7 @@ import { StyleSheet, Text } from "react-native";
 import { fontStyles } from "@/constants/fonts";
 import { getChainColor } from "@/constants/web3/chains";
 import { useTLD } from "@/hooks/web3/useTLD";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize } from "@/utils/size";
 
 type DomainTextProps = {
   domainName: string;
@@ -26,8 +26,8 @@ export default function DomainText({ domainName, chainId }: DomainTextProps) {
 const styles = StyleSheet.create({
   domainName: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(24),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: "white",
   },
 });

@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function HipProfile() {
@@ -11,12 +12,10 @@ export default function HipProfile() {
       <View style={styles.row}>
         {/* Referral Link */}
         <View style={styles.referralLinkContainer}>
-          <Text style={[fontStyles["Poppins-Regular"], styles.referralLink]}>
-            Referral link
-          </Text>
+          <Text style={styles.referralLink}>Referral link</Text>
           <MaterialCommunityIcons
             name="link-variant"
-            size={11}
+            size={getWidthSize(11)}
             color={CustomDarkTheme.colors.primary}
           />
         </View>
@@ -24,9 +23,7 @@ export default function HipProfile() {
         {/* Share */}
         <View style={styles.shareContainer}>
           <Image source={require("@/assets/images/icons/share.png")} />
-          <Text style={[fontStyles["Poppins-Regular"], styles.shareText]}>
-            Share
-          </Text>
+          <Text style={styles.shareText}>Share</Text>
         </View>
       </View>
 
@@ -45,15 +42,9 @@ export default function HipProfile() {
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.nameContainer}>
-          <Text style={[fontStyles["Orbitron-SemiBold"], styles.name]}>
-            Nakamoto
-          </Text>
-          <Text style={[fontStyles["SpaceGrotesk-Regular"], styles.bio]}>
-            Bitcoin Cryptocurrency
-          </Text>
-          <Text style={[fontStyles["Orbitron-SemiBold"], styles.role]}>
-            Chief Executive Officer
-          </Text>
+          <Text style={styles.name}>Nakamoto</Text>
+          <Text style={styles.bio}>Bitcoin Cryptocurrency</Text>
+          <Text style={styles.role}>Chief Executive Officer</Text>
         </View>
         <FontAwesome6
           name="edit"
@@ -89,9 +80,10 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   referralLink: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.primary,
-    marginTop: 3,
+    marginTop: getHeightSize(3),
   },
   shareContainer: {
     flexDirection: "row",
@@ -103,9 +95,10 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   shareText: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
     color: "white",
-    marginTop: 3,
+    marginTop: getHeightSize(3),
   },
   avatarContainer: {
     width: "100%",
@@ -117,26 +110,29 @@ const styles = StyleSheet.create({
   },
   editIcon: {
     position: "absolute",
-    top: 11,
-    right: 11,
+    top: getHeightSize(11),
+    right: getWidthSize(11),
   },
   nameContainer: {
     flexDirection: "column",
-    gap: 10,
+    gap: getWidthSize(10),
   },
   name: {
     color: CustomDarkTheme.colors.primary,
-    fontSize: 20,
+    ...fontStyles["Orbitron-SemiBold"],
+    fontSize: getFontSize(20),
   },
   bio: {
-    fontSize: 14,
+    ...fontStyles["SpaceGrotesk-Regular"],
+    fontSize: getFontSize(14),
     color: "white",
   },
   role: {
     color: CustomDarkTheme.colors.primary,
-    fontSize: 14,
+    ...fontStyles["Orbitron-SemiBold"],
+    fontSize: getFontSize(14),
   },
   nameEditIcon: {
-    padding: 10,
+    padding: getWidthSize(10),
   },
 });

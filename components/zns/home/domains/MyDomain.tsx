@@ -12,7 +12,7 @@ import { CHAINS, getChainColor, NETWORKS } from "@/constants/web3/chains";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppSelector } from "@/store";
 import { UserDomainType } from "@/store/slices/user-domains";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const NoDomain = () => {
   return (
@@ -155,22 +155,22 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.5),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },
   description: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },
   registerDomainButton: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.35),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.35,
     color: CustomDarkTheme.colors.primary,
   },
   myDomainItem: {
@@ -182,8 +182,8 @@ const styles = StyleSheet.create({
   },
   domainIndex: {
     ...fontStyles["SpaceMono-Bold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.35),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.35,
     color: CustomDarkTheme.colors.caption,
   },
   domainIcon: {
@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
   },
   domainName: {
     ...fontStyles["WorkSans-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.4),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16 * 1.4),
     color: "white",
   },
   editButton: {
@@ -215,8 +215,8 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     ...fontStyles["WorkSans-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: "white",
   },
 });

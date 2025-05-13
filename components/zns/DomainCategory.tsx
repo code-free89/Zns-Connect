@@ -1,7 +1,8 @@
 import { CustomDarkTheme } from "@/constants/theme";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { CategoryDataType } from "@/components/zns/register/DomainCategorySelector";
-
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 interface DomainCategoryProps {
   category: CategoryDataType;
   selected: boolean;
@@ -20,8 +21,8 @@ export default function DomainCategory({
     >
       <Image
         source={category.banner}
-        width={19}
-        height={19}
+        width={getWidthSize(19)}
+        height={getHeightSize(19)}
         style={styles.icon}
       />
       <Text style={styles.name}>{category.name}</Text>
@@ -33,20 +34,21 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    padding: 10,
+    gap: getWidthSize(8),
+    padding: getWidthSize(10),
     backgroundColor: `${CustomDarkTheme.colors.actionBg}66`,
-    borderRadius: 12,
+    borderRadius: getWidthSize(12),
     borderWidth: 1,
     borderColor: "transparent",
   },
   icon: {
-    width: 19,
-    height: 19,
+    width: getWidthSize(19),
+    height: getWidthSize(19),
   },
   name: {
-    fontSize: 12,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: "white",
   },
   selected: {

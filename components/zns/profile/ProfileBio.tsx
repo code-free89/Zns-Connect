@@ -6,6 +6,7 @@ import GradientText from "@/components/ui/GradientText";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
+import { getFontSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileBio() {
   const { profile, domain, tld } = useAppSelector((state) => state.profile);
@@ -26,12 +27,10 @@ export default function ProfileBio() {
         >
           <GradientText
             text={profile?.name ?? ""}
-            textStyle={[fontStyles["Poppins-SemiBold"], styles.gradientText]}
+            textStyle={styles.gradientText}
           />
         </View>
-        <Text style={[fontStyles["Poppins-Regular"], styles.bioText]}>
-          {domain ? `${domain}.${tld}` : ""}
-        </Text>
+        <Text style={styles.bioText}>{domain ? `${domain}.${tld}` : ""}</Text>
       </View>
 
       <GradientBorderViewWrapper
@@ -39,15 +38,11 @@ export default function ProfileBio() {
       >
         <View style={styles.shortIntroContainer}>
           {!!profile?.bio ? (
-            <Text style={[fontStyles["Poppins-Regular"], styles.bioText]}>
-              {truncatedBio}
-            </Text>
+            <Text style={styles.bioText}>{truncatedBio}</Text>
           ) : (
             <React.Fragment>
               <Image source={require("@/assets/images/icons/intro.png")} />
-              <Text
-                style={[fontStyles["Poppins-Regular"], styles.shortIntroText]}
-              >
+              <Text style={styles.shortIntroText}>
                 Short intro about you appear here
               </Text>
             </React.Fragment>
@@ -60,16 +55,18 @@ export default function ProfileBio() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 20,
+    gap: getWidthSize(20),
   },
   gradientText: {
-    fontSize: 24,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(24),
     marginLeft: 0,
   },
   bioText: {
-    fontSize: 14,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.txtColor,
-    lineHeight: 14 * 1.5,
+    lineHeight: getFontSize(14) * 1.5,
   },
   shortIntroContainer: {
     padding: 9,
@@ -80,15 +77,8 @@ const styles = StyleSheet.create({
     gap: 9,
   },
   shortIntroText: {
-    fontSize: 14,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.body,
-  },
-  editButton: {
-    marginLeft: "auto",
-    marginRight: 10,
-    fontSize: 14,
-    fontWeight: 400,
-    color: CustomDarkTheme.colors.p500,
   },
 });

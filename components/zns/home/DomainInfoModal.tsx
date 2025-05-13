@@ -8,7 +8,7 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { CHAINS, getChainColor } from "@/constants/web3/chains";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { UserDomainType } from "@/store/slices/user-domains";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { Image } from "react-native";
 
 type Props = {
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
   },
   domainName: {
     ...fontStyles["WorkSans-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.4),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.4,
     color: "white",
   },
   primaryContainer: {
@@ -107,8 +107,8 @@ const styles = StyleSheet.create({
   },
   primaryText: {
     ...fontStyles["WorkSans-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: "white",
   },
   valueContainer: {
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
   },
   keyText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   valueText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: "white",
   },
 });

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import DomainTypeItem from "@/components/zns/DomainTypeItem";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CHAIN_IDS, mainnets, NETWORKS } from "@/constants/web3/chains";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainTypeSelectProps = {
   chains?: NETWORKS[];
@@ -97,32 +97,15 @@ export default function DomainTypeSelect({
       </View>
     </ScrollView>
   ) : (
-    // <FlatList
-    //   data={processedNetworks}
-    //   renderItem={({ item }) => (
-    //     <DomainTypeItem
-    //       chainId={item}
-    //       isSelected={value === item}
-    //       onPress={() => onChainSelect(item)}
-    //     />
-    //   )}
-    //   horizontal
-    //   showsHorizontalScrollIndicator={false}
-    //   contentContainerStyle={styles.container}
-    // />
-    <Text style={[fontStyles["Poppins-SemiBold"], styles.noNetwork]}>
-      No networks found
-    </Text>
+    <Text style={styles.noNetwork}>No networks found</Text>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    gap: 16,
-    // height: 60,
-  },
   noNetwork: {
-    fontSize: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },

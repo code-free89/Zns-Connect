@@ -27,8 +27,9 @@ import { useDomain } from "@/hooks/web3/useDomain";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { cartDomain } from "@/store/slices/setting";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showSuccessToast } from "@/utils/toast";
+import { fontStyles } from "@/constants/fonts";
 
 type Props = {
   showIndex?: boolean;
@@ -165,7 +166,7 @@ export default function DomainItem({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    borderRadius: getWidthSize(12),
     backgroundColor: CustomDarkTheme.colors.grey2,
     padding: getWidthSize(12),
     flexDirection: "row",
@@ -173,10 +174,10 @@ const styles = StyleSheet.create({
     gap: getWidthSize(6),
   },
   index: {
-    fontWeight: 700,
-    fontSize: 12,
+    ...fontStyles["Poppins-Bold"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.caption,
-    marginRight: 8,
+    marginRight: getWidthSize(8),
   },
   domainContainer: {
     flex: 1,
@@ -189,14 +190,14 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   actionContainer: {
-    padding: 8,
-    borderRadius: 10,
+    padding: getWidthSize(8),
+    borderRadius: getWidthSize(10),
     borderColor: CustomDarkTheme.colors.p700,
     borderWidth: 0.65,
   },
   viewProfileBtn: {},
   actionIcon: {
-    width: 24,
+    width: getWidthSize(24),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",

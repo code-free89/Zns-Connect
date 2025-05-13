@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { useAccount } from "wagmi";
 
 import FormTextInput from "@/components/ui/forms/FormTextInput";
 import InteractiveButton from "@/components/ui/InteractiveButton";
-import ZnsText from "@/components/ui/Text";
 import { CustomDarkTheme } from "@/constants/theme";
 import { NETWORKS } from "@/constants/web3/chains";
 import { useTransferGiftCard } from "@/hooks/web3/write/useGiftCard";
@@ -12,6 +11,8 @@ import { useFetchGiftCard } from "@/store/hooks/useFetchGiftCard";
 import { GiftCardType } from "@/store/slices/user";
 import { isValidEthereumAddress } from "@/utils/formatter";
 import { showErrorToast } from "@/utils/toast";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 
 type ResendGiftCardSectionProps = {
   giftCard?: GiftCardType;
@@ -51,12 +52,10 @@ export default function ResendGiftCardSection({
 
   return (
     <View style={styles.resendContainer}>
-      <ZnsText type="medium" style={styles.resendTitle}>
-        Resend Gift Card
-      </ZnsText>
-      <ZnsText style={styles.resendDescription}>
+      <Text style={styles.resendTitle}>Resend Gift Card</Text>
+      <Text style={styles.resendDescription}>
         Resend gift card to another wallet address
-      </ZnsText>
+      </Text>
       <FormTextInput
         control={control}
         name="recipient_address"
@@ -64,10 +63,13 @@ export default function ResendGiftCardSection({
       />
       <InteractiveButton
         title="Resend"
-        fontType="medium"
         requiredConnect
         loading={isTransferProcessing}
-        textStyle={{ fontSize: 14, color: CustomDarkTheme.colors.p950 }}
+        textStyle={{
+          fontSize: getFontSize(14),
+          lineHeight: getFontSize(14) * 1.5,
+          color: CustomDarkTheme.colors.p950,
+        }}
         onPress={handleSubmit(onTransferGiftCard)}
       />
     </View>
@@ -77,16 +79,19 @@ export default function ResendGiftCardSection({
 const styles = StyleSheet.create({
   resendContainer: {
     backgroundColor: CustomDarkTheme.colors.grey2,
-    padding: 16,
-    borderRadius: 10,
-    gap: 12,
+    padding: getWidthSize(16),
+    borderRadius: getWidthSize(10),
+    gap: getWidthSize(12),
   },
   resendTitle: {
+    ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: 16,
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
   },
   resendDescription: {
+    ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    marginBottom: 12,
+    marginBottom: getHeightSize(12),
   },
 });

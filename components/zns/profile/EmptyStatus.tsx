@@ -5,6 +5,7 @@ import Button from "@/components/ui/Button";
 import { fontStyles } from "@/constants/fonts";
 import { SearchIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 type EmptyStatusProps = {
   isOwner: boolean;
@@ -35,7 +36,7 @@ export default function EmptyStatus({
               variant="outline"
               title={buttonLabel}
               onPress={onPress}
-              style={{ marginTop: 40 }}
+              style={{ marginTop: getHeightSize(40) }}
               textStyle={{ color: CustomDarkTheme.colors.p700 }}
             />
           )}
@@ -59,17 +60,17 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: 20,
+    fontSize: getFontSize(20),
     color: CustomDarkTheme.colors.txtColor,
-    lineHeight: 20 * 1.5,
-    marginTop: 16,
+    lineHeight: getFontSize(20) * 1.5,
+    marginTop: getHeightSize(16),
   },
   description: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: 14,
+    fontSize: getFontSize(14),
     color: CustomDarkTheme.colors.body,
-    lineHeight: 20,
+    lineHeight: getFontSize(14) * 1.5,
     letterSpacing: 0.14,
-    marginTop: 4,
+    marginTop: getHeightSize(4),
   },
 });

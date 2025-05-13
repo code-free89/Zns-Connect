@@ -5,7 +5,7 @@ import { CopyIcon, HeartIcon, ShareLineIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useShare } from "@/hooks/useShare";
 import { CombinedProfile } from "@/store/slices/profile";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function MoreProfileList({
   profile,
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   profileActionItemText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
 });

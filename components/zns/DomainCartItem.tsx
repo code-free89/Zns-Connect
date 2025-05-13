@@ -13,7 +13,7 @@ import {
   removeCartDomain,
 } from "@/store/slices/cart";
 import { cartDomain, handleDomainPeriod } from "@/store/slices/setting";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { useState } from "react";
 import RemoveCartModal from "./cart/RemoveCartModal";
 interface DomainCartItemProps {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   availableBadgeText: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(10),
+    fontSize: getFontSize(10),
     color: "#FF0505AD",
   },
   bgAvailable: {
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
   },
   quantity: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(14),
+    fontSize: getFontSize(14),
     color: "white",
   },
   quantityUnit: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
   },
 });

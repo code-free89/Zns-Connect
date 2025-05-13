@@ -17,9 +17,9 @@ import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useDomainSearch from "@/hooks/useDomainSearch";
 import { AvailableDomainType } from "@/lib/model/domain";
-import { getHeightSize, getWidthSize } from "@/utils/size";
 import { useAppDispatch } from "@/store";
 import { setSearchResult } from "@/store/slices/recents";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type SearchDomainProps = {
   onSelectItem: (item: any) => void;
@@ -56,7 +56,7 @@ export default function SearchDomain({
       closeOnBlur={true}
       closeOnSubmit={true}
       controller={controller}
-      direction={Platform.select({ ios: "down" })}
+      direction="down"
       onSelectItem={onSelectItem}
       dataSet={suggestions}
       containerStyle={styles.container}
@@ -68,8 +68,8 @@ export default function SearchDomain({
           fontStyles["Poppins-Regular"],
           {
             color: CustomDarkTheme.colors.txtColor,
-            fontSize: getHeightSize(16),
-            lineHeight: getHeightSize(16 * 1.5),
+            fontSize: getFontSize(16),
+            lineHeight: getFontSize(16) * 1.5,
           },
         ],
         onSubmitEditing: () => {
@@ -79,6 +79,9 @@ export default function SearchDomain({
           );
         },
         onBlur: () => {
+          dispatch(
+            setSearchResult({ ...options[0], chain: 0 } as AvailableDomainType)
+          );
           controller.current?.close();
         },
       }}
@@ -131,8 +134,8 @@ const styles = StyleSheet.create({
   suggestionsListText: {
     flex: 1,
     color: CustomDarkTheme.colors.txtColor,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   suggestionItem: {
     backgroundColor: CustomDarkTheme.colors.grey2,

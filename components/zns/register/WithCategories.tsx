@@ -10,7 +10,7 @@ import RecentlyMinted from "@/components/zns/register/RecentlyMinted";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useCategoryAIDomains } from "@/hooks/useCategoryAIDomains";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast } from "@/utils/toast";
 
 const MAX_LETTERS = 24;
@@ -108,14 +108,14 @@ const styles = StyleSheet.create({
   },
   headerText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.5),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: "white",
   },
   generateText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.p500,
   },
   numberOfLettersContainer: {
@@ -133,14 +133,14 @@ const styles = StyleSheet.create({
   },
   numberOfLettersText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
   progressText: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: `${CustomDarkTheme.colors.textBody}E5`,
   },
 });

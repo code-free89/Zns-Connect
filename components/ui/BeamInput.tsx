@@ -1,23 +1,23 @@
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  View,
-  TextInput,
   Pressable,
-  Text,
-  StyleSheet,
   StyleProp,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
   ViewStyle,
 } from "react-native";
-import { useRouter } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons } from "@expo/vector-icons";
-import Animated, {
+import {
   useAnimatedStyle,
+  useSharedValue,
   withRepeat,
   withTiming,
-  useSharedValue,
-  withSequence,
 } from "react-native-reanimated";
+
+import { getFontSize, getWidthSize } from "@/utils/size";
 
 export interface BeamInputProps {
   type: "subscribe" | "search";
@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: "white",
-    fontSize: 14,
-    padding: 8,
+    fontSize: getFontSize(14),
+    padding: getWidthSize(8),
   },
   button: {
     flexDirection: "row",
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
-    fontSize: 14,
+    fontSize: getFontSize(14),
     fontWeight: "500",
   },
   icon: {

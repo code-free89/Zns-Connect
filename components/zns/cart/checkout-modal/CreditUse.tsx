@@ -5,7 +5,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import TextInput from "@/components/ui/TextInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 3;
 
 type CreditUseProps = {
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
   },
   maxText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: "#CFD4D4",
   },
   creditsInput: {
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
   },
   moreCreditsText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   moreCreditsLink: {

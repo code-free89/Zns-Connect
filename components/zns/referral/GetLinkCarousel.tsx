@@ -1,10 +1,11 @@
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 import { fontStyles } from "@/constants/fonts";
 import useScreenSize from "@/hooks/useScreenSize";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const REFERRAL_DATA = [
   {
@@ -34,23 +35,15 @@ function ReferralSlideItem({ item }: any) {
   return (
     <View style={styles.slideContainer}>
       <View style={{ alignItems: "center", justifyContent: "center" }}>
-        <Text style={[fontStyles["Poppins-ExtraBold"], styles.carouselIndex]}>
-          0{item.id}
-        </Text>
+        <Text style={styles.carouselIndex}>0{item.id}</Text>
         <Image
           source={item.image}
           style={styles.carouselImage}
           resizeMode="contain"
         />
       </View>
-      <Text style={[fontStyles["SpaceGrotesk-Bold"], styles.getLinkTitle]}>
-        {item.title}
-      </Text>
-      <Text
-        style={[fontStyles["SpaceGrotesk-Regular"], styles.getLinkDescription]}
-      >
-        {item.description}
-      </Text>
+      <Text style={styles.getLinkTitle}>{item.title}</Text>
+      <Text style={styles.getLinkDescription}>{item.description}</Text>
     </View>
   );
 }
@@ -65,8 +58,8 @@ export default function GetLinkCarousel() {
       <Carousel
         ref={carouselRef}
         loop={true}
-        width={width - 32}
-        height={228}
+        width={width - getWidthSize(32)}
+        height={getHeightSize(240)}
         autoPlay={false}
         snapEnabled={true}
         pagingEnabled={true}
@@ -87,7 +80,10 @@ export default function GetLinkCarousel() {
       <Pressable
         style={[
           styles.navigationContainer,
-          { left: -45 - 16, alignItems: "flex-end" },
+          {
+            left: -getWidthSize(45) - getWidthSize(16),
+            alignItems: "flex-end",
+          },
         ]}
         onPress={() => {
           if (currentIndex > 0) {
@@ -105,7 +101,10 @@ export default function GetLinkCarousel() {
       <Pressable
         style={[
           styles.navigationContainer,
-          { right: -45 - 16, alignItems: "flex-start" },
+          {
+            right: -getWidthSize(45) - getWidthSize(16),
+            alignItems: "flex-start",
+          },
         ]}
         onPress={() => {
           if (currentIndex < REFERRAL_DATA.length - 1) {
@@ -134,35 +133,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   carouselIndex: {
-    fontSize: 124,
+    ...fontStyles["Poppins-ExtraBold"],
+    fontSize: getFontSize(124),
     color: "#262626",
-    fontWeight: 900,
-    marginTop: -16,
+    marginTop: -getHeightSize(16),
   },
   getLinkTitle: {
-    fontSize: 24,
+    ...fontStyles["SpaceGrotesk-Bold"],
+    fontSize: getFontSize(24),
     color: "#FFF",
-    marginTop: -20,
+    marginTop: -getHeightSize(20),
   },
   getLinkDescription: {
-    fontSize: 14,
-    lineHeight: 14 * 1.35,
+    ...fontStyles["SpaceGrotesk-Regular"],
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.35,
     textAlign: "center",
     color: "#CCCCCC",
   },
   carouselImage: {
     position: "absolute",
-    width: 62,
+    width: getWidthSize(62),
     aspectRatio: 0.86,
   },
   navigationContainer: {
     backgroundColor: "black",
     borderRadius: 9999,
-    width: 90,
-    height: 90,
+    width: getWidthSize(90),
+    height: getWidthSize(90),
     position: "absolute",
-    top: 70,
+    top: getHeightSize(70),
     justifyContent: "center",
-    paddingHorizontal: 12,
+    paddingHorizontal: getWidthSize(12),
   },
 });

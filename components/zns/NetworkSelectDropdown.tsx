@@ -14,7 +14,7 @@ import {
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { tlds } from "@/constants/web3/tlds";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type ItemType = {
   id: number;
@@ -132,8 +132,8 @@ const styles = StyleSheet.create({
   label: {
     ...fontStyles["Poppins-Regular"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
   },
   selectedItemContainer: {
     flexDirection: "row",
@@ -152,9 +152,9 @@ const styles = StyleSheet.create({
   selectedItemText: {
     ...fontStyles["Poppins-Medium"],
     flex: 1,
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    lineHeight: getHeightSize(16 * 1.5),
+    lineHeight: getFontSize(16) * 1.5,
   },
   placeholder: {
     flex: 1,
@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
   placeholderText: {
     ...fontStyles["Poppins-Medium"],
     color: CustomDarkTheme.colors.body,
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.5),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     textAlign: "left",
   },
   dropdownContainer: {
@@ -204,15 +204,15 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    lineHeight: getHeightSize(16 * 1.5),
+    lineHeight: getFontSize(16) * 1.5,
   },
   itemText: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
-    lineHeight: getHeightSize(16 * 1.5),
+    lineHeight: getFontSize(16) * 1.5,
   },
   itemSelected: {
     borderWidth: 1,

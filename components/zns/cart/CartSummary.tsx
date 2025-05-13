@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function CartSummary() {
   const { carts } = useAppSelector((state) => state.setting);
@@ -38,19 +38,19 @@ const styles = StyleSheet.create({
   },
   summaryTitle: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
-    lineHeight: getHeightSize(16 * 1.1),
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.1,
     color: "#FFFFFF",
   },
   summaryCount: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.1),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.1,
     color: CustomDarkTheme.colors.primary,
   },
   summaryDescription: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
     marginTop: getHeightSize(10),
     textTransform: "capitalize",

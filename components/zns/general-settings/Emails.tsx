@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button";
 import TextInput from "@/components/ui/TextInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function EmailSettings() {
   return (
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(16),
+    fontSize: getFontSize(16),
     color: CustomDarkTheme.colors.txtColor,
   },
   resendText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
+    fontSize: getFontSize(14),
     letterSpacing: 0.28,
     textAlign: "center",
     color: "#DFE5F3",

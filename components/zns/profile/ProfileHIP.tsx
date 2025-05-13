@@ -1,20 +1,21 @@
 import Entypo from "@expo/vector-icons/Entypo";
+import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
-import { LinearGradient } from "expo-linear-gradient";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { useAppSelector } from "@/store";
 import useScreenSize from "@/hooks/useScreenSize";
+import { useAppSelector } from "@/store";
+import { getFontSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileHIP() {
   const { isConnected } = useAccount();
   const { width } = useScreenSize();
   const hipData = useAppSelector((state) => state.hip);
-  const progressWidth = width - 56 - 16;
+  const progressWidth = width - getWidthSize(56) - getWidthSize(16);
 
   const handleHIP = () => {
     router.push("/(zns)/hip");
@@ -44,54 +45,36 @@ export default function ProfileHIP() {
         </View>
         <View style={styles.statusContainer}>
           <View style={styles.statusItem}>
-            <Text style={[fontStyles["Poppins-SemiBold"], styles.statusText]}>
+            <Text style={styles.statusText}>
               {hipData.totalPoints} XP{" "}
-              <Text
-                style={[
-                  fontStyles["Poppins-Regular"],
-                  styles.statusDescription,
-                ]}
-              >
-                Score
-              </Text>
+              <Text style={styles.statusDescription}>Score</Text>
             </Text>
           </View>
 
           <View style={styles.statusItem}>
-            <Text style={[fontStyles["Poppins-SemiBold"], styles.statusText]}>
+            <Text style={styles.statusText}>
               {hipData.rank}{" "}
-              <Text
-                style={[
-                  fontStyles["Poppins-Regular"],
-                  styles.statusDescription,
-                ]}
-              >
+              <Text style={styles.statusDescription}>
                 of {hipData.totalUsers} users
               </Text>
             </Text>
           </View>
 
           {hipData.id && isConnected ? (
-            <Text
-              style={[fontStyles["Poppins-Regular"], styles.mintContainer]}
-              onPress={handleHIP}
-            >
+            <Text style={styles.mintContainer} onPress={handleHIP}>
               Open HIP
               <Entypo
                 name="chevron-thin-right"
-                size={13}
+                size={getWidthSize(13)}
                 color={CustomDarkTheme.colors.p500}
               />
             </Text>
           ) : (
-            <Text
-              style={[fontStyles["Poppins-Regular"], styles.mintContainer]}
-              onPress={handleHIP}
-            >
+            <Text style={styles.mintContainer} onPress={handleHIP}>
               Mint HIP
               <Entypo
                 name="chevron-thin-right"
-                size={13}
+                size={getWidthSize(13)}
                 color={CustomDarkTheme.colors.p500}
               />
             </Text>
@@ -133,21 +116,24 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: CustomDarkTheme.colors.stroke,
     paddingHorizontal: 6,
-    paddingVertical: 3,
+    paddingVertical: getWidthSize(3),
   },
   statusText: {
-    fontSize: 12,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.p500,
-    lineHeight: 12 * 1.35,
+    lineHeight: getFontSize(12) * 1.35,
   },
   statusDescription: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
   },
   mintContainer: {
     marginLeft: "auto",
     color: CustomDarkTheme.colors.p500,
-    fontSize: 12,
-    lineHeight: 12 * 1.35,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.35,
   },
 });

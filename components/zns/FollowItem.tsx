@@ -9,6 +9,8 @@ import { getChainByChain } from "@/constants/web3/chains";
 import { useFollow } from "@/hooks/useFollow";
 import { useTLD } from "@/hooks/web3/useTLD";
 import { useAppSelector } from "@/store";
+import { fontStyles } from "@/constants/fonts";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 interface FollowItemProps {
   item: {
@@ -80,44 +82,48 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    borderRadius: 16,
+    gap: getWidthSize(12),
+    borderRadius: getWidthSize(16),
     backgroundColor: CustomDarkTheme.colors.grey2,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(10),
   },
   avatar: {
-    width: 32,
-    height: 32,
-    borderRadius: 100,
+    width: getWidthSize(32),
+    height: getWidthSize(32),
+    borderRadius: getWidthSize(100),
   },
   name: {
-    fontSize: 16,
-    fontWeight: 500,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(16),
+    lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   description: {
-    fontSize: 12,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.body,
   },
   followingText: {
-    fontSize: 12,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.p700,
   },
   followText: {
-    fontSize: 12,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.p950,
   },
   statusButton: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
-    width: 92,
-    paddingHorizontal: 10,
-    paddingVertical: 11,
+    gap: getWidthSize(4),
+    width: getWidthSize(92),
+    paddingHorizontal: getWidthSize(10),
+    paddingVertical: getHeightSize(11),
     marginLeft: "auto",
   },
 });

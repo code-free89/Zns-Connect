@@ -7,6 +7,7 @@ import { PROFILE_CATEGORY } from "@/constants/profile";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { getDates } from "@/utils/date";
+import { getFontSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileType() {
   const { profile } = useAppSelector((state) => state.profile);
@@ -31,19 +32,15 @@ export default function ProfileType() {
       <View style={styles.typeContainer}>
         <FontAwesome6
           name="clock"
-          size={14}
+          size={getWidthSize(14)}
           color={CustomDarkTheme.colors.body}
         />
-        <Text style={[fontStyles["Poppins-Medium"], styles.typeText]}>
-          joined {createdAt}
-        </Text>
+        <Text style={styles.typeText}>joined {createdAt}</Text>
       </View>
 
       <View style={styles.typeContainer}>
         <Image source={require("@/assets/images/icons/category.png")} />
-        <Text style={[fontStyles["Poppins-Medium"], styles.typeText]}>
-          {category}
-        </Text>
+        <Text style={styles.typeText}>{category}</Text>
       </View>
     </View>
   );
@@ -53,20 +50,21 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: getWidthSize(12),
   },
   typeContainer: {
-    borderRadius: 83,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    borderRadius: getWidthSize(83),
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getWidthSize(10),
     backgroundColor: CustomDarkTheme.colors.grey2,
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: getWidthSize(6),
   },
   typeText: {
-    fontSize: 12,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
-    lineHeight: 12 * 1.5,
+    lineHeight: getFontSize(12) * 1.5,
   },
 });

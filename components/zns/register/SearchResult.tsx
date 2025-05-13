@@ -9,7 +9,7 @@ import { NETWORKS } from "@/constants/web3/chains";
 import { useAvailableDomains } from "@/hooks/web3/view/useAvailableDomains";
 import { AvailableDomainType } from "@/lib/model/domain";
 import { useAppSelector } from "@/store";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 type SearchResultProps = {
   suggestions: AvailableDomainType[];
@@ -101,7 +101,7 @@ export default function SearchResult({ suggestions }: SearchResultProps) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 18,
+    fontSize: getFontSize(18),
     color: CustomDarkTheme.colors.txtColor,
   },
   titleContainer: {

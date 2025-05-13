@@ -9,7 +9,7 @@ import {
   StartIconSelected,
 } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
   },
   domainRegisterTypeText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(12),
-    lineHeight: getHeightSize(12 * 1.5),
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
   },
   buttonBase: {
     borderWidth: 1,

@@ -15,7 +15,7 @@ import AddressQRModal from "@/components/zns/home/AddressQRModal";
 import { fontStyles } from "@/constants/fonts";
 import { BuyIcon, ReceiveIcon, SendIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 const ActionButton = ({
   children,
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(14 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.grey1,
   },
 });

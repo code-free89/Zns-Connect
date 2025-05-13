@@ -4,6 +4,8 @@ import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CHAINS, NETWORKS } from "@/constants/web3/chains";
 import { tlds } from "@/constants/web3/tlds";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 
 interface DomainTypeItemProps {
   chainId: NETWORKS;
@@ -39,25 +41,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#26262666",
-    borderRadius: 12,
-    height: 38,
-    paddingLeft: 12,
-    paddingRight: 19,
+    borderRadius: getWidthSize(12),
+    height: getHeightSize(38),
+    paddingLeft: getWidthSize(12),
+    paddingRight: getWidthSize(19),
     borderWidth: 1,
     borderColor: "transparent",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   selectedContainer: {
     borderColor: CustomDarkTheme.colors.textPrimary,
   },
   name: {
-    fontSize: 12,
-    fontWeight: "500",
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   icon: {
-    width: 17,
-    height: 17,
+    width: getWidthSize(17),
+    height: getWidthSize(17),
     borderRadius: 9999,
   },
 });

@@ -15,7 +15,7 @@ export default function OnboardingLayout() {
     const handleReferralStatus = async () => {
       const getStartedStatus = await AsyncStorage.getItem("get_started");
       if (getStartedStatus && isConnected) {
-        // router.replace("/(tabs)/home");
+        router.replace("/(tabs)/home");
       }
     };
 

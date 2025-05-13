@@ -9,7 +9,7 @@ import WithCategories from "@/components/zns/register/WithCategories";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import DomainProvider from "@/lib/providers/DomainProvider";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(18),
+    fontSize: getFontSize(18),
     color: CustomDarkTheme.colors.txtColor,
   },
 });

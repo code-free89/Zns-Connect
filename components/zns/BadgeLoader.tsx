@@ -1,6 +1,8 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 
 type BadgeLoaderProps = {
   loading: boolean;
@@ -29,9 +31,9 @@ export default function BadgeLoader({
 
 const styles = StyleSheet.create({
   availableBadge: {
-    borderRadius: 8,
-    width: 77,
-    height: 25,
+    borderRadius: getWidthSize(8),
+    width: getWidthSize(77),
+    height: getHeightSize(25),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -40,8 +42,9 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   availableBadgeText: {
-    fontSize: 10,
-    fontWeight: 600,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(10),
+    lineHeight: getFontSize(10) * 1.5,
     color: "#FF0505AD",
   },
   bgAvailable: {

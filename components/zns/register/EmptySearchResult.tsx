@@ -1,16 +1,16 @@
+import { StyleSheet, Text, View } from "react-native";
+
+import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { StyleSheet, View } from "react-native";
-import ZnsText from "@/components/ui/Text";
+import { getFontSize } from "@/utils/size";
 
 export default function EmptySearchResult() {
   return (
     <View style={styles.container}>
-      <ZnsText type="semiBold" style={styles.title}>
-        Search Results appear here
-      </ZnsText>
-      <ZnsText type="regular" style={styles.description}>
+      <Text style={styles.title}>Search Results appear here</Text>
+      <Text style={styles.description}>
         {"Search your domains, mint and set\nup your decentralized profile"}
-      </ZnsText>
+      </Text>
     </View>
   );
 }
@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
     marginVertical: 40,
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(18),
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },
   description: {
-    fontSize: 12,
-    fontWeight: 400,
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
     textAlign: "center",
   },

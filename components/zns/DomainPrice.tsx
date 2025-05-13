@@ -1,9 +1,9 @@
 import { StyleSheet, Text } from "react-native";
 
-import { formatPrice } from "@/utils/formatter";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { getHeightSize } from "@/utils/size";
+import { formatPrice } from "@/utils/formatter";
+import { getFontSize } from "@/utils/size";
 
 type DomainPriceProps = {
   price: string;
@@ -26,8 +26,8 @@ export default function DomainPrice({
 const styles = StyleSheet.create({
   price: {
     ...fontStyles["Poppins-SemiBold"],
-    fontSize: getHeightSize(14),
-    lineHeight: getHeightSize(20),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(20),
     textAlign: "right",
   },
 });

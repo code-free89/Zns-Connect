@@ -10,6 +10,7 @@ import {
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 type TabHeadersProps = {
   selectedTab: string;
@@ -50,7 +51,6 @@ export default function TabHeaders({
           >
             <Text
               style={[
-                fontStyles["Poppins-Medium"],
                 styles.tabText,
                 selectedTab === tab.value && styles.selectedTabText,
               ]}
@@ -66,7 +66,7 @@ export default function TabHeaders({
 
 const styles = StyleSheet.create({
   tab: {
-    paddingVertical: 14,
+    paddingVertical: getHeightSize(14),
     borderBottomWidth: 2,
     borderBottomColor: CustomDarkTheme.colors.grey2,
   },
@@ -74,7 +74,9 @@ const styles = StyleSheet.create({
     borderBottomColor: CustomDarkTheme.colors.p500,
   },
   tabText: {
-    fontSize: 14,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "center",
   },

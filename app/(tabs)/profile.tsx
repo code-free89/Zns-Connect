@@ -15,7 +15,7 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 import { useAppSelector } from "@/store";
-import { getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 export default function ProfileScreen() {
   const { domain } = useLocalSearchParams();
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.5),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
 });

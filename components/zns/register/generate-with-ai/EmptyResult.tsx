@@ -1,16 +1,14 @@
+import { StyleSheet, Text, View } from "react-native";
+
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { View, Text, StyleSheet } from "react-native";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 export default function EmptyResult() {
   return (
     <View style={styles.container}>
-      <Text style={[fontStyles["Poppins-SemiBold"], styles.title]}>
-        Results appear here
-      </Text>
-      <Text style={[fontStyles["Poppins-Regular"], styles.subtitle]}>
-        Please generate domains using AI
-      </Text>
+      <Text style={styles.title}>Results appear here</Text>
+      <Text style={styles.subtitle}>Please generate domains using AI</Text>
     </View>
   );
 }
@@ -18,17 +16,19 @@ export default function EmptyResult() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 40,
+    paddingVertical: getHeightSize(40),
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
-    fontSize: 18,
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(18),
     color: CustomDarkTheme.colors.body,
   },
   subtitle: {
-    marginTop: 8,
-    fontSize: 12,
+    marginTop: getHeightSize(8),
+    ...fontStyles["Poppins-Regular"],
+    fontSize: getFontSize(12),
     color: CustomDarkTheme.colors.body,
   },
 });

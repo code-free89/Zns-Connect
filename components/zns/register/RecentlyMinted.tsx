@@ -4,7 +4,7 @@ import MintItem from "@/components/zns/MintItem";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize } from "@/utils/size";
 
 export default function RecentlyMinted() {
   const { domains, isLoading } = useAppSelector((state) => state.recentMinted);
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
   },
   title: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getHeightSize(18),
-    lineHeight: getHeightSize(18 * 1.6),
+    fontSize: getFontSize(18),
+    lineHeight: getFontSize(18) * 1.6,
     color: CustomDarkTheme.colors.txtColor,
   },
   titleContainer: {
