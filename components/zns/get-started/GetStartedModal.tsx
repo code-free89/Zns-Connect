@@ -24,7 +24,6 @@ export default function GetStartedModal({
   onGetStarted,
   children,
 }: Props) {
-  console.log("walletInfo", walletInfo);
   const [isChecked, setIsChecked] = useState(false);
 
   const openTerms = () => {

@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     color: CustomDarkTheme.colors.textPrimary,
     fontSize: getHeightSize(14),
     lineHeight: getHeightSize(20),
-    letterSpacing: getWidthSize(0.14),
+    fontFeatureSettings: "liga off",
+    fontVariant: ["tabular-nums", "lining-nums"],
   },
 });

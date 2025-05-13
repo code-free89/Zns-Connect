@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Modal from "react-native-modal";
 import { useAccount, useBalance } from "wagmi";
 
+import AbsoluteDropdown from "@/components/ui/AbsoluteDropdown";
 import Avatar from "@/components/ui/Avatar";
 import DummyText from "@/components/ui/DummyText";
 import GradientText from "@/components/ui/GradientText";
@@ -87,16 +87,13 @@ export default function AccountInfo() {
           >
             <ThreeDotIcon />
           </Pressable>
-          <Modal
+          <AbsoluteDropdown
             isVisible={isActionListVisible}
-            backdropColor="transparent"
-            onBackdropPress={() => setIsActionListVisible(false)}
-            style={{ position: "absolute", right: 0, top: getHeightSize(48) }}
-            animationIn="fadeIn"
-            animationOut="fadeOut"
+            style={{ right: 0, top: getHeightSize(40) }}
+            onOutsideClick={() => setIsActionListVisible(false)}
           >
             <AccountActionList onClose={() => setIsActionListVisible(false)} />
-          </Modal>
+          </AbsoluteDropdown>
         </View>
       </View>
 
