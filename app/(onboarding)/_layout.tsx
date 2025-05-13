@@ -9,7 +9,7 @@ import { setUserSession } from "@/store/slices/user";
 
 export default function OnboardingLayout() {
   const dispatch = useAppDispatch();
-  const { isConnected, address } = useAccount();
+  const { isConnected, address, status } = useAccount();
 
   useEffect(() => {
     const handleReferralStatus = async () => {
@@ -31,6 +31,10 @@ export default function OnboardingLayout() {
 
     handleGetOrCreateUserIdByAddress();
   }, []);
+
+  if (status === "reconnecting") {
+    return null;
+  }
 
   return (
     <Stack>
