@@ -89,7 +89,7 @@ export default function AccountInfo() {
           </Pressable>
           <AbsoluteDropdown
             isVisible={isActionListVisible}
-            style={{ right: 0, top: getHeightSize(40) }}
+            style={{ right: 0, top: getHeightSize(36) }}
             onOutsideClick={() => setIsActionListVisible(false)}
           >
             <AccountActionList onClose={() => setIsActionListVisible(false)} />

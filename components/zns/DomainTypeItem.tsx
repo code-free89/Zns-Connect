@@ -53,14 +53,14 @@ const styles = StyleSheet.create({
     borderColor: CustomDarkTheme.colors.textPrimary,
   },
   name: {
-    ...fontStyles["Poppins-Medium"],
-    fontSize: getFontSize(12),
-    lineHeight: getFontSize(12) * 1.5,
+    ...fontStyles["Poppins-REgular"],
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
   },
   icon: {
-    width: getWidthSize(17),
-    height: getWidthSize(17),
+    width: getWidthSize(20),
+    height: getWidthSize(20),
     borderRadius: 9999,
   },
 });

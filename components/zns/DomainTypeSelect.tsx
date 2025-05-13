@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import DomainTypeItem from "@/components/zns/DomainTypeItem";
@@ -71,30 +71,45 @@ export default function DomainTypeSelect({
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ flexDirection: "column", gap: getHeightSize(8) }}
     >
-      <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
-        {processedNetworks.map((item, index) =>
-          index % 2 == 0 ? (
+      {chainData && chainData.length > 0 ? (
+        <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
+          {processedNetworks.map((item, index) => (
             <DomainTypeItem
               key={item}
               chainId={item}
               isSelected={value === item}
               onPress={() => onChainSelect(item)}
             />
-          ) : null
-        )}
-      </View>
-      <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
-        {processedNetworks.map((item, index) =>
-          index % 2 == 1 ? (
-            <DomainTypeItem
-              key={item}
-              chainId={item}
-              isSelected={value === item}
-              onPress={() => onChainSelect(item)}
-            />
-          ) : null
-        )}
-      </View>
+          ))}
+        </View>
+      ) : (
+        <React.Fragment>
+          <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
+            {processedNetworks.map((item, index) =>
+              index % 2 == 0 ? (
+                <DomainTypeItem
+                  key={item}
+                  chainId={item}
+                  isSelected={value === item}
+                  onPress={() => onChainSelect(item)}
+                />
+              ) : null
+            )}
+          </View>
+          <View style={{ flexDirection: "row", gap: getWidthSize(8) }}>
+            {processedNetworks.map((item, index) =>
+              index % 2 == 1 ? (
+                <DomainTypeItem
+                  key={item}
+                  chainId={item}
+                  isSelected={value === item}
+                  onPress={() => onChainSelect(item)}
+                />
+              ) : null
+            )}
+          </View>
+        </React.Fragment>
+      )}
     </ScrollView>
   ) : (
     <Text style={styles.noNetwork}>No networks found</Text>

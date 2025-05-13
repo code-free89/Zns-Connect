@@ -53,14 +53,10 @@ export default function NetworkSelectDropdown({
         {selectedItem ? (
           <View style={styles.selectedItem}>
             <Image source={selectedItem.icon} style={styles.itemIcon} />
-            <Text
-              style={[fontStyles["Poppins-Medium"], styles.selectedItemText]}
-            >
-              {selectedItem.label}
-            </Text>
+            <Text style={styles.selectedItemText}>{selectedItem.label}</Text>
             <Icon
               name="chevron-down"
-              size={20}
+              size={getWidthSize(20)}
               color={CustomDarkTheme.colors.body}
             />
           </View>
@@ -147,7 +143,7 @@ const styles = StyleSheet.create({
   selectedItem: {
     flexDirection: "row",
     alignItems: "center",
-    gap: getWidthSize(4),
+    gap: getWidthSize(5),
   },
   selectedItemText: {
     ...fontStyles["Poppins-Medium"],

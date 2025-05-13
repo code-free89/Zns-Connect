@@ -3,7 +3,13 @@ import Feather from "@expo/vector-icons/Feather";
 import Octicons from "@expo/vector-icons/Octicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 import { useAccount, useDisconnect } from "wagmi";
 
 import NetworkSelect from "@/components/zns/home/NetworkSelect";
@@ -23,7 +29,8 @@ export default function AccountActionList({ onClose }: Props) {
   const router = useRouter();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
-  const { userCredit, user } = useAppSelector((state) => state.user);
+  const { width } = useWindowDimensions();
+  const { userCredit } = useAppSelector((state) => state.user);
 
   const disconnectWallet = async () => {
     disconnect();
@@ -70,7 +77,7 @@ export default function AccountActionList({ onClose }: Props) {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, { width: width * 0.8 }]}>
       <View style={styles.container}>
         <NetworkSelect containerStyle={styles.networkSelect} />
         <Pressable onPress={goToCredits}>
@@ -93,8 +100,8 @@ export default function AccountActionList({ onClose }: Props) {
 
         <Pressable style={styles.actionItem} onPress={goToProfile}>
           <UserIcon
-            width={20}
-            height={20}
+            width={getWidthSize(20)}
+            height={getWidthSize(20)}
             color={CustomDarkTheme.colors.txtColor}
           />
           <Text style={styles.actionItemText}>View Profile</Text>
@@ -103,7 +110,7 @@ export default function AccountActionList({ onClose }: Props) {
         <Pressable style={styles.actionItem} onPress={goToMyDomains}>
           <Feather
             name="link"
-            size={20}
+            size={getWidthSize(20)}
             color={CustomDarkTheme.colors.txtColor}
           />
           <Text style={styles.actionItemText}>My domains</Text>
@@ -112,7 +119,7 @@ export default function AccountActionList({ onClose }: Props) {
         <Pressable style={styles.actionItem} onPress={goToGeneralSettings}>
           <Octicons
             name="gear"
-            size={20}
+            size={getWidthSize(20)}
             color={CustomDarkTheme.colors.txtColor}
           />
           <Text style={styles.actionItemText}>General settings</Text>
@@ -146,7 +153,7 @@ export default function AccountActionList({ onClose }: Props) {
         <Pressable style={styles.actionItem} onPress={disconnectWallet}>
           <AntDesign
             name="logout"
-            size={20}
+            size={getWidthSize(20)}
             color={CustomDarkTheme.colors.error}
           />
           <Text
@@ -162,7 +169,7 @@ export default function AccountActionList({ onClose }: Props) {
       </View>
 
       <Pressable style={styles.closeContainer} onPress={onClose}>
-        <AntDesign name="close" size={14} color="white" />
+        <AntDesign name="close" size={getWidthSize(14)} color="white" />
       </Pressable>
     </View>
   );
@@ -175,7 +182,6 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     padding: getWidthSize(16),
     borderRadius: 12,
-    width: getWidthSize(280),
   },
   container: {
     flexDirection: "column",

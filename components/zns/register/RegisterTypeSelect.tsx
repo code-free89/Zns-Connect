@@ -90,12 +90,14 @@ const REGISTER_OPTIONS: Array<{
   {
     type: "smartSearch",
     label: "Smart Search",
-    icon: (color: string) => <SearchIcon color={color} />,
+    icon: (color: string) => (
+      <SearchIcon color={color} width={10} height={10} />
+    ),
   },
   {
     type: "withCategories",
     label: "With Categories",
-    icon: (color: string) => <BuyIcon color={color} />,
+    icon: (color: string) => <BuyIcon color={color} width={11} height={11} />,
   },
   {
     type: "generateWithAI",
@@ -120,7 +122,9 @@ export default function RegisterTypeSelect({
         selectedType={selectedType}
         onSelect={setSelectedType}
         label="Smart Search"
-        icon={(color: string) => <SearchIcon color={color} />}
+        icon={(color: string) => (
+          <SearchIcon color={color} width={10} height={10} />
+        )}
         style={styles.topButton}
       />
 
@@ -145,8 +149,10 @@ export default function RegisterTypeSelect({
 const styles = StyleSheet.create({
   domainGenerateContainer: {
     padding: getWidthSize(6),
-    borderRadius: 16,
+    borderRadius: 9,
     backgroundColor: CustomDarkTheme.colors.bg,
+    borderWidth: 1,
+    borderColor: CustomDarkTheme.colors.stroke,
   },
   domainRegisterTypeContainer: {
     flexDirection: "row",
@@ -155,13 +161,14 @@ const styles = StyleSheet.create({
   },
   domainRegisterTypeText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getFontSize(12),
-    lineHeight: getFontSize(12) * 1.5,
+    fontSize: getFontSize(13),
+    lineHeight: getFontSize(13) * 1.4,
   },
   buttonBase: {
     borderWidth: 1,
     borderColor: `${CustomDarkTheme.colors.stroke}B0`,
     paddingVertical: getHeightSize(8),
+    borderRadius: 9,
   },
   topButton: {
     // paddingVertical: getHeightSize(8),

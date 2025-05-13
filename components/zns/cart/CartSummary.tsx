@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF33",
     borderRadius: 15,
     paddingHorizontal: getWidthSize(12),
-    paddingTop: getWidthSize(13),
-    paddingBottom: getWidthSize(17),
+    paddingTop: getHeightSize(13),
+    paddingBottom: getHeightSize(17),
   },
   summary: {
     flexDirection: "row",
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   },
   summaryCount: {
     ...fontStyles["Poppins-Medium"],
-    fontSize: getFontSize(12),
-    lineHeight: getFontSize(12) * 1.1,
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.1,
     color: CustomDarkTheme.colors.primary,
   },
   summaryDescription: {

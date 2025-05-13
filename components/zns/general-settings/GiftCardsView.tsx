@@ -57,10 +57,11 @@ const styles = StyleSheet.create({
   },
   giftCardsTitle: {
     fontSize: getFontSize(24),
+    fontWeight: 500,
     color: CustomDarkTheme.colors.txtColor,
   },
   wrapper: {
-    gap: getHeightSize(16),
+    gap: getWidthSize(16),
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: getHeightSize(60),

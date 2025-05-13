@@ -42,16 +42,24 @@ export function HomeIcon(props: any) {
   );
 }
 
-export function SearchIcon(props: any) {
+export function SearchIcon({
+  color,
+  width = 17,
+  height = 16,
+}: {
+  color: string;
+  width?: number;
+  height?: number;
+}) {
   return (
-    <Svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 17 16" fill="none">
       <Path
         d="M7.5 14C3.91707 14 1 11.0829 1 7.5C1 3.91707 3.91707 1 7.5 1C11.0829 1 14 3.91707 14 7.5C14 11.0829 11.0829 14 7.5 14ZM7.5 1.95122C4.43707 1.95122 1.95122 4.44341 1.95122 7.5C1.95122 10.5566 4.43707 13.0488 7.5 13.0488C10.5629 13.0488 13.0488 10.5566 13.0488 7.5C13.0488 4.44341 10.5629 1.95122 7.5 1.95122Z"
-        fill={props.color}
+        fill={color}
       />
       <Path
         d="M14.9166 15.1667C14.79 15.1667 14.6633 15.12 14.5633 15.02L13.23 13.6867C13.0366 13.4934 13.0366 13.1734 13.23 12.98C13.4233 12.7867 13.7433 12.7867 13.9366 12.98L15.27 14.3134C15.4633 14.5067 15.4633 14.8267 15.27 15.02C15.17 15.12 15.0433 15.1667 14.9166 15.1667Z"
-        fill={props.color}
+        fill={color}
       />
     </Svg>
   );
@@ -409,7 +417,12 @@ export function ReceiveIcon() {
 
 export function BuyIcon(props: any) {
   return (
-    <Svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+    <Svg
+      width={props.width || 17}
+      height={props.height || 17}
+      viewBox="0 0 17 17"
+      fill="none"
+    >
       <Path
         d="M5.5 5.94659V5.29992C5.5 3.79992 6.70667 2.32659 8.20667 2.18659C9.99333 2.01326 11.5 3.41992 11.5 5.17326V6.09326"
         stroke={props.color || "#E8E8E8"}

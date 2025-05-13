@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
     borderBottomColor: CustomDarkTheme.colors.p500,
   },
   tabText: {
-    ...fontStyles["Poppins-SemiBold"],
-    fontSize: getFontSize(12),
-    lineHeight: getFontSize(12) * 1.5,
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
     textAlign: "center",
   },

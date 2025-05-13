@@ -54,7 +54,7 @@ export default function AccountStatus() {
             <Text style={styles.value}>{userCredit} Credits</Text>
             <FontAwesome6
               name="chevron-right"
-              size={13}
+              size={getWidthSize(13)}
               color={CustomDarkTheme.colors.primary}
             />
           </View>
@@ -67,7 +67,7 @@ export default function AccountStatus() {
             <View style={styles.iconContainer}>
               <Feather
                 name="link"
-                size={13}
+                size={getWidthSize(13)}
                 color={CustomDarkTheme.colors.txtColor}
               />
             </View>
@@ -76,7 +76,7 @@ export default function AccountStatus() {
             <Text style={styles.value}>0</Text>
             <Feather
               name="copy"
-              size={13}
+              size={getWidthSize(13)}
               color={CustomDarkTheme.colors.primary}
             />
           </View>
@@ -99,12 +99,16 @@ export default function AccountStatus() {
           <View style={styles.row}>
             <Text style={styles.value}>0</Text>
             <View
-              style={{ flexDirection: "row", alignItems: "center", gap: 5 }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                gap: getWidthSize(5),
+              }}
             >
               <Text style={styles.mintLabel}>Mint HIP</Text>
               <FontAwesome6
                 name="chevron-right"
-                size={13}
+                size={getWidthSize(13)}
                 color={CustomDarkTheme.colors.primary}
               />
             </View>
@@ -118,7 +122,11 @@ export default function AccountStatus() {
             <View style={styles.iconContainer}>
               <Image
                 source={require("@/assets/images/icons/silver-medal.png")}
-                style={{ width: 13, height: 16, marginHorizontal: 2 }}
+                style={{
+                  width: getWidthSize(13),
+                  height: getHeightSize(16),
+                  marginHorizontal: getWidthSize(2),
+                }}
               />
             </View>
           </View>
@@ -128,7 +136,7 @@ export default function AccountStatus() {
             </Text>
             <FontAwesome6
               name="chevron-right"
-              size={13}
+              size={getWidthSize(13)}
               color={CustomDarkTheme.colors.primary}
             />
           </View>

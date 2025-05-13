@@ -14,8 +14,6 @@ export default function GiftCard({ credits, onRedeem }: GiftCardProps) {
     <View style={styles.giftCardContainer}>
       <Image
         source={require("@/assets/images/app/gift-card.png")}
-        width={getWidthSize(85)}
-        height={getWidthSize(45)}
         style={styles.giftCard}
       />
       <Image
@@ -38,6 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     flex: 1,
     aspectRatio: 1.78,
+    position: "relative",
   },
   giftCard: {
     borderRadius: 12,
@@ -47,9 +46,9 @@ const styles = StyleSheet.create({
   logo: {
     position: "absolute",
     left: getWidthSize(8),
-    top: getHeightSize(-2),
+    top: getHeightSize(8),
     width: "30%",
-    aspectRatio: 3,
+    height: "20%",
     resizeMode: "contain",
   },
   creditsContainer: {
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: getWidthSize(8),
     paddingVertical: getHeightSize(4),
     borderRadius: getWidthSize(19),
-    borderWidth: getWidthSize(0.7),
+    borderWidth: 0.7,
     borderColor: CustomDarkTheme.colors.primary,
   },
   redeemButtonText: {
