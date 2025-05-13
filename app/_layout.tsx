@@ -7,6 +7,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { Text } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
 import "react-native-gesture-handler";
 import "react-native-reanimated";
@@ -52,6 +53,9 @@ export default function RootLayout() {
     "WorkSans-Regular": require("../assets/fonts/WorkSans/WorkSans-Regular.ttf"),
     "WorkSans-Medium": require("../assets/fonts/WorkSans/WorkSans-Medium.ttf"),
   });
+
+  Text.defaultProps = Text.defaultProps || {};
+  Text.defaultProps.allowFontScaling = false;
 
   useEffect(() => {
     if (fontsLoaded) {
