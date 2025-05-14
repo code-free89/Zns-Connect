@@ -45,7 +45,9 @@ export default function Badges() {
           paddingHorizontal: getWidthSize(20),
         }}
         tabTextStyle={styles.tabTextStyle}
-        containerStyle={{ height: getHeightSize(50) }}
+        containerStyle={{
+          height: getHeightSize(50),
+        }}
       />
       <BadgeView selectedTab={selectedTab} />
     </View>

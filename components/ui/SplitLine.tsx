@@ -1,14 +1,19 @@
 import { CustomDarkTheme } from "@/constants/theme";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, StyleProp, ViewStyle } from "react-native";
 
 export default function SplitLine({
   direction = "horizontal",
+  style,
 }: {
   direction?: "horizontal" | "vertical";
+  style?: StyleProp<ViewStyle>;
 }) {
   return (
     <View
-      style={direction === "horizontal" ? styles.horizontal : styles.vertical}
+      style={[
+        direction === "horizontal" ? styles.horizontal : styles.vertical,
+        style,
+      ]}
     />
   );
 }

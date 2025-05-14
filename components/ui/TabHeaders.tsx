@@ -12,6 +12,7 @@ import {
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getFontSize, getHeightSize } from "@/utils/size";
+import SplitLine from "./SplitLine";
 
 type TabHeadersProps = {
   selectedTab: string;
@@ -35,11 +36,14 @@ export default function TabHeaders({
   fullWidth = false,
 }: TabHeadersProps) {
   return (
-    <View style={[containerStyle, styles.tabContainer]}>
+    <View style={containerStyle}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ width: "100%" }}
+        contentContainerStyle={[
+          fullWidth && { width: "100%" },
+          { marginHorizontal: "auto" },
+        ]}
       >
         {tabs.map((tab) => (
           <TouchableOpacity
@@ -64,15 +68,12 @@ export default function TabHeaders({
           </TouchableOpacity>
         ))}
       </ScrollView>
+      <SplitLine style={{ marginTop: getHeightSize(0) }} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  tabContainer: {
-    borderBottomWidth: 2,
-    borderBottomColor: CustomDarkTheme.colors.grey2,
-  },
   tab: {
     paddingVertical: getHeightSize(14),
     borderBottomWidth: 2,
