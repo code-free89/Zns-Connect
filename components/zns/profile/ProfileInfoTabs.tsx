@@ -7,6 +7,8 @@ import BadgeList from "@/components/zns/profile/badges";
 import ProfileFollowers from "@/components/zns/profile/followers";
 import ProfileFollowingList from "@/components/zns/profile/following";
 import { useAppSelector } from "@/store";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { fontStyles } from "@/constants/fonts";
 
 type InfoTab = "socials" | "badges" | "followers" | "following";
 
@@ -40,13 +42,12 @@ export default function ProfileInfoTabs() {
   );
 
   return (
-    <React.Fragment>
+    <View style={{ flex: 1, marginTop: getHeightSize(20) }}>
       <TabHeaders
         selectedTab={selectedTab}
         tabs={tabs}
-        tabStyle={{
-          paddingHorizontal: 40,
-        }}
+        tabStyle={styles.tabStyle}
+        tabTextStyle={styles.tabTextStyle}
       />
       <View style={styles.tabContent}>
         {selectedTab === "socials" && <SocialAccounts />}
@@ -54,7 +55,7 @@ export default function ProfileInfoTabs() {
         {selectedTab === "followers" && <ProfileFollowers />}
         {selectedTab === "following" && <ProfileFollowingList />}
       </View>
-    </React.Fragment>
+    </View>
   );
 }
 
@@ -64,5 +65,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 40,
+  },
+  tabStyle: {
+    paddingHorizontal: getWidthSize(30),
+  },
+  tabTextStyle: {
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
   },
 });

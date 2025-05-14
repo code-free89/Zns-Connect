@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
@@ -16,6 +17,19 @@ type DomainRegisterType = "smartSearch" | "withCategories" | "generateWithAI";
 export default function RegisterScreen() {
   const [selectedType, setSelectedType] =
     useState<DomainRegisterType>("smartSearch");
+  const [isFocused, setIsFocused] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+
+      return () => {
+        setIsFocused(false);
+      };
+    }, [])
+  );
+
+  if (!isFocused) return null;
 
   return (
     <>
@@ -47,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: getHeightSize(72),
+    marginTop: getHeightSize(24),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

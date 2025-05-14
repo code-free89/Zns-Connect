@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { getHeaderTitle } from "@react-navigation/elements";
+import { Tabs, usePathname } from "expo-router";
 import React, { useEffect, useState } from "react";
 
 import ReferralCodeModal from "@/components/zns/referral-code/ReferralCodeModal";
@@ -14,7 +14,6 @@ import {
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { getHeightSize } from "@/utils/size";
-import { Tabs, usePathname } from "expo-router";
 
 export default function TabsLayout() {
   const pathname = usePathname();
@@ -60,33 +59,6 @@ export default function TabsLayout() {
           },
           animation: "shift",
           headerShown: false,
-          // header: ({
-          //   navigation,
-          //   route,
-          //   options,
-          // }: {
-          //   navigation: any;
-          //   route: any;
-          //   options: any;
-          // }) => {
-          //   const title = getHeaderTitle(options, route.name);
-
-          //   return (
-          //     <Text
-          //       style={[
-          //         fontStyles["Poppins-Medium"],
-          //         {
-          //           textAlign: "center",
-          //           fontSize: getFontSize(18),
-          //           color: CustomDarkTheme.colors.txtColor,
-          //           padding: getHeightSize(8),
-          //         },
-          //       ]}
-          //     >
-          //       {title}
-          //     </Text>
-          //   );
-          // },
         }}
       >
         <Tabs.Screen

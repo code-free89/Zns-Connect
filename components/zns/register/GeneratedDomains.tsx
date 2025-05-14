@@ -6,14 +6,16 @@ import AIGeneratedDomain from "@/components/zns/AIGeneratedDomain";
 type GeneratedDomainsProps = {
   generatedDomains: string[];
   isGeneratingDomains: boolean;
+  chainDirection?: "up" | "down";
 };
 
 export default function GeneratedDomains({
   generatedDomains,
   isGeneratingDomains,
+  chainDirection = "down",
 }: GeneratedDomainsProps) {
   return isGeneratingDomains ? (
-    <View style={{ flex: 1, height: 400 }}>
+    <View style={{ flex: 1, height: 200 }}>
       <ActivityIndicator
         size={"large"}
         color={CustomDarkTheme.colors.primary}
@@ -22,7 +24,12 @@ export default function GeneratedDomains({
   ) : (
     <View style={styles.container}>
       {generatedDomains.map((domain, index) => (
-        <AIGeneratedDomain key={domain} domain={domain} index={index} />
+        <AIGeneratedDomain
+          key={domain}
+          domain={domain}
+          index={index}
+          chainDirection={chainDirection}
+        />
       ))}
     </View>
   );
@@ -31,6 +38,5 @@ export default function GeneratedDomains({
 const styles = StyleSheet.create({
   container: {
     gap: 12,
-    minHeight: 500,
   },
 });

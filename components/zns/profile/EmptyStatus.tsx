@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
+    marginTop: getHeightSize(40),
   },
   searchContainer: {
     borderRadius: 9999,

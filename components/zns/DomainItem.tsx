@@ -39,6 +39,7 @@ type Props = {
   showEdit?: boolean;
   showCart?: boolean;
   showChainSelect?: boolean;
+  chainDirection?: "up" | "down";
 };
 
 const defaultChainId = CHAINS[0].id;
@@ -51,6 +52,7 @@ export default function DomainItem({
   showEdit = false,
   showCart = false,
   showChainSelect = true,
+  chainDirection = "down",
 }: Props) {
   const dispatch = useAppDispatch();
   const [selectedChainId, setSelectedChainId] = useState(chainId);
@@ -141,6 +143,7 @@ export default function DomainItem({
           domainName={domainName}
           selectedChainId={selectedChainId}
           setSelectedChainId={setSelectedChainId}
+          chainDirection={chainDirection}
         />
       )}
 

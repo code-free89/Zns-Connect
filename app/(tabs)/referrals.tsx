@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: getHeightSize(72),
+    marginTop: getHeightSize(24),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

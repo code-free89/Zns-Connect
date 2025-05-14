@@ -42,7 +42,7 @@ export default function Badges() {
         selectedTab={selectedTab}
         tabs={tabs}
         tabStyle={{
-          paddingHorizontal: getWidthSize(30),
+          paddingHorizontal: getWidthSize(20),
         }}
         tabTextStyle={styles.tabTextStyle}
         containerStyle={{ height: getHeightSize(50) }}

@@ -35,11 +35,11 @@ export default function TabHeaders({
   fullWidth = false,
 }: TabHeadersProps) {
   return (
-    <View style={containerStyle}>
+    <View style={[containerStyle, styles.tabContainer]}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={fullWidth && { width: "100%" }}
+        contentContainerStyle={{ width: "100%" }}
       >
         {tabs.map((tab) => (
           <TouchableOpacity
@@ -69,6 +69,10 @@ export default function TabHeaders({
 }
 
 const styles = StyleSheet.create({
+  tabContainer: {
+    borderBottomWidth: 2,
+    borderBottomColor: CustomDarkTheme.colors.grey2,
+  },
   tab: {
     paddingVertical: getHeightSize(14),
     borderBottomWidth: 2,

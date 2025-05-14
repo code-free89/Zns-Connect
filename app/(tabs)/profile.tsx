@@ -1,5 +1,5 @@
-import { useLocalSearchParams } from "expo-router";
-import React, { useMemo } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import React, { useCallback, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
@@ -15,12 +15,14 @@ import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 import { useAppSelector } from "@/store";
-import { getFontSize, getHeightSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileScreen() {
   const { domain } = useLocalSearchParams();
   const { chainId } = useAccount();
   const tld = useTLD(chainId);
+  const router = useRouter();
+  const [isFocused, setIsFocused] = useState(false);
   const { userPrimaryDomain } = useAppSelector((state) => state.user);
   const primaryDomain = useMemo(
     () =>
@@ -30,6 +32,19 @@ export default function ProfileScreen() {
     [userPrimaryDomain, tld]
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+
+      return () => {
+        router.setParams({});
+        setIsFocused(false);
+      };
+    }, [])
+  );
+
+  if (!isFocused) return null;
+
   return (
     <ZnsScrollView style={{ paddingHorizontal: 0, paddingTop: 0 }}>
       <View style={styles.pageTitle}>
@@ -37,7 +52,9 @@ export default function ProfileScreen() {
       </View>
       <ProfileOverView />
 
-      <View style={{ paddingHorizontal: 16, gap: 20 }}>
+      <View
+        style={{ paddingHorizontal: getWidthSize(16), gap: getHeightSize(20) }}
+      >
         <ProfileBio />
 
         <ProfileHIP />
@@ -60,6 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: getHeightSize(72),
+    marginTop: getHeightSize(24),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

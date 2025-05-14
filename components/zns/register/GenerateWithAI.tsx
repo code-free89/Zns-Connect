@@ -188,6 +188,7 @@ export default function GenerateWithAI() {
       <GeneratedDomains
         generatedDomains={generatedDomains}
         isGeneratingDomains={isGeneratingDomains}
+        chainDirection="up"
       />
     </View>
   );

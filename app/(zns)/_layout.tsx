@@ -115,6 +115,7 @@ export default function ZnsLayout() {
 const styles = StyleSheet.create({
   headerContainer: {
     height: getHeightSize(72),
+    marginTop: getHeightSize(24),
     flexDirection: "row",
     paddingHorizontal: getWidthSize(16),
     gap: getWidthSize(12),

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
+import DummyText from "@/components/ui/DummyText";
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import GradientText from "@/components/ui/GradientText";
 import { fontStyles } from "@/constants/fonts";
@@ -12,6 +13,10 @@ export default function ProfileBio() {
   const { profile, domain, tld } = useAppSelector((state) => state.profile);
   const bio = profile?.bio ?? " ";
   const maxLength = 160;
+  const [profileNameSize, setProfileNameSize] = useState({
+    width: 0,
+    height: 0,
+  });
 
   const truncatedBio =
     bio.length > maxLength ? bio.substring(0, maxLength) : bio;
@@ -19,17 +24,17 @@ export default function ProfileBio() {
   return (
     <View style={styles.container}>
       <View>
-        <View
-          style={{
-            height: 36,
-            flexDirection: "row",
-          }}
-        >
-          <GradientText
-            text={profile?.name ?? ""}
-            textStyle={styles.gradientText}
-          />
-        </View>
+        <DummyText
+          text={profile?.name ?? ""}
+          textStyle={styles.gradientText}
+          size={profileNameSize}
+          setSize={setProfileNameSize}
+        />
+        <GradientText
+          text={profile?.name ?? ""}
+          textStyle={styles.gradientText}
+          size={profileNameSize}
+        />
         <Text style={styles.bioText}>{domain ? `${domain}.${tld}` : ""}</Text>
       </View>
 

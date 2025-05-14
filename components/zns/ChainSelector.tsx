@@ -21,12 +21,14 @@ type ChainSelectorProps = {
   domainName: string;
   selectedChainId: number;
   setSelectedChainId: (chainId: number) => void;
+  chainDirection?: "up" | "down";
 };
 
 export default function ChainSelector({
   domainName,
   selectedChainId,
   setSelectedChainId,
+  chainDirection = "down",
 }: ChainSelectorProps) {
   const selectedChain = CHAINS.find((chain) => chain.id === selectedChainId);
   const [showSuggestion, setShowSuggestion] = useState(false);
@@ -61,7 +63,11 @@ export default function ChainSelector({
       </Pressable>
       <AbsoluteDropdown
         isVisible={showSuggestion}
-        style={{ right: -getWidthSize(40), top: getHeightSize(40) }}
+        style={[
+          { right: -getWidthSize(40) },
+          chainDirection === "up" && { bottom: getHeightSize(40) },
+          chainDirection === "down" && { top: getHeightSize(40) },
+        ]}
         onOutsideClick={() => setShowSuggestion(false)}
       >
         <ScrollView
@@ -115,7 +121,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#F4F4F56E",
     zIndex: 1000,
-    maxHeight: 200,
+    maxHeight: 250,
   },
   suggestionItem: {
     flexDirection: "row",

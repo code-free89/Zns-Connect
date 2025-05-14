@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useMemo, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
@@ -19,6 +20,7 @@ import { getFontSize, getHeightSize } from "@/utils/size";
 export default function HomeScreen() {
   const { chainId } = useAccount();
   const tld = useTLD(chainId);
+  const [isFocused, setIsFocused] = useState(false);
   const { userPrimaryDomain } = useAppSelector((state) => state.user);
   const domains = useAppSelector((state) => state.userDomains.domains);
   const primaryDomain = useMemo(
@@ -28,6 +30,18 @@ export default function HomeScreen() {
         : "",
     [userPrimaryDomain, tld]
   );
+
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+
+      return () => {
+        setIsFocused(false);
+      };
+    }, [])
+  );
+
+  if (!isFocused) return null;
 
   return (
     <ZnsScrollView>
