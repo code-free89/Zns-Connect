@@ -65,6 +65,6 @@ export default function SocialAccounts() {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 32,
+    // gap: 32,
   },
 });

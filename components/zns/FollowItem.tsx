@@ -44,7 +44,7 @@ export default function FollowItem({ item, isOwner }: FollowItemProps) {
         domainId={item.dId}
         style={styles.avatar}
       />
-      <View style={{ width: 150 }}>
+      <View style={{ flex: 1 }}>
         <Text style={styles.name}>{item.domainName}</Text>
         {/* <Text style={styles.description}>{item.description}</Text> */}
       </View>

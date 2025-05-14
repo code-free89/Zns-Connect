@@ -733,3 +733,20 @@ export function MetaMaskIcon({
     </Svg>
   );
 }
+
+export function AvatarWrapperImage({
+  width = 378,
+  height = 115,
+}: {
+  width?: number;
+  height?: number;
+}) {
+  return (
+    <Svg width={width} height={height} viewBox="0 0 378 115" fill="none">
+      <Path
+        d="M15.6561 0H0V114.713H377.5V0H152.595C150.232 0.00279134 148 2.21289 145.723 5.64931C136 20.2129 124 56.2871 84.1256 56.2871C45.9766 56.2871 34.5228 22.6834 24.6268 7.40455L24.5853 7.34043C22.9903 4.94819 21.5281 3.06763 20.0379 1.80903C18.6451 0.649526 17.207 0 15.6561 0Z"
+        fill="black"
+      />
+    </Svg>
+  );
+}

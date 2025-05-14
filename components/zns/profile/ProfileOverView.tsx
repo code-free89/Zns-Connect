@@ -1,5 +1,11 @@
 import { useMemo, useState } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 
 import AbsoluteDropdown from "@/components/ui/AbsoluteDropdown";
 import MoreProfileList from "@/components/zns/profile/MoreProfileList";
@@ -8,9 +14,11 @@ import { BarCodeScanIcon, ThreeDotIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { Text } from "react-native";
 
 export default function ProfileOverView() {
   const { profile, ownerStore } = useAppSelector((state) => state.profile);
+  const { width } = useWindowDimensions();
   const [avatar, setAvatarUrl] = useState<string>();
   const [isActionListVisible, setIsActionListVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -69,26 +77,55 @@ export default function ProfileOverView() {
           />
         )}
       </View>
-      <View style={styles.overview}>
-        <View style={styles.avatarContainer}>
-          {avatarUrl ? (
-            <Image
-              source={{ uri: avatarUrl }}
-              style={[
-                styles.avatar,
-                { width: getWidthSize(95), height: getWidthSize(95) },
-              ]}
-            />
-          ) : (
-            <Image
-              source={require("@/assets/images/app/hip_avatar.png")}
-              style={[
-                styles.avatar,
-                { width: getWidthSize(95), height: getWidthSize(95) },
-              ]}
-            />
-          )}
-        </View>
+
+      <Image
+        source={require("@/assets/images/app/profile/avatar-wrapper.png")}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+        }}
+      />
+
+      {avatarUrl ? (
+        <Image
+          source={{ uri: avatarUrl }}
+          style={[
+            styles.avatar,
+            {
+              width: getWidthSize(95),
+              height: getWidthSize(95),
+              left: width / 20 + ((width * 35) / 100 - getWidthSize(95)) / 2,
+            },
+          ]}
+        />
+      ) : (
+        <Image
+          source={require("@/assets/images/app/hip_avatar.png")}
+          style={[
+            styles.avatar,
+            {
+              width: getWidthSize(95),
+              height: getWidthSize(95),
+              left: width / 20 + ((width * 35) / 100 - getWidthSize(95)) / 2,
+            },
+          ]}
+        />
+      )}
+
+      <View
+        style={{
+          position: "absolute",
+          bottom: 0,
+          right: 0,
+          flexDirection: "row",
+          justifyContent: "space-around",
+          paddingRight: getWidthSize(16),
+          gap: getWidthSize(12),
+          width: "60%",
+        }}
+      >
         <View style={styles.overviewItem}>
           <Text style={styles.overviewItemValue}>
             {profile?.followers?.length || 0}
@@ -133,19 +170,12 @@ const styles = StyleSheet.create({
     backgroundColor: CustomDarkTheme.colors.actionBg,
     position: "relative",
   },
-  overview: {
-    flexDirection: "row",
-    gap: getWidthSize(22),
-    paddingHorizontal: getWidthSize(16),
-  },
   avatarContainer: {
     flex: 1,
   },
   avatar: {
     position: "absolute",
     bottom: getHeightSize(12),
-    right: "10%",
-    width: "80%",
     aspectRatio: 1,
     borderRadius: 9999,
   },

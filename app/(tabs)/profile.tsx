@@ -53,7 +53,7 @@ export default function ProfileScreen() {
       <ProfileOverView />
 
       <View
-        style={{ paddingHorizontal: getWidthSize(16), gap: getHeightSize(20) }}
+        style={{ paddingHorizontal: getWidthSize(16), gap: getHeightSize(12) }}
       >
         <ProfileBio />
 

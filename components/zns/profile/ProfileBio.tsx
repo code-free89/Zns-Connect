@@ -7,7 +7,7 @@ import GradientText from "@/components/ui/GradientText";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useAppSelector } from "@/store";
-import { getFontSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileBio() {
   const { profile, domain, tld } = useAppSelector((state) => state.profile);
@@ -61,11 +61,11 @@ export default function ProfileBio() {
 const styles = StyleSheet.create({
   container: {
     gap: getWidthSize(20),
+    marginTop: getHeightSize(16),
   },
   gradientText: {
     ...fontStyles["Poppins-SemiBold"],
     fontSize: getFontSize(24),
-    marginLeft: 0,
   },
   bioText: {
     ...fontStyles["Poppins-Regular"],

@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { FlatList, View } from "react-native";
 
 import ProfileBadge from "@/components/zns/ProfileBadge";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 type GeneralBadgesViewProps = {
   badges: any[];
@@ -38,8 +39,10 @@ export default function GeneralBadgesView({
       data={filledBadges}
       numColumns={numColumns}
       renderItem={renderItem}
-      ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-      columnWrapperStyle={{ gap: 8 }}
+      ItemSeparatorComponent={() => (
+        <View style={{ height: getHeightSize(16) }} />
+      )}
+      columnWrapperStyle={{ gap: getWidthSize(8) }}
       scrollEnabled={enableScroll}
     />
   );

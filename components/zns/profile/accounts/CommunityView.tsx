@@ -87,11 +87,14 @@ export default function CommunityView() {
     [profile, ownerStore]
   );
 
+  if (links.length === 0) return null;
+
   return (
     <FlatList
       data={links}
       numColumns={2}
       renderItem={({ item }) => <SocialAccount {...item} />}
+      style={{ marginTop: getHeightSize(32) }}
       ItemSeparatorComponent={() => (
         <View style={{ height: getHeightSize(16) }} />
       )}
@@ -104,13 +107,13 @@ export default function CommunityView() {
 const styles = StyleSheet.create({
   socialContainer: {
     flex: 0.5,
-    borderRadius: getWidthSize(16),
-    paddingHorizontal: getWidthSize(12),
-    paddingVertical: getHeightSize(20),
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 20,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: CustomDarkTheme.colors.grey2,
-    gap: getWidthSize(10),
+    gap: 10,
   },
   socialIcon: {
     width: getWidthSize(24),

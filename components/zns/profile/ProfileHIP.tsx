@@ -9,7 +9,7 @@ import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useScreenSize from "@/hooks/useScreenSize";
 import { useAppSelector } from "@/store";
-import { getFontSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ProfileHIP() {
   const { isConnected } = useAccount();
@@ -87,7 +87,8 @@ export default function ProfileHIP() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(16),
     borderRadius: 10,
     backgroundColor: CustomDarkTheme.colors.grey2,
   },
