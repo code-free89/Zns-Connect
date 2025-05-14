@@ -3,6 +3,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -21,6 +22,7 @@ type TabHeadersProps = {
   }[];
   containerStyle?: StyleProp<ViewStyle>;
   tabStyle?: StyleProp<ViewStyle>;
+  tabTextStyle?: StyleProp<TextStyle>;
   fullWidth?: boolean;
 };
 
@@ -28,6 +30,7 @@ export default function TabHeaders({
   selectedTab,
   tabs,
   tabStyle,
+  tabTextStyle,
   containerStyle,
   fullWidth = false,
 }: TabHeadersProps) {
@@ -52,6 +55,7 @@ export default function TabHeaders({
             <Text
               style={[
                 styles.tabText,
+                tabTextStyle,
                 selectedTab === tab.value && styles.selectedTabText,
               ]}
             >

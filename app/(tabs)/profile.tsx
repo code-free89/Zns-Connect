@@ -31,7 +31,7 @@ export default function ProfileScreen() {
   );
 
   return (
-    <ZnsScrollView style={{ paddingHorizontal: 0 }}>
+    <ZnsScrollView style={{ paddingHorizontal: 0, paddingTop: 0 }}>
       <View style={styles.pageTitle}>
         <Text style={styles.title}>Profile</Text>
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: getHeightSize(8),
+    height: getHeightSize(72),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

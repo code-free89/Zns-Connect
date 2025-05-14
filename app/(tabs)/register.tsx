@@ -19,7 +19,7 @@ export default function RegisterScreen() {
 
   return (
     <>
-      <ZnsScrollView>
+      <ZnsScrollView style={{ paddingTop: getHeightSize(0) }}>
         <View style={styles.pageTitle}>
           <Text style={styles.title}>REGISTER A DOMAIN</Text>
         </View>
@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: getHeightSize(5),
-    paddingBottom: getHeightSize(21),
+    height: getHeightSize(72),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

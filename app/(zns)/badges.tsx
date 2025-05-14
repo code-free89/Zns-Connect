@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import TabHeaders from "@/components/ui/TabHeaders";
 import BadgeView from "@/components/zns/badges/BadgeView";
+import { fontStyles } from "@/constants/fonts";
 import BadgeProvider from "@/lib/providers/BadgeProvider";
-import { getHeightSize, getWidthSize } from "@/utils/size";
+import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type InfoTab = "all" | "unclaimed" | "claimed" | "not_available";
 
@@ -41,11 +42,20 @@ export default function Badges() {
         selectedTab={selectedTab}
         tabs={tabs}
         tabStyle={{
-          paddingHorizontal: getWidthSize(40),
+          paddingHorizontal: getWidthSize(30),
         }}
-        containerStyle={{ height: getHeightSize(60) }}
+        tabTextStyle={styles.tabTextStyle}
+        containerStyle={{ height: getHeightSize(50) }}
       />
       <BadgeView selectedTab={selectedTab} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tabTextStyle: {
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.5,
+  },
+});

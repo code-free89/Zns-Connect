@@ -62,11 +62,9 @@ export default function CartScreen() {
 
 const styles = StyleSheet.create({
   pageTitle: {
-    backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: getHeightSize(5),
-    paddingBottom: getHeightSize(21),
+    height: getHeightSize(72),
   },
   title: {
     ...fontStyles["Poppins-Medium"],

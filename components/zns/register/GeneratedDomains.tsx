@@ -13,7 +13,7 @@ export default function GeneratedDomains({
   isGeneratingDomains,
 }: GeneratedDomainsProps) {
   return isGeneratingDomains ? (
-    <View style={{ flex: 1, height: 200 }}>
+    <View style={{ flex: 1, height: 400 }}>
       <ActivityIndicator
         size={"large"}
         color={CustomDarkTheme.colors.primary}
@@ -31,5 +31,6 @@ export default function GeneratedDomains({
 const styles = StyleSheet.create({
   container: {
     gap: 12,
+    minHeight: 500,
   },
 });

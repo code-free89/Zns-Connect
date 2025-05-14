@@ -21,7 +21,7 @@ export default function ZnsScrollView({ children, style }: Props) {
       style={{ flex: 1 }}
     >
       <ScrollView
-        contentContainerStyle={{ paddingBottom: 30 }}
+        contentContainerStyle={{ paddingBottom: getHeightSize(30) }}
         style={[styles.scrollView, style]}
       >
         {children}

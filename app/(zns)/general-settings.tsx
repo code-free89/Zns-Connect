@@ -6,6 +6,7 @@ import TabHeaders from "@/components/ui/TabHeaders";
 import CreditsAndGiftCards from "@/components/zns/general-settings/Credits";
 import EmailSettings from "@/components/zns/general-settings/Emails";
 import { useFetchGiftCard } from "@/store/hooks/useFetchGiftCard";
+import { getHeightSize } from "@/utils/size";
 
 type InfoTab = "credits" | "email";
 
@@ -33,7 +34,7 @@ export default function GeneralSettings() {
   }, [updateStoreGift]);
 
   return (
-    <ZnsScrollView>
+    <ZnsScrollView style={{ paddingTop: getHeightSize(4) }}>
       <TabHeaders selectedTab={selectedTab} tabs={tabs} fullWidth />
 
       {selectedTab === "credits" && <CreditsAndGiftCards />}

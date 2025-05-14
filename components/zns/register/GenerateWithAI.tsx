@@ -2,6 +2,7 @@ import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useCallback, useEffect, useState } from "react";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
+import AbsoluteDropdown from "@/components/ui/AbsoluteDropdown";
 import Button from "@/components/ui/Button";
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import TextInput from "@/components/ui/TextInput";
@@ -131,14 +132,18 @@ export default function GenerateWithAI() {
             name="chevron-down"
             size={21}
             color={CustomDarkTheme.colors.body}
-            style={{ position: "absolute", right: 8 }}
           />
-          {showNumberOfWords && (
+          <AbsoluteDropdown
+            isVisible={showNumberOfWords}
+            style={{ left: 0, top: getHeightSize(50) }}
+            onOutsideClick={() => setShowNumberOfWords(false)}
+          >
             <View style={styles.numberOfWordsModal}>
               {Array(5)
                 .fill(0)
                 .map((_, index) => (
                   <Pressable
+                    key={index}
                     style={styles.numberOfWordsModalItem}
                     onPress={() => handleSetNumberOfWords(index + 1)}
                   >
@@ -168,7 +173,7 @@ export default function GenerateWithAI() {
                   </Pressable>
                 ))}
             </View>
-          )}
+          </AbsoluteDropdown>
         </Pressable>
         <Button
           style={{ flex: 1, paddingVertical: 11, paddingHorizontal: 0 }}
@@ -262,7 +267,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: getWidthSize(18),
-    marginTop: getHeightSize(40),
+    marginTop: getHeightSize(24),
   },
   numberOfWordsContainer: {
     flex: 1,
@@ -270,6 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    gap: getWidthSize(12),
     borderRadius: getWidthSize(12),
     width: "100%",
     height: "100%",
@@ -285,8 +291,8 @@ const styles = StyleSheet.create({
   },
   numberOfWordsText: {
     ...fontStyles["Poppins-Regular"],
-    fontSize: getFontSize(12),
-    lineHeight: getFontSize(12 * 1.5),
+    fontSize: getFontSize(14),
+    lineHeight: getFontSize(14 * 1.5),
     color: "#A5A5A5",
   },
   resultsTitle: {
@@ -298,9 +304,6 @@ const styles = StyleSheet.create({
     marginBottom: getHeightSize(20),
   },
   numberOfWordsModal: {
-    position: "absolute",
-    left: 0,
-    top: 50,
     backgroundColor: "black",
     borderRadius: getWidthSize(12),
     padding: getWidthSize(12),

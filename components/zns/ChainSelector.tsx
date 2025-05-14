@@ -14,6 +14,8 @@ import DomainText from "@/components/zns/DomainText";
 import { CustomDarkTheme } from "@/constants/theme";
 import { CHAINS } from "@/constants/web3/chains";
 import useDomainSearch from "@/hooks/useDomainSearch";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+import AbsoluteDropdown from "../ui/AbsoluteDropdown";
 
 type ChainSelectorProps = {
   domainName: string;
@@ -57,8 +59,11 @@ export default function ChainSelector({
           color={CustomDarkTheme.colors.body}
         />
       </Pressable>
-
-      {showSuggestion && (
+      <AbsoluteDropdown
+        isVisible={showSuggestion}
+        style={{ right: -getWidthSize(40), top: getHeightSize(40) }}
+        onOutsideClick={() => setShowSuggestion(false)}
+      >
         <ScrollView
           style={styles.suggestionWrapper}
           contentContainerStyle={{ gap: 8, padding: 12 }}
@@ -81,7 +86,7 @@ export default function ChainSelector({
             </Pressable>
           ))}
         </ScrollView>
-      )}
+      </AbsoluteDropdown>
     </View>
   );
 }
@@ -104,16 +109,13 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
   },
   suggestionWrapper: {
-    position: "absolute",
-    top: 40,
-    right: -42,
     width: Dimensions.get("window").width - 32,
     backgroundColor: "black",
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#F4F4F56E",
     zIndex: 1000,
-    maxHeight: 300,
+    maxHeight: 200,
   },
   suggestionItem: {
     flexDirection: "row",
