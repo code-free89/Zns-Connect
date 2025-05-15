@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   Image,
   Pressable,
-  ScrollView,
+  // ScrollView,
   StyleProp,
   StyleSheet,
   Text,
@@ -11,10 +11,12 @@ import {
   ViewStyle,
 } from "react-native";
 
+import AbsoluteDropdown from "@/components/ui/AbsoluteDropdown";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { tlds } from "@/constants/web3/tlds";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { ScrollView } from "react-native-gesture-handler";
 
 type ItemType = {
   id: number;
@@ -75,7 +77,15 @@ export default function NetworkSelectDropdown({
           </View>
         )}
       </Pressable>
-      {isOpen && (
+
+      <AbsoluteDropdown
+        isVisible={isOpen}
+        onOutsideClick={() => setIsOpen(false)}
+        style={{
+          top: getHeightSize(80),
+          width: "100%",
+        }}
+      >
         <View style={styles.dropdownContainer}>
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -116,7 +126,7 @@ export default function NetworkSelectDropdown({
             })}
           </ScrollView>
         </View>
-      )}
+      </AbsoluteDropdown>
     </View>
   );
 }
@@ -172,14 +182,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: getWidthSize(12),
     paddingRight: getWidthSize(8),
-    position: "absolute",
-    top: getHeightSize(80),
     zIndex: 1,
     width: "100%",
     borderWidth: 2,
     borderColor: CustomDarkTheme.colors.gray900,
-    height: getHeightSize(300),
-    overflow: "scroll",
+    height: getHeightSize(280),
   },
   item: {
     flexDirection: "row",

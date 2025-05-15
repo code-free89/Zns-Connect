@@ -1,7 +1,13 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
-import { CopyIcon, HeartIcon, ShareLineIcon } from "@/constants/icons";
+import {
+  CopyIcon,
+  EditAvatarIcon,
+  EditIcon,
+  HeartIcon,
+  ShareLineIcon,
+} from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useShare } from "@/hooks/useShare";
 import { CombinedProfile } from "@/store/slices/profile";
@@ -24,6 +30,21 @@ export default function MoreProfileList({
           <Text style={styles.profileActionItemText}>
             Add to your favourites
           </Text>
+        </Pressable>
+
+        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
+          <EditIcon />
+          <Text style={styles.profileActionItemText}>Edit cover image</Text>
+        </Pressable>
+
+        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
+          <EditAvatarIcon width={20} height={20} />
+          <Text style={styles.profileActionItemText}>Edit avatar image</Text>
+        </Pressable>
+
+        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
+          <EditIcon />
+          <Text style={styles.profileActionItemText}>Manage Profile</Text>
         </Pressable>
 
         <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
