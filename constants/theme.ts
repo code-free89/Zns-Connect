@@ -39,6 +39,7 @@ const CustomDarkTheme = {
     badge: "#09A7F8",
     muted200: "#E5E5E5",
     accent: "#05ABFF",
+    label: "#A0A0A0",
   },
   gradientColors: {
     linear1: ["#1C96FD", "#33E360", "#F4C630", "#CB1245", "#AD00FE"],

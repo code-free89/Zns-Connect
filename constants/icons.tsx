@@ -574,9 +574,15 @@ export function WorldIcon() {
   );
 }
 
-export function ApplicationIcon() {
+export function ApplicationIcon({
+  width = 33,
+  height = 33,
+}: {
+  width?: number;
+  height?: number;
+}) {
   return (
-    <Svg width="32" height="33" viewBox="0 0 32 33" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 32 33" fill="none">
       <Path
         d="M23.3874 12.5795C21.0274 12.5795 19.1074 10.6595 19.1074 8.29953C19.1074 5.93953 21.0274 4.01953 23.3874 4.01953C25.7474 4.01953 27.6674 5.93953 27.6674 8.29953C27.6674 10.6595 25.7474 12.5795 23.3874 12.5795ZM23.3874 6.0062C22.1341 6.0062 21.1074 7.03286 21.1074 8.2862C21.1074 9.53953 22.1341 10.5662 23.3874 10.5662C24.6407 10.5662 25.6674 9.53953 25.6674 8.2862C25.6674 7.03286 24.6407 6.0062 23.3874 6.0062Z"
         fill="white"
@@ -601,9 +607,15 @@ export function ApplicationIcon() {
   );
 }
 
-export function MediumIcon() {
+export function MediumIcon({
+  width = 33,
+  height = 33,
+}: {
+  width?: number;
+  height?: number;
+}) {
   return (
-    <Svg width="33" height="33" viewBox="0 0 33 33" fill="none">
+    <Svg width={width} height={height} viewBox="0 0 33 33" fill="none">
       <Circle cx="16.5" cy="16.5" r="14" fill="#12100E" />
       <Path
         d="M9.21875 20.5L6.9375 23.4062V23.7344H12.5625V23.4062L10.2969 20.5V13L15.1562 23.7344H15.8438L20 13V21.8125L18.2969 23.4062V23.7344H25.75V23.4062L24.0938 21.8125V10.7188L25.75 9.17188V8.79688H20.6094L16.8594 18L12.6719 8.79688H7.20312V9.17188L9.21875 11.5625V20.5Z"

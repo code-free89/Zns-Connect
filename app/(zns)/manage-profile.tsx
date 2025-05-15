@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import TabHeaders from "@/components/ui/TabHeaders";
 import PersonalInfo from "@/components/zns/manage-profile/PersonalInfo";
+import ProfileLinks from "@/components/zns/manage-profile/links";
 import DomainSwitcher from "@/components/zns/modules/domain-switcher";
 import { useAppSelector } from "@/store";
 import { getHeightSize, getWidthSize } from "@/utils/size";
-import { View } from "react-native";
 
 type InfoTab = "personal_info" | "links" | "domains";
 
@@ -45,6 +45,7 @@ export default function ManageProfile() {
       <TabHeaders selectedTab={selectedTab} tabs={tabs} fullWidth />
 
       {selectedTab === "personal_info" && <PersonalInfo />}
+      {selectedTab === "links" && <ProfileLinks />}
     </ZnsScrollView>
   );
 }
