@@ -38,7 +38,10 @@ export default function Button({
         variant === "secondary" && styles.secondaryButton,
         variant === "outline" && styles.outlineButton,
         variant === "text" && styles.textButton,
-        (props.disabled || loading) && styles.disabledButton,
+        (props.disabled || loading) &&
+          (variant === "text"
+            ? styles.disabledTextButton
+            : styles.disabledButton),
         style,
       ]}
       disabled={loading || props.disabled}
@@ -52,7 +55,10 @@ export default function Button({
               variant === "primary" && styles.primaryText,
               variant === "secondary" && styles.secondaryText,
               textStyle,
-              props.disabled && styles.disabledText,
+              props.disabled &&
+                (variant === "text"
+                  ? styles.disabledEmptyText
+                  : styles.disabledText),
             ]}
           >
             {loadingText}
@@ -69,7 +75,10 @@ export default function Button({
                 variant === "primary" && styles.primaryText,
                 variant === "secondary" && styles.secondaryText,
                 textStyle,
-                props.disabled && styles.disabledText,
+                props.disabled &&
+                  (variant === "text"
+                    ? styles.disabledEmptyText
+                    : styles.disabledText),
               ]}
             >
               {title}
@@ -90,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  disabledTextButton: {},
   disabledButton: {
     backgroundColor: CustomDarkTheme.colors.disabledBackground,
   },
@@ -104,6 +114,9 @@ const styles = StyleSheet.create({
     fontSize: getFontSize(16),
     lineHeight: getFontSize(16) * 1.5,
     color: CustomDarkTheme.colors.p950,
+  },
+  disabledEmptyText: {
+    opacity: 0.3,
   },
   disabledText: {
     color: CustomDarkTheme.colors.textDisabled,
