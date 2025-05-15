@@ -27,6 +27,7 @@ export default function ProfileOverView() {
   const { width } = useWindowDimensions();
   const { onTweet } = useShare({ profile });
   const [avatar, setAvatarUrl] = useState<string>();
+  const [banner, setBannerURL] = useState<string>();
   const [isActionListVisible, setIsActionListVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -35,7 +36,10 @@ export default function ProfileOverView() {
     [profile, avatar]
   );
 
-  const bannerURL = profile?.bannerURL ?? "";
+  const bannerUrl = useMemo(
+    () => (banner ? banner : profile?.bannerURL),
+    [profile, banner]
+  );
 
   return (
     <View style={styles.container}>
@@ -71,15 +75,16 @@ export default function ProfileOverView() {
               onOutsideClick={() => setIsActionListVisible(false)}
             >
               <MoreProfileList
-                profile={profile}
                 onClose={() => setIsActionListVisible(false)}
+                updateBanner={setBannerURL}
+                updateAvatar={setAvatarUrl}
               />
             </AbsoluteDropdown>
           </View>
         </View>
-        {bannerURL ? (
+        {bannerUrl ? (
           <Image
-            source={{ uri: profile?.bannerURL }}
+            source={{ uri: bannerUrl }}
             style={{ flex: 1 }}
             resizeMode="cover"
           />

@@ -1,4 +1,8 @@
+import * as ImagePicker from "expo-image-picker";
+import { router } from "expo-router";
+import { useCallback, useMemo } from "react";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { useAccount } from "wagmi";
 
 import { fontStyles } from "@/constants/fonts";
 import {
@@ -10,52 +14,135 @@ import {
 } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useShare } from "@/hooks/useShare";
-import { CombinedProfile } from "@/store/slices/profile";
+import { useAppSelector } from "@/store";
+import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { validateFileSize } from "@/utils/file";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+type MoreProfileListProps = {
+  updateBanner: (uri: string) => void;
+  updateAvatar: (uri: string) => void;
+  onClose?: () => void;
+};
 
 export default function MoreProfileList({
-  profile,
+  updateBanner,
+  updateAvatar,
   onClose,
-}: {
-  profile: CombinedProfile | null;
-  onClose?: () => void;
-}) {
+}: MoreProfileListProps) {
+  const { address } = useAccount();
+  const { profile, domainInfo } = useAppSelector((state) => state.profile);
+
+  const isOwner = useMemo(
+    () => domainInfo?.owner === address && address !== undefined,
+    [address, domainInfo]
+  );
   const { onTweet, onCopyShareLink } = useShare({ profile, callback: onClose });
+
+  const onCopyWalletAddress = useCallback(() => {
+    if (address) {
+      copyToClipboard(address);
+      onClose?.();
+      showSuccessToast("Wallet address copied to clipboard");
+    }
+  }, [address]);
+
+  const goToManageProfile = useCallback(() => {
+    onClose?.();
+    router.push("/(zns)/manage-profile");
+  }, [onClose]);
+
+  const handleProfileImage = async (type: "banner" | "avatar") => {
+    const options: ImagePicker.ImagePickerOptions = {
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [3, 1],
+      quality: 0.75,
+    };
+
+    const result = await ImagePicker.launchImageLibraryAsync(options);
+
+    if (result.canceled) {
+      return;
+    }
+
+    if (!validateFileSize(result.assets[0])) {
+      showErrorToast(
+        `File size exceeds the limit of ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
+      );
+      return;
+    }
+
+    const uri = result.assets[0].uri;
+
+    if (type === "banner") {
+      updateBanner(uri);
+    } else {
+      updateAvatar(uri);
+    }
+  };
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.container}>
-        <Pressable style={styles.profileActionItem}>
-          <HeartIcon color="#A2A2A2" width={20} height={20} />
-          <Text style={styles.profileActionItemText}>
-            Add to your favourites
-          </Text>
-        </Pressable>
+        {!isOwner && (
+          <Pressable style={styles.profileActionItem}>
+            <HeartIcon color="#A2A2A2" width={20} height={20} />
+            <Text style={styles.profileActionItemText}>
+              Add to your favourites
+            </Text>
+          </Pressable>
+        )}
 
-        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
-          <EditIcon />
-          <Text style={styles.profileActionItemText}>Edit cover image</Text>
-        </Pressable>
+        {isOwner && (
+          <Pressable
+            style={styles.profileActionItem}
+            onPress={() => handleProfileImage("banner")}
+          >
+            <EditIcon />
+            <Text style={styles.profileActionItemText}>Edit cover image</Text>
+          </Pressable>
+        )}
 
-        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
-          <EditAvatarIcon width={20} height={20} />
-          <Text style={styles.profileActionItemText}>Edit avatar image</Text>
-        </Pressable>
+        {isOwner && (
+          <Pressable
+            style={styles.profileActionItem}
+            onPress={() => handleProfileImage("avatar")}
+          >
+            <EditAvatarIcon width={20} height={20} />
+            <Text style={styles.profileActionItemText}>Edit avatar image</Text>
+          </Pressable>
+        )}
 
-        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
-          <EditIcon />
-          <Text style={styles.profileActionItemText}>Manage Profile</Text>
-        </Pressable>
+        {isOwner && (
+          <Pressable
+            style={styles.profileActionItem}
+            onPress={goToManageProfile}
+          >
+            <EditIcon />
+            <Text style={styles.profileActionItemText}>Manage Profile</Text>
+          </Pressable>
+        )}
 
         <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
           <ShareLineIcon color="#A2A2A2" />
           <Text style={styles.profileActionItemText}>Copy profile link</Text>
         </Pressable>
 
-        <Pressable style={styles.profileActionItem} onPress={onCopyShareLink}>
-          <CopyIcon />
-          <Text style={styles.profileActionItemText}>Copy wallet address</Text>
-        </Pressable>
+        {isOwner && (
+          <Pressable
+            style={styles.profileActionItem}
+            onPress={onCopyWalletAddress}
+          >
+            <CopyIcon />
+            <Text style={styles.profileActionItemText}>
+              Copy wallet address
+            </Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

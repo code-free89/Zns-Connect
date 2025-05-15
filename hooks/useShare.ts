@@ -38,9 +38,6 @@ export const useShare = ({ profile, callback }: ShareProps) => {
       const tld = tlds.find((tld) => tld.chainId === chain?.id)?.label;
       const url = `${process.env.EXPO_PUBLIC_ZNS_URL}/${profile?.domainName}.${tld}`;
       let hashtags = "zns,znsconnect,nameservise";
-      console.log(
-        `${process.env.EXPO_PUBLIC_TWITTER_URL}/intent/tweet?text=${description}&url=${url}&hashtags=${hashtags}`
-      );
       Linking.openURL(
         `${process.env.EXPO_PUBLIC_TWITTER_URL}/intent/tweet?text=${description}&url=${url}&hashtags=${hashtags}`
       );
