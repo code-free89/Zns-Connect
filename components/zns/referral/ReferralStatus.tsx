@@ -1,10 +1,15 @@
+import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import DummyText from "@/components/ui/DummyText";
+import GradientText from "@/components/ui/GradientText";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ReferralStatus() {
+  const [symbolSize, setSymbolSize] = useState({ width: 0, height: 0 });
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -13,10 +18,24 @@ export default function ReferralStatus() {
           <Text style={styles.description}>Total Referrals</Text>
         </View>
         <View style={styles.itemContainer}>
-          <Text style={styles.value}>
-            250
-            {/* <GradientText text="ETH" /> */}
-          </Text>
+          <View style={[styles.row, { alignItems: "flex-end" }]}>
+            <Text style={styles.value}>250</Text>
+
+            <View style={{ marginBottom: getHeightSize(4) }}>
+              <DummyText
+                text={`ETH`}
+                textStyle={styles.valueSymbol}
+                size={symbolSize}
+                setSize={setSymbolSize}
+              />
+              <GradientText
+                text="ETH"
+                size={symbolSize}
+                textStyle={styles.valueSymbol}
+                gradientColors={CustomDarkTheme.gradientColors.linear1}
+              />
+            </View>
+          </View>
           <Text style={styles.description}>Total Earnings</Text>
         </View>
       </View>
@@ -45,6 +64,11 @@ const styles = StyleSheet.create({
     ...fontStyles["SpaceGrotesk-Bold"],
     fontSize: getFontSize(24),
     color: CustomDarkTheme.colors.primary,
+  },
+  valueSymbol: {
+    ...fontStyles["Poppins-Medium"],
+    fontSize: getFontSize(10),
+    lineHeight: getHeightSize(10) * 1.35,
   },
   description: {
     ...fontStyles["Poppins-Medium"],

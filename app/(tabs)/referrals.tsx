@@ -22,37 +22,6 @@ export default function ReferralsScreen() {
 
         <ReferralStatus />
       </View>
-      {/* <View style={{ flex: 1, padding: 16 }}>
-        <CartItemList onCheckout={() => setIsCheckoutModalVisible(true)} />
-        <CheckoutModal
-          isVisible={isCheckoutModalVisible}
-          onClose={(isSuccess) => {
-            setIsCheckoutModalVisible(false);
-            if (isSuccess) {
-              setIsSuccess(true);
-              animation.current?.play();
-              setTimeout(() => {
-                router.push("/(tabs)/home");
-              }, 1000);
-            }
-          }}
-        />
-        {isSuccess && (
-          <LottieView
-            autoPlay
-            ref={animation}
-            style={{
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").height,
-              backgroundColor: "transparent",
-              position: "absolute",
-              top: 0,
-            }}
-            // Find more Lottie files at https://lottiefiles.com/featured
-            source={require("@/assets/animations/congratulations.json")}
-          />
-        )}
-      </View> */}
     </>
   );
 }
