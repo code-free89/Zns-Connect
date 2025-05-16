@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
 import TabHeaders from "@/components/ui/TabHeaders";
+import ManageDomain from "@/components/zns/manage-profile/Domain";
 import PersonalInfo from "@/components/zns/manage-profile/PersonalInfo";
 import ProfileLinks from "@/components/zns/manage-profile/links";
 import DomainSwitcher from "@/components/zns/modules/domain-switcher";
@@ -46,6 +47,7 @@ export default function ManageProfile() {
 
       {selectedTab === "personal_info" && <PersonalInfo />}
       {selectedTab === "links" && <ProfileLinks />}
+      {selectedTab === "domains" && <ManageDomain />}
     </ZnsScrollView>
   );
 }
