@@ -19,6 +19,7 @@ import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
 import { validateFileSize } from "@/utils/file";
+import { uploadPhoto } from "@/lib/api/upload";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -76,12 +77,19 @@ export default function MoreProfileList({
       return;
     }
 
-    const uri = result.assets[0].uri;
+    const asset = result.assets[0];
 
-    if (type === "banner") {
-      updateBanner(uri);
-    } else {
-      updateAvatar(uri);
+    if (asset && profile) {
+      try {
+        const res = await uploadPhoto(asset, type, profile.id);
+        if (type === "banner") {
+          updateBanner(res.url);
+        } else {
+          updateAvatar(res.url);
+        }
+      } catch (error) {
+        showErrorToast("Failed to upload photo");
+      }
     }
   };
 
