@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 
 import InteractiveButton from "@/components/ui/InteractiveButton";
 import TextInput from "@/components/ui/TextInput";
+import ToggleButton from "@/components/ui/ToggleButton";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getChainByID } from "@/constants/web3/chains";
@@ -204,7 +205,7 @@ export default function ManageDomain() {
             </Text>
           </View>
 
-          <Text style={styles.sellText}>Sell</Text>
+          <ToggleButton />
         </View>
       </View>
 
@@ -239,7 +240,7 @@ export default function ManageDomain() {
             title="Delete"
             variant="text"
             style={{
-              width: getWidthSize(45),
+              width: "auto",
               paddingHorizontal: getWidthSize(0),
             }}
             textStyle={styles.deleteButtonText}
@@ -296,7 +297,7 @@ const styles = StyleSheet.create({
     gap: getWidthSize(12),
   },
   actionBtn: {
-    width: getWidthSize(96),
+    width: "auto",
     paddingHorizontal: getWidthSize(16),
   },
   actionBtnText: {
