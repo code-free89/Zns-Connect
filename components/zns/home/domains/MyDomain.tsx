@@ -54,7 +54,7 @@ function MyDomainItem({
     router.push({
       pathname: "/(zns)/manage-profile",
       params: {
-        domainId: domain.domainId,
+        domain: `${domainName}.${tld}`,
       },
     });
   };
