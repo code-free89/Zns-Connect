@@ -12,11 +12,13 @@ import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 type DomainListViewProps = {
   domains: UserDomainType[] | null;
   onClose: () => void;
+  redirectTo?: string;
 };
 
 export default function DomainListView({
   domains,
   onClose,
+  redirectTo,
 }: DomainListViewProps) {
   const goToSearchDomain = () => {
     router.push("/(tabs)/register");
@@ -45,6 +47,7 @@ export default function DomainListView({
               key={domain.domainId}
               domain={domain}
               onClose={onClose}
+              redirectTo={redirectTo}
             />
           ))}
         </ScrollView>

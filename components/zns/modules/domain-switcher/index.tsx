@@ -24,12 +24,14 @@ type DomainSwitcherProps = {
   containerStyle?: StyleProp<ViewStyle>;
   dropdownContainerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  redirectTo?: string;
 };
 
 export default function DomainSwitcher({
   containerStyle,
   dropdownContainerStyle,
   textStyle,
+  redirectTo,
 }: DomainSwitcherProps) {
   const {
     chainId: currentChainId,
@@ -73,6 +75,7 @@ export default function DomainSwitcher({
         <DomainListView
           domains={ownerDomains}
           onClose={() => setIsVisible(false)}
+          redirectTo={redirectTo}
         />
       </AbsoluteDropdown>
     </View>

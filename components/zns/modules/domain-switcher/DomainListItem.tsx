@@ -11,11 +11,13 @@ import { router } from "expo-router";
 type DomainListItemProps = {
   domain: UserDomainType;
   onClose: () => void;
+  redirectTo?: any;
 };
 
 export default function DomainListItem({
   domain,
   onClose,
+  redirectTo,
 }: DomainListItemProps) {
   const chain = getChainByID(domain.chainId);
   const tld = useTLD(domain.chainId);
@@ -23,7 +25,7 @@ export default function DomainListItem({
   const handleDomainSwitch = () => {
     onClose();
     router.replace({
-      pathname: "/(tabs)/profile",
+      pathname: redirectTo ?? "/(tabs)/profile",
       params: {
         domain: `${domain.domainName}.${tld}`,
       },

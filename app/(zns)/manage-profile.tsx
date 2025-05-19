@@ -43,6 +43,7 @@ export default function ManageProfile() {
         containerStyle={styles.domainSwitcherContainer}
         dropdownContainerStyle={styles.dropdownContainerStyle}
         textStyle={styles.domainName}
+        redirectTo="/(zns)/manage-profile"
       />
 
       <TabHeaders

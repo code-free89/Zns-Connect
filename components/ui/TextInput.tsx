@@ -14,12 +14,18 @@ import { fontStyles } from "@/constants/fonts";
 
 interface Props extends TextInputProps {
   label?: string;
+  wrapperStyle?: StyleProp<ViewStyle>;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
-export default function TextInput({ label, containerStyle, ...props }: Props) {
+export default function TextInput({
+  label,
+  containerStyle,
+  wrapperStyle,
+  ...props
+}: Props) {
   return (
-    <View>
+    <View style={wrapperStyle}>
       {!!label && (
         <View style={styles.labelContainer}>
           <Text style={styles.label}>{label}</Text>

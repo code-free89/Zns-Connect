@@ -54,6 +54,7 @@ export default function Button({
               styles.text,
               variant === "primary" && styles.primaryText,
               variant === "secondary" && styles.secondaryText,
+              variant === "text" && styles.primaryText,
               textStyle,
               props.disabled &&
                 (variant === "text"
@@ -74,6 +75,7 @@ export default function Button({
                 styles.text,
                 variant === "primary" && styles.primaryText,
                 variant === "secondary" && styles.secondaryText,
+                variant === "text" && styles.textText,
                 textStyle,
                 props.disabled &&
                   (variant === "text"
@@ -126,6 +128,9 @@ const styles = StyleSheet.create({
   },
   secondaryText: {
     color: CustomDarkTheme.colors.primary,
+  },
+  textText: {
+    color: CustomDarkTheme.colors.p500,
   },
   textButton: {
     backgroundColor: "transparent",
