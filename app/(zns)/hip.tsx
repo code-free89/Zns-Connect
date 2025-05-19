@@ -3,7 +3,7 @@ import HipProfile from "@/components/zns/hip/Profile";
 
 export default function HipScreen() {
   return (
-    <ZnsScrollView>
+    <ZnsScrollView style={{ paddingTop: 0 }}>
       <HipProfile />
     </ZnsScrollView>
   );

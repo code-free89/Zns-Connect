@@ -1,30 +1,71 @@
+import { FontAwesome6 } from "@expo/vector-icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useMemo } from "react";
+import {
+  Image,
+  Linking,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { useAppSelector } from "@/store";
+import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { showSuccessToast } from "@/utils/toast";
 
 export default function HipProfile() {
+  const { user } = useAppSelector((state) => state.user);
+  const referUrl = useMemo(
+    () =>
+      user && user.referralCode
+        ? `${process.env.EXPO_PUBLIC_ZNS_URL}?ref=${user.referralCode}`
+        : `${process.env.EXPO_PUBLIC_ZNS_URL}`,
+    [user]
+  );
+
+  const onCopy = () => {
+    if (user) {
+      copyToClipboard(referUrl);
+      showSuccessToast("Copied to clipboard");
+    }
+  };
+  const onShare = () => {
+    let description =
+      "🟢 Big news for @znsconnect!\n" +
+      "\n" +
+      "🟢 Mint your domain and enjoy up to 25%25 rewards directly in your wallet!\n" +
+      "\n" +
+      "Visit:";
+
+    let url = referUrl;
+    let hashtags = "zns,znsconnect";
+    Linking.openURL(
+      `https://twitter.com/intent/tweet?text=${description}&url=${url}&hashtags=${hashtags}`
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         {/* Referral Link */}
-        <View style={styles.referralLinkContainer}>
+        <Pressable style={styles.referralLinkContainer} onPress={onCopy}>
           <Text style={styles.referralLink}>Referral link</Text>
           <MaterialCommunityIcons
             name="link-variant"
             size={getWidthSize(11)}
             color={CustomDarkTheme.colors.primary}
           />
-        </View>
+        </Pressable>
 
         {/* Share */}
-        <View style={styles.shareContainer}>
+        <Pressable style={styles.shareContainer} onPress={onShare}>
           <Image source={require("@/assets/images/icons/share.png")} />
           <Text style={styles.shareText}>Share</Text>
-        </View>
+        </Pressable>
       </View>
 
       <View style={styles.avatarContainer}>
@@ -73,11 +114,11 @@ const styles = StyleSheet.create({
   referralLinkContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 16,
+    borderRadius: getWidthSize(16),
     backgroundColor: `${CustomDarkTheme.colors.primary}1A`,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
-    gap: 6,
+    paddingHorizontal: getWidthSize(12),
+    paddingVertical: getHeightSize(6),
+    gap: getWidthSize(6),
   },
   referralLink: {
     ...fontStyles["Poppins-Regular"],
@@ -88,11 +129,11 @@ const styles = StyleSheet.create({
   shareContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 16,
+    borderRadius: getWidthSize(16),
     backgroundColor: CustomDarkTheme.colors.actionBg,
-    paddingHorizontal: 16,
-    paddingVertical: 2,
-    gap: 3,
+    paddingHorizontal: getWidthSize(16),
+    paddingVertical: getHeightSize(6),
+    gap: getWidthSize(6),
   },
   shareText: {
     ...fontStyles["Poppins-Regular"],
