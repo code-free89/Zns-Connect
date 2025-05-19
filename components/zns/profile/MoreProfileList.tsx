@@ -35,7 +35,9 @@ export default function MoreProfileList({
   onClose,
 }: MoreProfileListProps) {
   const { address } = useAccount();
-  const { profile, domainInfo } = useAppSelector((state) => state.profile);
+  const { profile, domainInfo, domain, tld } = useAppSelector(
+    (state) => state.profile
+  );
 
   const isOwner = useMemo(
     () => domainInfo?.owner === address && address !== undefined,
@@ -53,8 +55,13 @@ export default function MoreProfileList({
 
   const goToManageProfile = useCallback(() => {
     onClose?.();
-    router.push("/(zns)/manage-profile");
-  }, [onClose]);
+    router.push({
+      pathname: "/(zns)/manage-profile",
+      params: {
+        domain: `${domain}.${tld}`,
+      },
+    });
+  }, [onClose, domain, tld]);
 
   const handleProfileImage = async (type: "banner" | "avatar") => {
     const options: ImagePicker.ImagePickerOptions = {

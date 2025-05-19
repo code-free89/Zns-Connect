@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderColor: CustomDarkTheme.colors.gray900,
     height: "auto",
     padding: getWidthSize(16),
+    zIndex: 20,
   },
   row: {
     flexDirection: "row",

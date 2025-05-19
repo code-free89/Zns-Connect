@@ -6,6 +6,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   useWindowDimensions,
   View,
   ViewStyle,
@@ -21,10 +22,14 @@ import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 type DomainSwitcherProps = {
   containerStyle?: StyleProp<ViewStyle>;
+  dropdownContainerStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
 
 export default function DomainSwitcher({
   containerStyle,
+  dropdownContainerStyle,
+  textStyle,
 }: DomainSwitcherProps) {
   const {
     chainId: currentChainId,
@@ -43,12 +48,12 @@ export default function DomainSwitcher({
         onPress={() => setIsVisible((prev) => !prev)}
       >
         <Image source={currentChain?.icon} style={styles.icon} />
-        <Text style={styles.domainName} numberOfLines={1}>
+        <Text style={[styles.domainName, textStyle]} numberOfLines={1}>
           {!!currentDomain ? `${currentDomain}.${currentDomainTld}` : ""}
         </Text>
         <Icon
           name="chevron-down"
-          size={15}
+          size={getWidthSize(15)}
           color={CustomDarkTheme.colors.muted200}
         />
       </Pressable>
@@ -56,11 +61,14 @@ export default function DomainSwitcher({
       <AbsoluteDropdown
         isVisible={isVisible}
         onOutsideClick={() => setIsVisible(false)}
-        style={{
-          top: getHeightSize(34),
-          right: -(getWidthSize(32) + getWidthSize(12)) * 3,
-          width: width - getWidthSize(16) * 2,
-        }}
+        style={[
+          {
+            top: getHeightSize(34),
+            right: -(getWidthSize(32) + getWidthSize(12)) * 3,
+            width: width - getWidthSize(16) * 2,
+          },
+          dropdownContainerStyle,
+        ]}
       >
         <DomainListView
           domains={ownerDomains}

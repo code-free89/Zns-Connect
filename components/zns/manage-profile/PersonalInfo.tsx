@@ -1,26 +1,37 @@
-import { getWidthSize } from "@/utils/size";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
+import { useAccount } from "wagmi";
 
 import Button from "@/components/ui/Button";
 import FormSelect from "@/components/ui/forms/FormSelect";
 import FormTextArea from "@/components/ui/forms/FormTextArea";
 import FormTextInput from "@/components/ui/forms/FormTextInput";
 import { PROFILE_CATEGORY } from "@/constants/profile";
-import { getHeightSize } from "@/utils/size";
-import { useMemo } from "react";
 import { CustomDarkTheme } from "@/constants/theme";
+import { updateProfile } from "@/lib/api/domain/profile";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setProfile } from "@/store/slices/profile";
+import { getHeightSize, getWidthSize } from "@/utils/size";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
 
 export default function PersonalInfo() {
+  const dispatch = useAppDispatch();
+  const { address } = useAccount();
+  const { profile } = useAppSelector((state) => state.profile);
+  const [isSavingInfo, setIsSavingInfo] = useState(false);
+
   const {
     control,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     handleSubmit,
-    getValues,
     reset,
   } = useForm({
     defaultValues: {
-      category: "DigitalCreator",
+      name: profile?.name,
+      location: profile?.location,
+      category: profile?.category,
+      bio: profile?.bio,
     },
   });
 
@@ -31,8 +42,23 @@ export default function PersonalInfo() {
     }));
   }, []);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    setIsSavingInfo(true);
+    try {
+      const res = await updateProfile(
+        profile?.id,
+        address?.toString() ?? "",
+        data
+      );
+      showSuccessToast(res.data.message);
+      if (res.data) {
+        dispatch(setProfile(res.data.data));
+      }
+    } catch (err: any) {
+      showErrorToast("Error saving personal info");
+    } finally {
+      setIsSavingInfo(false);
+    }
   };
 
   return (
@@ -77,6 +103,8 @@ export default function PersonalInfo() {
         title="Save changes"
         onPress={handleSubmit(onSubmit)}
         disabled={!isDirty}
+        loading={isSavingInfo}
+        loadingText="Saving..."
         style={{ marginTop: "auto" }}
       />
 

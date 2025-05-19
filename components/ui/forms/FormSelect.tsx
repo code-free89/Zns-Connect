@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     padding: getWidthSize(14),
     borderRadius: getWidthSize(12),
     backgroundColor: CustomDarkTheme.colors.bg,
+    zIndex: 20,
   },
   selectItem: {
     paddingVertical: getHeightSize(8),

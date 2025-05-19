@@ -17,3 +17,10 @@ export const followDomain = async (
     return null;
   }
 };
+
+export const updateProfile = (profileId: string, address: string, data: any) =>
+  axios.post("/domain/update", {
+    profileId,
+    data,
+    address,
+  });
