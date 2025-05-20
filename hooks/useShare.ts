@@ -18,7 +18,7 @@ export const useShare = ({ profile, callback }: ShareProps) => {
       const chain = CHAINS.find((chain) => chain.chain === profile.chain);
       const tld = tlds.find((tld) => tld.chainId === chain?.id)?.label;
       copyToClipboard(
-        `${process.env.EXPO_PUBLIC_ZNS_URL}/${profile?.domainName}.${tld}`
+        `${process.env.EXPO_PUBLIC_APP_URL}/${profile?.domainName}.${tld}`
       );
       showSuccessToast("Share Link has been Copied");
       callback?.();
@@ -36,7 +36,7 @@ export const useShare = ({ profile, callback }: ShareProps) => {
 
       const chain = CHAINS.find((chain) => chain.chain === profile.chain);
       const tld = tlds.find((tld) => tld.chainId === chain?.id)?.label;
-      const url = `${process.env.EXPO_PUBLIC_ZNS_URL}/${profile?.domainName}.${tld}`;
+      const url = `${process.env.EXPO_PUBLIC_APP_URL}/${profile?.domainName}.${tld}`;
       let hashtags = "zns,znsconnect,nameservise";
       Linking.openURL(
         `${process.env.EXPO_PUBLIC_TWITTER_URL}/intent/tweet?text=${description}&url=${url}&hashtags=${hashtags}`

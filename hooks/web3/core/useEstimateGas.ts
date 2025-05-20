@@ -47,7 +47,7 @@ export const useTransactionCost = () => {
         const gasFee = gasLimit * gasPrice;
         const totalCost = BigInt(value ?? 0) + gasFee;
         return totalCost;
-      } catch (e) {
+      } catch (e: any) {
         return null;
       }
     },

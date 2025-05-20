@@ -1,8 +1,6 @@
-import axios from "../axios";
-
 export const uploadPhoto = async (
   asset: any,
-  type: "banner" | "avatar",
+  type: "banner" | "avatar" | "hip",
   profileId: string
 ) => {
   try {
@@ -19,13 +17,16 @@ export const uploadPhoto = async (
       formData.append("exif", JSON.stringify(asset.exif));
     }
 
-    const response = await fetch("https://zns.bio/api/upload/photo", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.EXPO_PUBLIC_APP_URL}/api/upload/photo`,
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
     return await response.json();
   } catch (error: any) {
     throw error;

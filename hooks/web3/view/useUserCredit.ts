@@ -24,7 +24,7 @@ export const useUserCredit = () => {
         const _credit = (!!data ? data : BigInt(0)) as bigint;
         return parseInt(formatEther(_credit));
       }
-    } catch (e) {
+    } catch (e: any) {
       return 0;
     }
     return 0;

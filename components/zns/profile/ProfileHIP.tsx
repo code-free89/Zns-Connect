@@ -1,10 +1,10 @@
 import Entypo from "@expo/vector-icons/Entypo";
-import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
+import ProgressBar from "@/components/zns/ProgressBar";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import useScreenSize from "@/hooks/useScreenSize";
@@ -27,22 +27,11 @@ export default function ProfileHIP() {
       gradientColors={CustomDarkTheme.gradientColors.linear1}
     >
       <View style={styles.container}>
-        <View>
-          <LinearGradient
-            colors={CustomDarkTheme.gradientColors.linear1}
-            style={styles.scoreBar}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-          />
-          <View
-            style={[
-              styles.scoreThumb,
-              {
-                left: (hipData.totalPoints / hipData.maxPoints) * progressWidth,
-              },
-            ]}
-          />
-        </View>
+        <ProgressBar
+          totalPoints={hipData.totalPoints}
+          maxPoints={hipData.maxPoints}
+          progressWidth={progressWidth}
+        />
         <View style={styles.statusContainer}>
           <View style={styles.statusItem}>
             <Text style={styles.statusText}>
@@ -92,26 +81,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: CustomDarkTheme.colors.grey2,
   },
-  scoreBar: {
-    width: "100%",
-    height: 10,
-    borderRadius: 16,
-    marginBottom: 12,
-  },
-  scoreThumb: {
-    width: 16,
-    height: 16,
-    position: "absolute",
-    backgroundColor: "black",
-    borderWidth: 2,
-    borderColor: "#AD00FE",
-    borderRadius: 9999,
-    top: -3,
-  },
   statusContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    marginTop: getHeightSize(12),
   },
   statusItem: {
     borderRadius: 16,

@@ -4,8 +4,8 @@ export const fetchDomainCategories = async () => {
   try {
     const { data } = await axios.get("/domain/category");
     return data.data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };
@@ -16,8 +16,8 @@ export const updateDomainCategories = async (data: {
   try {
     const { data: updateResponse } = await axios.post("/domain/category", data);
     return updateResponse;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };

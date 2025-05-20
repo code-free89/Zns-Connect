@@ -37,7 +37,7 @@ export default function InteractiveButton({
       if (requiredChain && chainId !== requiredChain) {
         await switchChainAsync({ chainId: requiredChain });
       }
-    } catch (e) {}
+    } catch (e: any) {}
   };
 
   if (requiredChain && requiredChain !== chainId) {

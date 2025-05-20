@@ -5,8 +5,8 @@ export const updateRefer = async (refer: string, chainId: NETWORKS) => {
   try {
     const { data } = await axios.post("/referral", { refer, chainId });
     return data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };
@@ -17,8 +17,8 @@ export const getReferrals = async (chainId: NETWORKS, address?: string) => {
       params: { chainId, address },
     });
     return data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };

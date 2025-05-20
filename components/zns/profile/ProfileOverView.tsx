@@ -153,7 +153,7 @@ export default function ProfileOverView() {
       <AddressQRModal
         isVisible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
-        address={`${process.env.EXPO_PUBLIC_ZNS_URL}/${domain}.${tld}`}
+        address={`${process.env.EXPO_PUBLIC_APP_URL}/${domain}.${tld}`}
       />
     </View>
   );

@@ -12,8 +12,8 @@ export const followDomain = async (
       isOwner,
     });
     return updateResponse;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };

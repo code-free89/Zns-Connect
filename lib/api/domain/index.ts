@@ -11,8 +11,8 @@ export const fetchRecentMintedDomain = async () => {
   try {
     const { data } = await axios.get("/recent-minted-domains");
     return data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };
@@ -21,8 +21,8 @@ export const createDomain = async (domains: DomainType[]) => {
   try {
     const { data } = await axios.post("/domain/create", { domains });
     return data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };
@@ -37,7 +37,7 @@ export const fetchDomain = async (
       domainInfo,
     });
     return responseData;
-  } catch (e) {
+  } catch (e: any) {
     return null;
   }
 };

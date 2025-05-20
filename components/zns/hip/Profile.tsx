@@ -1,5 +1,6 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import * as ImagePicker from "expo-image-picker";
 import { useMemo } from "react";
 import {
   Image,
@@ -12,18 +13,25 @@ import {
 
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
-import { useAppSelector } from "@/store";
+import { uploadPhoto } from "@/lib/api/upload";
+import { useAppDispatch, useAppSelector } from "@/store";
 import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
-import { showSuccessToast } from "@/utils/toast";
+import { showErrorToast, showSuccessToast } from "@/utils/toast";
+import { validateFileSize } from "@/utils/file";
+import { setHIPData } from "@/store/slices/hip";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export default function HipProfile() {
+  const dispatch = useAppDispatch();
+  const hipData = useAppSelector((state) => state.hip);
   const { user } = useAppSelector((state) => state.user);
   const referUrl = useMemo(
     () =>
       user && user.referralCode
-        ? `${process.env.EXPO_PUBLIC_ZNS_URL}?ref=${user.referralCode}`
-        : `${process.env.EXPO_PUBLIC_ZNS_URL}`,
+        ? `${process.env.EXPO_PUBLIC_APP_URL}?ref=${user.referralCode}`
+        : `${process.env.EXPO_PUBLIC_APP_URL}`,
     [user]
   );
 
@@ -33,6 +41,7 @@ export default function HipProfile() {
       showSuccessToast("Copied to clipboard");
     }
   };
+
   const onShare = () => {
     let description =
       "🟢 Big news for @znsconnect!\n" +
@@ -46,6 +55,41 @@ export default function HipProfile() {
     Linking.openURL(
       `https://twitter.com/intent/tweet?text=${description}&url=${url}&hashtags=${hashtags}`
     );
+  };
+
+  const handleHipImageUpload = async () => {
+    const options: ImagePicker.ImagePickerOptions = {
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: false,
+      aspect: [3, 1],
+      quality: 0.75,
+    };
+
+    const result = await ImagePicker.launchImageLibraryAsync(options);
+
+    if (result.canceled) {
+      return;
+    }
+
+    if (!validateFileSize(result.assets[0])) {
+      showErrorToast(
+        `File size exceeds the limit of ${MAX_FILE_SIZE / (1024 * 1024)}MB.`
+      );
+      return;
+    }
+
+    const asset = result.assets[0];
+
+    if (asset && hipData) {
+      try {
+        const res = await uploadPhoto(asset, "hip", hipData.id);
+        if (res.url) {
+          dispatch(setHIPData({ mainImgUrl: res.url }));
+        }
+      } catch (error) {
+        showErrorToast("Failed to upload photo");
+      }
+    }
   };
 
   return (
@@ -69,23 +113,35 @@ export default function HipProfile() {
       </View>
 
       <View style={styles.avatarContainer}>
-        <Image
-          source={require("@/assets/images/app/hip_avatar.png")}
-          style={{ width: "100%", height: "100%", opacity: 0.3 }}
-        />
+        {!!hipData.mainImgUrl ? (
+          <Image
+            source={{ uri: hipData.mainImgUrl }}
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          <Image
+            source={require("@/assets/images/app/hip_avatar.png")}
+            style={{ width: "100%", height: "100%", opacity: 0.3 }}
+          />
+        )}
         <FontAwesome6
           name="edit"
-          size={21}
+          size={getWidthSize(21)}
           color={CustomDarkTheme.colors.p700}
           style={styles.editIcon}
+          onPress={handleHipImageUpload}
         />
       </View>
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.nameContainer}>
-          <Text style={styles.name}>Nakamoto</Text>
-          <Text style={styles.bio}>Bitcoin Cryptocurrency</Text>
-          <Text style={styles.role}>Chief Executive Officer</Text>
+          <Text style={styles.name}>{hipData.name || ""}</Text>
+          <Text style={styles.bio}>
+            {hipData.bio || "Bitcoin Cryptocurrency"}
+          </Text>
+          <Text style={styles.role}>
+            {hipData.position || "Chief Executive Officer"}
+          </Text>
         </View>
         <FontAwesome6
           name="edit"
@@ -102,14 +158,14 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: CustomDarkTheme.colors.grey2,
     borderRadius: 16,
-    paddingHorizontal: 18,
-    paddingVertical: 20,
-    gap: 10,
+    paddingHorizontal: getWidthSize(18),
+    paddingVertical: getHeightSize(20),
+    gap: getWidthSize(10),
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    gap: getWidthSize(8),
   },
   referralLinkContainer: {
     flexDirection: "row",

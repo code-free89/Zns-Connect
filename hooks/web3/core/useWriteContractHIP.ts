@@ -14,8 +14,9 @@ export const useWriteContractHIP = () => {
   const callWriteContractHIP = useCallback(
     async (
       call: Omit<UseContractHIPType, "chainId">,
-      value: any,
-      chainId?: NETWORKS
+      price: bigint,
+      chainId?: NETWORKS,
+      referral?: string
     ) => {
       const chain = (chainId ? chainId : activeChainID) as NETWORKS;
       if (!isChainSupported(chain) || chain !== NETWORKS.INKMAINNET) {
@@ -30,8 +31,8 @@ export const useWriteContractHIP = () => {
         abi: HIP_ABI,
         address: addresses[chain as keyof typeof addresses],
         functionName,
-        value,
-        args,
+        value: price,
+        args: [referral],
         chainId: chain,
       });
     },

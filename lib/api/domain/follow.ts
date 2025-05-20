@@ -7,7 +7,7 @@ export const fetchFollowersByDomain = async (domainIds: string[]) => {
       domainIds,
     });
     return data.data;
-  } catch (e) {
+  } catch (e: any) {
     return null;
   }
 };
@@ -20,8 +20,8 @@ export const fetchFollowByDomainId = async (domainId: string) => {
       },
     });
     return data.data;
-  } catch (e) {
-    console.error(e);
+  } catch (e: any) {
+    console.error(e.response.data);
     return null;
   }
 };

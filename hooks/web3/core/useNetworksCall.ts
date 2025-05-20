@@ -41,7 +41,7 @@ export const useNetworksCall = <T>({
           args,
         })) as T;
         return { chainId, data };
-      } catch (e) {
+      } catch (e: any) {
         return { chainId, data: null };
       }
     });
