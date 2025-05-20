@@ -10,6 +10,7 @@ type Props = {
   size?: { width: number; height: number };
   containerStyle?: ViewStyle;
   gradientColors?: readonly [string, string, ...string[]];
+  locations?: readonly [number, number, ...number[]];
 };
 
 const GRADIENT_COLORS = [
@@ -18,6 +19,8 @@ const GRADIENT_COLORS = [
   "#BB981C",
 ] as const;
 
+const GRADIENT_LOCATIONS = [0, 0.6364, 0.8189] as const;
+
 export default function GradientText({
   text,
   textStyle,
@@ -25,6 +28,7 @@ export default function GradientText({
   size,
   containerStyle,
   gradientColors = GRADIENT_COLORS,
+  locations = GRADIENT_LOCATIONS,
 }: Props) {
   const maskElement = useMemo(
     () => (
@@ -48,7 +52,7 @@ export default function GradientText({
     >
       <LinearGradient
         colors={gradientColors}
-        locations={[0, 0.6364, 0.8189]}
+        locations={locations}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 0 }}
         style={{ flex: 1 }}

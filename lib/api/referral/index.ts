@@ -14,11 +14,11 @@ export const updateRefer = async (refer: string, chainId: NETWORKS) => {
 export const getReferrals = async (chainId: NETWORKS, address?: string) => {
   try {
     const { data } = await axios.get("/referral", {
-      params: { chainId, address },
+      params: { chain: chainId, address },
     });
-    return data;
+    return data.data;
   } catch (e: any) {
-    console.error(e.response.data);
+    console.error("referral", e.response.data);
     return null;
   }
 };

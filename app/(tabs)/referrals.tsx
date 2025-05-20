@@ -5,6 +5,7 @@ import GetLinkCarousel from "@/components/zns/referral/GetLinkCarousel";
 import ReferralStatus from "@/components/zns/referral/ReferralStatus";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import ReferralProvider from "@/lib/providers/ReferralProvider";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 
 export default function ReferralsScreen() {
@@ -22,6 +23,8 @@ export default function ReferralsScreen() {
 
         <ReferralStatus />
       </View>
+
+      <ReferralProvider />
     </>
   );
 }
