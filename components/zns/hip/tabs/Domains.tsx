@@ -1,8 +1,7 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { router, useRouter } from "expo-router";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { useAccount } from "wagmi";
 
 import Button from "@/components/ui/Button";
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
@@ -65,8 +64,6 @@ function DomainCard({
 
 export default function DomainsTab() {
   const dispatch = useAppDispatch();
-  const router = useRouter();
-  const { address, isConnected } = useAccount();
   const hipData = useAppSelector((state) => state.hip);
   const { domains } = useAppSelector((state) => state.userDomains);
   const [totalXP, setTotalXP] = useState<number>(0);

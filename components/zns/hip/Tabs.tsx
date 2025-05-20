@@ -4,6 +4,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import DomainsTab from "@/components/zns/hip/tabs/Domains";
+import NFTTab from "@/components/zns/hip/tabs/NFT";
 import ReferralsTab from "@/components/zns/hip/tabs/Referrals";
 import VerifySocialTab from "@/components/zns/hip/tabs/VerifySocial";
 import { fontStyles } from "@/constants/fonts";
@@ -92,6 +93,7 @@ export default function HipTabs() {
       {selectedTab === "socials" && <VerifySocialTab />}
       {selectedTab === "referrals" && <ReferralsTab />}
       {selectedTab === "domains" && <DomainsTab />}
+      {selectedTab === "nft" && <NFTTab />}
     </View>
   );
 }
