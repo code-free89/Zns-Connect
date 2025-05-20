@@ -7,7 +7,7 @@ import { REWARDS } from "@/constants/profile";
 import { CustomDarkTheme } from "@/constants/theme";
 import { usePagination } from "@/hooks/usePagination";
 import { useAppSelector } from "@/store";
-import { shortenWalletAddress } from "@/utils/formatter";
+import { formatPrice, shortenWalletAddress } from "@/utils/formatter";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import EmptyStatus from "../profile/EmptyStatus";
 import ReferralPagination from "./Pagination";
@@ -19,6 +19,23 @@ function ReferralItem({
   myReferral: any;
   referband: number;
 }) {
+  const { chain } = useAccount();
+
+  const { numberOfReferrals, totalEarnings } = useMemo(
+    () => ({
+      numberOfReferrals: myReferral.numberOfReferrals,
+      totalEarnings: myReferral.totalEarnings,
+    }),
+    [myReferral]
+  );
+
+  const symbol = useMemo(() => chain?.nativeCurrency.symbol ?? "", [chain]);
+
+  const userAddress = useMemo(
+    () => shortenWalletAddress(myReferral.walletAddress ?? "", 4),
+    [myReferral]
+  );
+
   return (
     <View style={styles.referralItem}>
       <Text style={styles.referralItemIndex}>
@@ -31,22 +48,14 @@ function ReferralItem({
 
       <View style={{ flex: 1 }}>
         <View style={styles.row}>
+          <Text style={styles.referralItemWalletAddress}>{userAddress}</Text>
           <Text style={styles.referralItemWalletAddress}>
-            {shortenWalletAddress(myReferral.walletAddress)}
-          </Text>
-          <Text style={styles.referralItemWalletAddress}>
-            {myReferral.totalEarnings?.toLocaleString("en-US", {
-              minimumFractionDigits: 5,
-              maximumFractionDigits: 5,
-            })}{" "}
-            ETH
+            {`${formatPrice(totalEarnings, 4)} ${symbol}`}
           </Text>
         </View>
 
         <View style={[styles.row, { marginTop: getHeightSize(10) }]}>
-          <Text style={styles.numberOfReferrals}>
-            {myReferral.numberOfReferrals}
-          </Text>
+          <Text style={styles.numberOfReferrals}>{numberOfReferrals}</Text>
           <Text style={styles.referBand}>{referband}%</Text>
         </View>
       </View>
