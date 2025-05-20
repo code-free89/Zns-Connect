@@ -1,7 +1,8 @@
 import { FontAwesome6 } from "@expo/vector-icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as ImagePicker from "expo-image-picker";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   Image,
   Linking,
@@ -11,15 +12,18 @@ import {
   View,
 } from "react-native";
 
+import Button from "@/components/ui/Button";
+import FormTextInput from "@/components/ui/forms/FormTextInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { uploadPhoto } from "@/lib/api/upload";
 import { useAppDispatch, useAppSelector } from "@/store";
+import { setHIPData } from "@/store/slices/hip";
+import { validateFileSize } from "@/utils/file";
 import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
 import { showErrorToast, showSuccessToast } from "@/utils/toast";
-import { validateFileSize } from "@/utils/file";
-import { setHIPData } from "@/store/slices/hip";
+import { updateHIPProfile } from "@/lib/api/hip";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -27,6 +31,19 @@ export default function HipProfile() {
   const dispatch = useAppDispatch();
   const hipData = useAppSelector((state) => state.hip);
   const { user } = useAppSelector((state) => state.user);
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm({
+    defaultValues: {
+      name: hipData.name,
+    },
+  });
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSavingProfile, setIsSavingProfile] = useState(false);
+
   const referUrl = useMemo(
     () =>
       user && user.referralCode
@@ -92,6 +109,30 @@ export default function HipProfile() {
     }
   };
 
+  const onSubmit = async (formData: any) => {
+    if (!isSavingProfile && formData.name) {
+      setIsSavingProfile(true);
+      const res = await updateHIPProfile(
+        hipData.id,
+        formData.name,
+        formData.bio ?? "",
+        formData.position ?? ""
+      );
+      if (res && res.name) {
+        dispatch(
+          setHIPData({
+            name: res.name,
+            bio: res.bio ?? "",
+            position: res.position ?? "",
+          })
+        );
+        showSuccessToast("Your profile has updated successfully!");
+        setIsEditing(false);
+      }
+      setIsSavingProfile(false);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -134,21 +175,65 @@ export default function HipProfile() {
       </View>
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <View style={styles.nameContainer}>
-          <Text style={styles.name}>{hipData.name || ""}</Text>
-          <Text style={styles.bio}>
-            {hipData.bio || "Bitcoin Cryptocurrency"}
-          </Text>
-          <Text style={styles.role}>
-            {hipData.position || "Chief Executive Officer"}
-          </Text>
-        </View>
-        <FontAwesome6
-          name="edit"
-          size={21}
-          color={CustomDarkTheme.colors.p700}
-          style={styles.nameEditIcon}
-        />
+        {isEditing ? (
+          <View style={{ flex: 1, gap: getHeightSize(10) }}>
+            <FormTextInput
+              name="name"
+              control={control}
+              placeholder="Enter your name"
+            />
+            <FormTextInput
+              name="bio"
+              control={control}
+              placeholder="Enter your bio"
+            />
+            <FormTextInput
+              name="position"
+              control={control}
+              placeholder="Enter your position"
+            />
+
+            <View style={{ flexDirection: "row", gap: getWidthSize(10) }}>
+              <Button
+                title="Cancel"
+                variant="outline"
+                disabled={!isDirty || isSavingProfile}
+                onPress={() => {
+                  setIsEditing(false);
+                  reset();
+                }}
+                style={{ flex: 1, paddingVertical: getHeightSize(12) }}
+              />
+              <Button
+                title="Save"
+                disabled={!isDirty}
+                loading={isSavingProfile}
+                loadingText="Saving..."
+                onPress={handleSubmit(onSubmit)}
+                style={{ flex: 1, paddingVertical: getHeightSize(12) }}
+              />
+            </View>
+          </View>
+        ) : (
+          <View style={styles.nameContainer}>
+            <Text style={styles.name}>{hipData.name || ""}</Text>
+            <Text style={styles.bio}>
+              {hipData.bio || "Bitcoin Cryptocurrency"}
+            </Text>
+            <Text style={styles.role}>
+              {hipData.position || "Chief Executive Officer"}
+            </Text>
+          </View>
+        )}
+        {!isEditing && (
+          <FontAwesome6
+            name="edit"
+            size={21}
+            color={CustomDarkTheme.colors.p700}
+            style={styles.nameEditIcon}
+            onPress={() => setIsEditing(true)}
+          />
+        )}
       </View>
     </View>
   );
