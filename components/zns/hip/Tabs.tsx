@@ -4,10 +4,11 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
 import DomainsTab from "@/components/zns/hip/tabs/Domains";
+import LeaderBoardTab from "@/components/zns/hip/tabs/LeaderBoard";
 import NFTTab from "@/components/zns/hip/tabs/NFT";
+import RecognitionTab from "@/components/zns/hip/tabs/Recognition";
 import ReferralsTab from "@/components/zns/hip/tabs/Referrals";
 import VerifySocialTab from "@/components/zns/hip/tabs/VerifySocial";
-import LeaderBoardTab from "@/components/zns/hip/tabs/LeaderBoard";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getAllHIPs } from "@/lib/api/hip";
@@ -98,6 +99,7 @@ export default function HipTabs() {
       {selectedTab === "leaderboard" && (
         <LeaderBoardTab totalData={totalHIPData} />
       )}
+      {selectedTab === "recognition" && <RecognitionTab />}
     </View>
   );
 }
