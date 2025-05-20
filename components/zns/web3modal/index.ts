@@ -1,29 +1,10 @@
 import {
-  ink,
-  soneium,
-  abstract,
-  berachain,
-  unichain,
-  zora,
-  plume,
-  apeChain,
-  hemi,
-  bsc,
-  base,
-  sonic,
-  scroll,
-  blast,
-  taiko,
-  polygon,
-  creatorTestnet,
-  monadTestnet,
-} from "@wagmi/core/chains";
-
-import {
   createAppKit,
   defaultWagmiConfig,
 } from "@reown/appkit-wagmi-react-native";
+
 import { CustomDarkTheme } from "@/constants/theme";
+import { chains } from "@/constants/web3/chains";
 
 // 1. Get projectId at https://cloud.reown.com
 const projectId = process.env.EXPO_PUBLIC_WALLETCONNECT_CLOUD_PROJECT_ID!;
@@ -41,27 +22,6 @@ const metadata = {
   },
 };
 
-const chains = [
-  ink,
-  soneium,
-  abstract,
-  berachain,
-  unichain,
-  zora,
-  plume,
-  apeChain,
-  hemi,
-  bsc,
-  base,
-  sonic,
-  scroll,
-  blast,
-  taiko,
-  polygon,
-  creatorTestnet,
-  monadTestnet,
-] as const;
-
 // Create Wagmi config
 const wagmiConfig = defaultWagmiConfig({
   chains,
@@ -73,7 +33,7 @@ const wagmiConfig = defaultWagmiConfig({
 createAppKit({
   projectId,
   wagmiConfig,
-  defaultChain: ink, // Optional
+  defaultChain: chains[0], // Optional
   themeMode: "dark",
   themeVariables: {
     accent: CustomDarkTheme.colors.primary,
