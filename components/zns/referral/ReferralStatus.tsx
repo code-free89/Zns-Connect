@@ -105,7 +105,7 @@ export default function ReferralStatus() {
           locations={[0, 1]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
-          style={{ width: "100%", height: 2, marginVertical: getHeightSize(8) }}
+          style={{ width: "100%", height: 1, marginVertical: getHeightSize(8) }}
         ></LinearGradient>
 
         <View style={styles.row}>
@@ -125,7 +125,6 @@ export default function ReferralStatus() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     gap: getHeightSize(10),
     marginTop: getHeightSize(32),
   },

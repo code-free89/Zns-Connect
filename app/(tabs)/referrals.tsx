@@ -3,14 +3,16 @@ import { StyleSheet, Text, View } from "react-native";
 
 import GetLinkCarousel from "@/components/zns/referral/GetLinkCarousel";
 import ReferralStatus from "@/components/zns/referral/ReferralStatus";
+import ReferralTabs from "@/components/zns/referral/ReferralTabs";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import ReferralProvider from "@/lib/providers/ReferralProvider";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
+import ZnsScrollView from "@/components/ui/ScrollView";
 
 export default function ReferralsScreen() {
   return (
-    <>
+    <ZnsScrollView style={{ padding: 0 }}>
       <View style={styles.pageTitle}>
         <Text style={styles.title}>Affiliate for users</Text>
       </View>
@@ -22,10 +24,12 @@ export default function ReferralsScreen() {
         <GetLinkCarousel />
 
         <ReferralStatus />
+
+        <ReferralTabs />
       </View>
 
       <ReferralProvider />
-    </>
+    </ZnsScrollView>
   );
 }
 
