@@ -1,6 +1,6 @@
 import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import React, { useCallback, useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
 import ZnsScrollView from "@/components/ui/ScrollView";
@@ -23,7 +23,9 @@ export default function ProfileScreen() {
   const tld = useTLD(chainId);
   const router = useRouter();
   const [isFocused, setIsFocused] = useState(false);
-  const { userPrimaryDomain } = useAppSelector((state) => state.user);
+  const { userPrimaryDomain, isLoadingPrimaryDomainDB } = useAppSelector(
+    (state) => state.user
+  );
   const primaryDomain = useMemo(
     () =>
       userPrimaryDomain?.domainName
@@ -50,21 +52,39 @@ export default function ProfileScreen() {
       <View style={styles.pageTitle}>
         <Text style={styles.title}>Profile</Text>
       </View>
-      <ProfileOverView />
 
-      <View
-        style={{ paddingHorizontal: getWidthSize(16), gap: getHeightSize(12) }}
-      >
-        <ProfileBio />
+      {isLoadingPrimaryDomainDB ? null : primaryDomain ? (
+        <>
+          <ProfileOverView />
 
-        <ProfileHIP />
+          <View
+            style={{
+              paddingHorizontal: getWidthSize(16),
+              gap: getHeightSize(12),
+            }}
+          >
+            <ProfileBio />
 
-        <ProfileType />
+            <ProfileHIP />
 
-        <ProfileAccounts />
-      </View>
+            <ProfileType />
 
-      <ProfileInfoTabs />
+            <ProfileAccounts />
+          </View>
+
+          <ProfileInfoTabs />
+        </>
+      ) : (
+        <View style={styles.noPrimaryDomainContainer}>
+          <Image
+            source={require("@/assets/images/icons/empty/info.png")}
+            style={styles.noPrimaryDomainImage}
+          />
+          <Text style={styles.noPrimaryDomainText}>
+            You don't have primary domain yet
+          </Text>
+        </View>
+      )}
 
       <ProfileProvider domain={(domain as string) || primaryDomain} />
     </ZnsScrollView>
@@ -84,5 +104,21 @@ const styles = StyleSheet.create({
     fontSize: getFontSize(18),
     lineHeight: getFontSize(18) * 1.5,
     color: CustomDarkTheme.colors.txtColor,
+  },
+  noPrimaryDomainContainer: {
+    paddingHorizontal: getWidthSize(16),
+    gap: getHeightSize(12),
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  noPrimaryDomainImage: {
+    width: getWidthSize(100),
+    height: getWidthSize(100),
+  },
+  noPrimaryDomainText: {
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(18),
+    color: CustomDarkTheme.colors.body,
   },
 });
