@@ -7,6 +7,7 @@ import DomainsTab from "@/components/zns/hip/tabs/Domains";
 import NFTTab from "@/components/zns/hip/tabs/NFT";
 import ReferralsTab from "@/components/zns/hip/tabs/Referrals";
 import VerifySocialTab from "@/components/zns/hip/tabs/VerifySocial";
+import LeaderBoardTab from "@/components/zns/hip/tabs/LeaderBoard";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getAllHIPs } from "@/lib/api/hip";
@@ -94,6 +95,9 @@ export default function HipTabs() {
       {selectedTab === "referrals" && <ReferralsTab />}
       {selectedTab === "domains" && <DomainsTab />}
       {selectedTab === "nft" && <NFTTab />}
+      {selectedTab === "leaderboard" && (
+        <LeaderBoardTab totalData={totalHIPData} />
+      )}
     </View>
   );
 }

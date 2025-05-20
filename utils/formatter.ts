@@ -53,3 +53,24 @@ export const getSanitizedValue = (value: string, defaultReturn: number = 0) => {
     return defaultReturn;
   }
 };
+
+/**
+ * Shorten a wallet address by displaying only the first and last parts of it.
+ *
+ * @param address - The full wallet address to be shortened.
+ * @param charsToShow - Number of characters to show at the start and end of the address.
+ * @returns The shortened wallet address.
+ */
+export const shortenWalletAddress = (
+  address: string,
+  charsToShow: number = 4
+): string => {
+  // Check if the address is valid and long enough
+  if (address.length <= 2 * charsToShow) {
+    return address; // Return the address as is if it's too short to shorten
+  }
+
+  const start = address.slice(0, charsToShow + 2);
+  const end = address.slice(-charsToShow);
+  return `${start}...${end}`;
+};
