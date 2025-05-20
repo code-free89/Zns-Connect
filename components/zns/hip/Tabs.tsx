@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper";
+import DomainsTab from "@/components/zns/hip/tabs/Domains";
 import ReferralsTab from "@/components/zns/hip/tabs/Referrals";
 import VerifySocialTab from "@/components/zns/hip/tabs/VerifySocial";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
+import { getAllHIPs } from "@/lib/api/hip";
 import { getHeightSize, getWidthSize } from "@/utils/size";
 
 const TAB_ITEMS = [
@@ -43,6 +46,29 @@ function TabItem({
 export default function HipTabs() {
   const [selectedTab, setSelectedTab] = useState(TAB_ITEMS[0].value);
 
+  const [totalHIPData, setTotalHIPData] = useState<any[]>([]);
+
+  const { data: hips } = useQuery({
+    queryKey: ["hips"],
+    queryFn: () => getAllHIPs(),
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  });
+
+  useEffect(() => {
+    if (hips) {
+      // Sort by totalPoints in descending order and add rank
+      const rankedHips = hips
+        .sort((a: any, b: any) => b.totalPoints - a.totalPoints)
+        .map((hip: any, index: number) => ({
+          ...hip,
+          rank: index + 1,
+        }));
+      setTotalHIPData(rankedHips);
+    }
+  }, [hips]);
+
   return (
     <View style={{ gap: getHeightSize(30) }}>
       <ScrollView
@@ -65,6 +91,7 @@ export default function HipTabs() {
 
       {selectedTab === "socials" && <VerifySocialTab />}
       {selectedTab === "referrals" && <ReferralsTab />}
+      {selectedTab === "domains" && <DomainsTab />}
     </View>
   );
 }

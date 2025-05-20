@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { router, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useAccount } from "wagmi";
 
@@ -7,144 +9,132 @@ import GradientBorderViewWrapper from "@/components/ui/GradientBorderViewWrapper
 import { fontStyles } from "@/constants/fonts";
 import { WarningOutlineIcon } from "@/constants/icons";
 import { CustomDarkTheme } from "@/constants/theme";
-import { CHAINS, NETWORK_TYPE, NETWORKS } from "@/constants/web3/chains";
+import { CHAINS, NETWORK_TYPE } from "@/constants/web3/chains";
 import { updateHIP } from "@/lib/api/hip";
 import { useAppDispatch, useAppSelector } from "@/store";
 import { setHIPData } from "@/store/slices/hip";
-import { copyToClipboard } from "@/utils/helpers";
 import { getFontSize, getHeightSize, getWidthSize } from "@/utils/size";
-import { showSuccessToast } from "@/utils/toast";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const REFERRAL_POINTS = 10;
+const REFERRAL_POINTS = 20;
 
-function ReferralCard({
+function DomainCard({
   chain,
-  referralCount,
-  onCopy,
+  chainStats,
+  isMinted,
 }: {
   chain: NETWORK_TYPE;
-  referralCount: number;
-  onCopy: () => void;
+  chainStats?: { minted: boolean; count: number };
+  isMinted?: boolean;
 }) {
+  const handleMint = () => {
+    router.push(`/(tabs)/register`);
+  };
+
   return (
-    <View style={styles.referralCard}>
+    <View style={styles.domainCard}>
       <Image source={chain.icon} style={styles.chainIcon} />
       <View style={{ flex: 1, marginLeft: getWidthSize(10) }}>
-        <Text style={styles.cardValue}>{referralCount}</Text>
+        <Text style={styles.cardValue}>{chainStats?.count || 0}</Text>
         <Text style={styles.cardDescription}>on {chain.shortName}</Text>
       </View>
 
       <View style={{ flex: 1 }}>
-        <Text style={styles.cardValue}>{referralCount * REFERRAL_POINTS}</Text>
+        <Text style={styles.cardValue}>
+          {isMinted ? (chainStats?.count || 0) * REFERRAL_POINTS : 0}
+        </Text>
         <Text style={styles.cardDescription}>point</Text>
       </View>
 
-      <Button style={styles.copyButton} onPress={onCopy}>
-        <Text style={styles.copyButtonText}>Copy Link</Text>
-        <MaterialCommunityIcons
-          name="link-variant"
-          size={getWidthSize(11)}
-          color={CustomDarkTheme.colors.primary}
-        />
+      <Button
+        disabled={isMinted}
+        style={[styles.mintButton, isMinted && styles.mintedButton]}
+        onPress={handleMint}
+      >
+        {isMinted ? (
+          <Text style={styles.mintedButtonText}>Minted</Text>
+        ) : (
+          <Text style={styles.mintButtonText}>Mint</Text>
+        )}
+        {isMinted && (
+          <FontAwesome5 name="check-circle" size={13} color="#A3A3A3" />
+        )}
       </Button>
     </View>
   );
 }
 
-export default function ReferralsTab() {
+export default function DomainsTab() {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { address, isConnected } = useAccount();
   const hipData = useAppSelector((state) => state.hip);
-  const { user } = useAppSelector((state) => state.user);
-  const { referrals_lead } = useAppSelector((state) => state.referral);
-  const { address, chainId } = useAccount();
+  const { domains } = useAppSelector((state) => state.userDomains);
   const [totalXP, setTotalXP] = useState<number>(0);
 
-  const myReferrals = useMemo(() => {
-    const filteredData = referrals_lead.filter(
-      (item) => item.walletAddress === address
-    );
-
-    return filteredData;
-  }, [referrals_lead]);
-
-  const selfIndex = useMemo(
-    () => myReferrals.findIndex((item) => item.walletAddress === address),
-    [myReferrals, address]
+  const mintedDomainsByChain = domains?.reduce(
+    (acc: Record<number, { minted: boolean; count: number }>, domain) => {
+      const chain = CHAINS.find((c) => c.id === domain.chainId);
+      if (chain && !chain.testnet) {
+        if (!acc[domain.chainId]) {
+          acc[domain.chainId] = { minted: true, count: 1 };
+        } else {
+          acc[domain.chainId].count++;
+        }
+      }
+      return acc;
+    },
+    {}
   );
-
-  const referUrl = useMemo(
-    () =>
-      user && user.referralCode
-        ? `${process.env.EXPO_PUBLIC_APP_URL}?ref=${user.referralCode}`
-        : `${process.env.EXPO_PUBLIC_APP_URL}`,
-    [user]
-  );
-
-  const onCopy = () => {
-    if (user) {
-      copyToClipboard(referUrl);
-      showSuccessToast("Copied to clipboard");
-    }
-  };
 
   useEffect(() => {
-    if (
-      myReferrals.length > 0 &&
-      hipData.id &&
-      chainId === NETWORKS.INKMAINNET
-    ) {
-      const totalPoints = myReferrals.reduce((acc, curr) => {
-        return acc + curr.numberOfReferrals * 10;
-      }, 0);
+    if (Object.keys(mintedDomainsByChain ?? {}).length > 0 && hipData.id) {
+      const totalPoints = Object.values(mintedDomainsByChain ?? {}).reduce(
+        (acc, curr) => {
+          return acc + curr.count * REFERRAL_POINTS;
+        },
+        0
+      );
       setTotalXP(totalPoints);
-
       const updateData = async () => {
         try {
           await updateHIP(hipData.id, {
-            totalEarnings: myReferrals[selfIndex]?.totalEarnings,
-            referralPoints: totalPoints,
+            domainPoints: totalPoints,
           });
           dispatch(
             setHIPData({
-              referralPoints: totalPoints,
-              totalEarnings: myReferrals[selfIndex]?.totalEarnings,
+              domainPoints: totalPoints,
               totalPoints:
-                hipData.totalPoints - hipData.referralPoints + totalPoints,
+                hipData.totalPoints - hipData.domainPoints + totalPoints,
             })
           );
         } catch (error) {
-          console.error("Failed to update HIP referrals:", error);
+          console.error("Failed to update HIP domains:", error);
         }
       };
-
       updateData();
     }
-  }, [hipData.id, myReferrals, selfIndex]);
+  }, [mintedDomainsByChain]);
 
   return (
     <View style={styles.tabContainer}>
       <View style={styles.alertContainer}>
         <WarningOutlineIcon width={24} height={24} />
         <Text style={styles.alertText}>
-          Earn {REFERRAL_POINTS} XP Points for Every Referral Across Any Chain!
-          Use your single universal referral link to invite users across all
-          chains.
+          Mint a domain on any chain from the list and earn {REFERRAL_POINTS} XP
+          points for each minting.
         </Text>
       </View>
 
       {CHAINS.filter((chain) => !chain.testnet).map((chain) => {
-        const chainReferrals = myReferrals.find(
-          (ref) => ref.chain === chain.chain
-        );
-        const referralCount = chainReferrals?.numberOfReferrals || 0;
+        const chainStats = mintedDomainsByChain?.[chain.id];
+        const isMinted = chainStats?.minted;
 
         return (
-          <ReferralCard
+          <DomainCard
             key={chain.chain}
             chain={chain}
-            referralCount={referralCount}
-            onCopy={onCopy}
+            chainStats={chainStats}
+            isMinted={isMinted}
           />
         );
       })}
@@ -156,8 +146,8 @@ export default function ReferralsTab() {
       >
         <View style={styles.totalContent}>
           <Text style={styles.totalText}>Total: </Text>
-          <Text style={styles.totalPoints}>{totalXP} XP</Text>
-          <Text style={styles.totalText}> points</Text>
+          <Text style={styles.totalPoints}>{totalXP}</Text>
+          <Text style={styles.totalText}> XP</Text>
         </View>
       </GradientBorderViewWrapper>
     </View>
@@ -209,7 +199,7 @@ const styles = StyleSheet.create({
     lineHeight: getFontSize(14) * 1.35,
     color: "white",
   },
-  referralCard: {
+  domainCard: {
     paddingHorizontal: getWidthSize(8),
     paddingVertical: getHeightSize(10),
     borderRadius: getWidthSize(16),
@@ -234,8 +224,8 @@ const styles = StyleSheet.create({
     lineHeight: getFontSize(14) * 1.35,
     color: CustomDarkTheme.colors.body,
   },
-  copyButton: {
-    width: "auto",
+  mintButton: {
+    width: getWidthSize(96),
     paddingHorizontal: getWidthSize(10),
     paddingVertical: getHeightSize(12),
     backgroundColor: `${CustomDarkTheme.colors.primary}1A`,
@@ -244,10 +234,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  copyButtonText: {
+  mintedButton: {
+    backgroundColor: "#292925CC",
+  },
+  mintButtonText: {
     ...fontStyles["Poppins-SemiBold"],
     fontSize: getFontSize(12),
     lineHeight: getFontSize(12) * 1.35,
     color: CustomDarkTheme.colors.primary,
+  },
+  mintedButtonText: {
+    ...fontStyles["Poppins-SemiBold"],
+    fontSize: getFontSize(12),
+    lineHeight: getFontSize(12) * 1.35,
+    color: "#A3A3A3",
   },
 });

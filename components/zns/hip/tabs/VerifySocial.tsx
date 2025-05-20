@@ -42,5 +42,6 @@ const styles = StyleSheet.create({
     fontSize: getFontSize(14),
     lineHeight: getFontSize(14) * 1.35,
     color: CustomDarkTheme.colors.body,
+    flex: 1,
   },
 });

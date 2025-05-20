@@ -86,15 +86,8 @@ export const updateHIPProfile = async (
   }
 };
 
-export const updateHIP = async (id: string, data: Partial<HIP>) => {
-  try {
-    const { data: res } = await axios.put("/hip", {
-      id,
-      ...data,
-    });
-    return res.data;
-  } catch (e: any) {
-    console.error(e.response.data);
-    return null;
-  }
-};
+export const updateHIP = async (id: string, data: Partial<HIP>) =>
+  axios.put("/hip", {
+    id,
+    ...data,
+  });
