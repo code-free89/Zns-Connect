@@ -16,6 +16,7 @@ const Row = ({ children }: { children: React.ReactNode }) => (
 
 export default function AccountStatus() {
   const { userCredit, user } = useAppSelector((state) => state.user);
+  const hipData = useAppSelector((state) => state.hip);
   const router = useRouter();
 
   const goToCredits = () => {
@@ -97,7 +98,7 @@ export default function AccountStatus() {
             </View>
           </View>
           <View style={styles.row}>
-            <Text style={styles.value}>0</Text>
+            <Text style={styles.value}>{hipData.totalPoints ?? 0} XP</Text>
             <View
               style={{
                 flexDirection: "row",
@@ -105,7 +106,9 @@ export default function AccountStatus() {
                 gap: getWidthSize(5),
               }}
             >
-              <Text style={styles.mintLabel}>Mint HIP</Text>
+              <Text style={styles.mintLabel}>
+                {hipData && hipData.id ? "Open HIP" : "Mint HIP"}
+              </Text>
               <FontAwesome6
                 name="chevron-right"
                 size={getWidthSize(13)}

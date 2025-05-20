@@ -13,6 +13,7 @@ import NetworkSelect from "@/components/zns/home/NetworkSelect";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { useTLD } from "@/hooks/web3/useTLD";
+import HipProvider from "@/lib/providers/HipProvider";
 import ProfileProvider from "@/lib/providers/ProfileProvider";
 import { useAppSelector } from "@/store";
 import { getFontSize, getHeightSize } from "@/utils/size";
@@ -65,6 +66,8 @@ export default function HomeScreen() {
       </View>
 
       <AccountDomains />
+
+      <HipProvider />
     </ZnsScrollView>
   );
 }
