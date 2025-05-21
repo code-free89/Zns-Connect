@@ -9,13 +9,13 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { Text } from "react-native";
 import { AutocompleteDropdownContextProvider } from "react-native-autocomplete-dropdown";
+import { ClickOutsideProvider } from "react-native-click-outside";
 import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import ToastManager from "toastify-react-native";
 import { WagmiProvider } from "wagmi";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ClickOutsideProvider } from "react-native-click-outside";
 
 import BackDropModal from "@/components/ui/BackDropModal";
 import { wagmiConfig } from "@/components/zns/web3modal";
