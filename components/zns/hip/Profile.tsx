@@ -112,24 +112,30 @@ export default function HipProfile() {
   const onSubmit = async (formData: any) => {
     if (!isSavingProfile && formData.name) {
       setIsSavingProfile(true);
-      const res = await updateHIPProfile(
-        hipData.id,
-        formData.name,
-        formData.bio ?? "",
-        formData.position ?? ""
-      );
-      if (res && res.name) {
-        dispatch(
-          setHIPData({
-            name: res.name,
-            bio: res.bio ?? "",
-            position: res.position ?? "",
-          })
+      try {
+        const { data: response } = await updateHIPProfile(
+          hipData.id,
+          formData.name,
+          formData.bio ?? "",
+          formData.position ?? ""
         );
-        showSuccessToast("Your profile has updated successfully!");
-        setIsEditing(false);
+        const profile = response.data;
+        if (profile && profile.name) {
+          dispatch(
+            setHIPData({
+              name: profile.name,
+              bio: profile.bio ?? "",
+              position: profile.position ?? "",
+            })
+          );
+          showSuccessToast("Your profile has updated successfully!");
+          setIsEditing(false);
+        }
+      } catch (err: any) {
+        showErrorToast("Error updating profile");
+      } finally {
+        setIsSavingProfile(false);
       }
-      setIsSavingProfile(false);
     }
   };
 

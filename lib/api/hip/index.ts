@@ -64,25 +64,18 @@ export const updateHIPReferral = async (refer: string, mintPrice: bigint) => {
   }
 };
 
-export const updateHIPProfile = async (
+export const updateHIPProfile = (
   id: string,
   name: string,
   bio: string,
   position: string
-) => {
-  try {
-    const { data } = await axios.put("/hip/profile", {
-      id,
-      name,
-      bio,
-      position,
-    });
-    return data.data;
-  } catch (e: any) {
-    console.error(e.response.data);
-    return null;
-  }
-};
+) =>
+  axios.put("/hip/profile", {
+    id,
+    name,
+    bio,
+    position,
+  });
 
 export const updateHIP = async (id: string, data: Partial<HIP>) =>
   axios.put("/hip", {
