@@ -65,7 +65,7 @@ export default function ProfileBadge({ badge }: ProfileBadgeProps) {
         textStyle={styles.available}
         keepContent
         disabled={badge.data.status !== BadgeStatus.ready}
-        onPress={onClaim}
+        onPress={() => onClaim()}
       >
         {badge.data.status === BadgeStatus.claimed ? (
           <Text style={styles.claimed}>Claimed</Text>

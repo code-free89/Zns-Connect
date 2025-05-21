@@ -58,7 +58,7 @@ export default function RedeemCreditsSection({
           lineHeight: getFontSize(14) * 1.5,
           color: CustomDarkTheme.colors.p950,
         }}
-        onPress={onBurn}
+        onPress={() => onBurn()}
       />
     </View>
   );

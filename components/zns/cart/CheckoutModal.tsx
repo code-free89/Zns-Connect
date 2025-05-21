@@ -147,7 +147,7 @@ export default function CheckoutModal({
           requiredConnect
           requiredChain={selectedChain}
           loading={isProcessing}
-          onPress={beforeHandleCheckout}
+          onPress={() => beforeHandleCheckout()}
           error={error}
         />
       </View>

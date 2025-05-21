@@ -29,7 +29,6 @@ export const getAllHIPs = async () => {
     const { data } = await axios.get("/hip");
     return data.data;
   } catch (e: any) {
-    console.error("hipAll", e);
     return null;
   }
 };
@@ -39,7 +38,6 @@ export const getHIPByAddress = async (address: string) => {
     const { data } = await axios.get(`/hip/address?address=${address}`);
     return data.data;
   } catch (e: any) {
-    console.error("hip", e);
     return null;
   }
 };

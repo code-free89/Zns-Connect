@@ -53,8 +53,6 @@ export default function ProfileProvider({ domain }: ProfileProviderProps) {
       fetchDomainProfileByDB(domainInfo);
 
       await fetchHIPData(domainInfo.owner);
-    } else {
-      router.replace("/+not-found");
     }
   });
 
@@ -80,7 +78,7 @@ export default function ProfileProvider({ domain }: ProfileProviderProps) {
     } else {
       if (!isValid) {
         dispatch(initProfileStore());
-        router.replace("/+not-found");
+        // router.replace("/+not-found");
       }
     }
   }, [isValid, needUpdate, domain, router]);

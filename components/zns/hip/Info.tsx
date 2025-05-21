@@ -48,7 +48,7 @@ export default function HipInfo() {
       }
     }
     return "Connect Wallet";
-  }, [hipData.id, isConnected, chainId]);
+  }, [hipData.id, isConnected, chainId, isEnoughBalance]);
 
   const handleMintHip = async () => {
     try {
@@ -85,7 +85,7 @@ export default function HipInfo() {
             title={mintTitle}
             style={styles.mintButton}
             textStyle={styles.mintButtonText}
-            onPress={handleMintHip}
+            onPress={() => handleMintHip()}
           />
         )}
       </View>
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   mintButton: {
-    marginTop: getHeightSize(8),
+    marginTop: getHeightSize(16),
     paddingVertical: getHeightSize(12),
   },
   mintButtonText: {

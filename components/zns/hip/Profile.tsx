@@ -165,76 +165,80 @@ export default function HipProfile() {
             style={{ width: "100%", height: "100%", opacity: 0.3 }}
           />
         )}
-        <FontAwesome6
-          name="edit"
-          size={getWidthSize(21)}
-          color={CustomDarkTheme.colors.p700}
-          style={styles.editIcon}
-          onPress={handleHipImageUpload}
-        />
-      </View>
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        {isEditing ? (
-          <View style={{ flex: 1, gap: getHeightSize(10) }}>
-            <FormTextInput
-              name="name"
-              control={control}
-              placeholder="Enter your name"
-            />
-            <FormTextInput
-              name="bio"
-              control={control}
-              placeholder="Enter your bio"
-            />
-            <FormTextInput
-              name="position"
-              control={control}
-              placeholder="Enter your position"
-            />
-
-            <View style={{ flexDirection: "row", gap: getWidthSize(10) }}>
-              <Button
-                title="Cancel"
-                variant="outline"
-                disabled={!isDirty || isSavingProfile}
-                onPress={() => {
-                  setIsEditing(false);
-                  reset();
-                }}
-                style={{ flex: 1, paddingVertical: getHeightSize(12) }}
-              />
-              <Button
-                title="Save"
-                disabled={!isDirty}
-                loading={isSavingProfile}
-                loadingText="Saving..."
-                onPress={handleSubmit(onSubmit)}
-                style={{ flex: 1, paddingVertical: getHeightSize(12) }}
-              />
-            </View>
-          </View>
-        ) : (
-          <View style={styles.nameContainer}>
-            <Text style={styles.name}>{hipData.name || ""}</Text>
-            <Text style={styles.bio}>
-              {hipData.bio || "Bitcoin Cryptocurrency"}
-            </Text>
-            <Text style={styles.role}>
-              {hipData.position || "Chief Executive Officer"}
-            </Text>
-          </View>
-        )}
-        {!isEditing && (
+        {!!hipData.id && (
           <FontAwesome6
             name="edit"
-            size={21}
+            size={getWidthSize(21)}
             color={CustomDarkTheme.colors.p700}
-            style={styles.nameEditIcon}
-            onPress={() => setIsEditing(true)}
+            style={styles.editIcon}
+            onPress={handleHipImageUpload}
           />
         )}
       </View>
+
+      {hipData.id && (
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          {isEditing ? (
+            <View style={{ flex: 1, gap: getHeightSize(10) }}>
+              <FormTextInput
+                name="name"
+                control={control}
+                placeholder="Enter your name"
+              />
+              <FormTextInput
+                name="bio"
+                control={control}
+                placeholder="Enter your bio"
+              />
+              <FormTextInput
+                name="position"
+                control={control}
+                placeholder="Enter your position"
+              />
+
+              <View style={{ flexDirection: "row", gap: getWidthSize(10) }}>
+                <Button
+                  title="Cancel"
+                  variant="outline"
+                  disabled={!isDirty || isSavingProfile}
+                  onPress={() => {
+                    setIsEditing(false);
+                    reset();
+                  }}
+                  style={{ flex: 1, paddingVertical: getHeightSize(12) }}
+                />
+                <Button
+                  title="Save"
+                  disabled={!isDirty}
+                  loading={isSavingProfile}
+                  loadingText="Saving..."
+                  onPress={handleSubmit(onSubmit)}
+                  style={{ flex: 1, paddingVertical: getHeightSize(12) }}
+                />
+              </View>
+            </View>
+          ) : (
+            <View style={styles.nameContainer}>
+              <Text style={styles.name}>{hipData.name || ""}</Text>
+              <Text style={styles.bio}>
+                {hipData.bio || "Bitcoin Cryptocurrency"}
+              </Text>
+              <Text style={styles.role}>
+                {hipData.position || "Chief Executive Officer"}
+              </Text>
+            </View>
+          )}
+          {!isEditing && (
+            <FontAwesome6
+              name="edit"
+              size={21}
+              color={CustomDarkTheme.colors.p700}
+              style={styles.nameEditIcon}
+              onPress={() => setIsEditing(true)}
+            />
+          )}
+        </View>
+      )}
     </View>
   );
 }
