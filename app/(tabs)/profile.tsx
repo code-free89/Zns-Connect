@@ -53,7 +53,7 @@ export default function ProfileScreen() {
         <Text style={styles.title}>Profile</Text>
       </View>
 
-      {isLoadingPrimaryDomainDB ? null : primaryDomain ? (
+      {isLoadingPrimaryDomainDB ? null : primaryDomain || domain ? (
         <>
           <ProfileOverView />
 
