@@ -21,7 +21,7 @@ const MEDAL_IMAGES = [
 function LeaderBoardItem({ referral }: { referral: any }) {
   const { chain } = useAccount();
 
-  const { numberOfReferrals, totalEarnings } = useMemo(
+  const { totalEarnings } = useMemo(
     () => ({
       numberOfReferrals: referral.numberOfReferrals,
       totalEarnings: referral.totalEarnings,
