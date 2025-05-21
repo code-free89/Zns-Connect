@@ -83,8 +83,8 @@ export default function RewardGraph({
                 position: "absolute",
                 width: "100%",
                 height: `${
-                  (currentLevel.level - 1) * 25 +
-                  ((totalReferrals - currentLevel.refer) /
+                  Math.max(currentLevel.level - 1, 0) * 25 +
+                  (Math.max(totalReferrals - currentLevel.refer, 0) /
                     (nextLevel.refer - currentLevel.refer)) *
                     25
                 }%`,
