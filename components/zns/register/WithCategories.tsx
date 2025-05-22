@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     color: CustomDarkTheme.colors.p500,
   },
   numberOfLettersContainer: {
+    marginVertical: getHeightSize(8),
     backgroundColor: CustomDarkTheme.colors.grey2,
     paddingHorizontal: getWidthSize(11),
     paddingTop: getHeightSize(7),
