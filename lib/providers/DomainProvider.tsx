@@ -18,7 +18,7 @@ export default function DomainProvider() {
   const { fetchDomainDetail } = useDomainData();
 
   useQuery({
-    queryKey: ["fetchRecentMintedDomain"],
+    queryKey: ["fetchRecentMintedDomain1"],
     queryFn: async () => {
       dispatch(setLoading(true));
 

@@ -86,9 +86,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.znsconnect'
+    namespace 'com.zns.app'
     defaultConfig {
-        applicationId 'com.anonymous.znsconnect'
+        applicationId 'com.zns.app'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

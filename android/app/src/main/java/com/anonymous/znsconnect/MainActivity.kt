@@ -1,4 +1,4 @@
-package com.anonymous.znsconnect
+package com.zns.app
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

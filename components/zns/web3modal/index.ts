@@ -16,7 +16,7 @@ const metadata = {
   url: "https://zns.bio",
   icons: ["https://zns.bio/favicon.ico"],
   redirect: {
-    native: "znsconnect://",
+    native: "com.zns.app://",
     universal: "https://zns.bio",
     linkMode: true,
   },

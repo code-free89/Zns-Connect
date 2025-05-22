@@ -4,13 +4,14 @@ import SocialInput from "@/components/zns/SocialInput";
 import { fontStyles } from "@/constants/fonts";
 import { CustomDarkTheme } from "@/constants/theme";
 import { getFontSize, getHeightSize } from "@/utils/size";
+import { useAppSelector } from "@/store";
 
 const SOCIAL_LINKS = [
   {
     id: 1,
     icon: require("@/assets/images/icons/social/twitter.png"),
     label: "x.com/",
-    key: "twitter",
+    provider: "twitter",
     placeholder: "elonmusk",
     tipContent: `Please provide only your username, not the full link.\nExample:\n❌ https://x.com/elonmusk\n✅ elonmusk`,
   },
@@ -18,7 +19,7 @@ const SOCIAL_LINKS = [
     id: 2,
     icon: require("@/assets/images/icons/social/telegram.png"),
     label: "t.me/",
-    key: "telegram",
+    provider: "telegram",
     placeholder: "elonmusk",
     tipContent: `Please provide only your username, not the full link.\nExample:\n❌ https://t.me/elonmusk\n✅ elonmusk`,
   },
@@ -26,7 +27,7 @@ const SOCIAL_LINKS = [
     id: 3,
     icon: require("@/assets/images/icons/social/linkedin.png"),
     label: "linkedin.com/",
-    key: "linkedin",
+    provider: "linkedin",
     placeholder: "username...",
     tipContent: `Please provide only your username, not the full link.\nExample:\n❌ https://linkedin.com/in/elonmusk\n✅ elonmusk`,
   },
@@ -34,19 +35,22 @@ const SOCIAL_LINKS = [
     id: 4,
     icon: require("@/assets/images/icons/social/discord.png"),
     label: "",
-    key: "discord",
+    provider: "discord",
     placeholder: "username...",
     tipContent: `Please provide only your username, not the full link.\nExample:\n❌ https://discord.com/@elonmusk\n✅ elonmusk`,
   },
 ];
 
 export default function SocialLinks() {
+  const { profile } = useAppSelector((state) => state.profile);
+  console.log("profile", profile);
+
   return (
     <View>
       <Text style={styles.title}>Social Links</Text>
       <View style={styles.linksContainer}>
         {SOCIAL_LINKS.map((link) => (
-          <SocialInput {...link} needVerify />
+          <SocialInput key={link.provider} {...link} needVerify />
         ))}
       </View>
     </View>

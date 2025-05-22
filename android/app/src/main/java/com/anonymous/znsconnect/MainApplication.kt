@@ -1,4 +1,4 @@
-package com.anonymous.znsconnect
+package com.zns.app
 
 import android.app.Application
 import android.content.res.Configuration

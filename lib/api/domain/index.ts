@@ -9,7 +9,11 @@ export type DomainType = {
 
 export const fetchRecentMintedDomain = async () => {
   try {
-    const { data } = await axios.get("/recent-minted-domains");
+    const { data } = await axios.get("/recent-minted-domains", {
+      params: {
+        mainnetOnly: true,
+      },
+    });
     return data;
   } catch (e: any) {
     console.error(e.response.data);
