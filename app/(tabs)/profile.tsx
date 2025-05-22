@@ -49,9 +49,9 @@ export default function ProfileScreen() {
 
   return (
     <ZnsScrollView style={{ paddingHorizontal: 0, paddingTop: 0 }}>
-      <View style={styles.pageTitle}>
+      {/* <View style={styles.pageTitle}>
         <Text style={styles.title}>Profile</Text>
-      </View>
+      </View> */}
 
       {isLoadingPrimaryDomainDB ? null : primaryDomain || domain ? (
         <>
