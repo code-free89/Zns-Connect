@@ -1,8 +1,9 @@
 import { useMemo } from "react";
-import { FlatList } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import DomainCategory from "@/components/zns/DomainCategory";
 import { useAppSelector } from "@/store";
+import { getHeightSize, getWidthSize } from "@/utils/size";
 
 export type CategoryDataType = {
   id: number;
@@ -127,20 +128,36 @@ export default function DomainCategorySelector({
   );
 
   return (
-    <FlatList
-      data={categories}
-      renderItem={({ item }) => (
-        <DomainCategory
-          key={item.id}
-          category={item}
-          selected={selectedCategory?.id === item.id}
-          onPress={() => setSelectedCategory(item)}
-        />
-      )}
-      keyExtractor={(item) => item.name}
+    <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ gap: 14 }}
-    />
+      contentContainerStyle={{ flexDirection: "column", gap: getHeightSize(8) }}
+    >
+      <View style={{ flexDirection: "row", gap: getWidthSize(14) }}>
+        {categories.map((item, index) =>
+          index % 2 === 0 ? (
+            <DomainCategory
+              key={item.id}
+              category={item}
+              selected={selectedCategory?.id === item.id}
+              onPress={() => setSelectedCategory(item)}
+            />
+          ) : null
+        )}
+      </View>
+
+      <View style={{ flexDirection: "row", gap: getWidthSize(14) }}>
+        {categories.map((item, index) =>
+          index % 2 === 1 ? (
+            <DomainCategory
+              key={item.id}
+              category={item}
+              selected={selectedCategory?.id === item.id}
+              onPress={() => setSelectedCategory(item)}
+            />
+          ) : null
+        )}
+      </View>
+    </ScrollView>
   );
 }
