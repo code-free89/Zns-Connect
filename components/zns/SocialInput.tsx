@@ -1,7 +1,7 @@
 import Feather from "@expo/vector-icons/Feather";
 import * as AuthSession from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Image, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { CustomDarkTheme } from "@/constants/theme";
@@ -29,6 +29,7 @@ export default function SocialInput({
   const { request, response, promptAsync } = useSocialAuth({
     provider: provider as "discord" | "twitter" | "linkedin",
   });
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     if (response?.type === "success") {
@@ -49,7 +50,7 @@ export default function SocialInput({
         },
       });
       const userData = await response.json();
-      console.log("User data:", userData);
+      setUserName(JSON.stringify(userData));
 
       // Navigate to the appropriate screen after successful login
       // navigation.reset({
@@ -61,8 +62,8 @@ export default function SocialInput({
     }
   };
 
-  const verifySocial = () => {
-    promptAsync();
+  const verifySocial = async () => {
+    await promptAsync();
   };
 
   return (
@@ -78,6 +79,7 @@ export default function SocialInput({
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
+          value={userName}
           placeholder={placeholder}
           placeholderTextColor={CustomDarkTheme.colors.label}
         />
