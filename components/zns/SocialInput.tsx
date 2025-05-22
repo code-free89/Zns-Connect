@@ -90,7 +90,7 @@ export default function SocialInput({
             </Text>
             <Feather
               name="info"
-              size={16}
+              size={getWidthSize(16)}
               color={CustomDarkTheme.colors.body}
             />
           </>
